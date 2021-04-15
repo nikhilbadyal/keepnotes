@@ -1,0 +1,47 @@
+name: notes
+description: My Notes App.,
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  eva_icons_flutter: ^3.0.0
+  file_picker: ^3.0.1
+  flutter_colorpicker: ^0.4.0
+  flutter_slidable: ^0.6.0
+  flutter_tabler_icons: ^1.0.3-rc.1
+  intl: ^0.17.0
+  local_auth: ^1.1.4
+  path_provider: ^2.0.1
+  pedantic: ^1.11.0
+  permission_handler: ^6.1.1
+  provider: ^5.0.0
+  random_color: ^1.0.6-nullsafety
+  shared_preferences: ^2.0.5
+  sqflite: ^2.0.0+3
+  url_launcher: ^6.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  sqflite_common_ffi: ^2.0.0
+  #  test_api: ^0.3.0
+  #  change_app_package_name: ^1.0.0
+  #  flutter_native_splash: ^1.1.7+1
+  #  flutter_launcher_icons: ^0.9.0
+#  integration_test: ^1.0.2+2
+#  mockito: any
+#  test: any
+#  build_runner: any
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
