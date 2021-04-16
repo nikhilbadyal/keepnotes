@@ -1,4 +1,4 @@
-package com.nikhil.notes
+package com.nikhil.flutter.notes
 
 import android.os.Environment
 import io.flutter.embedding.android.FlutterFragmentActivity

@@ -30,6 +30,8 @@ def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else {
+    throw new FileNotFoundException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 android {
@@ -44,7 +46,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.nikhil.notes"
+        applicationId "com.nikhil.flutter.notes"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
