@@ -29,8 +29,8 @@ class ModalSheetUnhideWidget extends StatelessWidget {
         onTap: () {
           autoSaver.cancel();
           saveNote();
-          Utilities.onUnHideTap(context, note);
           final wantedRoute = getRoute(note.state);
+          Utilities.onUnHideTap(context, note);
           Navigator.of(context).popUntil(
             (route) => route.settings.name == wantedRoute,
           );
@@ -87,8 +87,8 @@ class ModalSheetArchiveWidget extends StatelessWidget {
         onTap: () {
           autoSaver.cancel();
           saveNote();
-          Utilities.onArchiveTap(context, note);
           final wantedRoute = getRoute(note.state);
+          Utilities.onArchiveTap(context, note);
           Navigator.of(context).popUntil(
             (route) => route.settings.name == wantedRoute,
           );
@@ -144,8 +144,8 @@ class ModalSheetCopyWidget extends StatelessWidget {
         onTap: () {
           autoSaver.cancel();
           saveNote();
-          Utilities.onCopyTap(context, note);
           final wantedRoute = getRoute(note.state);
+          Utilities.onCopyTap(context, note);
           Navigator.of(context).popUntil(
             (route) => route.settings.name == wantedRoute,
           );
@@ -202,8 +202,8 @@ class ModalSheetTrashWidget extends StatelessWidget {
         onTap: () {
           autoSaver.cancel();
           saveNote();
-          Utilities.onTrashTap(context, note);
           final wantedRoute = getRoute(note.state);
+          Utilities.onTrashTap(context, note);
           Navigator.of(context).popUntil(
             (route) => route.settings.name == wantedRoute,
           );
@@ -257,10 +257,10 @@ class ModalSheetHideWidget extends StatelessWidget {
     return Flexible(
       fit: FlexFit.tight,
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
           final status = myNotes.lockChecker.passwordSet;
           if (!status) {
-            showDialog(
+            await showDialog(
               context: context,
               builder: (_) {
                 return const MySimpleDialog(
@@ -274,8 +274,8 @@ class ModalSheetHideWidget extends StatelessWidget {
           } else {
             autoSaver.cancel();
             saveNote();
-            Utilities.onHideTap(context, note);
             final wantedRoute = getRoute(note.state);
+            await Utilities.onHideTap(context, note);
             Navigator.of(context).popUntil(
               (route) => route.settings.name == wantedRoute,
             );
@@ -333,8 +333,8 @@ class ModalSheetUnarchiveWidget extends StatelessWidget {
         onTap: () {
           autoSaver.cancel();
           saveNote();
-          Utilities.onUnArchiveTap(context, note);
           final wantedRoute = getRoute(note.state);
+          Utilities.onUnArchiveTap(context, note);
           Navigator.of(context).popUntil(
             (route) => route.settings.name == wantedRoute,
           );
@@ -389,7 +389,7 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () async {
-                      if (Provider.of<NotesHelper>(context)
+                      if (Provider.of<NotesHelper>(context, listen: false)
                           .otherNotes
                           .isNotEmpty) {
                         await Utilities.onDeleteAllTap(context);

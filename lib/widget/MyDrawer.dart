@@ -43,9 +43,9 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
     if (myNotes.lockChecker.gender == 'men') {
       gender = 'King 👑';
     } else {}
-    if (hour >= 5 && hour <= 12) {
+    if (hour >= 5 && hour <= 11) {
       wish = '$startWish Morning, $gender';
-    } else if (hour > 12 && hour <= 18) {
+    } else if (hour >= 12 && hour <= 17) {
       wish = '$startWish Afternoon, $gender';
     } else {
       wish = '$startWish Night, $gender';

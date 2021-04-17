@@ -12,6 +12,7 @@ Future navigate(String activeRoute, BuildContext context, String route,
     return Navigator.pop(context);
   }
   if (route == NotesRoutes.homeScreen) {
+    // TODO i can also do pop until here
     await Navigator.pushNamedAndRemoveUntil(
         context, route, (Route<dynamic> route) => false,
         arguments: arguments);

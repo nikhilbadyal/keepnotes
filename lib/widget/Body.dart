@@ -106,17 +106,16 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
   @override
   Widget build(BuildContext context) {
     // return Container();
-    // print('Building list');
     return Padding(
       padding: const EdgeInsets.only(),
       child: ListView.builder(
+        cacheExtent: 1000,
         physics: const BouncingScrollPhysics(),
         itemCount: widget.notehelper.otherNotes.length,
         itemBuilder: (context, index) {
           final item = widget.notehelper.otherNotes[index];
           selectedFlag[index] = selectedFlag[index] ?? false;
           final isSelected = selectedFlag[index] ?? false;
-
           return Slidable(
             key: UniqueKey(),
             actions: widget.primary(item, context),

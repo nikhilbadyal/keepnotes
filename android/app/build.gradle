@@ -31,7 +31,7 @@ def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 } else {
-    throw new FileNotFoundException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+    throw new FileNotFoundException("Key.properties not found.")
 }
 
 android {
@@ -78,11 +78,21 @@ android {
                 }
             }
 
-            applicationVariants.all { variant ->
+            /*applicationVariants.all { variant ->
                 variant.outputs.all { output ->
                     output.outputFileName = "notes-release.apk"
                 }
-            }
+            }*/
+        }
+
+        debug {
+            applicationIdSuffix ".dev"
+            signingConfig signingConfigs.release
+        }
+
+        profile {
+            applicationIdSuffix ".profile"
+            signingConfig signingConfigs.release
         }
     }
 }

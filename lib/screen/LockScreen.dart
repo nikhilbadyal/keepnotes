@@ -487,7 +487,7 @@ class _CircleState extends State<Circle> {
             : Colors.transparent,
         shape: BoxShape.circle,
 
-        //TODO recitfy this as per current theme
+        //TODO rectify this as per current theme
         border: Border.all(
             color: selectedAppTheme == AppTheme.Light
                 ? selectedPrimaryColor

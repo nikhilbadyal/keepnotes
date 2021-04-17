@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/note.dart';
 import 'package:notes/util/DatabaseExceptions.dart';
@@ -55,27 +54,14 @@ class DatabaseHelper {
       }
       return true;
     } catch (e) {
-      debugPrint(e.toString());
+      // debugPrint(e.toString());
       return false;
     }
   }
 
-  /*static Future<bool> addAllNotesToBackupDb(
-  List<Note>  jsonList) async {
-    final db = await database;
-    try {
-      final batch = db.batch();
-      batch.insert(tableName, jsonList);
-      await batch.commit(noResult: true);
-      return true;
-    } catch (e) {
-      debugPrint(e.toString());
-      return false;
-    }
-  }*/
-
-  static Future<bool> insertNoteDb(Note note, {bool isNew = false}) async {
-    final db = await database;
+  static Future<bool> insertNoteDb(Note note,
+      {bool isNew = false, Database? testDb}) async {
+    final db = testDb ?? await database;
     try {
       note.id = await db.insert(
         tableName,
@@ -88,9 +74,9 @@ class DatabaseHelper {
     return true;
   }
 
-  static Future<bool> archiveNoteDb(Note note) async {
+  static Future<bool> archiveNoteDb(Note note, {Database? testDb}) async {
     if (note.id != -1) {
-      final db = await database;
+      final db = testDb ?? await database;
       note.state = NoteState.archived;
       try {
         await db.update(
@@ -107,9 +93,9 @@ class DatabaseHelper {
     return false;
   }
 
-  static Future<bool> hideNoteDb(Note note) async {
+  static Future<bool> hideNoteDb(Note note, {Database? testDb}) async {
     if (note.id != -1) {
-      final db = await database;
+      final db = testDb ?? await database;
       note.state = NoteState.hidden;
       final idToUpdate = note.id;
       try {
@@ -127,9 +113,9 @@ class DatabaseHelper {
     return false;
   }
 
-  static Future<bool> unhideNoteDb(Note note) async {
+  static Future<bool> unhideNoteDb(Note note, {Database? testDb}) async {
     if (note.id != -1) {
-      final db = await database;
+      final db = testDb ?? await database;
       note.state = NoteState.unspecified;
       final idToUpdate = note.id;
       try {
@@ -147,9 +133,9 @@ class DatabaseHelper {
     return false;
   }
 
-  static Future<bool> unarchiveNoteDb(Note note) async {
+  static Future<bool> unarchiveNoteDb(Note note, {Database? testDb}) async {
     if (note.id != -1) {
-      final db = await database;
+      final db = testDb ?? await database;
       note.state = NoteState.unspecified;
       final idToUpdate = note.id;
 
@@ -168,9 +154,9 @@ class DatabaseHelper {
     return false;
   }
 
-  static Future<bool> undeleteDb(Note note) async {
+  static Future<bool> undeleteDb(Note note, {Database? testDb}) async {
     if (note.id != -1) {
-      final db = await database;
+      final db = testDb ?? await database;
       note.state = NoteState.unspecified;
       final idToUpdate = note.id;
 
@@ -189,9 +175,9 @@ class DatabaseHelper {
     return false;
   }
 
-  static Future<bool> deleteNoteDb(Note note) async {
+  static Future<bool> deleteNoteDb(Note note, {Database? testDb}) async {
     if (note.id != -1) {
-      final db = await database;
+      final db = testDb ?? await database;
       try {
         final rowsEffected = await db.delete(
           'notes',
@@ -206,8 +192,8 @@ class DatabaseHelper {
     return false;
   }
 
-  static Future<bool> trashNoteDb(Note note) async {
-    final db = await database;
+  static Future<bool> trashNoteDb(Note note, {Database? testDb}) async {
+    final db = testDb ?? await database;
     note.state = NoteState.deleted;
     final idToUpdate = note.id;
 
@@ -225,8 +211,8 @@ class DatabaseHelper {
     return true;
   }
 
-  static Future<bool> deleteAllHiddenNotesDb() async {
-    final db = await database;
+  static Future<bool> deleteAllHiddenNotesDb({Database? testDb}) async {
+    final db = testDb ?? await database;
     try {
       await db.delete(
         'notes',
@@ -241,8 +227,8 @@ class DatabaseHelper {
     }
   }
 
-  static Future<bool> deleteAllTrashNoteDb() async {
-    final db = await database;
+  static Future<bool> deleteAllTrashNoteDb({Database? testDb}) async {
+    final db = testDb ?? await database;
     try {
       await db.delete(
         'notes',
@@ -255,8 +241,9 @@ class DatabaseHelper {
     }
   }
 
-  static Future<List<Map<String, dynamic>>> getAllNotesDb(int noteState) async {
-    final db = await database;
+  static Future<List<Map<String, dynamic>>> getAllNotesDb(int noteState,
+      {Database? testDb}) async {
+    final db = testDb ?? await database;
     // ignore: prefer_typing_uninitialized_variables
     late final resultSet;
     try {
@@ -272,8 +259,9 @@ class DatabaseHelper {
     return resultSet;
   }
 
-  static Future<List<Map<String, dynamic>>> getNotesAllForBackupDb() async {
-    final db = await database;
+  static Future<List<Map<String, dynamic>>> getNotesAllForBackupDb(
+      {Database? testDb}) async {
+    final db = testDb ?? await database;
     // ignore: prefer_typing_uninitialized_variables
     late final resultSet;
     try {

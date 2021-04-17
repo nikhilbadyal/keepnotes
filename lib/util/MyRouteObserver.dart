@@ -6,6 +6,8 @@ class MyRouteObserver extends RouteObserver<PageRoute<dynamic>> {
   late String? currentScreen;
   bool needsUpdate = false;
 
+  List<String> routesHistory = [];
+
   void _sendScreenView(PageRoute<dynamic> route) {
     final screenName = route.settings.name;
     currentScreen = screenName;

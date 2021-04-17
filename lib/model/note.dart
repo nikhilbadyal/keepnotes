@@ -39,16 +39,6 @@ class Note implements Comparable<Note> {
     );
   }
 
-  //TODO implement this
-  /*Note copyWith() {
-    return Note(
-      title: title ?? this.title,
-      state: state,
-      lastModify: lastModify,
-      content: content,
-      id: id,
-    );
-  }*/
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes

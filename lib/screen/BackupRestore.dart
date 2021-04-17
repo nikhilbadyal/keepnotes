@@ -120,13 +120,13 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
           )
           .toList();
       await Provider.of<NotesHelper>(context, listen: false)
-          .addAllNotesToDatabseHelper(notesList);
+          .addAllNotesToDatabaseHelper(notesList);
       Utilities.showSnackbar(
         context,
         'Done importing',
       );
     } catch (e) {
-      debugPrint(e.toString());
+      // debugPrint(e.toString());
       Utilities.showSnackbar(
         context,
         'Error while importing',

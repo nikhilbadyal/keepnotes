@@ -212,18 +212,33 @@ class Utilities {
   }
 
   static Future<void> onHideTap(BuildContext context, Note note) async {
-    final value = await Provider.of<NotesHelper>(context, listen: false)
-        .hideNoteHelper(note);
-    if (value) {
-      Utilities.showSnackbar(
-        context,
-        'Note Hidden',
+    final status = myNotes.lockChecker.passwordSet;
+    if (!status) {
+      await showDialog(
+        context: context,
+        builder: (_) {
+          return const MySimpleDialog(
+            title: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Please set password first'),
+            ),
+          );
+        },
       );
     } else {
-      Utilities.showSnackbar(
-        context,
-        'Some error occurred',
-      );
+      final value = await Provider.of<NotesHelper>(context, listen: false)
+          .hideNoteHelper(note);
+      if (value) {
+        Utilities.showSnackbar(
+          context,
+          'Note Hidden',
+        );
+      } else {
+        Utilities.showSnackbar(
+          context,
+          'Some error occurred',
+        );
+      }
     }
   }
 
@@ -268,7 +283,7 @@ class Utilities {
 
   static Future<void> onTrashTap(BuildContext context, Note note) async {
     final value = await Provider.of<NotesHelper>(context, listen: false)
-        .trashNoteHelper(note, context);
+        .trashNoteHelper(note);
     if (value) {
       Utilities.showSnackbar(
         context,

@@ -54,7 +54,6 @@ class _EditScreenState extends State<EditScreen> {
       child: Scaffold(
         appBar: appbar(context),
         body: _body(context),
-        //TODO fix this
         bottomSheet: _bottomBar(context),
       ),
     );
@@ -159,7 +158,7 @@ class _EditScreenState extends State<EditScreen> {
     autoSaverTimer.cancel();
     await saveNote();
     // Navigator.of(context).pop();
-    debugPrint('back here');
+    // debugPrint('back here');
     return true;
   }
 
@@ -173,12 +172,10 @@ class _EditScreenState extends State<EditScreen> {
   Future<bool> saveNote() async {
     final isEdited = updateNote();
     final isEmptyNote = isEmpty();
-    debugPrint(isEdited.toString());
     if (isEdited) {
-      debugPrint('note edited');
+      // debugPrint('note edited');
       if (isEmptyNote) {
-        debugPrint('note edited and empty now');
-
+        // debugPrint('note edited and empty now');
         await Provider.of<NotesHelper>(context, listen: false)
             .deleteNoteHelper(noteInEditing);
         Utilities.showSnackbar(context, 'Empty Note discarded',
@@ -186,18 +183,20 @@ class _EditScreenState extends State<EditScreen> {
         return false;
       }
       if (noteInEditing.id == -1) {
-        debugPrint('note edited and new');
+        // debugPrint('note edited and new');
 
         await Provider.of<NotesHelper>(context, listen: false)
             .insertNoteHelper(noteInEditing, isNew: true);
       } else {
-        debugPrint('note edited and old');
+        // debugPrint('note edited and old');
         await Provider.of<NotesHelper>(context, listen: false)
             .insertNoteHelper(noteInEditing);
       }
       return true;
     }
     if (isEmptyNote) {
+      await Provider.of<NotesHelper>(context, listen: false)
+          .deleteNoteHelper(noteInEditing);
       Utilities.showSnackbar(context, 'Empty Note discarded');
     }
     return false;
@@ -207,17 +206,17 @@ class _EditScreenState extends State<EditScreen> {
     final isEdited = updateNote();
     if (isEdited) {
       if (noteInEditing.id == -1) {
-        debugPrint('not edited and new');
+        // debugPrint('not edited and new');
 
         await Provider.of<NotesHelper>(context, listen: false)
             .insertNoteHelper(noteInEditing, isNew: true);
       } else {
-        debugPrint('not edited and old');
+        // debugPrint('not edited and old');
         await Provider.of<NotesHelper>(context, listen: false)
             .insertNoteHelper(noteInEditing);
       }
     } else {
-      debugPrint('not edited');
+      // debugPrint('not edited');
     }
   }
 

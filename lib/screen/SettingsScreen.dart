@@ -82,7 +82,7 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
             color: Utilities.iconColor(),
           ),
           onTap: () async {
-            showPrimaryColorPicker();
+            await showPrimaryColorPicker();
           },
         ),
         ListTile(
@@ -150,8 +150,8 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
     );
   }
 
-  void showPrimaryColorPicker() {
-    showDialog(
+  Future<void> showPrimaryColorPicker() async {
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         selectedPrimaryColor =
@@ -192,8 +192,8 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
     );
   }
 
-  void showIconColorPicker() {
-    showDialog(
+  Future<void> showIconColorPicker() async {
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         return MyAlertDialog(
@@ -263,8 +263,8 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
     unawaited(Utilities.addBoolToSF('fpDirectly', value: value));
   }
 
-  void resetPassword() {
-    showDialog(
+  Future<void> resetPassword() async {
+    await showDialog(
         context: context,
         builder: (_) {
           return const MyAlertDialog(

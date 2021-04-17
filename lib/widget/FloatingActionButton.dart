@@ -14,19 +14,21 @@ class Fab extends StatelessWidget {
     //debugPrint('FAB building 35');
     return Padding(
       padding: const EdgeInsets.only(bottom: 25),
-      child: FloatingActionButton(
-        onPressed: () async {
-          final emptyNote = Note(
-            title: '',
-            content: '',
-            lastModify: DateTime.now(),
-            state: noteState,
-          );
-          await goToNoteEditScreen(
-              context: context, note: emptyNote, shouldAutoFocus: true);
-        },
-        tooltip: 'Add Note',
-        child: const Icon(Icons.add),
+      child: GestureDetector(
+        onLongPress: () => Scaffold.of(context).openDrawer(),
+        child: FloatingActionButton(
+          onPressed: () async {
+            final emptyNote = Note(
+              title: '',
+              content: '',
+              lastModify: DateTime.now(),
+              state: noteState,
+            );
+            await goToNoteEditScreen(
+                context: context, note: emptyNote, shouldAutoFocus: true);
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

@@ -97,6 +97,7 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
     return Padding(
       padding: const EdgeInsets.only(),
       child: ListView.builder(
+        cacheExtent: 1000,
         physics: const BouncingScrollPhysics(),
         itemCount: widget.notehelper.mainNotes.length,
         itemBuilder: (context, index) {
