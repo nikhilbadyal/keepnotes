@@ -1,4 +1,3 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/screen/ModalSheetWidgets.dart';
 
@@ -21,7 +20,7 @@ void moreOptions(BuildContext context) {
             child: Row(
               children: [
                 IconButton(
-                  icon: const Icon(EvaIcons.arrowBackOutline),
+                  icon: const Icon(Icons.arrow_back_outlined),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 const SizedBox(width: 16),

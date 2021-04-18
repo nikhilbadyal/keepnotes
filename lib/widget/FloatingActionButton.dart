@@ -47,7 +47,8 @@ class TrashFab extends StatelessWidget {
           moreOptions(context);
         },
         tooltip: 'Add Note',
-        child: const Icon(Icons.delete_forever_outlined),
+        child: const Icon(Icons.location_city_sharp),
+        // child: const Icon(Icons.delete_forever_outlined),
       ),
     );
   }

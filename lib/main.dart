@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:notes/app.dart';
 import 'package:notes/util/LockManager.dart';
 import 'package:notes/util/Utilites.dart';
@@ -12,6 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Utilities.prefs = await SharedPreferences.getInstance();
+  Utilities.storage = const FlutterSecureStorage();
+
   final lockChecker = LockChecker();
   getNotes();
   FlutterError.onError = (FlutterErrorDetails details) {

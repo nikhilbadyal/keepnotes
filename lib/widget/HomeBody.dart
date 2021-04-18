@@ -23,12 +23,23 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
+  late Future myFuture;
+
+  @override
+  void initState() {
+    debugPrint('init 1 ');
+    myFuture = Provider.of<NotesHelper>(context, listen: false)
+        .getAllNotesHelper(NoteState.unspecified.index);
+    debugPrint('init 2 ');
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     //debugPrint('building HomeBody');
     return FutureBuilder(
-      future: Provider.of<NotesHelper>(context, listen: false)
-          .getAllNotesHelper(NoteState.unspecified.index),
+      future: myFuture,
       builder: (context, projectSnap) {
         if (projectSnap.connectionState == ConnectionState.done) {
           return Consumer<NotesHelper>(

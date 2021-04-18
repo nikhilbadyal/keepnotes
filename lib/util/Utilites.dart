@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:notes/app.dart';
@@ -9,7 +12,6 @@ import 'package:notes/util/AppRoutes.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:random_color/random_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -38,10 +40,9 @@ MaterialColor createMaterialColor(Color color) {
 }
 
 Color getRandomColor() {
-  final _randomColor = RandomColor();
-  var color = _randomColor.randomColor();
+  var color = Color(Random().nextInt(0xffffffff));
   while (color == selectedPrimaryColor || color == selectedAccentColor) {
-    color = _randomColor.randomColor();
+    color = Color(Random().nextInt(0xffffffff));
   }
   return color;
 }
@@ -50,6 +51,8 @@ class Utilities {
   static late SharedPreferences prefs;
   static const passLength = 4;
   static const aboutMePic = 'me.png';
+
+  static late FlutterSecureStorage storage;
 
   static Future<void> resetPassword(BuildContext context,
       {bool deleteAllNotes = false}) async {
@@ -134,9 +137,19 @@ class Utilities {
     );
   }
 
+  static void showSnackbar(BuildContext context, String data,
+      {Duration duration = const Duration(seconds: 1),
+      SnackBarBehavior? snackBarBehavior}) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      Utilities.getSnackBar(context, data, snackBarBehavior: snackBarBehavior),
+    );
+  }
+
   static SnackBar getSnackBar(BuildContext context, String data,
       {Duration duration = const Duration(seconds: 1),
-      SnackBarAction? action}) {
+      SnackBarAction? action,
+      SnackBarBehavior? snackBarBehavior}) {
     return SnackBar(
       key: UniqueKey(),
       content: Text(
@@ -144,20 +157,7 @@ class Utilities {
       ),
       action: action,
       duration: duration,
-    );
-  }
-
-  static void showSnackbar(
-    BuildContext context,
-    String data, {
-    Duration duration = const Duration(seconds: 1),
-  }) {
-    ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      Utilities.getSnackBar(
-        context,
-        data,
-      ),
+      behavior: snackBarBehavior ?? Theme.of(context).snackBarTheme.behavior,
     );
   }
 
@@ -242,7 +242,8 @@ class Utilities {
     }
   }
 
-  static Widget deleteAction(BuildContext context, Note note) {
+  static Widget deleteAction(BuildContext context, Note note,
+      {bool shouldAsk = true}) {
     return IconSlideAction(
       icon: Icons.delete_forever_outlined,
       caption: 'Delete',
@@ -250,23 +251,49 @@ class Utilities {
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
       //light
 
-      onTap: () => onDeleteTap(context, note),
+      onTap: () => onDeleteTap(context, note, deleteDirectly: shouldAsk),
     );
   }
 
-  static Future<void> onDeleteTap(BuildContext context, Note note) async {
-    final value = await Provider.of<NotesHelper>(context, listen: false)
-        .deleteNoteHelper(note);
-    if (value) {
-      Utilities.showSnackbar(
-        context,
-        'Note Deleted',
-      );
-    } else {
-      Utilities.showSnackbar(
-        context,
-        'Some error occurred',
-      );
+  static Future<void> onDeleteTap(BuildContext context, Note note,
+      {bool deleteDirectly = true}) async {
+    debugPrint(deleteDirectly.toString());
+    var choice = true;
+    if (!deleteDirectly) {
+      choice = await showDialog<bool>(
+              context: context,
+              builder: (_) {
+                return MyAlertDialog(
+                  title: const Text('Delete note permanently'),
+                  content: const Text(''),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: const Text('Sure'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(false),
+                      child: const Text('Cancel'),
+                    )
+                  ],
+                );
+              }) ??
+          false;
+    }
+    if (choice) {
+      final value = await Provider.of<NotesHelper>(context, listen: false)
+          .deleteNoteHelper(note);
+      if (value) {
+        Utilities.showSnackbar(
+          context,
+          'Note Deleted',
+        );
+      } else {
+        Utilities.showSnackbar(
+          context,
+          'Some error occurred',
+        );
+      }
     }
   }
 

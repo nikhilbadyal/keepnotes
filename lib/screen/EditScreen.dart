@@ -183,12 +183,9 @@ class _EditScreenState extends State<EditScreen> {
         return false;
       }
       if (noteInEditing.id == -1) {
-        // debugPrint('note edited and new');
-
         await Provider.of<NotesHelper>(context, listen: false)
             .insertNoteHelper(noteInEditing, isNew: true);
       } else {
-        // debugPrint('note edited and old');
         await Provider.of<NotesHelper>(context, listen: false)
             .insertNoteHelper(noteInEditing);
       }

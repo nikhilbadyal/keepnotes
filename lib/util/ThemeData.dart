@@ -58,6 +58,14 @@ ThemeData blackTheme(BuildContext context) {
             return selectedPrimaryColor; // Defer to the widget's default.
           },
         ),
+        /* elevation: MaterialStateProperty.resolveWith<double>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return 0;
+            }
+            return 0; // Defer to the widget's default.
+          },
+        ),*/
         foregroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.disabled)) {

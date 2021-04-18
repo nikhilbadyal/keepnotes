@@ -31,14 +31,12 @@ class Note implements Comparable<Note> {
     NoteState? state,
   }) {
     return Note(
-      id: id,
-      title: title ?? this.title,
-      state: state ?? this.state,
-      lastModify: lastModify ?? this.lastModify,
-      content: content ?? this.content,
-    );
+        id: id,
+        title: title ?? this.title,
+        state: state ?? this.state,
+        lastModify: lastModify ?? this.lastModify,
+        content: content ?? this.content);
   }
-
 
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes

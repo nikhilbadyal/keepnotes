@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/database/NotesHelper.dart';
@@ -11,6 +10,8 @@ import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilites.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
+
+import 'file:///D:/AsusTuff/Code/Flutter/notes/lib/util/ColorPicker.dart';
 
 class SettingsScreenHelper extends StatefulWidget {
   const SettingsScreenHelper();
@@ -146,6 +147,16 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
             color: Utilities.iconColor(),
           ),
         ),
+        SwitchListTile(
+          title: const Text('Directly delete in trash'),
+          value: myNotes.lockChecker.directlyDelete,
+          onChanged: directDelete,
+          activeColor: Utilities.iconColor(),
+          secondary: Icon(
+            Icons.delete_forever_outlined,
+            color: Utilities.iconColor(),
+          ),
+        ),
       ],
     );
   }
@@ -159,7 +170,7 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
         return MyAlertDialog(
           title: const Text('Pick a color!'),
           content: SingleChildScrollView(
-            child: BlockPicker(
+            child: ColorPicker(
               availableColors: appColors,
               pickerColor: selectedPrimaryColor,
               onColorChanged: (Color value) async {
@@ -199,7 +210,7 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
         return MyAlertDialog(
           title: const Text('Pick a color!'),
           content: SingleChildScrollView(
-            child: BlockPicker(
+            child: ColorPicker(
               availableColors: appColors,
               pickerColor: selectedIconColor,
               onColorChanged: (Color value) {
@@ -261,6 +272,14 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
       myNotes.lockChecker.fpDirectly = value;
     });
     unawaited(Utilities.addBoolToSF('fpDirectly', value: value));
+  }
+
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> directDelete(bool value) async {
+    setState(() {
+      myNotes.lockChecker.directlyDelete = value;
+    });
+    unawaited(Utilities.addBoolToSF('directlyDelete', value: value));
   }
 
   Future<void> resetPassword() async {

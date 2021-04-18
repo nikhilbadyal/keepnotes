@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/model/note.dart';
 import 'package:notes/screen/ModalSheetWidgets.dart';
@@ -31,7 +30,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
           child: Row(
             children: [
               IconButton(
-                icon: const Icon(EvaIcons.arrowBackOutline),
+                icon: const Icon(Icons.arrow_back_outlined),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               const SizedBox(width: 16),
@@ -56,7 +55,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                     saveNote: widget.saveNote,
                     autoSaver: widget.autoSaver,
                   ),
-                  ModalSheetCopyWidget(
+                  ModalSheetCopyToClipBoardWidget(
                     note: widget.note,
                     saveNote: widget.saveNote,
                     autoSaver: widget.autoSaver,

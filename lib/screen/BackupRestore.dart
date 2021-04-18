@@ -4,6 +4,7 @@ import 'dart:io';
 // import 'package:ext_storage/ext_storage.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/model/note.dart';
@@ -79,13 +80,18 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
   Future<void> exportToFile(List<dynamic> items) async {
     try {
       if (await Utilities.requestPermission(Permission.storage)) {
-        final filePath =
-            await File(myNotes.lockChecker.exportPath).create(recursive: true);
+        final str = DateFormat('yyyyMMdd_HHmmss').format(
+          DateTime.now(),
+        );
+        final fileName = 'notesExport_$str.json';
+        final file = await File(
+                '${myNotes.lockChecker.exportPath}${'/NotesApp/$fileName'}')
+            .create(recursive: true);
         final jsonList = [];
         for (final note in items) {
           jsonList.add(json.encode(note.toJson()));
         }
-        filePath.writeAsStringSync(
+        file.writeAsStringSync(
           jsonList.toString(),
         );
       }
@@ -112,6 +118,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
       }*/ /*
       await Provider.of<NotesHelper>(context, listen: false)
           .addAllNotesToDatabseHelper(jsonList);*/
+
       final stringContent = file.readAsStringSync();
       final List jsonList = json.decode(stringContent);
       final notesList = jsonList

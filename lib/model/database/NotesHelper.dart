@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes/app.dart';
 import 'package:notes/model/database/database_helper.dart';
 import 'package:notes/model/note.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -13,23 +14,30 @@ class NotesHelper with ChangeNotifier {
 
   Future<Note> insertNoteHelper(Note note,
       {bool isNew = false, bool shouldNotify = true, Database? testDb}) async {
+    final copiedNote = note.copyWith(id: note.id);
+
+    if (copiedNote.state == NoteState.hidden) {
+      encryption.encrypt(copiedNote);
+    }
     if (!isNew) {
-      if (note.state == NoteState.unspecified) {
-        final index = _mainNotes.indexWhere((element) => element.id == note.id);
+      if (copiedNote.state == NoteState.unspecified) {
+        final index =
+            _mainNotes.indexWhere((element) => element.id == copiedNote.id);
         _mainNotes.removeAt(index);
       } else {
         final index =
-            _otherNotes.indexWhere((element) => element.id == note.id);
+            _otherNotes.indexWhere((element) => element.id == copiedNote.id);
         _otherNotes.removeAt(index);
       }
     }
-    note.state == NoteState.unspecified
+    copiedNote.state == NoteState.unspecified
         ? _mainNotes.insert(0, note)
         : _otherNotes.insert(0, note);
     if (shouldNotify) {
       notifyListeners();
     }
-    await DatabaseHelper.insertNoteDb(note, isNew: isNew, testDb: testDb);
+    await DatabaseHelper.insertNoteDb(copiedNote, isNew: isNew, testDb: testDb);
+    note.id = copiedNote.id;
     return note;
   }
 
@@ -215,10 +223,12 @@ class NotesHelper with ChangeNotifier {
               );
             },
           ).toList();
-  }
-
-  void falseDelete() {
-    // notifyListeners();
+    if (noteState == NoteState.hidden.index) {
+      // ignore: avoid_function_literals_in_foreach_calls
+      _otherNotes.forEach((element) {
+        encryption.decrypt(element);
+      });
+    }
   }
 }
 

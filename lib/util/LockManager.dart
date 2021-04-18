@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/database/NotesHelper.dart';
@@ -23,6 +22,7 @@ class LockChecker {
   late String gender;
   MethodChannel channel = const MethodChannel('externalStorage');
   final LocalAuthentication _localAuthentication = LocalAuthentication();
+  late bool directlyDelete;
 
   void updateDetails() {}
 
@@ -31,24 +31,22 @@ class LockChecker {
   }
 
   Future<void> initConfig() async {
-    password = Utilities.getStringValuesSF('password') ?? '';
-    passwordSet = password.isNotEmpty;
+    // password = Utilities.getReValuesSF('password') ?? '';
+    unawaited(Utilities.removeValues('password'));
     bioEnabled = Utilities.getBoolValuesSF('bio') ?? false;
     firstTimeNeeded = Utilities.getBoolValuesSF('firstTimeNeeded') ?? false;
     bioAvailable = bioEnabled || await bioAvailCheck();
     fpDirectly = Utilities.getBoolValuesSF('fpDirectly') ?? false;
+    directlyDelete = Utilities.getBoolValuesSF('directlyDelete') ?? true;
     gender = Utilities.getStringValuesSF('gender') ?? 'women';
+    password = await Utilities.storage.read(key: 'password') ?? '';
+    passwordSet = password.isNotEmpty;
     unawaited(getPath());
   }
 
   Future<void> getPath() async {
-    final str = DateFormat('yyyyMMdd_HHmmss').format(
-      DateTime.now(),
-    );
-    final file = 'notesExport_$str.json';
     // ignore: prefer_interpolation_to_compose_strings
-    exportPath = await channel.invokeMethod('getExternalStorageDirectory') +
-        '/NotesApp/$file';
+    exportPath = await channel.invokeMethod('getExternalStorageDirectory');
   }
 
   Future<void> resetConfig() async {
@@ -56,7 +54,7 @@ class LockChecker {
     passwordSet = false;
     bioEnabled = false;
     firstTimeNeeded = false;
-    await Utilities.removeValues('password');
+    unawaited(Utilities.storage.delete(key: 'password'));
     await Utilities.removeValues('bio');
     await Utilities.removeValues('biofirstTimeNeeded');
   }
@@ -64,7 +62,7 @@ class LockChecker {
   Future<void> passwordSetConfig(String enteredPassword) async {
     password = enteredPassword;
     passwordSet = true;
-    await Utilities.addStringToSF('password', enteredPassword);
+    unawaited(Utilities.storage.write(key: 'password', value: enteredPassword));
   }
 
   Future<void> bioEnabledConfig() async {

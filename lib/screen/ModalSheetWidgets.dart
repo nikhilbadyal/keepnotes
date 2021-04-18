@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/database/NotesHelper.dart';
@@ -124,8 +125,8 @@ class ModalSheetArchiveWidget extends StatelessWidget {
   }
 }
 
-class ModalSheetCopyWidget extends StatelessWidget {
-  const ModalSheetCopyWidget(
+class ModalSheetCopyToClipBoardWidget extends StatelessWidget {
+  const ModalSheetCopyToClipBoardWidget(
       {Key? key,
       required this.note,
       required this.autoSaver,
@@ -141,13 +142,14 @@ class ModalSheetCopyWidget extends StatelessWidget {
     return Flexible(
       fit: FlexFit.tight,
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
           autoSaver.cancel();
           saveNote();
-          final wantedRoute = getRoute(note.state);
-          Utilities.onCopyTap(context, note);
-          Navigator.of(context).popUntil(
-            (route) => route.settings.name == wantedRoute,
+          Navigator.of(context).pop();
+          await Clipboard.setData(ClipboardData(text: note.title));
+          await Clipboard.setData(ClipboardData(text: note.content)).then(
+            (value) => Utilities.showSnackbar(context, 'Copied to Clipboard',
+                snackBarBehavior: SnackBarBehavior.floating),
           );
         },
         child: Container(
@@ -173,7 +175,7 @@ class ModalSheetCopyWidget extends StatelessWidget {
               Icon(TablerIcons.copy,
                   size: 35, color: Theme.of(context).accentColor),
               const SizedBox(width: 16),
-              const Text('Copy')
+              const Text('Clipboard')
             ],
           ),
         ),

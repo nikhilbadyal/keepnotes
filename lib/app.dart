@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes/model/database/Encryption.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/AppRoutes.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 late MyNotes myNotes;
 final RouteObserver<Route> routeObserver = RouteObserver<Route>();
 MyRouteObserver myRouteObserver = MyRouteObserver();
+Encrypt encryption = Encrypt();
 
 class MyNotes extends StatelessWidget {
   const MyNotes(this.lockChecker);
@@ -30,6 +32,7 @@ class MyNotes extends StatelessWidget {
       ],
       child: Builder(
         builder: (BuildContext context) {
+          // debugPrint('here');
           // debugPrint('Building again');
           Provider.of<AppConfiguration>(context);
           // ignore: prefer_typing_uninitialized_variables

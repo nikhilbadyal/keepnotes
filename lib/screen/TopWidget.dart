@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes/app.dart';
 import 'package:notes/model/note.dart';
 import 'package:notes/screen/AboutMeScreen.dart';
 import 'package:notes/screen/BackupRestore.dart';
@@ -206,8 +207,11 @@ class ScreenContainer extends TopWidgetBase {
 
   List<Widget> trashSecondary(Note note, BuildContext context) {
     final actionList = <Widget>[];
+    debugPrint(myNotes.lockChecker.directlyDelete.toString());
+
     actionList.add(
-      Utilities.deleteAction(context, note),
+      Utilities.deleteAction(context, note,
+          shouldAsk: myNotes.lockChecker.directlyDelete),
     );
     return actionList;
   }
