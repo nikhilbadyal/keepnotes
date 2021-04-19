@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-// import 'package:ext_storage/ext_storage.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +8,7 @@ import 'package:notes/app.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/model/note.dart';
 import 'package:notes/util/Utilites.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -35,11 +35,23 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
                   final items =
                       await Provider.of<NotesHelper>(context, listen: false)
                           .getNotesAllForBackupHelper();
-                  await exportToFile(items);
-                  Utilities.showSnackbar(
-                    context,
-                    'Notes Exported',
-                  );
+                  if (items.isNotEmpty) {
+                    unawaited(exportToFile(items).then((_) {
+                      Utilities.showSnackbar(
+                        context,
+                        'Notes Exported',
+                      );
+                    }));
+                    Utilities.showSnackbar(
+                      context,
+                      'Backup Scheduled',
+                    );
+                  } else {
+                    Utilities.showSnackbar(
+                      context,
+                      'Nothing to export',
+                    );
+                  }
                 },
                 child: const Text(
                   'Export Notes',
@@ -83,14 +95,22 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         final str = DateFormat('yyyyMMdd_HHmmss').format(
           DateTime.now(),
         );
-        final fileName = 'notesExport_$str.json';
-        final file = await File(
-                '${myNotes.lockChecker.exportPath}${'/NotesApp/$fileName'}')
-            .create(recursive: true);
+        final fileName = 'Export_$str.json';
+        const folderName = '/NotesApp/';
+        final path = myNotes.lockChecker.exportPath;
+        final finalPath = path + folderName + fileName;
+        try {
+          await File(finalPath).create(recursive: true);
+        } catch (e) {
+          throw Error();
+        }
+        final file = File(finalPath);
         final jsonList = [];
+
         for (final note in items) {
           jsonList.add(json.encode(note.toJson()));
         }
+
         file.writeAsStringSync(
           jsonList.toString(),
         );

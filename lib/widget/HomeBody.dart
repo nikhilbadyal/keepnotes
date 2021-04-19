@@ -27,11 +27,8 @@ class _HomeBodyState extends State<HomeBody> {
 
   @override
   void initState() {
-    debugPrint('init 1 ');
     myFuture = Provider.of<NotesHelper>(context, listen: false)
         .getAllNotesHelper(NoteState.unspecified.index);
-    debugPrint('init 2 ');
-
     super.initState();
   }
 

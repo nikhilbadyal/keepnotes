@@ -48,7 +48,7 @@ android {
     defaultConfig {
         applicationId "com.nikhil.flutter.notes"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

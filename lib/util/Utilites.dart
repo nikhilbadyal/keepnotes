@@ -257,7 +257,7 @@ class Utilities {
 
   static Future<void> onDeleteTap(BuildContext context, Note note,
       {bool deleteDirectly = true}) async {
-    debugPrint(deleteDirectly.toString());
+    // debugPrint(deleteDirectly.toString());
     var choice = true;
     if (!deleteDirectly) {
       choice = await showDialog<bool>(

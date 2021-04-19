@@ -207,7 +207,7 @@ class ScreenContainer extends TopWidgetBase {
 
   List<Widget> trashSecondary(Note note, BuildContext context) {
     final actionList = <Widget>[];
-    debugPrint(myNotes.lockChecker.directlyDelete.toString());
+    // debugPrint(myNotes.lockChecker.directlyDelete.toString());
 
     actionList.add(
       Utilities.deleteAction(context, note,

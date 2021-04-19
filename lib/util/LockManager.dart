@@ -21,6 +21,7 @@ class LockChecker {
   late String exportPath;
   late String gender;
   MethodChannel channel = const MethodChannel('externalStorage');
+  // MethodChannel channel = const MethodChannel('externalStorage');
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   late bool directlyDelete;
 
@@ -45,6 +46,13 @@ class LockChecker {
   }
 
   Future<void> getPath() async {
+    /*final str = DateFormat('yyyyMMdd_HHmmss').format(
+      DateTime.now(),
+    );
+    final file = 'notesExport_$str.json';
+    // ignore: prefer_interpolation_to_compose_strings
+    exportPath = await channel.invokeMethod('getExternalStorageDirectory') +
+        '/NotesApp/$file';*/
     // ignore: prefer_interpolation_to_compose_strings
     exportPath = await channel.invokeMethod('getExternalStorageDirectory');
   }
