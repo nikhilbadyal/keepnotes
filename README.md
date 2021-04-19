@@ -18,10 +18,10 @@ Notes is a privacy oriented, Secure ,beautiful and fast application made in flut
 ---
 
 ## Screenshots
-![](https://i.imgur.com/lF0O7C6.jpg)
-![](https://i.imgur.com/CBBlU8X.jpg)  
-![](https://i.imgur.com/1Oz1Bag.jpg) 
-![](https://i.imgur.com/Hu4auBW.jpg) 
-![](https://i.imgur.com/8EbHitS.jpg)
+<img src="https://i.imgur.com/lF0O7C6.jpg" height="800">        
+<img src="https://i.imgur.com/CBBlU8X.jpg" height="800">
+<img src="https://i.imgur.com/1Oz1Bag.jpg" height="800">        
+<img src="https://i.imgur.com/Hu4auBW.jpg" height="800">
+<img src="https://i.imgur.com/8EbHitS.jpg" height="800">
 
 ---
