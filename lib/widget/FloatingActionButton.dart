@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/model/note.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:notes/widget/BottomSheet.dart';
 import 'package:notes/widget/HomeBody.dart';

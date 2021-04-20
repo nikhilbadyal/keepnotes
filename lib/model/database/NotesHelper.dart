@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notes/app.dart';
-import 'package:notes/model/database/database_helper.dart';
-import 'package:notes/model/note.dart';
-import 'package:sqflite/sqlite_api.dart';
+import 'package:notes/model/Note.dart';
+import 'package:notes/model/database/DatabaseHelper.dart';
+import 'package:sqflite/sqflite.dart';
 
 class NotesHelper with ChangeNotifier {
   List _mainNotes = [];
@@ -43,7 +43,9 @@ class NotesHelper with ChangeNotifier {
 
   Future<bool> copyNoteHelper(Note note, {Database? testDb}) async {
     if (note.id != -1) {
-      final copiedNote = note.copyWith(lastModify: DateTime.now());
+      final copiedNote = note.copyWith(
+        lastModify: DateTime.now(),
+      );
       note.state == NoteState.unspecified
           ? _mainNotes.insert(0, copiedNote)
           : _otherNotes.insert(0, copiedNote);
@@ -70,11 +72,12 @@ class NotesHelper with ChangeNotifier {
 
   Future<bool> hideNoteHelper(Note note, {Database? testDb}) async {
     if (note.id != -1) {
+      final copiedNote = note.copyWith(id: note.id);
+      encryption.encrypt(copiedNote);
       note.state == NoteState.unspecified
           ? _mainNotes.removeWhere((element) => element.id == note.id)
           : _otherNotes.removeWhere((element) => element.id == note.id);
-      await DatabaseHelper.hideNoteDb(note, testDb: testDb);
-
+      await DatabaseHelper.hideNoteDb(copiedNote, testDb: testDb);
       notifyListeners();
       return true;
     }
@@ -192,6 +195,30 @@ class NotesHelper with ChangeNotifier {
     return status;
   }
 
+  Future<void> encryptAllHidden() async {
+    final notes = await DatabaseHelper.getAllNotesDb(NoteState.hidden.index);
+    final notesList = notes.map(
+      (itemVar) {
+        return Note(
+          id: itemVar['id'],
+          title: itemVar['title'].toString(),
+          content: itemVar['content'].toString(),
+          lastModify: DateTime.fromMillisecondsSinceEpoch(
+            itemVar['lastModify'],
+          ),
+          state: NoteState.values[itemVar['state']],
+        );
+      },
+    ).toList();
+    // ignore: prefer_foreach
+    for (final notes in notesList) {
+      encryption.encrypt(notes);
+    }
+    for (final notes in notesList) {
+      await DatabaseHelper.insertNoteDb(notes);
+    }
+  }
+
   Future getAllNotesHelper(int noteState, {Database? testDb}) async {
     // debugPrint('called');
     final notesList =
@@ -230,6 +257,90 @@ class NotesHelper with ChangeNotifier {
       });
     }
   }
+
+  Future<bool> recryptEverything(String password) async {
+    try {
+      final notesList = await DatabaseHelper.getAllNotesDb(
+        NoteState.hidden.index,
+      );
+      final myList = notesList.map(
+        (itemVar) {
+          return Note(
+            id: itemVar['id'],
+            title: itemVar['title'].toString(),
+            content: itemVar['content'].toString(),
+            lastModify: DateTime.fromMillisecondsSinceEpoch(
+              itemVar['lastModify'],
+            ),
+            state: NoteState.values[itemVar['state']],
+          );
+        },
+      ).toList();
+      // ignore: prefer_foreach
+      for (final note in myList) {
+        encryption.decrypt(note);
+      }
+      // ignore: prefer_foreach
+      encryption.resetDetails(password);
+      for (final note in myList) {
+        encryption.encrypt(note);
+        await DatabaseHelper.encryptNotesDb(note);
+      }
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> autoMateEverything() async {
+    try {
+      final notesList = await DatabaseHelper.getAllNotesDb(
+        NoteState.hidden.index,
+      );
+      final myList = notesList.map(
+        (itemVar) {
+          return Note(
+            id: itemVar['id'],
+            title: itemVar['title'].toString(),
+            content: itemVar['content'].toString(),
+            lastModify: DateTime.fromMillisecondsSinceEpoch(
+              itemVar['lastModify'],
+            ),
+            state: NoteState.values[itemVar['state']],
+          );
+        },
+      ).toList();
+      // ignore: prefer_foreach
+      // debugPrint('automating');
+      try {
+        // ignore: prefer_foreach
+        for (final note in myList) {
+          encryption.decrypt(note);
+        }
+      } catch (_) {
+        // debugPrint(e.toString());
+      }
+
+      for (final note in myList) {
+        debugPrint(note.content);
+        debugPrint(note.title);
+      }
+      // debugPrint('automating');
+
+      for (final note in myList) {
+        encryption.encrypt(note);
+        await DatabaseHelper.encryptNotesDb(note);
+      }
+      for (final note in myList) {
+        debugPrint(note.content);
+        debugPrint(note.title);
+      }
+      // debugPrint('automating');
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
 }
 
 class MySimpleDialog extends StatelessWidget {
@@ -247,8 +358,10 @@ class MySimpleDialog extends StatelessWidget {
         child: title,
       ),
       shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.grey.shade900),
         borderRadius: BorderRadius.circular(10),
       ),
+      clipBehavior: Clip.antiAlias,
       children: children,
     );
   }
@@ -267,7 +380,11 @@ class MyAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: title,
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
+        side: BorderSide(
+          color: Theme.of(context).iconTheme.color!.withOpacity(0.1),
+        ),
         borderRadius: BorderRadius.circular(10),
       ),
       content: content,

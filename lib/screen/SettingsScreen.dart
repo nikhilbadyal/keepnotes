@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/database/NotesHelper.dart';
@@ -248,22 +247,6 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
     Provider.of<AppConfiguration>(context, listen: false).changeAppThemeColor(
         value ? AppTheme.Black : AppTheme.Light,
         write: true);
-    await Future.delayed(
-      const Duration(seconds: 1),
-    );
-    final _systemBrightness = Theme.of(context).brightness;
-    final _statusBarBrightness = _systemBrightness == Brightness.light
-        ? Brightness.dark
-        : Brightness.light;
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: _statusBarBrightness,
-        statusBarIconBrightness: _statusBarBrightness,
-        systemNavigationBarColor: Colors.transparent,
-        systemNavigationBarIconBrightness: _statusBarBrightness,
-      ),
-    );
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -271,7 +254,9 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
     setState(() {
       myNotes.lockChecker.fpDirectly = value;
     });
-    unawaited(Utilities.addBoolToSF('fpDirectly', value: value));
+    unawaited(
+      Utilities.addBoolToSF('fpDirectly', value: value),
+    );
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -279,7 +264,9 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
     setState(() {
       myNotes.lockChecker.directlyDelete = value;
     });
-    unawaited(Utilities.addBoolToSF('directlyDelete', value: value));
+    unawaited(
+      Utilities.addBoolToSF('directlyDelete', value: value),
+    );
   }
 
   Future<void> resetPassword() async {
@@ -287,11 +274,14 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
         context: context,
         builder: (_) {
           return const MyAlertDialog(
-              title: Center(child: Text('Not Available yet')),
-              content: Padding(
-                padding: EdgeInsets.only(left: 36.0, top: 16.0, bottom: 16.0),
-                child: Text('May be in next update'),
-              ));
+            title: Center(
+              child: Text('Not Available yet'),
+            ),
+            content: Padding(
+              padding: EdgeInsets.only(left: 36.0, top: 16.0, bottom: 16.0),
+              child: Text('May be in next update'),
+            ),
+          );
         });
   }
 }

@@ -40,7 +40,10 @@ class ColorPicker extends StatefulWidget {
   }
 
   static Widget defaultItemBuilder(
-      Color color, bool isCurrentColor, void Function() changeColor) {
+      Color color,
+      // ignore: avoid_positional_boolean_parameters
+      bool isCurrentColor,
+      void Function() changeColor) {
     return Container(
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(

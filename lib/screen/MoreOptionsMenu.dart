@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:notes/model/note.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/screen/ArchiveNoteOptions.dart';
 import 'package:notes/screen/ErrorModelSheet.dart';
 import 'package:notes/screen/HiddenNoteOptions.dart';

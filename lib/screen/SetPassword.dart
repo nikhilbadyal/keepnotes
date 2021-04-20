@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:notes/app.dart';
+import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/screen/LockScreen.dart';
 import 'package:notes/util/AppRoutes.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilites.dart';
 import 'package:notes/widget/DoubleBackToClose.dart';
+import 'package:provider/provider.dart';
 
 class SetPassword extends StatefulWidget {
   const SetPassword();
@@ -20,6 +22,8 @@ class _SetPasswordState extends State<SetPassword> {
   late bool isFirst;
   late String firstPass;
   late String title;
+  late DataObj args;
+
   final StreamController<bool> _verificationNotifier =
       StreamController<bool>.broadcast();
 
@@ -58,13 +62,25 @@ class _SetPasswordState extends State<SetPassword> {
         ModalRoute.of(context)!.settings.name!,
         context,
         NotesRoutes.setpassScreen,
-        DataObj(false, enteredPassCode, 'Re Enter Password'),
+        DataObj(false, enteredPassCode, 'Re Enter Password',
+            resetPass: args.resetPass),
       );
     } else {
       if (enteredPassCode == firstPass) {
-        await myNotes.lockChecker.passwordSetConfig(enteredPassCode);
-        await navigate(ModalRoute.of(context)!.settings.name!, context,
-            NotesRoutes.hiddenScreen);
+        if (args.resetPass) {
+          // debugPrint('Reset pass setpass');
+          await myNotes.lockChecker.resetConfig();
+          await Provider.of<NotesHelper>(context, listen: false)
+              .recryptEverything(enteredPassCode);
+          await myNotes.lockChecker.passwordSetConfig(enteredPassCode);
+          await navigate(ModalRoute.of(context)!.settings.name!, context,
+              NotesRoutes.homeScreen);
+          return;
+        } else {
+          await myNotes.lockChecker.passwordSetConfig(enteredPassCode);
+          await navigate(ModalRoute.of(context)!.settings.name!, context,
+              NotesRoutes.hiddenScreen);
+        }
       } else {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -99,10 +115,11 @@ class _SetPasswordState extends State<SetPassword> {
   @override
   Widget build(BuildContext context) {
     //debugPrint('building 28 ');
-    final args = ModalRoute.of(context)!.settings.arguments! as DataObj;
+    args = ModalRoute.of(context)!.settings.arguments! as DataObj;
     isFirst = args.isFirst;
     firstPass = args.firstPass;
     title = args.heading;
+    // debugPrint(args.resetPass.toString());
     final titleWidget = _titleWidget(title);
     // debugPrint('set pass');
     return DoubleBackToCloseWidget(
@@ -120,9 +137,10 @@ class _SetPasswordState extends State<SetPassword> {
 
 class DataObj {
   // ignore: avoid_positional_boolean_parameters
-  DataObj(this.isFirst, this.firstPass, this.heading);
+  DataObj(this.isFirst, this.firstPass, this.heading, {this.resetPass = false});
 
   final bool isFirst;
   final String firstPass;
   final String heading;
+  final bool resetPass;
 }

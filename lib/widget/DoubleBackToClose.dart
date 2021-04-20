@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/Utilites.dart';
 
 typedef BackPresAction = Future<bool> Function();
 
 class DoubleBackToCloseWidget extends StatefulWidget {
   const DoubleBackToCloseWidget({required this.child});
 
-  // const DoubleBackToCloseWidget({required this.child, this.backPresAction});
-
   final Widget child;
-
-  // final BackPresAction? backPresAction;
 
   static const exitTimeInMillis = 1500;
 
@@ -20,9 +17,10 @@ class DoubleBackToCloseWidget extends StatefulWidget {
 }
 
 class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
+  int _lastTimeBackButtonWasTapped = 0;
+
   @override
   Widget build(BuildContext context) {
-    //debugPrint('double back building 34');
     final _isAndroid = Theme.of(context).platform == TargetPlatform.android;
     if (_isAndroid) {
       return WillPopScope(
@@ -35,13 +33,49 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
   }
 
   Future<bool> defaultBackPress() async {
+    final _currentTime = DateTime.now().millisecondsSinceEpoch;
+    if ((_currentTime - _lastTimeBackButtonWasTapped) <
+        DoubleBackToCloseWidget.exitTimeInMillis) {
+      return Future.value(true);
+    } else {
+      _lastTimeBackButtonWasTapped = DateTime.now().millisecondsSinceEpoch;
+      if (ModalRoute.of(context)!.settings.name! == '/lock' ||
+          ModalRoute.of(context)!.settings.name! == '/setpass') {
+        Navigator.of(context)
+            .popUntil((route) => route.settings.name == NotesRoutes.homeScreen);
+        return Future.value(true);
+      } else if (ModalRoute.of(context)!.settings.name! ==
+          NotesRoutes.homeScreen) {
+        /*try {
+          if (!scaffoldKey.currentState!.isDrawerOpen) {
+            scaffoldKey.currentState!.openDrawer();
+          }
+        } catch (e) {
+          Utilities.getSnackBar(context, 'Something bad happened');
+        }*/
+        Utilities.showSnackbar(context, 'Press back again to exit',
+            duration: const Duration(
+                milliseconds: DoubleBackToCloseWidget.exitTimeInMillis - 10));
+        return Future.value(false);
+      } else {
+        return Future.value(true);
+      }
+    }
+  }
+
+/*Future<bool> defaultBackPress() async {
+
     if (ModalRoute.of(context)!.settings.name! == '/lock' ||
         ModalRoute.of(context)!.settings.name! == '/setpass') {
       Navigator.of(context)
           .popUntil((route) => route.settings.name == NotesRoutes.homeScreen);
       return Future.value(true);
+    } else if (ModalRoute.of(context)!.settings.name! ==
+        NotesRoutes.homeScreen) {
+      Scaffold.of(context).openDrawer();
+      return Future.value(false);
     } else {
       return Future.value(true);
     }
-  }
+  }*/
 }

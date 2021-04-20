@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/app.dart';
-import 'package:notes/model/note.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/screen/AboutMeScreen.dart';
 import 'package:notes/screen/BackupRestore.dart';
 import 'package:notes/screen/SettingsScreen.dart';
@@ -15,6 +15,7 @@ import 'package:notes/widget/MyDrawer.dart';
 
 typedef slidableActions = Function(Note note, BuildContext context);
 typedef actionGen = Widget Function(Note note, BuildContext context);
+typedef BackPresAction = Future<bool> Function();
 
 class ScreenContainer extends TopWidgetBase {
   const ScreenContainer({Key? key, required this.topScreen}) : super(key: key);

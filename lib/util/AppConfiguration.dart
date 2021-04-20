@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes/util/Utilites.dart';
 
-Color defaultPrimary = Colors.deepPurple;
+Color defaultPrimary = const Color(0xFF355C7D);
 late Color selectedPrimaryColor;
 
 Color defaultAccent = Colors.yellow;
@@ -17,39 +17,41 @@ const Color blackColor = Color(0xFF1C1C1C);
 
 List<Color> appColors = <Color>[
   Colors.red,
-// Colors.redAccent,
+  Colors.redAccent,
   Colors.pink,
-// Colors.pinkAccent,
+  Colors.pinkAccent,
   Colors.purple,
-// Colors.purpleAccent,
+  Colors.purpleAccent,
   Colors.deepPurple,
-// Colors.deepPurpleAccent,
+  Colors.deepPurpleAccent,
   Colors.indigo,
-// Colors.indigoAccent,
+  Colors.indigoAccent,
   Colors.blue,
-// Colors.blueAccent,
+  Colors.blueAccent,
   Colors.lightBlue,
-// Colors.lightBlueAccent,
+  Colors.lightBlueAccent,
   Colors.cyan,
-// Colors.cyanAccent,
+  Colors.cyanAccent,
   Colors.teal,
-// Colors.tealAccent,
+  Colors.tealAccent,
   Colors.green,
-// Colors.greenAccent,
+  Colors.greenAccent,
   Colors.lightGreen,
-// Colors.lightGreenAccent,
+  Colors.lightGreenAccent,
   Colors.lime,
-// Colors.limeAccent,
-//   Colors.yellow,
-// Colors.yellowAccent,
-//   Colors.amber,
-// Colors.amberAccent,
   Colors.orange,
-// Colors.orangeAccent,
+  // Colors.orangeAccent,
   Colors.deepOrange,
   Colors.brown,
   Colors.grey,
   Colors.blueGrey,
+
+  const Color(0xFF00E0C7),
+  const Color(0xFF006270),
+  const Color(0xFFFF7582),
+  const Color(0xFF355C7D),
+  const Color(0xFFF64668),
+  const Color(0xFFfd9400),
   //TODO fix this
   // Colors.black,
 
@@ -92,10 +94,11 @@ Color lighten(Color c, [int percent = 10]) {
   assert(1 <= percent && percent <= 100);
   final p = percent / 100;
   return Color.fromARGB(
-      c.alpha,
-      c.red + ((255 - c.red) * p).round(),
-      c.green + ((255 - c.green) * p).round(),
-      c.blue + ((255 - c.blue) * p).round());
+    c.alpha,
+    c.red + ((255 - c.red) * p).round(),
+    c.green + ((255 - c.green) * p).round(),
+    c.blue + ((255 - c.blue) * p).round(),
+  );
 }
 
 enum AppTheme { Dark, Black, Light }

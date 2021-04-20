@@ -1,13 +1,15 @@
 import 'package:encrypt/encrypt.dart';
 import 'package:notes/app.dart';
-import 'package:notes/model/note.dart';
+import 'package:notes/model/Note.dart';
 
 class Encrypt {
   Encrypt() {
     final myKey = myNotes.lockChecker.password.padLeft(32, '#');
     key = Key.fromUtf8(myKey);
     iv = IV.fromLength(16);
-    encrypter = Encrypter(AES(key));
+    encrypter = Encrypter(
+      AES(key),
+    );
   }
 
   late Key key;
@@ -15,6 +17,15 @@ class Encrypt {
   late IV iv;
 
   late Encrypter encrypter;
+
+  void resetDetails(String password) {
+    final myKey = password.padLeft(32, '#');
+    key = Key.fromUtf8(myKey);
+    iv = IV.fromLength(16);
+    encrypter = Encrypter(
+      AES(key),
+    );
+  }
 
   void encrypt(Note copiedNote) {
     if (copiedNote.title.isNotEmpty) {

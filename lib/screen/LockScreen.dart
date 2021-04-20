@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/database/NotesHelper.dart';
+import 'package:notes/screen/SetPassword.dart';
 import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/AppRoutes.dart';
 import 'package:notes/util/Navigations.dart';
@@ -14,6 +15,7 @@ typedef KeyboardTapCallback = void Function(String text);
 typedef DeleteTapCallback = void Function();
 typedef FingerTapCallback = void Function();
 typedef DoneCallBack = void Function(String text);
+typedef DoneEntered = Future<void> Function(String enteredPassCode);
 
 const String pass = '1234';
 
@@ -37,7 +39,9 @@ class _LockScreenState extends State<LockScreen> {
       if (enteredPassCode.length < pass.length) {
         enteredPassCode += text;
         if (enteredPassCode.length == pass.length) {
-          doneEnteringPass(enteredPassCode);
+          args
+              ? newPassDone(enteredPassCode)
+              : doneEnteringPass(enteredPassCode);
         }
       }
     });
@@ -132,10 +136,6 @@ class _LockScreenState extends State<LockScreen> {
         await Utilities.addBoolToSF('firstTimeNeeded', value: false);
         myNotes.lockChecker.firstTimeNeeded = false;
       }
-      if (args) {
-        await Utilities.resetPassword(context);
-        return;
-      }
       await navigate(ModalRoute.of(context)!.settings.name!, context,
           NotesRoutes.hiddenScreen);
     } else {
@@ -164,6 +164,28 @@ class _LockScreenState extends State<LockScreen> {
       stream: _verificationNotifier.stream,
       doneCallBack: callSetState,
     );
+  }
+
+  Future<void> newPassDone(String enteredPassCode) async {
+    debugPrint('Reset pass lock');
+    if (enteredPassCode == myNotes.lockChecker.password) {
+      await navigate(
+        ModalRoute.of(context)!.settings.name!,
+        context,
+        NotesRoutes.setpassScreen,
+        DataObj(true, '', 'Enter New Password', resetPass: true),
+      );
+    } else {
+      _verificationNotifier.add(false);
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        Utilities.getSnackBar(
+          context,
+          'Wrong Passcode',
+          action: Utilities.resetAction(context),
+        ),
+      );
+    }
   }
 }
 

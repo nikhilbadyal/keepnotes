@@ -20,7 +20,9 @@ class LockChecker {
   late bool fpDirectly;
   late String exportPath;
   late String gender;
+  late bool usedOlderVersion;
   MethodChannel channel = const MethodChannel('externalStorage');
+
   // MethodChannel channel = const MethodChannel('externalStorage');
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   late bool directlyDelete;
@@ -40,20 +42,13 @@ class LockChecker {
     fpDirectly = Utilities.getBoolValuesSF('fpDirectly') ?? false;
     directlyDelete = Utilities.getBoolValuesSF('directlyDelete') ?? true;
     gender = Utilities.getStringValuesSF('gender') ?? 'women';
+    usedOlderVersion = Utilities.getBoolValuesSF('usedOlderVersion') ?? true;
     password = await Utilities.storage.read(key: 'password') ?? '';
     passwordSet = password.isNotEmpty;
     unawaited(getPath());
   }
 
   Future<void> getPath() async {
-    /*final str = DateFormat('yyyyMMdd_HHmmss').format(
-      DateTime.now(),
-    );
-    final file = 'notesExport_$str.json';
-    // ignore: prefer_interpolation_to_compose_strings
-    exportPath = await channel.invokeMethod('getExternalStorageDirectory') +
-        '/NotesApp/$file';*/
-    // ignore: prefer_interpolation_to_compose_strings
     exportPath = await channel.invokeMethod('getExternalStorageDirectory');
   }
 
@@ -65,6 +60,14 @@ class LockChecker {
     unawaited(Utilities.storage.delete(key: 'password'));
     await Utilities.removeValues('bio');
     await Utilities.removeValues('biofirstTimeNeeded');
+  }
+
+  Future<void> changePassword(String newPassword) async {
+    password = newPassword;
+    firstTimeNeeded = true;
+    unawaited(Utilities.storage.delete(key: 'password'));
+    await Utilities.removeValues('bio');
+    await Utilities.addBoolToSF('biofirstTimeNeeded', value: true);
   }
 
   Future<void> passwordSetConfig(String enteredPassword) async {
@@ -172,5 +175,9 @@ class LockChecker {
         );
       },
     );
+  }
+
+  Future<void> setUsedOlderVersion() async {
+    await Utilities.addBoolToSF('usedOlderVersion', value: usedOlderVersion);
   }
 }

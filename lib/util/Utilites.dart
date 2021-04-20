@@ -5,11 +5,12 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:notes/app.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/model/note.dart';
 import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/AppRoutes.dart';
 import 'package:notes/util/Navigations.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,6 +60,15 @@ class Utilities {
     if (deleteAllNotes) {
       await Provider.of<NotesHelper>(context, listen: false)
           .deleteAllHiddenNotesHelper();
+    } else {
+      Utilities.showSnackbar(context, 'Reset password triggered. Please wait');
+      unawaited(Provider.of<NotesHelper>(context, listen: false)
+          .recryptEverything(myNotes.lockChecker.password)
+          .then((value) {
+        if (value) {
+          Utilities.showSnackbar(context, 'Setpass and Hide notes again');
+        }
+      }));
     }
     Utilities.showSnackbar(
       context,

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:notes/model/database/Encryption.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/util/AppConfiguration.dart';
@@ -45,6 +47,24 @@ class MyNotes extends StatelessWidget {
           } else {
             _theme = lightTheme(context);
           }
+          final _statusBarBrightness = selectedAppTheme == AppTheme.Black
+              ? Brightness.dark
+              : Brightness.light;
+
+          SystemChrome.setSystemUIOverlayStyle(
+            SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarBrightness: _statusBarBrightness,
+              statusBarIconBrightness: _statusBarBrightness,
+              systemNavigationBarColor: selectedAppTheme == AppTheme.Light
+                  ? Colors.white
+                  : Colors.black,
+              systemNavigationBarIconBrightness:
+                  selectedAppTheme == AppTheme.Light
+                      ? Brightness.dark
+                      : Brightness.light,
+            ),
+          );
           return MaterialApp(
             theme: _theme,
             title: 'Notes App',

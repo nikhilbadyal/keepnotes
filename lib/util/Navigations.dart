@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/app.dart';
-import 'package:notes/model/note.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/screen/EditScreen.dart';
 import 'package:notes/screen/SetPassword.dart';
 import 'package:notes/util/AppRoutes.dart';
@@ -64,6 +64,7 @@ Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
       if (status) {
         await navigate(ModalRoute.of(context)!.settings.name!, context,
             NotesRoutes.hiddenScreen);
+        return;
       }
     }
     await navigate(

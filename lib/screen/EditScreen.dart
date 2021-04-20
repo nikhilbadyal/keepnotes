@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/model/note.dart';
 import 'package:notes/screen/MoreOptionsMenu.dart';
 import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/Utilites.dart';
@@ -178,8 +178,11 @@ class _EditScreenState extends State<EditScreen> {
         // debugPrint('note edited and empty now');
         await Provider.of<NotesHelper>(context, listen: false)
             .deleteNoteHelper(noteInEditing);
-        Utilities.showSnackbar(context, 'Empty Note discarded',
-            duration: const Duration(milliseconds: 100));
+        Utilities.showSnackbar(
+          context,
+          'Empty Note discarded',
+          duration: const Duration(milliseconds: 100),
+        );
         return false;
       }
       if (noteInEditing.id == -1) {

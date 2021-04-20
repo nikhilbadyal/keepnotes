@@ -26,9 +26,9 @@ Future<void> main() async {
       timeDilation = 1.0;
     }
   };
-  SystemChrome.setSystemUIOverlayStyle(
+  /*SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-  );
+  );*/
 
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],

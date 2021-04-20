@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/model/note.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:notes/widget/ItemsList.dart';
 import 'package:notes/widget/NoNotes.dart';
@@ -109,7 +109,7 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
     return Padding(
       padding: const EdgeInsets.only(),
       child: ListView.builder(
-        cacheExtent: 1000,
+        cacheExtent: 100000,
         physics: const BouncingScrollPhysics(),
         itemCount: widget.notehelper.otherNotes.length,
         itemBuilder: (context, index) {

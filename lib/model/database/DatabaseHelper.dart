@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:notes/app.dart';
-import 'package:notes/model/note.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/util/DatabaseExceptions.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -54,7 +54,6 @@ class DatabaseHelper {
       }
       return true;
     } catch (e) {
-      // debugPrint(e.toString());
       return false;
     }
   }
@@ -197,6 +196,23 @@ class DatabaseHelper {
     note.state = NoteState.deleted;
     final idToUpdate = note.id;
 
+    try {
+      await db.update(
+        'notes',
+        note.toMap(isNew: false),
+        where: 'id = ?',
+        whereArgs: [idToUpdate],
+      );
+    } on Error {
+      throw DatabaseExceptions('6');
+    }
+
+    return true;
+  }
+
+  static Future<bool> encryptNotesDb(Note note, {Database? testDb}) async {
+    final db = testDb ?? await database;
+    final idToUpdate = note.id;
     try {
       await db.update(
         'notes',

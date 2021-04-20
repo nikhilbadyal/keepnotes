@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:notes/app.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/model/note.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:notes/widget/ItemsList.dart';
 import 'package:notes/widget/NoNotes.dart';
@@ -34,6 +35,7 @@ class _HomeBodyState extends State<HomeBody> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () => showOldVersionUsed());
     //debugPrint('building HomeBody');
     return FutureBuilder(
       future: myFuture,
@@ -70,6 +72,51 @@ class _HomeBodyState extends State<HomeBody> {
       },
     );
   }
+
+  Future<void>? showOldVersionUsed() {
+    if (myNotes.lockChecker.usedOlderVersion) {
+      showDialog(
+        context: context,
+        builder: (_) {
+          return MyAlertDialog(
+            title: const Text('Warning'),
+            content: const Text(
+              'If your ever used this app before. Please '
+              'consider unhiding hidden notes and hiding them again.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  myNotes.lockChecker.usedOlderVersion = false;
+                  myNotes.lockChecker.setUsedOlderVersion();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Never used old version'),
+              ),
+              TextButton(
+                onPressed: () {
+                  myNotes.lockChecker.usedOlderVersion = false;
+                  myNotes.lockChecker.setUsedOlderVersion();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Already Done'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Provider.of<NotesHelper>(context, listen: false)
+                      .autoMateEverything();
+                  myNotes.lockChecker.usedOlderVersion = false;
+                  myNotes.lockChecker.setUsedOlderVersion();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Do it for me'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 }
 
 _NonEmptyHomeUiState? homeBody;
@@ -105,7 +152,7 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
     return Padding(
       padding: const EdgeInsets.only(),
       child: ListView.builder(
-        cacheExtent: 1000,
+        cacheExtent: 100000,
         physics: const BouncingScrollPhysics(),
         itemCount: widget.notehelper.mainNotes.length,
         itemBuilder: (context, index) {

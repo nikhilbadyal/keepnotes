@@ -5,8 +5,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notes/app.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/model/note.dart';
+import 'package:notes/screen/TapToExpand.dart';
+import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilites.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -21,14 +24,65 @@ class BackUpScreenHelper extends StatefulWidget {
 
 class _BackUpScreenHelperState extends State<BackUpScreenHelper>
     with TickerProviderStateMixin {
+  var padding = 150.0;
+  var bottomPadding = 0.0;
+
   @override
   Widget build(BuildContext context) {
-    //debugPrint('building 7');
-    return Container(
-      padding: const EdgeInsets.all(30),
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        SizedBox(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              AnimatedPadding(
+                padding: EdgeInsets.only(top: padding, bottom: bottomPadding),
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.fastLinearToSlowEaseIn,
+                child: SizedBox(
+                  child: CardItem(
+                    Theme.of(context).accentColor,
+                    '',
+                    '',
+                    '',
+                    () {
+                      setState(() {
+                        padding = padding == 0 ? 150.0 : 0.0;
+                        bottomPadding = bottomPadding == 0 ? 150 : 0.0;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  margin: const EdgeInsets.only(right: 20, left: 20, top: 200),
+                  height: 180,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2), blurRadius: 30)
+                    ],
+                    color: Colors.grey.shade200.withOpacity(1.0),
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(30),
+                    ),
+                  ),
+                  child: Center(
+                    child: Icon(Icons.favorite,
+                        color: Theme.of(context).accentColor.withOpacity(1.0),
+                        size: 70),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ElevatedButton(
                 onPressed: () async {
@@ -36,12 +90,16 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
                       await Provider.of<NotesHelper>(context, listen: false)
                           .getNotesAllForBackupHelper();
                   if (items.isNotEmpty) {
-                    unawaited(exportToFile(items).then((_) {
-                      Utilities.showSnackbar(
-                        context,
-                        'Notes Exported',
-                      );
-                    }));
+                    unawaited(
+                      exportToFile(items).then(
+                        (_) {
+                          Utilities.showSnackbar(
+                            context,
+                            'Notes Exported',
+                          );
+                        },
+                      ),
+                    );
                     Utilities.showSnackbar(
                       context,
                       'Backup Scheduled',
@@ -54,9 +112,12 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
                   }
                 },
                 child: const Text(
-                  'Export Notes',
+                  'Export Notes ',
                   style: TextStyle(color: Colors.white),
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -84,8 +145,8 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
               ),
             ],
           ),
-        ),
-      ),
+        )
+      ],
     );
   }
 
@@ -125,20 +186,6 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
 
   Future<void> importFromFile(File file) async {
     try {
-      /*final stringContent = file.readAsStringSync();
-      final Map<String, dynamic> jsonList = json.decode(stringContent);
-      final notesList = jsonList
-          .map(
-            (json) => Note.fromJson(json),
-          )
-          .toList();
-      */ /*debugPrint('Hello this is me');
-      for (final ino in jsonList.keys) {
-        debugPrint(ino);
-      }*/ /*
-      await Provider.of<NotesHelper>(context, listen: false)
-          .addAllNotesToDatabseHelper(jsonList);*/
-
       final stringContent = file.readAsStringSync();
       final List jsonList = json.decode(stringContent);
       final notesList = jsonList
@@ -152,6 +199,8 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         context,
         'Done importing',
       );
+      await navigate(ModalRoute.of(context)!.settings.name!, context,
+          NotesRoutes.homeScreen);
     } catch (e) {
       // debugPrint(e.toString());
       Utilities.showSnackbar(

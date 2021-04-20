@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/model/note.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/widget/AppBar.dart';
 import 'package:notes/widget/DoubleBackToClose.dart';
 
@@ -19,8 +19,9 @@ enum ScreenTypes {
 typedef actionFunction = void Function(
     BuildContext context, Note note, onTapCallback);
 typedef onTapCallback = void Function(BuildContext context, Note note);
+typedef BackPresAction = Future<bool> Function();
 
-abstract class TopWidgetBase extends StatelessWidget {
+abstract class TopWidgetBase extends StatefulWidget {
   const TopWidgetBase({Key? key}) : super(key: key);
 
   Widget get body;
@@ -31,17 +32,19 @@ abstract class TopWidgetBase extends StatelessWidget {
 
   Widget? get floatingActionButton;
 
-  // Widget get bottomNavigationBar;
-  // Widget get bottomSheet;
+  @override
+  _TopWidgetBaseState createState() => _TopWidgetBaseState();
+}
 
+class _TopWidgetBaseState extends State<TopWidgetBase> {
   @override
   Widget build(BuildContext context) {
     return DoubleBackToCloseWidget(
       child: Scaffold(
-        appBar: appBar,
-        drawer: myDrawer,
-        body: body,
-        floatingActionButton: floatingActionButton,
+        appBar: widget.appBar,
+        drawer: widget.myDrawer,
+        body: widget.body,
+        floatingActionButton: widget.floatingActionButton,
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         // bottomSheet: bottomSheet,
       ),

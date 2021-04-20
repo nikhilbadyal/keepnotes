@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:notes/app.dart';
+import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/model/note.dart';
 import 'package:notes/util/AppRoutes.dart';
 import 'package:notes/util/Utilites.dart';
 import 'package:provider/provider.dart';
@@ -146,8 +146,12 @@ class ModalSheetCopyToClipBoardWidget extends StatelessWidget {
           autoSaver.cancel();
           saveNote();
           Navigator.of(context).pop();
-          await Clipboard.setData(ClipboardData(text: note.title));
-          await Clipboard.setData(ClipboardData(text: note.content)).then(
+          await Clipboard.setData(
+            ClipboardData(text: note.title),
+          );
+          await Clipboard.setData(
+            ClipboardData(text: note.content),
+          ).then(
             (value) => Utilities.showSnackbar(context, 'Copied to Clipboard',
                 snackBarBehavior: SnackBarBehavior.floating),
           );

@@ -19,12 +19,6 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
       this,
       ModalRoute.of(context)!,
     );
-    // myRouteObserver.subscribe(this, ModalRoute.of(context));
-  }
-
-  @override
-  void didPop() {
-    //debugPrint('You pooed some shit');
   }
 
   @override
@@ -35,8 +29,6 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
   @override
   Widget build(BuildContext context) {
     final hour = DateTime.now().hour;
-    //20 to 5  night
-    // 5 to 12 morning
     String wish;
     const startWish = 'Good';
     var gender = 'Queen 👑';
@@ -50,8 +42,6 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
     } else {
       wish = '$startWish Night, $gender';
     }
-    // assert(wish!=null);
-    //debugPrint(_activeRoute+"old");
     return Drawer(
       child: ListView(
         children: <Widget>[

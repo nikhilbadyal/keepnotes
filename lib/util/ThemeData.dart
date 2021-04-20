@@ -111,10 +111,11 @@ ThemeData lightTheme(BuildContext context) {
     toggleableActiveColor: selectedPrimaryColor,
     primaryColor: selectedPrimaryColor,
     dialogTheme: const DialogTheme(
-        titleTextStyle: TextStyle(
-      color: Colors.black,
-      fontWeight: FontWeight.bold,
-    )),
+      titleTextStyle: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: selectedPrimaryColor,
       actionTextColor: Colors.white,
@@ -152,12 +153,39 @@ ThemeData lightTheme(BuildContext context) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
+        shape: MaterialStateProperty.resolveWith<OutlinedBorder>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return ContinuousRectangleBorder(
+                  borderRadius: BorderRadius.circular(10));
+            }
+            return ContinuousRectangleBorder(
+                borderRadius: BorderRadius.circular(10));
+          },
+        ),
+        minimumSize: MaterialStateProperty.resolveWith<Size>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return const Size(30, 40);
+            }
+            return const Size(30, 40);
+          },
+        ),
+
+        /* padding: MaterialStateProperty.resolveWith<EdgeInsetsGeometry>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return EdgeInsets.zero;
+            }
+            return EdgeInsets.zero;
+          },
+        ),*/
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.disabled)) {
               return greyColor;
             }
-            return selectedPrimaryColor; // Defer to the widget's default.
+            return selectedPrimaryColor;
           },
         ),
         foregroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -165,7 +193,7 @@ ThemeData lightTheme(BuildContext context) {
             if (states.contains(MaterialState.disabled)) {
               return Colors.black;
             }
-            return selectedPrimaryColor; // Defer to the widget's default.
+            return selectedPrimaryColor;
           },
         ),
       ),
