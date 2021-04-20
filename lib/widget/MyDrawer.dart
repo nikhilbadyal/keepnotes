@@ -123,13 +123,6 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             selected: _activeRoute == NotesRoutes.suggestScreen,
             onTap: () => goToBugScreen(context),
           ),
-          /* AboutListTile(
-            icon: Icon(Icons.info, color: Utilities.iconColor(),),
-            applicationName: 'Notes App',
-            aboutBoxChildren: const <Widget>[
-              Text('Thanks for trying this app.'),
-            ],
-          ),*/
         ],
       ),
     );
