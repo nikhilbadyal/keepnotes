@@ -4,11 +4,12 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/screen/TapToExpand.dart';
 import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilites.dart';
 import 'package:pedantic/pedantic.dart';
@@ -29,6 +30,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width * 0.7;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -46,7 +48,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
                     '',
                     '',
                     '',
-                    () {
+                        () {
                       setState(() {
                         padding = padding == 0 ? 150.0 : 0.0;
                         bottomPadding = bottomPadding == 0 ? 150 : 0.0;
@@ -58,8 +60,9 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
               Align(
                 alignment: Alignment.centerRight,
                 child: Container(
-                  margin: const EdgeInsets.only(right: 20, left: 20, top: 200),
+                  margin: const EdgeInsets.only(right: 60, top: 150),
                   height: 180,
+                  width: width,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -87,33 +90,33 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
               ElevatedButton(
                 onPressed: () async {
                   final items =
-                      await Provider.of<NotesHelper>(context, listen: false)
-                          .getNotesAllForBackupHelper();
+                  await Provider.of<NotesHelper>(context, listen: false)
+                      .getNotesAllForBackupHelper();
                   if (items.isNotEmpty) {
                     unawaited(
                       exportToFile(items).then(
-                        (_) {
+                            (_) {
                           Utilities.showSnackbar(
                             context,
-                            'Notes Exported',
+                            Languages.of(context).error,
                           );
                         },
                       ),
                     );
                     Utilities.showSnackbar(
                       context,
-                      'Backup Scheduled',
+                      Languages.of(context).backupScheduled,
                     );
                   } else {
                     Utilities.showSnackbar(
                       context,
-                      'Nothing to export',
+                      Languages.of(context).done,
                     );
                   }
                 },
-                child: const Text(
-                  'Export Notes ',
-                  style: TextStyle(color: Colors.white),
+                child: Text(
+                  Languages.of(context).exportNotes,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
               const SizedBox(
@@ -134,13 +137,13 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
                   } else {
                     Utilities.showSnackbar(
                       context,
-                      'Permission Not granted',
+                      Languages.of(context).permissionError,
                     );
                   }
                 },
-                child: const Text(
-                  'Import Notes',
-                  style: TextStyle(color: Colors.white),
+                child: Text(
+                  Languages.of(context).importNotes,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
             ],
@@ -158,7 +161,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         );
         final fileName = 'Export_$str.json';
         const folderName = '/NotesApp/';
-        final path = myNotes.lockChecker.exportPath;
+        final path = lockChecker.exportPath;
         final finalPath = path + folderName + fileName;
         try {
           await File(finalPath).create(recursive: true);
@@ -179,7 +182,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
     } catch (e) {
       Utilities.showSnackbar(
         context,
-        'Error while exporting',
+        Languages.of(context).error,
       );
     }
   }
@@ -197,15 +200,14 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
           .addAllNotesToDatabaseHelper(notesList);
       Utilities.showSnackbar(
         context,
-        'Done importing',
+        Languages.of(context).done,
       );
       await navigate(ModalRoute.of(context)!.settings.name!, context,
           NotesRoutes.homeScreen);
     } catch (e) {
-      // debugPrint(e.toString());
       Utilities.showSnackbar(
         context,
-        'Error while importing',
+        Languages.of(context).error,
       );
     }
   }

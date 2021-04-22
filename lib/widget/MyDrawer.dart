@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Navigations.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -28,20 +30,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    final hour = DateTime.now().hour;
-    String wish;
-    const startWish = 'Good';
-    var gender = 'Queen 👑';
-    if (myNotes.lockChecker.gender == 'men') {
-      gender = 'King 👑';
-    } else {}
-    if (hour >= 5 && hour <= 11) {
-      wish = '$startWish Morning, $gender';
-    } else if (hour >= 12 && hour <= 17) {
-      wish = '$startWish Afternoon, $gender';
-    } else {
-      wish = '$startWish Night, $gender';
-    }
+    final wish = getWish(context);
     return Drawer(
       child: ListView(
         children: <Widget>[
@@ -49,7 +38,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               backgroundImage: AssetImage(
-                'assets/images/${myNotes.lockChecker.gender}.png',
+                'assets/images/${lockChecker.gender}.png',
               ),
             ),
             accountEmail: Text(
@@ -63,8 +52,11 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: const Icon(
               Icons.note,
             ),
-            title: const Text(
-              'Notes',
+            title: Text(
+              Languages.of(context).home,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             selected: _activeRoute == NotesRoutes.homeScreen,
             onTap: () =>
@@ -74,7 +66,12 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: const Icon(
               Icons.archive_outlined,
             ),
-            title: const Text('Archive'),
+            title: Text(
+              Languages.of(context).archive,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             selected: _activeRoute == NotesRoutes.archiveScreen,
             onTap: () =>
                 navigate(_activeRoute, context, NotesRoutes.archiveScreen),
@@ -83,7 +80,12 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: const Icon(
               Icons.settings_backup_restore,
             ),
-            title: const Text('Backup and Restore'),
+            title: Text(
+              Languages.of(context).backup,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             selected: _activeRoute == NotesRoutes.backupScreen,
             onTap: () =>
                 navigate(_activeRoute, context, NotesRoutes.backupScreen),
@@ -92,7 +94,12 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: const Icon(
               Icons.delete_forever_outlined,
             ),
-            title: const Text('Deleted'),
+            title: Text(
+              Languages.of(context).trash,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             selected: _activeRoute == NotesRoutes.trashScreen,
             onTap: () =>
                 navigate(_activeRoute, context, NotesRoutes.trashScreen),
@@ -101,7 +108,12 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: const Icon(
               Icons.settings,
             ),
-            title: const Text('Settings'),
+            title: Text(
+              Languages.of(context).settings,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             selected: _activeRoute == NotesRoutes.settingsScreen,
             onTap: () =>
                 navigate(_activeRoute, context, NotesRoutes.settingsScreen),
@@ -110,7 +122,12 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: const Icon(
               Icons.person_outline,
             ),
-            title: const Text('About Me'),
+            title: Text(
+              Languages.of(context).about,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             selected: _activeRoute == NotesRoutes.aboutMeScreen,
             onTap: () =>
                 navigate(_activeRoute, context, NotesRoutes.aboutMeScreen),
@@ -119,12 +136,35 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: const Icon(
               Icons.email_outlined,
             ),
-            title: const Text('Report/Suggest'),
+            title: Text(
+              Languages.of(context).reportSuggest,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             selected: _activeRoute == NotesRoutes.suggestScreen,
             onTap: () => goToBugScreen(context),
           ),
         ],
       ),
     );
+  }
+
+  String getWish(BuildContext context) {
+    final hour = DateTime.now().hour;
+    String wish;
+    final startWish = Languages.of(context).good;
+    var gender = '${Languages.of(context).queen} 👑';
+    if (lockChecker.gender == 'men') {
+      gender = '${Languages.of(context).king} 👑';
+    }
+    if (hour >= 5 && hour <= 11) {
+      wish = '$startWish ${Languages.of(context).morning}, $gender';
+    } else if (hour >= 12 && hour <= 17) {
+      wish = '$startWish ${Languages.of(context).afternoon}, $gender';
+    } else {
+      wish = '$startWish ${Languages.of(context).night}, $gender';
+    }
+    return wish;
   }
 }

@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/util/DatabaseExceptions.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-// ignore: avoid_classes_with_only_static_members
 class DatabaseHelper {
   static String tableName = 'notes';
 
@@ -235,8 +234,8 @@ class DatabaseHelper {
         where: 'state = ?',
         whereArgs: [3],
       );
-      myNotes.lockChecker.passwordSet = false;
-      myNotes.lockChecker.updateDetails();
+      lockChecker.passwordSet = false;
+      lockChecker.updateDetails();
       return true;
     } on Error {
       throw DatabaseExceptions('7');
@@ -278,8 +277,7 @@ class DatabaseHelper {
   static Future<List<Map<String, dynamic>>> getNotesAllForBackupDb(
       {Database? testDb}) async {
     final db = testDb ?? await database;
-    // ignore: prefer_typing_uninitialized_variables
-    late final resultSet;
+    late Future<List<Map<String, Object?>>> resultSet;
     try {
       resultSet = db.query('notes', orderBy: 'lastModify desc');
     } on Error {
@@ -287,14 +285,4 @@ class DatabaseHelper {
     }
     return resultSet;
   }
-/*static Future<bool> addAllNotesToBackupDb(Map<String, dynamic> jsonList) async {
-    try {
-      for (final note in notes) {
-        await insertNoteDb(note, isNew: true);
-      }
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }*/
 }

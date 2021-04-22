@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Utilites.dart';
 
 typedef BackPresAction = Future<bool> Function();
@@ -46,14 +47,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
         return Future.value(true);
       } else if (ModalRoute.of(context)!.settings.name! ==
           NotesRoutes.homeScreen) {
-        /*try {
-          if (!scaffoldKey.currentState!.isDrawerOpen) {
-            scaffoldKey.currentState!.openDrawer();
-          }
-        } catch (e) {
-          Utilities.getSnackBar(context, 'Something bad happened');
-        }*/
-        Utilities.showSnackbar(context, 'Press back again to exit',
+        Utilities.showSnackbar(context, Languages.of(context).doubleBackToExit,
             duration: const Duration(
                 milliseconds: DoubleBackToCloseWidget.exitTimeInMillis - 10));
         return Future.value(false);
@@ -62,20 +56,4 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
       }
     }
   }
-
-/*Future<bool> defaultBackPress() async {
-
-    if (ModalRoute.of(context)!.settings.name! == '/lock' ||
-        ModalRoute.of(context)!.settings.name! == '/setpass') {
-      Navigator.of(context)
-          .popUntil((route) => route.settings.name == NotesRoutes.homeScreen);
-      return Future.value(true);
-    } else if (ModalRoute.of(context)!.settings.name! ==
-        NotesRoutes.homeScreen) {
-      Scaffold.of(context).openDrawer();
-      return Future.value(false);
-    } else {
-      return Future.value(true);
-    }
-  }*/
 }

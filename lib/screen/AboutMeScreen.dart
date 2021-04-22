@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notes/util/AppConfiguration.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilites.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:notes/widget/SocialRow.dart';
 
 class AboutMe extends StatefulWidget {
   const AboutMe();
@@ -16,7 +17,6 @@ class AboutMe extends StatefulWidget {
 class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    //debugPrint('building 4 ');
     return body(context);
   }
 
@@ -43,7 +43,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               const Divider(
                   height: 60.0, color: Colors.black, indent: 12, endIndent: 12),
               Text(
-                'Name',
+                Languages.of(context).name,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -52,7 +52,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               ),
               const SizedBox(height: 30.0),
               Text(
-                'Nikhil',
+                Languages.of(context).devName,
                 style: TextStyle(
                   color: selectedPrimaryColor,
                   fontSize: 20.0,
@@ -61,7 +61,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               ),
               const SizedBox(height: 30.0),
               Text(
-                'Email',
+                Languages.of(context).email,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -97,7 +97,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 margin: const EdgeInsets.only(left: 16, top: 8),
                 child: Center(
                   child: Text(
-                    'Social',
+                    Languages.of(context).social,
                     textAlign: TextAlign.start,
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -112,27 +112,6 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class SocialLinksRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 12, right: 12, top: 16),
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          GestureDetector(
-              onTap: () => launch('https://t.me/keepsafenotes'),
-              child: Image.asset('assets/images/telegram.png')),
-          GestureDetector(
-              onTap: () => launch('https://github.com/ProblematicDude'),
-              child: Image.asset('assets/images/github.png')),
-        ],
       ),
     );
   }

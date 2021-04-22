@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/screen/ModalSheetWidgets.dart';
+import 'package:notes/util/Languages/Languages.dart';
 
 class HiddenNoteOptions extends StatefulWidget {
   const HiddenNoteOptions(
@@ -34,7 +35,7 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                 onPressed: () => Navigator.of(context).pop(),
               ),
               const SizedBox(width: 16),
-              const Text('Options'),
+              Text(Languages.of(context).options),
             ],
           ),
         ),

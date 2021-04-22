@@ -6,6 +6,7 @@ import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/screen/MoreOptionsMenu.dart';
 import 'package:notes/util/AppConfiguration.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Utilites.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,6 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //debugPrint('building 10');
     return WillPopScope(
       onWillPop: _onBackPress,
       child: Scaffold(
@@ -76,8 +76,9 @@ class _EditScreenState extends State<EditScreen> {
                 fontWeight: FontWeight.bold,
                 fontSize: 15.0,
               ),
-              decoration: const InputDecoration(
-                  hintText: 'Enter Note Title', border: InputBorder.none),
+              decoration: InputDecoration(
+                  hintText: Languages.of(context).enterNoteTitle,
+                  border: InputBorder.none),
             ),
             TextField(
               //TODO fix this issue . 1
@@ -94,8 +95,9 @@ class _EditScreenState extends State<EditScreen> {
                 final counter = Provider.of<CharCount>(context, listen: false);
                 counter.change(value.length);
               },*/
-              decoration: const InputDecoration(
-                  hintText: 'Enter Content', border: InputBorder.none),
+              decoration: InputDecoration(
+                  hintText: Languages.of(context).enterNoteContent,
+                  border: InputBorder.none),
             ),
           ],
         ),
@@ -130,7 +132,7 @@ class _EditScreenState extends State<EditScreen> {
             ),
             Center(
               child: Text(
-                'Modified ${noteInEditing.strLastModifiedDate1}',
+                '${Languages.of(context).modified} ${noteInEditing.strLastModifiedDate1}',
               ),
             ),
             IconButton(
@@ -138,7 +140,8 @@ class _EditScreenState extends State<EditScreen> {
                 await backgroundSaveNote();
                 if (noteInEditing.content.isEmpty &&
                     noteInEditing.title.isEmpty) {
-                  Utilities.showSnackbar(context, 'Empty Note');
+                  Utilities.showSnackbar(
+                      context, Languages.of(context).emptyNote);
                   // Navigator.of(context).pop();
                 } else {
                   _moreMenu(context);
@@ -146,7 +149,7 @@ class _EditScreenState extends State<EditScreen> {
               },
               icon: const Icon(Icons.more_vert_outlined),
               color: Utilities.iconColor(),
-              tooltip: 'More ',
+              tooltip: Languages.of(context).more,
             ),
           ],
         ),
@@ -157,8 +160,6 @@ class _EditScreenState extends State<EditScreen> {
   Future<bool> _onBackPress() async {
     autoSaverTimer.cancel();
     await saveNote();
-    // Navigator.of(context).pop();
-    // debugPrint('back here');
     return true;
   }
 
@@ -173,14 +174,12 @@ class _EditScreenState extends State<EditScreen> {
     final isEdited = updateNote();
     final isEmptyNote = isEmpty();
     if (isEdited) {
-      // debugPrint('note edited');
       if (isEmptyNote) {
-        // debugPrint('note edited and empty now');
         await Provider.of<NotesHelper>(context, listen: false)
             .deleteNoteHelper(noteInEditing);
         Utilities.showSnackbar(
           context,
-          'Empty Note discarded',
+          Languages.of(context).emptyNoteDiscarded,
           duration: const Duration(milliseconds: 100),
         );
         return false;
@@ -197,7 +196,10 @@ class _EditScreenState extends State<EditScreen> {
     if (isEmptyNote) {
       await Provider.of<NotesHelper>(context, listen: false)
           .deleteNoteHelper(noteInEditing);
-      Utilities.showSnackbar(context, 'Empty Note discarded');
+      Utilities.showSnackbar(
+        context,
+        Languages.of(context).emptyNoteDiscarded,
+      );
     }
     return false;
   }
@@ -206,17 +208,12 @@ class _EditScreenState extends State<EditScreen> {
     final isEdited = updateNote();
     if (isEdited) {
       if (noteInEditing.id == -1) {
-        // debugPrint('not edited and new');
-
         await Provider.of<NotesHelper>(context, listen: false)
             .insertNoteHelper(noteInEditing, isNew: true);
       } else {
-        // debugPrint('not edited and old');
         await Provider.of<NotesHelper>(context, listen: false)
             .insertNoteHelper(noteInEditing);
       }
-    } else {
-      // debugPrint('not edited');
     }
   }
 
@@ -249,7 +246,6 @@ class _EditScreenState extends State<EditScreen> {
         onPressed: _onAppLeadingBackPress,
         color: Colors.white,
       ),
-      // actions: _appbarAction(context),
       elevation: 1,
     );
   }
@@ -300,7 +296,7 @@ class _EditScreenState extends State<EditScreen> {
     actions.add(Consumer<CharCount>(
       builder: (context, counter, child) {
         return Padding(
-          padding: const EdgeInsets.only(top: 25, right: 10),
+          padding:  const EdgeInsets.only(top: 25, right: 10),
           child: Text(counter.textLength.toString()),
         );
       },

@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/screen/LockScreen.dart';
 import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilites.dart';
 import 'package:notes/widget/DoubleBackToClose.dart';
@@ -62,22 +63,21 @@ class _SetPasswordState extends State<SetPassword> {
         ModalRoute.of(context)!.settings.name!,
         context,
         NotesRoutes.setpassScreen,
-        DataObj(false, enteredPassCode, 'Re Enter Password',
+        DataObj(false, enteredPassCode, Languages.of(context).reEnterPassword,
             resetPass: args.resetPass),
       );
     } else {
       if (enteredPassCode == firstPass) {
         if (args.resetPass) {
-          // debugPrint('Reset pass setpass');
-          await myNotes.lockChecker.resetConfig();
+          await lockChecker.resetConfig();
           await Provider.of<NotesHelper>(context, listen: false)
               .recryptEverything(enteredPassCode);
-          await myNotes.lockChecker.passwordSetConfig(enteredPassCode);
+          await lockChecker.passwordSetConfig(enteredPassCode);
           await navigate(ModalRoute.of(context)!.settings.name!, context,
               NotesRoutes.homeScreen);
           return;
         } else {
-          await myNotes.lockChecker.passwordSetConfig(enteredPassCode);
+          await lockChecker.passwordSetConfig(enteredPassCode);
           await navigate(ModalRoute.of(context)!.settings.name!, context,
               NotesRoutes.hiddenScreen);
         }
@@ -86,7 +86,7 @@ class _SetPasswordState extends State<SetPassword> {
         ScaffoldMessenger.of(context).showSnackBar(
           Utilities.getSnackBar(
             context,
-            "PassCodes doesn't match",
+            Languages.of(context).passwordNotMatch,
           ),
         );
         await navigate(
@@ -96,7 +96,7 @@ class _SetPasswordState extends State<SetPassword> {
           DataObj(
             true,
             '',
-            'Enter New Password',
+            Languages.of(context).enterNewPassword,
           ),
         );
       }
@@ -114,14 +114,11 @@ class _SetPasswordState extends State<SetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    //debugPrint('building 28 ');
     args = ModalRoute.of(context)!.settings.arguments! as DataObj;
     isFirst = args.isFirst;
     firstPass = args.firstPass;
     title = args.heading;
-    // debugPrint(args.resetPass.toString());
     final titleWidget = _titleWidget(title);
-    // debugPrint('set pass');
     return DoubleBackToCloseWidget(
       child: MyLockScreen(
         title: titleWidget,

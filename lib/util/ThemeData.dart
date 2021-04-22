@@ -103,7 +103,6 @@ ThemeData blackTheme(BuildContext context) {
 }
 
 ThemeData lightTheme(BuildContext context) {
-  // debugPrint(selectedPrimaryColor.toString());
   return ThemeData.light().copyWith(
     canvasColor: Colors.white,
     cardColor: const Color.fromARGB(255, 255, 255, 255),

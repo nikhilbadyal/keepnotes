@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/screen/EditScreen.dart';
 import 'package:notes/screen/SetPassword.dart';
 import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Utilites.dart';
 
 Future navigate(String activeRoute, BuildContext context, String route,
@@ -28,7 +29,6 @@ Future navigate(String activeRoute, BuildContext context, String route,
 }
 
 void goToBugScreen(BuildContext context) {
-  //debugPrint('launching');
   Utilities.launchUrl(
     Utilities.emailLaunchUri.toString(),
   );
@@ -56,11 +56,11 @@ Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
     Navigator.of(context).pop();
     return;
   }
-  if (myNotes.lockChecker.passwordSet) {
-    if (myNotes.lockChecker.bioEnabled &&
-        !myNotes.lockChecker.firstTimeNeeded &&
-        myNotes.lockChecker.fpDirectly) {
-      final status = await myNotes.lockChecker.authenticateUser(context);
+  if (lockChecker.passwordSet) {
+    if (lockChecker.bioEnabled &&
+        !lockChecker.firstTimeNeeded &&
+        lockChecker.fpDirectly) {
+      final status = await lockChecker.authenticateUser(context);
       if (status) {
         await navigate(ModalRoute.of(context)!.settings.name!, context,
             NotesRoutes.hiddenScreen);
@@ -78,7 +78,7 @@ Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
       activeRoute,
       context,
       NotesRoutes.setpassScreen,
-      DataObj(true, '', 'Enter New Password'),
+      DataObj(true, '', Languages.of(context).enterNewPassword),
     );
   }
 }

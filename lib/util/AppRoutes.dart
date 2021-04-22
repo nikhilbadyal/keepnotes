@@ -4,15 +4,16 @@ import 'package:notes/screen/LockScreen.dart';
 import 'package:notes/screen/SetPassword.dart';
 import 'package:notes/screen/TopWidget.dart';
 import 'package:notes/screen/TopWidgetBase.dart';
+import 'package:notes/util/ErrorScreen.dart';
 
 class NotesRoutes {
-  static const hiddenScreen = '/hidden'; //b
+  static const hiddenScreen = '/hidden';
   static const lockScreen = '/lock';
   static const setpassScreen = '/setpass';
-  static const homeScreen = '/'; //b
-  static const archiveScreen = '/archive'; //b
+  static const homeScreen = '/';
+  static const archiveScreen = '/archive';
   static const backupScreen = '/backup';
-  static const trashScreen = '/trash'; //b
+  static const trashScreen = '/trash';
   static const aboutMeScreen = '/about';
   static const settingsScreen = '/settings';
   static const suggestScreen = '/suggestion';
@@ -116,21 +117,5 @@ class RouteGenerator {
     return BlurPageRoute(builder: (context) {
       return const ErrorScreen();
     });
-  }
-}
-
-class ErrorScreen extends StatelessWidget {
-  const ErrorScreen();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Error'),
-      ),
-      body: const Center(
-        child: Text('Are you lost baby girl ?'),
-      ),
-    );
   }
 }

@@ -24,13 +24,13 @@ typedef BackPresAction = Future<bool> Function();
 abstract class TopWidgetBase extends StatefulWidget {
   const TopWidgetBase({Key? key}) : super(key: key);
 
-  Widget get body;
+  Widget? body(BuildContext context);
 
-  Widget get myDrawer;
+  Widget? myDrawer(BuildContext context);
 
-  MyAppBar? get appBar;
+  MyAppBar? appBar(BuildContext context);
 
-  Widget? get floatingActionButton;
+  Widget? floatingActionButton(BuildContext context);
 
   @override
   _TopWidgetBaseState createState() => _TopWidgetBaseState();
@@ -39,14 +39,16 @@ abstract class TopWidgetBase extends StatefulWidget {
 class _TopWidgetBaseState extends State<TopWidgetBase> {
   @override
   Widget build(BuildContext context) {
-    return DoubleBackToCloseWidget(
-      child: Scaffold(
-        appBar: widget.appBar,
-        drawer: widget.myDrawer,
-        body: widget.body,
-        floatingActionButton: widget.floatingActionButton,
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        // bottomSheet: bottomSheet,
+    return SafeArea(
+      child: DoubleBackToCloseWidget(
+        child: Scaffold(
+          appBar: widget.appBar(context),
+          drawer: widget.myDrawer(context),
+          body: widget.body(context),
+          floatingActionButton: widget.floatingActionButton(context),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+          // bottomSheet: bottomSheet,
+        ),
       ),
     );
   }

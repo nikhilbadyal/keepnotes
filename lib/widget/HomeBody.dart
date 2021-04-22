@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Navigations.dart';
+import 'package:notes/widget/AlertDialog.dart';
 import 'package:notes/widget/ItemsList.dart';
 import 'package:notes/widget/NoNotes.dart';
+import 'package:notes/widget/SimpleDialog.dart';
 import 'package:provider/provider.dart';
 
 class HomeBody extends StatefulWidget {
@@ -36,7 +39,6 @@ class _HomeBodyState extends State<HomeBody> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () => showOldVersionUsed());
-    //debugPrint('building HomeBody');
     return FutureBuilder(
       future: myFuture,
       builder: (context, projectSnap) {
@@ -46,7 +48,6 @@ class _HomeBodyState extends State<HomeBody> {
               if (notehelper.mainNotes.isEmpty) {
                 return const NoNotesUi(noteState: NoteState.unspecified);
               } else {
-                // debugPrint('Triggering rebuild${notehelper.mainNotes.length}');
                 return NonEmptyHomeUi(
                   notehelper: notehelper,
                   primary: widget.primary,
@@ -74,42 +75,41 @@ class _HomeBodyState extends State<HomeBody> {
   }
 
   Future<void>? showOldVersionUsed() {
-    if (myNotes.lockChecker.usedOlderVersion) {
+    if (lockChecker.usedOlderVersion) {
       showDialog(
         context: context,
         builder: (_) {
           return MyAlertDialog(
-            title: const Text('Warning'),
-            content: const Text(
-              'If your ever used this app before. Please '
-              'consider unhiding hidden notes and hiding them again.',
+            title: Text(Languages.of(context).message),
+            content: Text(
+              Languages.of(context).oldVersionWarning,
             ),
             actions: [
               TextButton(
                 onPressed: () {
-                  myNotes.lockChecker.usedOlderVersion = false;
-                  myNotes.lockChecker.setUsedOlderVersion();
+                  lockChecker.usedOlderVersion = false;
+                  lockChecker.setUsedOlderVersion();
                   Navigator.of(context).pop();
                 },
                 child: const Text('Never used old version'),
               ),
               TextButton(
                 onPressed: () {
-                  myNotes.lockChecker.usedOlderVersion = false;
-                  myNotes.lockChecker.setUsedOlderVersion();
+                  lockChecker.usedOlderVersion = false;
+                  lockChecker.setUsedOlderVersion();
                   Navigator.of(context).pop();
                 },
-                child: const Text('Already Done'),
+                child: Text(Languages.of(context).alreadyDone),
               ),
               TextButton(
                 onPressed: () {
                   Provider.of<NotesHelper>(context, listen: false)
                       .autoMateEverything();
-                  myNotes.lockChecker.usedOlderVersion = false;
-                  myNotes.lockChecker.setUsedOlderVersion();
+                  lockChecker.usedOlderVersion = false;
+                  lockChecker.setUsedOlderVersion();
                   Navigator.of(context).pop();
                 },
-                child: const Text('Do it for me'),
+                child: Text(Languages.of(context).doItForMe),
               ),
             ],
           );
@@ -190,10 +190,10 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
       if (item.state == NoteState.deleted) {
         await showDialog<bool>(
           context: context,
-          builder: (BuildContext context) => const MySimpleDialog(
+          builder: (BuildContext context) => MySimpleDialog(
             title: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('Please remove note from trash before editing'),
+              padding: const EdgeInsets.all(8.0),
+              child: Text(Languages.of(context).trashEditingWarning),
             ),
           ),
         );

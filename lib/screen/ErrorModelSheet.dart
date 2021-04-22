@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:notes/util/Languages/Languages.dart';
 
 class ErrorModalSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      child: Text('Some Shit occurred. Please report this.'),
+    return SizedBox(
+      child: Text(Languages.of(context).error),
     );
   }
 }

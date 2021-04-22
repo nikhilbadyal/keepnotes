@@ -1,23 +1,22 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:notes/app.dart';
-import 'package:notes/model/database/NotesHelper.dart';
+import 'package:notes/main.dart';
 import 'package:notes/screen/SetPassword.dart';
-import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/Keyboard.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilites.dart';
+import 'package:notes/widget/AlertDialog.dart';
 import 'package:notes/widget/DoubleBackToClose.dart';
+import 'package:notes/widget/SimpleDialog.dart';
 
 typedef KeyboardTapCallback = void Function(String text);
 typedef DeleteTapCallback = void Function();
 typedef FingerTapCallback = void Function();
 typedef DoneCallBack = void Function(String text);
 typedef DoneEntered = Future<void> Function(String enteredPassCode);
-
-const String pass = '1234';
 
 class LockScreen extends StatefulWidget {
   const LockScreen();
@@ -36,9 +35,9 @@ class _LockScreenState extends State<LockScreen> {
 
   void onTap(String text) {
     setState(() {
-      if (enteredPassCode.length < pass.length) {
+      if (enteredPassCode.length < 4) {
         enteredPassCode += text;
-        if (enteredPassCode.length == pass.length) {
+        if (enteredPassCode.length == 4) {
           args
               ? newPassDone(enteredPassCode)
               : doneEnteringPass(enteredPassCode);
@@ -57,22 +56,22 @@ class _LockScreenState extends State<LockScreen> {
   }
 
   Future<void> onFingerTap() async {
-    if (myNotes.lockChecker.bioEnabled) {
-      if (myNotes.lockChecker.firstTimeNeeded) {
+    if (lockChecker.bioEnabled) {
+      if (lockChecker.firstTimeNeeded) {
         await showDialog<void>(
           context: context,
           barrierDismissible: false, // user must tap button!
           builder: (BuildContext context) {
-            return const MySimpleDialog(
+            return MySimpleDialog(
               title: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Please enter password at least once'),
+                padding: const EdgeInsets.all(8.0),
+                child: Text(Languages.of(context).enterPasswordOnce),
               ),
             );
           },
         );
       } else {
-        final status = await myNotes.lockChecker.authenticateUser(context);
+        final status = await lockChecker.authenticateUser(context);
         if (status) {
           await navigate(ModalRoute.of(context)!.settings.name!, context,
               NotesRoutes.hiddenScreen);
@@ -82,14 +81,13 @@ class _LockScreenState extends State<LockScreen> {
       await showDialog<bool>(
         context: context,
         builder: (context) => MyAlertDialog(
-          // : const Text('Fingerprint '),
-          title: const Text('Message'),
-          content: const Text('Set Fingerprint First'),
+          title: Text(Languages.of(context).message),
+          content: Text(Languages.of(context).setFpFirst),
           actions: [
             TextButton(
               onPressed: () async {
                 Navigator.of(context).pop(true);
-                await myNotes.lockChecker.authenticateFirstTimeUser(context);
+                await lockChecker.authenticateFirstTimeUser(context);
                 // TODO fix this .2
                 /*if (status) {
                   Utilities.showSnackbar(
@@ -98,18 +96,18 @@ class _LockScreenState extends State<LockScreen> {
                   );
                 }*/
               },
-              child: const Text(
-                'Sure',
-                style: TextStyle(fontSize: 20),
+              child: Text(
+                Languages.of(context).alertDialogOp1,
+                style: const TextStyle(fontSize: 20),
               ),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: const Text(
-                'Later',
-                style: TextStyle(fontSize: 20),
+              child: Text(
+                Languages.of(context).alertDialogOp2,
+                style: const TextStyle(fontSize: 20),
               ),
             ),
           ],
@@ -118,10 +116,10 @@ class _LockScreenState extends State<LockScreen> {
     }
   }
 
-  Widget title = const Text(
-    'Enter Password',
-    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  );
+  Widget title(BuildContext context) {
+    return Text(Languages.of(context).enterPassword,
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
+  }
 
   void callSetState(String data) {
     setState(() {
@@ -130,11 +128,10 @@ class _LockScreenState extends State<LockScreen> {
   }
 
   Future<void> doneEnteringPass(String enteredPassCode) async {
-    if (enteredPassCode == myNotes.lockChecker.password) {
-      if (myNotes.lockChecker.bioEnabled &&
-          myNotes.lockChecker.firstTimeNeeded) {
+    if (enteredPassCode == lockChecker.password) {
+      if (lockChecker.bioEnabled && lockChecker.firstTimeNeeded) {
         await Utilities.addBoolToSF('firstTimeNeeded', value: false);
-        myNotes.lockChecker.firstTimeNeeded = false;
+        lockChecker.firstTimeNeeded = false;
       }
       await navigate(ModalRoute.of(context)!.settings.name!, context,
           NotesRoutes.hiddenScreen);
@@ -144,7 +141,7 @@ class _LockScreenState extends State<LockScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         Utilities.getSnackBar(
           context,
-          'Wrong Passcode',
+          Languages.of(context).wrongPassword,
           action: Utilities.resetAction(context),
         ),
       );
@@ -153,10 +150,9 @@ class _LockScreenState extends State<LockScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //debugPrint('building 23');
     args = ModalRoute.of(context)!.settings.arguments! as bool;
     return MyLockScreen(
-      title: title,
+      title: title(context),
       onTap: onTap,
       onDelTap: onDelTap,
       onFingerTap: args ? null : onFingerTap,
@@ -167,13 +163,13 @@ class _LockScreenState extends State<LockScreen> {
   }
 
   Future<void> newPassDone(String enteredPassCode) async {
-    debugPrint('Reset pass lock');
-    if (enteredPassCode == myNotes.lockChecker.password) {
+    if (enteredPassCode == lockChecker.password) {
       await navigate(
         ModalRoute.of(context)!.settings.name!,
         context,
         NotesRoutes.setpassScreen,
-        DataObj(true, '', 'Enter New Password', resetPass: true),
+        DataObj(true, '', Languages.of(context).enterNewPassword,
+            resetPass: true),
       );
     } else {
       _verificationNotifier.add(false);
@@ -181,7 +177,7 @@ class _LockScreenState extends State<LockScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         Utilities.getSnackBar(
           context,
-          'Wrong Passcode',
+          Languages.of(context).wrongPassword,
           action: Utilities.resetAction(context),
         ),
       );
@@ -255,7 +251,6 @@ class _MyLockScreenState extends State<MyLockScreen>
 
   @override
   Widget build(BuildContext context) {
-    //debugPrint('building 24');
     return DoubleBackToCloseWidget(
       child: Scaffold(
         body: SafeArea(
@@ -344,185 +339,4 @@ Widget _buildCancelButton(BuildContext context) {
       ),
     ],
   );
-}
-
-class Keyboard extends StatelessWidget {
-  Keyboard(
-      {Key? key,
-      required this.onKeyboardTap,
-      required this.onDelTap,
-      this.onFingerTap})
-      : super(key: key);
-
-  final KeyboardTapCallback onKeyboardTap;
-  final DeleteTapCallback onDelTap;
-  final FingerTapCallback? onFingerTap;
-  final List<String> keyBoardItem = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '-1',
-    '0',
-    '-1'
-  ];
-
-  Widget _buildDigit(String text) {
-    return Container(
-      margin: const EdgeInsets.all(2),
-      child: ClipOval(
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: () {
-              onKeyboardTap(text);
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.transparent,
-              ),
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: Text(
-                    text,
-                    semanticsLabel: text,
-                    style: const TextStyle(fontSize: 30),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildExtra(Widget widget, DeleteTapCallback? onDelTap) {
-    return Container(
-      margin: const EdgeInsets.all(2),
-      child: ClipOval(
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: () {
-              onDelTap!();
-            },
-            child: Container(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.transparent,
-              ),
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: widget,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    //debugPrint('building 25');
-    return CustomAlign(
-      children: List.generate(12, (index) {
-        return index == 9 || index == 11
-            ? index == 9
-                ? onFingerTap == null || !myNotes.lockChecker.bioAvailable
-                    ? Container()
-                    : _buildExtra(
-                        const Icon(Icons.fingerprint_outlined), onFingerTap)
-                : _buildExtra(const Icon(Icons.backspace_outlined), onDelTap)
-            : _buildDigit(
-                keyBoardItem[index],
-              );
-      }),
-    );
-  }
-}
-
-class CustomAlign extends StatelessWidget {
-  const CustomAlign({Key? key, required this.children}) : super(key: key);
-
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    //debugPrint('building 26');
-    return GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 3,
-      mainAxisSpacing: 5,
-      crossAxisSpacing: 5,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(25),
-      children: children
-          .map(
-            (e) => SizedBox(
-              width: 5,
-              height: 5,
-              child: e,
-            ),
-          )
-          .toList(),
-    );
-  }
-}
-
-class Circle extends StatefulWidget {
-  const Circle({Key? key, required this.isFilled}) : super(key: key);
-
-  final bool isFilled;
-
-  @override
-  _CircleState createState() => _CircleState();
-}
-
-class _CircleState extends State<Circle> {
-  @override
-  Widget build(BuildContext context) {
-    //debugPrint('building 27 ');
-    return Container(
-      margin: const EdgeInsets.only(bottom: 1),
-      width: 30,
-      height: 30,
-      decoration: BoxDecoration(
-        color: widget.isFilled
-            ? selectedAppTheme == AppTheme.Light
-                ? selectedPrimaryColor
-                : Colors.white
-            : Colors.transparent,
-        shape: BoxShape.circle,
-
-        //TODO rectify this as per current theme
-        border: Border.all(
-            color: selectedAppTheme == AppTheme.Light
-                ? selectedPrimaryColor
-                : Colors.white,
-            width: 2),
-      ),
-    );
-  }
-}
-
-class ShakeCurve extends Curve {
-  @override
-  double transform(double t) {
-    return sin(t * 2.5 * pi).abs();
-  }
 }

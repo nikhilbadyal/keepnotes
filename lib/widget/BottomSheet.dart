@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/screen/ModalSheetWidgets.dart';
+import 'package:notes/util/Languages/Languages.dart';
 
 void moreOptions(BuildContext context) {
   showModalBottomSheet<dynamic>(
@@ -24,7 +25,7 @@ void moreOptions(BuildContext context) {
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 const SizedBox(width: 16),
-                const Text('Options'),
+                Text(Languages.of(context).options),
               ],
             ),
           ),

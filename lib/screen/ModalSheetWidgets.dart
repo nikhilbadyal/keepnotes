@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Utilites.dart';
+import 'package:notes/widget/AlertDialog.dart';
+import 'package:notes/widget/SimpleDialog.dart';
 import 'package:provider/provider.dart';
 
 class ModalSheetUnhideWidget extends StatelessWidget {
@@ -59,7 +62,7 @@ class ModalSheetUnhideWidget extends StatelessWidget {
               Icon(Icons.drive_file_move_outline,
                   size: 35, color: Theme.of(context).accentColor),
               const SizedBox(width: 16),
-              const Text('Unhide'),
+              Text(Languages.of(context).unhide),
             ],
           ),
         ),
@@ -116,7 +119,7 @@ class ModalSheetArchiveWidget extends StatelessWidget {
               Icon(Icons.archive_outlined,
                   size: 35, color: Theme.of(context).accentColor),
               const SizedBox(width: 16),
-              const Text('Archive'),
+              Text(Languages.of(context).archive),
             ],
           ),
         ),
@@ -152,7 +155,8 @@ class ModalSheetCopyToClipBoardWidget extends StatelessWidget {
           await Clipboard.setData(
             ClipboardData(text: note.content),
           ).then(
-            (value) => Utilities.showSnackbar(context, 'Copied to Clipboard',
+            (value) => Utilities.showSnackbar(
+                context, Languages.of(context).done,
                 snackBarBehavior: SnackBarBehavior.floating),
           );
         },
@@ -179,7 +183,7 @@ class ModalSheetCopyToClipBoardWidget extends StatelessWidget {
               Icon(TablerIcons.copy,
                   size: 35, color: Theme.of(context).accentColor),
               const SizedBox(width: 16),
-              const Text('Clipboard')
+              Text(Languages.of(context).clipboard)
             ],
           ),
         ),
@@ -237,7 +241,7 @@ class ModalSheetTrashWidget extends StatelessWidget {
               Icon(Icons.delete_outlined,
                   size: 35, color: Theme.of(context).accentColor),
               const SizedBox(width: 16),
-              const Text('Trash')
+              Text(Languages.of(context).trash)
             ],
           ),
         ),
@@ -264,15 +268,15 @@ class ModalSheetHideWidget extends StatelessWidget {
       fit: FlexFit.tight,
       child: GestureDetector(
         onTap: () async {
-          final status = myNotes.lockChecker.passwordSet;
+          final status = lockChecker.passwordSet;
           if (!status) {
             await showDialog(
               context: context,
               builder: (_) {
-                return const MySimpleDialog(
+                return MySimpleDialog(
                   title: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Please set password first'),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(Languages.of(context).setPasswordFirst),
                   ),
                 );
               },
@@ -310,7 +314,7 @@ class ModalSheetHideWidget extends StatelessWidget {
               Icon(TablerIcons.ghost,
                   size: 35, color: Theme.of(context).accentColor),
               const SizedBox(width: 16),
-              const Text('Hide'),
+              Text(Languages.of(context).hide),
             ],
           ),
         ),
@@ -367,7 +371,7 @@ class ModalSheetUnarchiveWidget extends StatelessWidget {
               Icon(Icons.unarchive_outlined,
                   size: 35, color: Theme.of(context).accentColor),
               const SizedBox(width: 16),
-              const Text('Unarchive'),
+              Text(Languages.of(context).unarchive),
             ],
           ),
         ),
@@ -389,9 +393,8 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
             context: context,
             builder: (_) {
               return MyAlertDialog(
-                title: const Text('Empty Trash'),
-                content: const Text(
-                    'This will remove all the content from trash permanently!'),
+                title: Text(Languages.of(context).message),
+                content: Text(Languages.of(context).emptyTrashWarning),
                 actions: [
                   TextButton(
                     onPressed: () async {
@@ -403,7 +406,7 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
                       Navigator.of(context).popUntil((route) =>
                           route.settings.name == NotesRoutes.trashScreen);
                     },
-                    child: const Text('Sure'),
+                    child: Text(Languages.of(context).alertDialogOp1),
                   ),
                   TextButton(
                     onPressed: () {
@@ -412,14 +415,12 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
                             route.settings.name == NotesRoutes.trashScreen,
                       );
                     },
-                    child: const Text('Cancel'),
+                    child: Text(Languages.of(context).alertDialogOp2),
                   ),
                 ],
               );
             },
           );
-          // debugPrint('here');
-          // await navigate('', context, NotesRoutes.trashScreen);
         },
         child: Container(
           height: 80,
@@ -443,7 +444,7 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
               Icon(TablerIcons.trash,
                   size: 35, color: Theme.of(context).accentColor),
               const SizedBox(width: 16),
-              const Text('Empty Trash Permanently'),
+              Text(Languages.of(context).emptyTrash),
             ],
           ),
         ),

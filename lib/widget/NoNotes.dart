@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/model/Note.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Navigations.dart';
 
 class NoNotesUi extends StatelessWidget {
@@ -9,7 +10,6 @@ class NoNotesUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //debugPrint('building 17');
     return Center(
       child: SingleChildScrollView(
         child: Column(
@@ -25,7 +25,7 @@ class NoNotesUi extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: 'Nothing here',
+                        text: Languages.of(context).nothingHere,
                         style: TextStyle(
                             color:
                                 Theme.of(context).textTheme.bodyText1!.color),
@@ -44,39 +44,39 @@ class NoNotesUi extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: '\t\t\t\t\t\t\t\t\t\t\t\tNothing here\n',
+                        text:
+                            '\t\t\t\t\t\t\t${Languages.of(context).nothingHere}\n',
                         style: TextStyle(
                             color:
                                 Theme.of(context).textTheme.bodyText1!.color),
                       ),
                       TextSpan(
-                        text: 'Tap on "',
+                        text: Languages.of(context).tapOn,
                         style: TextStyle(
                             color:
                                 Theme.of(context).textTheme.bodyText1!.color),
                       ),
                       TextSpan(
-                          text: '+',
-                          style: TextStyle(
-                            fontSize: 30.0,
-                            color: Theme.of(context)
-                                .floatingActionButtonTheme
-                                .backgroundColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              final emptyNote = Note(
-                                title: '',
-                                content: '',
-                                lastModify: DateTime.now(),
-                                state: noteState,
-                              );
-                              goToNoteEditScreen(
-                                  context: context, note: emptyNote);
-                            }),
+                        text: '+',
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          color: Theme.of(context)
+                              .floatingActionButtonTheme
+                              .backgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            final emptyNote = Note(
+                              lastModify: DateTime.now(),
+                              state: noteState,
+                            );
+                            goToNoteEditScreen(
+                                context: context, note: emptyNote);
+                          },
+                      ),
                       TextSpan(
-                        text: '" to add new note',
+                        text: Languages.of(context).toAddNewNote,
                         style: TextStyle(
                             color:
                                 Theme.of(context).textTheme.bodyText1!.color),
@@ -97,7 +97,6 @@ class ImageWig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //debugPrint('building 16');
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       width: MediaQuery.of(context).size.width * 0.5,

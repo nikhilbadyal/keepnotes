@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MyAppBar(
@@ -19,9 +19,13 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _MyAppBarState extends State<MyAppBar> {
   @override
   AppBar build(BuildContext context) {
-    return AppBar(elevation: 0.6, title: widget.title, actions: [
-      widget.appBarWidget,
-    ]);
+    return AppBar(
+      elevation: 0.6,
+      title: widget.title,
+      actions: [
+        widget.appBarWidget,
+      ],
+    );
   }
 }
 
@@ -39,7 +43,7 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
 
   @override
   void initState() {
-    _animatedChild = child(Key(myNotes.lockChecker.gender));
+    _animatedChild = child(Key(lockChecker.gender));
     super.initState();
   }
 
@@ -60,14 +64,14 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
 
   void defaultDoubleTap() {
     setState(() {
-      if (myNotes.lockChecker.gender == 'men') {
-        myNotes.lockChecker.gender = 'women';
+      if (lockChecker.gender == 'men') {
+        lockChecker.gender = 'women';
       } else {
-        myNotes.lockChecker.gender = 'men';
+        lockChecker.gender = 'men';
       }
-      _animatedChild = child(Key(myNotes.lockChecker.gender));
+      _animatedChild = child(Key(lockChecker.gender));
     });
-    myNotes.lockChecker.addGenderToSf();
+    lockChecker.addGenderToSf();
   }
 
   Widget child(Key key) {
@@ -76,7 +80,7 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
       radius: 22,
       backgroundColor: Colors.white,
       backgroundImage: AssetImage(
-        'assets/images/${myNotes.lockChecker.gender}.png',
+        'assets/images/${lockChecker.gender}.png',
       ),
     );
   }

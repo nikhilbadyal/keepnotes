@@ -12,8 +12,8 @@ late Color selectedIconColor;
 
 late AppTheme selectedAppTheme;
 
-const Color greyColor = Color(0xFFEAEAEA);
-const Color blackColor = Color(0xFF1C1C1C);
+Color greyColor = const Color(0xFFEAEAEA);
+Color blackColor = const Color(0xFF1C1C1C);
 
 List<Color> appColors = <Color>[
   Colors.red,
@@ -124,45 +124,7 @@ class AppConfiguration with ChangeNotifier {
 
   Color get iconColor => _iconColor;
 
-  void changePrimaryColor(Color primary, {bool write = false}) {
-    _primaryColor = primary;
-
-    if (write) {
-      Utilities.addIntToSF('primaryColor', selectedPrimaryColor.value);
-    } else {
-      // debugPrint('Notifying listener');
-      notifyListeners();
-    }
-  }
-
-  void changeAccentColor(Color accentColor, {bool write = false}) {
-    _accentColor = accentColor;
-    if (write) {
-      Utilities.addIntToSF('accentColor', selectedAccentColor.value);
-    } else {
-      notifyListeners();
-    }
-  }
-
-  void changeAppThemeColor(AppTheme appTheme, {bool write = false}) {
-    _appTheme = appTheme;
-
-    if (write) {
-      Utilities.addIntToSF('appTheme', _appTheme.index);
-    }
-    notifyListeners();
-  }
-
-  void changeIconColor(IconColorStatus iconColorStatus,
-      {Color pickedColor = Colors.black}) {
-    _iconColorStatus = iconColorStatus;
-    Utilities.addIntToSF('iconColorStatus', iconColorStatus.index);
-    if (_iconColorStatus == IconColorStatus.PickedColor) {
-      Utilities.addIntToSF('iconColor', pickedColor.value);
-    }
-  }
-
-  void initConfig() {
+  Future<void> initConfig() async {
     var intVal = Utilities.getIntValuesSF('primaryColor');
     if (intVal == null) {
       _primaryColor = defaultPrimary;
@@ -215,6 +177,49 @@ class AppConfiguration with ChangeNotifier {
     } else {
       _iconColor = Color(intVal);
     }
-    selectedIconColor = _iconColor;
+  }
+
+  void changePrimaryColor(Color primary, {bool write = false}) {
+    _primaryColor = primary;
+
+    if (write) {
+      Utilities.addIntToSF('primaryColor', selectedPrimaryColor.value);
+    } else {
+      notifyListeners();
+    }
+  }
+
+  void changeAccentColor(Color accentColor, {bool write = false}) {
+    _accentColor = accentColor;
+    if (write) {
+      Utilities.addIntToSF('accentColor', selectedAccentColor.value);
+    } else {
+      notifyListeners();
+    }
+  }
+
+  void changeAppThemeColor(AppTheme appTheme, {bool write = false}) {
+    _appTheme = appTheme;
+
+    if (write) {
+      Utilities.addIntToSF('appTheme', _appTheme.index);
+    }
+    notifyListeners();
+  }
+
+  void changeLocale(String langCode, {bool write = false}) {
+    if (write) {
+      Utilities.addStringToSF('appLocale', langCode);
+    }
+    // notifyListeners();
+  }
+
+  void changeIconColor(IconColorStatus iconColorStatus,
+      {Color pickedColor = Colors.black}) {
+    _iconColorStatus = iconColorStatus;
+    Utilities.addIntToSF('iconColorStatus', iconColorStatus.index);
+    if (_iconColorStatus == IconColorStatus.PickedColor) {
+      Utilities.addIntToSF('iconColor', pickedColor.value);
+    }
   }
 }

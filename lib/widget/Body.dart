@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Navigations.dart';
 import 'package:notes/widget/ItemsList.dart';
 import 'package:notes/widget/NoNotes.dart';
+import 'package:notes/widget/SimpleDialog.dart';
 import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
@@ -32,7 +34,6 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     assert(widget.fromWhere != NoteState.unspecified);
-    //debugPrint('building Body');
     return FutureBuilder(
       future: myFuture,
       builder: (context, projectSnap) {
@@ -146,10 +147,10 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
       if (item.state == NoteState.deleted) {
         await showDialog<bool>(
           context: context,
-          builder: (BuildContext context) => const MySimpleDialog(
+          builder: (BuildContext context) => MySimpleDialog(
             title: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('Please remove note from trash before editing'),
+              padding: const EdgeInsets.all(8.0),
+              child: Text(Languages.of(context).trashEditingWarning),
             ),
           ),
         );

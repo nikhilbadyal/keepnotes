@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/screen/AboutMeScreen.dart';
 import 'package:notes/screen/BackupRestore.dart';
 import 'package:notes/screen/SettingsScreen.dart';
 import 'package:notes/screen/TopWidgetBase.dart';
-import 'package:notes/util/AppRoutes.dart';
+import 'package:notes/util/ErrorScreen.dart';
+import 'package:notes/util/Languages/Languages.dart';
+import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilites.dart';
 import 'package:notes/widget/AppBar.dart';
 import 'package:notes/widget/Body.dart';
+import 'package:notes/widget/BottomSheet.dart';
 import 'package:notes/widget/FloatingActionButton.dart';
 import 'package:notes/widget/HomeBody.dart';
 import 'package:notes/widget/MyDrawer.dart';
@@ -22,54 +25,46 @@ class ScreenContainer extends TopWidgetBase {
   final ScreenTypes topScreen;
 
   @override
-  Widget get myDrawer {
+  Widget myDrawer(BuildContext context) {
     return MyDrawer();
   }
 
   @override
-  MyAppBar? get appBar {
+  MyAppBar? appBar(BuildContext context) {
     switch (topScreen) {
       case ScreenTypes.Hidden:
-        return const MyAppBar(
-          title: Text('Hidden'),
+        return MyAppBar(
+          title: Text(Languages.of(context).hidden),
         );
       case ScreenTypes.Home:
-        return const MyAppBar(
-          title: Text('Notes'),
+        return MyAppBar(
+          title: Text(Languages.of(context).home),
         );
 
       case ScreenTypes.Archive:
-        return const MyAppBar(
-          title: Text('Archive'),
+        return MyAppBar(
+          title: Text(Languages.of(context).archive),
         );
 
       case ScreenTypes.Backup:
-        return const MyAppBar(
-          title: Text('Backup and Restore'),
+        return MyAppBar(
+          title: Text(Languages.of(context).backup),
         );
 
       case ScreenTypes.Trash:
-        return const MyAppBar(
-          title: Text('Trash'),
+        return MyAppBar(
+          title: Text(Languages.of(context).trash),
         );
 
       case ScreenTypes.AboutMe:
-        return const MyAppBar(
-          title: Text('About'),
+        return MyAppBar(
+          title: Text(Languages.of(context).about),
           // TODO add attribution
-          /*appBarWidget: IconButton(
-              icon: const Icon(TablerIcons.license, color: Colors.green),
-              onPressed: () {
-                const LicensePage(
-                  applicationName: 'My Notes',
-                );
-              },
-            )*/
         );
 
       case ScreenTypes.Settings:
-        return const MyAppBar(
-          title: Text('Settings'),
+        return MyAppBar(
+          title: Text(Languages.of(context).settings),
         );
       default:
         return null;
@@ -77,23 +72,45 @@ class ScreenContainer extends TopWidgetBase {
   }
 
   @override
-  Widget? get floatingActionButton {
+  Widget? floatingActionButton(BuildContext context) {
     switch (topScreen) {
       case ScreenTypes.Hidden:
-        return const Fab(NoteState.hidden);
+        return Fab(
+          onFabTap,
+          noteState: NoteState.hidden,
+        );
       case ScreenTypes.Archive:
-        return const Fab(NoteState.archived);
+        return Fab(
+          onFabTap,
+          noteState: NoteState.hidden,
+        );
       case ScreenTypes.Trash:
-        return const TrashFab();
+        return Fab(
+          onTrashFabTap,
+          icon: const Icon(Icons.delete_forever_outlined),
+        );
       case ScreenTypes.Home:
-        return const Fab(NoteState.unspecified);
+        return Fab(onFabTap);
       default:
         return null;
     }
   }
 
+  Future<void> onFabTap(BuildContext context, NoteState noteState) async {
+    final emptyNote = Note(
+      lastModify: DateTime.now(),
+      state: noteState,
+    );
+    await goToNoteEditScreen(
+        context: context, note: emptyNote, shouldAutoFocus: true);
+  }
+
+  Future<void> onTrashFabTap(BuildContext context, NoteState _) async {
+    moreOptions(context);
+  }
+
   @override
-  Widget get body {
+  Widget body(BuildContext context) {
     switch (topScreen) {
       case ScreenTypes.Backup:
         return const BackUpScreenHelper();
@@ -208,11 +225,10 @@ class ScreenContainer extends TopWidgetBase {
 
   List<Widget> trashSecondary(Note note, BuildContext context) {
     final actionList = <Widget>[];
-    // debugPrint(myNotes.lockChecker.directlyDelete.toString());
 
     actionList.add(
       Utilities.deleteAction(context, note,
-          shouldAsk: myNotes.lockChecker.directlyDelete),
+          shouldAsk: lockChecker.directlyDelete),
     );
     return actionList;
   }

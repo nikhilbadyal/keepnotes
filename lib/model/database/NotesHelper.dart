@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/DatabaseHelper.dart';
@@ -220,7 +221,6 @@ class NotesHelper with ChangeNotifier {
   }
 
   Future getAllNotesHelper(int noteState, {Database? testDb}) async {
-    // debugPrint('called');
     final notesList =
         await DatabaseHelper.getAllNotesDb(noteState, testDb: testDb);
     noteState == NoteState.unspecified.index
@@ -311,84 +311,20 @@ class NotesHelper with ChangeNotifier {
         },
       ).toList();
       // ignore: prefer_foreach
-      // debugPrint('automating');
       try {
         // ignore: prefer_foreach
         for (final note in myList) {
           encryption.decrypt(note);
         }
-      } catch (_) {
-        // debugPrint(e.toString());
-      }
-
-      for (final note in myList) {
-        debugPrint(note.content);
-        debugPrint(note.title);
-      }
-      // debugPrint('automating');
+      } catch (_) {}
 
       for (final note in myList) {
         encryption.encrypt(note);
         await DatabaseHelper.encryptNotesDb(note);
       }
-      for (final note in myList) {
-        debugPrint(note.content);
-        debugPrint(note.title);
-      }
-      // debugPrint('automating');
     } catch (e) {
       return false;
     }
     return true;
-  }
-}
-
-class MySimpleDialog extends StatelessWidget {
-  const MySimpleDialog(
-      {Key? key, required this.title, this.children = const []})
-      : super(key: key);
-
-  final Widget title;
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return SimpleDialog(
-      title: Center(
-        child: title,
-      ),
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.grey.shade900),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      clipBehavior: Clip.antiAlias,
-      children: children,
-    );
-  }
-}
-
-class MyAlertDialog extends StatelessWidget {
-  const MyAlertDialog(
-      {Key? key, required this.title, this.actions, required this.content})
-      : super(key: key);
-
-  final Widget title;
-  final List<Widget>? actions;
-  final Widget content;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: title,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Theme.of(context).iconTheme.color!.withOpacity(0.1),
-        ),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      content: content,
-      actions: actions,
-    );
   }
 }

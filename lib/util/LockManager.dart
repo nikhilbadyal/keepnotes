@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:notes/app.dart';
-import 'package:notes/model/database/NotesHelper.dart';
+import 'package:notes/main.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/Utilites.dart';
+import 'package:notes/widget/AlertDialog.dart';
 import 'package:pedantic/pedantic.dart';
 
 class LockChecker {
@@ -22,8 +23,6 @@ class LockChecker {
   late String gender;
   late bool usedOlderVersion;
   MethodChannel channel = const MethodChannel('externalStorage');
-
-  // MethodChannel channel = const MethodChannel('externalStorage');
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   late bool directlyDelete;
 
@@ -34,7 +33,6 @@ class LockChecker {
   }
 
   Future<void> initConfig() async {
-    // password = Utilities.getReValuesSF('password') ?? '';
     unawaited(Utilities.removeValues('password'));
     bioEnabled = Utilities.getBoolValuesSF('bio') ?? false;
     firstTimeNeeded = Utilities.getBoolValuesSF('firstTimeNeeded') ?? false;
@@ -132,7 +130,7 @@ class LockChecker {
       await _handleError(errorCode: errorCode.code, context: context);
     }
     if (isAuthenticated) {
-      await myNotes.lockChecker.bioEnabledConfig();
+      await lockChecker.bioEnabledConfig();
     }
     return isAuthenticated;
   }
@@ -156,7 +154,7 @@ class LockChecker {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return MyAlertDialog(
-          title: const Text('Error'),
+          title: Text(Languages.of(context).error),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -169,7 +167,7 @@ class LockChecker {
               onPressed: () async {
                 Navigator.of(context).pop();
               },
-              child: const Text('Ok :('),
+              child: Text(Languages.of(context).alertDialogOp2),
             ),
           ],
         );

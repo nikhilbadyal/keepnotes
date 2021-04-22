@@ -1,53 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:notes/model/Note.dart';
-import 'package:notes/util/Navigations.dart';
-import 'package:notes/widget/BottomSheet.dart';
 import 'package:notes/widget/HomeBody.dart';
 
 class Fab extends StatelessWidget {
-  const Fab(this.noteState);
+  const Fab(
+      Future<void> Function(BuildContext context, NoteState noteState)
+          this.onFabTap,
+      {this.noteState = NoteState.unspecified,
+      this.icon = const Icon(Icons.add)});
+
+  final Function(BuildContext context, NoteState noteState) onFabTap;
 
   final NoteState noteState;
 
+  final Icon icon;
+
   @override
   Widget build(BuildContext context) {
-    //debugPrint('FAB building 35');
     return Padding(
       padding: const EdgeInsets.only(bottom: 25),
       child: GestureDetector(
         onLongPress: () => Scaffold.of(context).openDrawer(),
         child: FloatingActionButton(
-          onPressed: () async {
-            final emptyNote = Note(
-              title: '',
-              content: '',
-              lastModify: DateTime.now(),
-              state: noteState,
-            );
-            await goToNoteEditScreen(
-                context: context, note: emptyNote, shouldAutoFocus: true);
-          },
-          child: const Icon(Icons.add),
+          onPressed: () => onFabTap(context, noteState),
+          child: icon,
         ),
-      ),
-    );
-  }
-}
-
-class TrashFab extends StatelessWidget {
-  const TrashFab();
-
-  @override
-  Widget build(BuildContext context) {
-    //debugPrint('FAB building 35');
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 25),
-      child: FloatingActionButton(
-        onPressed: () async {
-          moreOptions(context);
-        },
-        tooltip: 'Add Note',
-        child: const Icon(Icons.delete_forever_outlined),
       ),
     );
   }
@@ -58,7 +35,6 @@ class SelectDeSelectAllFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //debugPrint('FAB building 35');
     final isFalseAvailable = homeBody!.selectedFlag.containsValue(false);
     return Padding(
       padding: const EdgeInsets.only(bottom: 25),

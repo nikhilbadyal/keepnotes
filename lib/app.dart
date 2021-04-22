@@ -1,24 +1,56 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:notes/model/database/Encryption.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/MyRouteObserver.dart';
+import 'package:notes/util/Languages/Languages.dart';
 import 'package:notes/util/ThemeData.dart';
 import 'package:provider/provider.dart';
 
-late MyNotes myNotes;
+late _MyNotesState myNotes;
+
 final RouteObserver<Route> routeObserver = RouteObserver<Route>();
-MyRouteObserver myRouteObserver = MyRouteObserver();
+
+//It manages everything related to password screen
+
+//It manages everything related to AES encryption.
 Encrypt encryption = Encrypt();
 
-class MyNotes extends StatelessWidget {
-  const MyNotes(this.lockChecker);
+class MyNotes extends StatefulWidget {
+  const MyNotes({Key? key, required this.locale}) : super(key: key);
 
-  final LockChecker lockChecker;
+  final Locale locale;
+
+  static void setLocale(BuildContext context, Locale newLocale) {
+    final state = context.findAncestorStateOfType<_MyNotesState>();
+    state!.setLocale(newLocale);
+  }
+
+  @override
+  _MyNotesState createState() => _MyNotesState();
+}
+
+class _MyNotesState extends State<MyNotes> {
+  Locale? _locale;
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  @override
+  Future<void> didChangeDependencies() async {
+    await getLocale().then((locale) {
+      setState(() {
+        _locale = locale;
+      });
+    });
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,42 +66,84 @@ class MyNotes extends StatelessWidget {
       ],
       child: Builder(
         builder: (BuildContext context) {
-          // debugPrint('here');
-          // debugPrint('Building again');
           Provider.of<AppConfiguration>(context);
-          // ignore: prefer_typing_uninitialized_variables
-          var _theme;
+          ThemeData _theme;
           final currentTheme =
               Provider.of<AppConfiguration>(context, listen: false).appTheme;
           if (currentTheme == AppTheme.Black) {
-            // debugPrint('Dark theme');
             _theme = blackTheme(context);
           } else {
             _theme = lightTheme(context);
           }
-          final _statusBarBrightness = selectedAppTheme == AppTheme.Black
+          /* final _statusBarBrightness = selectedAppTheme == AppTheme.Black
               ? Brightness.dark
-              : Brightness.light;
+              : Brightness.light;*/
+
+          // Sync status bar and nav bar with current theme
 
           SystemChrome.setSystemUIOverlayStyle(
             SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarBrightness: _statusBarBrightness,
-              statusBarIconBrightness: _statusBarBrightness,
+              statusBarColor: selectedAppTheme == AppTheme.Light
+                  ? selectedPrimaryColor
+                  : Colors.transparent,
+              /* statusBarBrightness: selectedAppTheme == AppTheme.Light
+                  ? Brightness.dark
+                  : Brightness.light,
+              statusBarIconBrightness: selectedAppTheme == AppTheme.Light
+                  ? Brightness.light
+                  : Brightness.dark,
               systemNavigationBarColor: selectedAppTheme == AppTheme.Light
                   ? Colors.white
                   : Colors.black,
               systemNavigationBarIconBrightness:
                   selectedAppTheme == AppTheme.Light
                       ? Brightness.dark
-                      : Brightness.light,
+                      : Brightness.light, */
             ),
           );
+          final supportedLocales = <Locale>[];
+          // ignore: avoid_function_literals_in_foreach_calls
+          supportedLanguages.forEach((element) =>
+              supportedLocales.add(Locale(element.languageCode, '')));
           return MaterialApp(
+            locale: _locale,
+            supportedLocales: supportedLocales,
+            localizationsDelegates: const [
+              AppLocalizationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            localeResolutionCallback: (locale, supportedLocales) {
+              for (final supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale?.languageCode &&
+                    supportedLocale.countryCode == locale?.countryCode) {
+                  return supportedLocale;
+                }
+              }
+              return supportedLocales.first;
+            },
+            /*locale: _locale,
+            localizationsDelegates: [
+              FallbackLocalizationDelegate(),
+              const AppLocalizationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            localeResolutionCallback: (locale, supportedLocales) {
+              for (final supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale?.languageCode &&
+                    supportedLocale.countryCode == locale?.countryCode) {
+                  return supportedLocale;
+                }
+              }
+              return supportedLocales.first;
+            },*/
             theme: _theme,
-            title: 'Notes App',
-            navigatorObservers: [myRouteObserver],
+            title: Languages.of(context).appTitle,
             initialRoute: '/',
+            debugShowCheckedModeBanner: false,
             onGenerateRoute: RouteGenerator.generateRoute,
           );
         },

@@ -1,10 +1,10 @@
 import 'package:encrypt/encrypt.dart';
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 import 'package:notes/model/Note.dart';
 
 class Encrypt {
   Encrypt() {
-    final myKey = myNotes.lockChecker.password.padLeft(32, '#');
+    final myKey = lockChecker.password.padLeft(32, '#');
     key = Key.fromUtf8(myKey);
     iv = IV.fromLength(16);
     encrypter = Encrypter(

@@ -1,21 +1,21 @@
 import 'package:intl/intl.dart';
-import 'package:notes/app.dart';
+import 'package:notes/main.dart';
 
 enum NoteState {
-  unspecified, //HOM
-  pinned,
+  unspecified, //HOME
+  pinned, // TO be implemented
   archived, //ARCHIVED
-  hidden, //HIdden
+  hidden, //Hidden
   deleted, //Trash
 }
 
 class Note implements Comparable<Note> {
   Note(
       {this.id = -1,
-      required this.title,
-      required this.content,
+      this.title = '',
+      this.content = '',
       required this.lastModify,
-      required this.state});
+      this.state = NoteState.unspecified});
 
   int id;
   String title;
@@ -78,7 +78,7 @@ class Note implements Comparable<Note> {
 
   static Note fromJson(Map<String, dynamic> json) {
     int state = json['state'];
-    if (state == 3 && !myNotes.lockChecker.passwordSet) {
+    if (state == 3 && !lockChecker.passwordSet) {
       state = 0;
     }
     return Note(
@@ -118,15 +118,5 @@ class Note implements Comparable<Note> {
       }
       return 0;
     }
-  }
-}
-
-class Nullable<T> {
-  Nullable(this._value);
-
-  final T _value;
-
-  T get value {
-    return _value;
   }
 }
