@@ -418,19 +418,16 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
                     },
                     child: Text(Language.of(context).alertDialogOp1),
                   ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).popUntil(
-                                (route) =>
-                            route.settings.name == AppRoutes.trashScreen,
-                          );
-                        },
-                        child: Text(Language
-                            .of(context)
-                            .alertDialogOp2),
-                      ),
-                    ],
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).popUntil(
+                        (route) => route.settings.name == AppRoutes.trashScreen,
+                      );
+                    },
+                    child: Text(Language.of(context).alertDialogOp2),
                   ),
+                ],
+              ),
             );
           },
           child: Container(
@@ -438,16 +435,10 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: Theme
-                    .of(context)
-                    .iconTheme
-                    .color!
-                    .withOpacity(0.1),
+                color: Theme.of(context).iconTheme.color!.withOpacity(0.1),
                 width: 1.5,
               ),
-              color: Theme
-                  .of(context)
-                  .cardColor,
+              color: Theme.of(context).cardColor,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 12,
@@ -461,14 +452,11 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
                 Icon(
                   TablerIcons.trash,
                   size: 35,
-                  color: Provider
-                      .of<AppConfiguration>(context, listen: false)
+                  color: Provider.of<AppConfiguration>(context, listen: false)
                       .iconColor,
                 ),
                 const SizedBox(width: 16),
-                Text(Language
-                    .of(context)
-                    .emptyTrash),
+                Text(Language.of(context).emptyTrash),
               ],
             ),
           ),

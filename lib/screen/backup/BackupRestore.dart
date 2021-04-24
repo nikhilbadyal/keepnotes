@@ -48,7 +48,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
                     '',
                     '',
                     '',
-                        () {
+                    () {
                       setState(() {
                         padding = padding == 0 ? 150 : 0;
                         bottomPadding = bottomPadding == 0 ? 150 : 0;
