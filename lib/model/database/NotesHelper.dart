@@ -1,4 +1,3 @@
-// import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/Note.dart';
@@ -22,12 +21,16 @@ class NotesHelper with ChangeNotifier {
     }
     if (!isNew) {
       if (copiedNote.state == NoteState.unspecified) {
-        final index =
-            _mainNotes.indexWhere((element) => element.id == copiedNote.id);
+        final index = _mainNotes.indexWhere((element) {
+          element as Note;
+          return element.id == copiedNote.id;
+        });
         _mainNotes.removeAt(index);
       } else {
-        final index =
-            _otherNotes.indexWhere((element) => element.id == copiedNote.id);
+        final index = _otherNotes.indexWhere((element) {
+          element as Note;
+          return element.id == copiedNote.id;
+        });
         _otherNotes.removeAt(index);
       }
     }
@@ -61,8 +64,14 @@ class NotesHelper with ChangeNotifier {
   Future<bool> archiveNoteHelper(Note note, {Database? testDb}) async {
     if (note.id != -1) {
       note.state == NoteState.unspecified
-          ? _mainNotes.removeWhere((element) => element.id == note.id)
-          : _otherNotes.removeWhere((element) => element.id == note.id);
+          ? _mainNotes.removeWhere((element) {
+              element as Note;
+              return element.id == note.id;
+            })
+          : _otherNotes.removeWhere((element) {
+              element as Note;
+              return element.id == note.id;
+            });
       await DatabaseHelper.archiveNoteDb(note, testDb: testDb);
 
       notifyListeners();
@@ -76,8 +85,14 @@ class NotesHelper with ChangeNotifier {
       final copiedNote = note.copyWith(id: note.id);
       encryption.encrypt(copiedNote);
       note.state == NoteState.unspecified
-          ? _mainNotes.removeWhere((element) => element.id == note.id)
-          : _otherNotes.removeWhere((element) => element.id == note.id);
+          ? _mainNotes.removeWhere((element) {
+              element as Note;
+              return element.id == note.id;
+            })
+          : _otherNotes.removeWhere((element) {
+              element as Note;
+              return element.id == note.id;
+            });
       await DatabaseHelper.hideNoteDb(copiedNote, testDb: testDb);
       notifyListeners();
       return true;
@@ -88,7 +103,10 @@ class NotesHelper with ChangeNotifier {
   Future<bool> unhideNoteHelper(Note note, {Database? testDb}) async {
     if (note.id != -1) {
       _mainNotes.add(note);
-      _otherNotes.removeWhere((element) => element.id == note.id);
+      _otherNotes.removeWhere((element) {
+        element as Note;
+        return element.id == note.id;
+      });
       await DatabaseHelper.unhideNoteDb(note, testDb: testDb);
 
       notifyListeners();
@@ -100,7 +118,10 @@ class NotesHelper with ChangeNotifier {
   Future<bool> unarchiveNoteHelper(Note note, {Database? testDb}) async {
     if (note.id != -1) {
       _mainNotes.add(note);
-      _otherNotes.removeWhere((element) => element.id == note.id);
+      _otherNotes.removeWhere((element) {
+        element as Note;
+        return element.id == note.id;
+      });
       await DatabaseHelper.unarchiveNoteDb(note, testDb: testDb);
 
       notifyListeners();
@@ -114,7 +135,10 @@ class NotesHelper with ChangeNotifier {
       return false;
     }
     _mainNotes.add(note);
-    _otherNotes.removeWhere((element) => element.id == note.id);
+    _otherNotes.removeWhere((element) {
+      element as Note;
+      return element.id == note.id;
+    });
     await DatabaseHelper.undeleteDb(note, testDb: testDb);
 
     notifyListeners();
@@ -128,10 +152,16 @@ class NotesHelper with ChangeNotifier {
     }
     try {
       note.state == NoteState.unspecified
-          ? _mainNotes.removeWhere((element) => element.id == note.id)
-          : _otherNotes.removeWhere((element) => element.id == note.id);
+          ? _mainNotes.removeWhere((element) {
+              element as Note;
+              return element.id == note.id;
+            })
+          : _otherNotes.removeWhere((element) {
+              element as Note;
+              return element.id == note.id;
+            });
       status = await DatabaseHelper.deleteNoteDb(note, testDb: testDb);
-    } catch (_) {
+    } on Exception catch (_) {
       return false;
     }
     notifyListeners();
@@ -142,8 +172,14 @@ class NotesHelper with ChangeNotifier {
     var stat = false;
     if (note.id != -1) {
       note.state == NoteState.unspecified
-          ? _mainNotes.removeWhere((element) => element.id == note.id)
-          : _otherNotes.removeWhere((element) => element.id == note.id);
+          ? _mainNotes.removeWhere((element) {
+              element as Note;
+              return element.id == note.id;
+            })
+          : _otherNotes.removeWhere((element) {
+              element as Note;
+              return element.id == note.id;
+            });
       stat = await DatabaseHelper.trashNoteDb(note, testDb: testDb);
 
       notifyListeners();
@@ -169,8 +205,7 @@ class NotesHelper with ChangeNotifier {
         await DatabaseHelper.getNotesAllForBackupDb(testDb: testDb);
     final items = notesList.map(
       (itemVar) {
-        return Note(
-          id: itemVar['id'],
+        final note = Note(
           title: itemVar['title'].toString(),
           content: itemVar['content'].toString(),
           lastModify: DateTime.fromMillisecondsSinceEpoch(
@@ -178,16 +213,15 @@ class NotesHelper with ChangeNotifier {
           ),
           state: NoteState.values[itemVar['state']],
         );
+        if (note.state == NoteState.hidden) {
+          note.state = NoteState.unspecified;
+          encryption.decrypt(note);
+        }
+        return note;
       },
     ).toList();
     return items;
   }
-
-  /*Future<bool> addAllNotesToDatabseHelper(Map<String, dynamic> jsonList) async {
-    final status = await DatabaseHelper.addAllNotesToBackupDb(jsonList);
-    notifyListeners();
-    return status;
-  }*/
 
   Future<bool> addAllNotesToDatabaseHelper(List<Note> notesList,
       {Database? testDb}) async {
@@ -198,24 +232,21 @@ class NotesHelper with ChangeNotifier {
 
   Future<void> encryptAllHidden() async {
     final notes = await DatabaseHelper.getAllNotesDb(NoteState.hidden.index);
-    final notesList = notes.map(
-      (itemVar) {
-        return Note(
-          id: itemVar['id'],
-          title: itemVar['title'].toString(),
-          content: itemVar['content'].toString(),
-          lastModify: DateTime.fromMillisecondsSinceEpoch(
-            itemVar['lastModify'],
+    final notesList = notes
+        .map(
+          (itemVar) => Note(
+            id: itemVar['id'],
+            title: itemVar['title'].toString(),
+            content: itemVar['content'].toString(),
+            lastModify: DateTime.fromMillisecondsSinceEpoch(
+              itemVar['lastModify'],
+            ),
+            state: NoteState.values[itemVar['state']],
           ),
-          state: NoteState.values[itemVar['state']],
-        );
-      },
-    ).toList();
-    // ignore: prefer_foreach
+        )
+        .toList();
     for (final notes in notesList) {
       encryption.encrypt(notes);
-    }
-    for (final notes in notesList) {
       await DatabaseHelper.insertNoteDb(notes);
     }
   }
@@ -224,9 +255,9 @@ class NotesHelper with ChangeNotifier {
     final notesList =
         await DatabaseHelper.getAllNotesDb(noteState, testDb: testDb);
     noteState == NoteState.unspecified.index
-        ? _mainNotes = notesList.map(
-            (itemVar) {
-              return Note(
+        ? _mainNotes = notesList
+            .map(
+              (itemVar) => Note(
                 id: itemVar['id'],
                 title: itemVar['title'].toString(),
                 content: itemVar['content'].toString(),
@@ -234,12 +265,12 @@ class NotesHelper with ChangeNotifier {
                   itemVar['lastModify'],
                 ),
                 state: NoteState.values[itemVar['state']],
-              );
-            },
-          ).toList()
-        : _otherNotes = notesList.map(
-            (itemVar) {
-              return Note(
+              ),
+            )
+            .toList()
+        : _otherNotes = notesList
+            .map(
+              (itemVar) => Note(
                 id: itemVar['id'],
                 title: itemVar['title'].toString(),
                 content: itemVar['content'].toString(),
@@ -247,11 +278,10 @@ class NotesHelper with ChangeNotifier {
                   itemVar['lastModify'],
                 ),
                 state: NoteState.values[itemVar['state']],
-              );
-            },
-          ).toList();
+              ),
+            )
+            .toList();
     if (noteState == NoteState.hidden.index) {
-      // ignore: avoid_function_literals_in_foreach_calls
       _otherNotes.forEach((element) {
         encryption.decrypt(element);
       });
@@ -263,30 +293,29 @@ class NotesHelper with ChangeNotifier {
       final notesList = await DatabaseHelper.getAllNotesDb(
         NoteState.hidden.index,
       );
-      final myList = notesList.map(
-        (itemVar) {
-          return Note(
-            id: itemVar['id'],
-            title: itemVar['title'].toString(),
-            content: itemVar['content'].toString(),
-            lastModify: DateTime.fromMillisecondsSinceEpoch(
-              itemVar['lastModify'],
+      final myList = notesList
+          .map(
+            (itemVar) => Note(
+              id: itemVar['id'],
+              title: itemVar['title'].toString(),
+              content: itemVar['content'].toString(),
+              lastModify: DateTime.fromMillisecondsSinceEpoch(
+                itemVar['lastModify'],
+              ),
+              state: NoteState.values[itemVar['state']],
             ),
-            state: NoteState.values[itemVar['state']],
-          );
-        },
-      ).toList();
-      // ignore: prefer_foreach
-      for (final note in myList) {
-        encryption.decrypt(note);
-      }
-      // ignore: prefer_foreach
+          )
+          .toList();
+      // ignore: cascade_invocations
+      myList.forEach((element) {
+        encryption.decrypt(element);
+      });
       encryption.resetDetails(password);
       for (final note in myList) {
         encryption.encrypt(note);
         await DatabaseHelper.encryptNotesDb(note);
       }
-    } catch (e) {
+    } on Exception catch (_) {
       return false;
     }
     return true;
@@ -297,32 +326,30 @@ class NotesHelper with ChangeNotifier {
       final notesList = await DatabaseHelper.getAllNotesDb(
         NoteState.hidden.index,
       );
-      final myList = notesList.map(
-        (itemVar) {
-          return Note(
-            id: itemVar['id'],
-            title: itemVar['title'].toString(),
-            content: itemVar['content'].toString(),
-            lastModify: DateTime.fromMillisecondsSinceEpoch(
-              itemVar['lastModify'],
+      final myList = notesList
+          .map(
+            (itemVar) => Note(
+              id: itemVar['id'],
+              title: itemVar['title'].toString(),
+              content: itemVar['content'].toString(),
+              lastModify: DateTime.fromMillisecondsSinceEpoch(
+                itemVar['lastModify'],
+              ),
+              state: NoteState.values[itemVar['state']],
             ),
-            state: NoteState.values[itemVar['state']],
-          );
-        },
-      ).toList();
-      // ignore: prefer_foreach
+          )
+          .toList();
       try {
-        // ignore: prefer_foreach
-        for (final note in myList) {
-          encryption.decrypt(note);
-        }
-      } catch (_) {}
+        myList.forEach((element) {
+          encryption.decrypt(element);
+        });
+      } on Exception catch (_) {}
 
       for (final note in myList) {
         encryption.encrypt(note);
         await DatabaseHelper.encryptNotesDb(note);
       }
-    } catch (e) {
+    } on Exception catch (_) {
       return false;
     }
     return true;

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/util/AppConfiguration.dart';
+import 'package:provider/provider.dart';
 
 typedef onTap = void Function();
 typedef onLongPress = void Function();
 
 class ListItem extends StatelessWidget {
-  const ListItem(
-      {Key? key,
-      required this.note,
-      this.onItemTap,
-      this.onItemLongPress,
-      required this.isSelected,
-      required this.selectedFlag})
-      : super(key: key);
+  const ListItem({
+    required this.note,
+    required this.isSelected,
+    required this.selectedFlag,
+    this.onItemTap,
+    this.onItemLongPress,
+    Key? key,
+  }) : super(key: key);
 
   final Note note;
   final onTap? onItemTap;
@@ -22,82 +23,88 @@ class ListItem extends StatelessWidget {
   final Map<int, bool> selectedFlag;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 125.0,
-      child: GestureDetector(
-        onLongPress: onItemLongPress,
-        onTap: onItemTap,
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          decoration: BoxDecoration(
-            color: selectedAppTheme == AppTheme.Light
-                ? Theme.of(context).floatingActionButtonTheme.foregroundColor
-                : Colors.grey[900],
-            boxShadow: selectedAppTheme == AppTheme.Light ? shadow : null,
-            borderRadius: BorderRadius.circular(15.0),
-            border: Border.all(
-              color: selectedAppTheme == AppTheme.Light
-                  ? greyColor
-                  : Theme.of(context).primaryColor,
+  Widget build(BuildContext context) => SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: 125,
+        child: GestureDetector(
+          onLongPress: onItemLongPress,
+          onTap: onItemTap,
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              color: Provider.of<AppConfiguration>(context, listen: false)
+                          .appTheme ==
+                      AppTheme.Light
+                  ? Theme.of(context).floatingActionButtonTheme.foregroundColor
+                  : Colors.grey[900],
+              boxShadow: Provider.of<AppConfiguration>(context, listen: false)
+                          .appTheme ==
+                      AppTheme.Light
+                  ? shadow
+                  : null,
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                color: Provider.of<AppConfiguration>(context, listen: false)
+                            .appTheme ==
+                        AppTheme.Light
+                    ? greyColor
+                    : Theme.of(context).primaryColor,
+              ),
             ),
-          ),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        note.title,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: const TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 4.0,
-                      ),
-                      Text(
-                        note.strLastModifiedDate,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 11.0,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      Expanded(
-                        child: Text(
-                          note.content,
-                          maxLines: 2,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          note.title,
                           overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                           style: const TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal,
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          note.strLastModifiedDate,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 11,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Expanded(
+                          child: Text(
+                            note.content,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              _selectedIcon(isSelected),
-            ],
+                _selectedIcon(isSelected),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 
   Widget _selectedIcon(bool isSelected) {
     if (isSelected) {

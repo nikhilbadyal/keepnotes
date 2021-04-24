@@ -1,20 +1,19 @@
 import 'package:intl/intl.dart';
-import 'package:notes/main.dart';
 
 enum NoteState {
-  unspecified, //HOME
-  pinned, // TO be implemented
-  archived, //ARCHIVED
-  hidden, //Hidden
-  deleted, //Trash
+  unspecified,
+  pinned,
+  archived,
+  hidden,
+  deleted,
 }
 
 class Note implements Comparable<Note> {
   Note(
-      {this.id = -1,
+      {required this.lastModify,
+      this.id = -1,
       this.title = '',
       this.content = '',
-      required this.lastModify,
       this.state = NoteState.unspecified});
 
   int id;
@@ -29,34 +28,23 @@ class Note implements Comparable<Note> {
     String? content,
     DateTime? lastModify,
     NoteState? state,
-  }) {
-    return Note(
-        id: id,
-        title: title ?? this.title,
-        state: state ?? this.state,
-        lastModify: lastModify ?? this.lastModify,
-        content: content ?? this.content);
-  }
+  }) =>
+      Note(
+          id: id,
+          title: title ?? this.title,
+          state: state ?? this.state,
+          lastModify: lastModify ?? this.lastModify,
+          content: content ?? this.content);
 
   @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) => other is Note && other.id == id;
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => id.hashCode;
-
-  @override
-  String toString() {
-    return 'Object is $id $title $content $lastModify $state';
-  }
+  String toString() => 'Object is $id $title $content $lastModify $state';
 
   Map<String, dynamic> toMap({required bool isNew}) {
     final data = <String, dynamic>{
       'title': title,
       'content': content,
       'lastModify': lastModify.millisecondsSinceEpoch,
-      'state': state.index, //  for later use for integrating archiving
+      'state': state.index,
     };
     if (!isNew) {
       data['id'] = id;
@@ -77,12 +65,10 @@ class Note implements Comparable<Note> {
   }
 
   static Note fromJson(Map<String, dynamic> json) {
-    int state = json['state'];
-    if (state == 3 && !lockChecker.passwordSet) {
-      state = 0;
-    }
+    final int state = json['state'];
+    final int id = json['title'] ?? -1;
     return Note(
-      title: json['title'].toString(),
+      title: id.toString(),
       content: json['content'].toString(),
       lastModify: DateTime.fromMillisecondsSinceEpoch(
         json['lastModify'],

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:notes/model/Languages.dart';
 import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/Languages/Languages.dart';
-import 'package:notes/util/Utilites.dart';
+import 'package:notes/util/Utilities.dart';
 
 typedef BackPresAction = Future<bool> Function();
 
 class DoubleBackToCloseWidget extends StatefulWidget {
-  const DoubleBackToCloseWidget({required this.child});
+  const DoubleBackToCloseWidget({required this.child, Key? key})
+      : super(key: key);
 
   final Widget child;
 
@@ -43,11 +44,11 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
       if (ModalRoute.of(context)!.settings.name! == '/lock' ||
           ModalRoute.of(context)!.settings.name! == '/setpass') {
         Navigator.of(context)
-            .popUntil((route) => route.settings.name == NotesRoutes.homeScreen);
+            .popUntil((route) => route.settings.name == AppRoutes.homeScreen);
         return Future.value(true);
       } else if (ModalRoute.of(context)!.settings.name! ==
-          NotesRoutes.homeScreen) {
-        Utilities.showSnackbar(context, Languages.of(context).doubleBackToExit,
+          AppRoutes.homeScreen) {
+        Utilities.showSnackbar(context, Language.of(context).doubleBackToExit,
             duration: const Duration(
                 milliseconds: DoubleBackToCloseWidget.exitTimeInMillis - 10));
         return Future.value(false);

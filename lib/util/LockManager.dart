@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:notes/main.dart';
-import 'package:notes/util/Languages/Languages.dart';
-import 'package:notes/util/Utilites.dart';
+import 'package:notes/model/Languages.dart';
+import 'package:notes/util/Utilities.dart';
 import 'package:notes/widget/AlertDialog.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:provider/provider.dart';
 
-class LockChecker {
-  LockChecker() {
+class LockChecker with ChangeNotifier {
+  LockChecker(this.password) {
     initConfig();
   }
 
@@ -28,26 +28,27 @@ class LockChecker {
 
   void updateDetails() {}
 
-  Future<void> updateGender(String gender) async {
-    return Utilities.addStringToSF('gender', gender);
-  }
+  Future<void> updateGender(String gender) async =>
+      Utilities.addStringToSF('gender', gender);
 
-  Future<void> initConfig() async {
-    unawaited(Utilities.removeValues('password'));
-    bioEnabled = Utilities.getBoolValuesSF('bio') ?? false;
-    firstTimeNeeded = Utilities.getBoolValuesSF('firstTimeNeeded') ?? false;
-    bioAvailable = bioEnabled || await bioAvailCheck();
-    fpDirectly = Utilities.getBoolValuesSF('fpDirectly') ?? false;
-    directlyDelete = Utilities.getBoolValuesSF('directlyDelete') ?? true;
-    gender = Utilities.getStringValuesSF('gender') ?? 'women';
-    usedOlderVersion = Utilities.getBoolValuesSF('usedOlderVersion') ?? true;
-    password = await Utilities.storage.read(key: 'password') ?? '';
+  void initConfig() {
+    unawaited(Utilities.removeValueFromSF('password'));
+    bioEnabled = Utilities.getBoolFromSF('bio') ?? false;
+    firstTimeNeeded = Utilities.getBoolFromSF('firstTimeNeeded') ?? false;
+    bioAvailable = bioEnabled;
+    fpDirectly = Utilities.getBoolFromSF('fpDirectly') ?? false;
+    directlyDelete = Utilities.getBoolFromSF('directlyDelete') ?? true;
+    gender = Utilities.getStringFromSF('gender') ?? 'women';
+    usedOlderVersion = Utilities.getBoolFromSF('usedOlderVersion') ?? true;
     passwordSet = password.isNotEmpty;
     unawaited(getPath());
   }
 
   Future<void> getPath() async {
     exportPath = await channel.invokeMethod('getExternalStorageDirectory');
+    if (!bioAvailable) {
+      bioAvailable = await _localAuthentication.canCheckBiometrics;
+    }
   }
 
   Future<void> resetConfig() async {
@@ -56,15 +57,15 @@ class LockChecker {
     bioEnabled = false;
     firstTimeNeeded = false;
     unawaited(Utilities.storage.delete(key: 'password'));
-    await Utilities.removeValues('bio');
-    await Utilities.removeValues('biofirstTimeNeeded');
+    await Utilities.removeValueFromSF('bio');
+    await Utilities.removeValueFromSF('biofirstTimeNeeded');
   }
 
   Future<void> changePassword(String newPassword) async {
     password = newPassword;
     firstTimeNeeded = true;
     unawaited(Utilities.storage.delete(key: 'password'));
-    await Utilities.removeValues('bio');
+    await Utilities.removeValueFromSF('bio');
     await Utilities.addBoolToSF('biofirstTimeNeeded', value: true);
   }
 
@@ -80,18 +81,6 @@ class LockChecker {
     firstTimeNeeded = true;
     await Utilities.addBoolToSF('bio', value: true);
     await Utilities.addBoolToSF('firstTimeNeeded', value: true);
-  }
-
-  Future<bool> isBioAvailable() async {
-    var isAvailable = false;
-    try {
-      isAvailable = await _localAuthentication.canCheckBiometrics;
-    } on PlatformException catch (_) {}
-    return isAvailable;
-  }
-
-  Future<bool> bioAvailCheck() async {
-    return isBioAvailable();
   }
 
   void addGenderToSf() {
@@ -130,7 +119,7 @@ class LockChecker {
       await _handleError(errorCode: errorCode.code, context: context);
     }
     if (isAuthenticated) {
-      await lockChecker.bioEnabledConfig();
+      await Provider.of<LockChecker>(context, listen: false).bioEnabledConfig();
     }
     return isAuthenticated;
   }
@@ -151,27 +140,25 @@ class LockChecker {
     }
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return MyAlertDialog(
-          title: Text(Languages.of(context).error),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(error),
-              ],
-            ),
+      barrierDismissible: false,
+      builder: (context) => MyAlertDialog(
+        title: Text(Language.of(context).error),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(error),
+            ],
           ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () async {
-                Navigator.of(context).pop();
-              },
-              child: Text(Languages.of(context).alertDialogOp2),
-            ),
-          ],
-        );
-      },
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+            },
+            child: Text(Language.of(context).alertDialogOp2),
+          ),
+        ],
+      ),
     );
   }
 

@@ -1,19 +1,108 @@
 import 'package:flutter/material.dart';
-import 'package:notes/util/Utilites.dart';
+import 'package:notes/util/ThemeData.dart';
+import 'package:notes/util/Utilities.dart';
+import 'package:pedantic/pedantic.dart';
 
 Color defaultPrimary = const Color(0xFF355C7D);
-late Color selectedPrimaryColor;
-
-Color defaultAccent = Colors.yellow;
-late Color selectedAccentColor;
-
-late IconColorStatus selectedIconColorStatus;
-late Color selectedIconColor;
-
-late AppTheme selectedAppTheme;
 
 Color greyColor = const Color(0xFFEAEAEA);
-Color blackColor = const Color(0xFF1C1C1C);
+
+class AppConfiguration with ChangeNotifier {
+  AppConfiguration() {
+    initConfig();
+  }
+
+  late Color primaryColor;
+  late AppTheme appTheme;
+  late IconColorStatus iconColorStatus;
+  late Color iconColor;
+  late ThemeData currentTheme;
+
+  Future<void> initConfig() async {
+    var intVal = Utilities.getIntFromSF('primaryColor');
+    if (intVal == null) {
+      primaryColor = defaultPrimary;
+    } else {
+      primaryColor = Color(intVal);
+    }
+
+    intVal = null;
+    intVal = Utilities.getIntFromSF('appTheme');
+    if (intVal == null) {
+      appTheme = AppTheme.Light;
+    } else {
+      appTheme = AppTheme.values[intVal];
+    }
+    currentTheme = appTheme == AppTheme.Light
+        ? lightTheme(primaryColor)
+        : blackTheme(primaryColor);
+
+    intVal = null;
+    intVal = Utilities.getIntFromSF('iconColorStatus');
+    if (intVal == null) {
+      iconColorStatus = IconColorStatus.NoColor;
+    } else {
+      try {
+        iconColorStatus = IconColorStatus.values[intVal];
+      } on Exception catch (_) {
+        unawaited(Utilities.addIntToSF('iconColorStatus', 2));
+        iconColorStatus = IconColorStatus.UiColor;
+      }
+    }
+    intVal = null;
+    intVal = Utilities.getIntFromSF('iconColor');
+    switch (iconColorStatus) {
+      case IconColorStatus.NoColor:
+        iconColor = appTheme == AppTheme.Light ? Colors.black : Colors.white;
+        break;
+      case IconColorStatus.PickedColor:
+        iconColor = Color(intVal!);
+        break;
+      case IconColorStatus.UiColor:
+        iconColor = primaryColor;
+        break;
+    }
+  }
+
+  void changePrimaryColor({bool write = false}) {
+    currentTheme = appTheme == AppTheme.Light
+        ? lightTheme(primaryColor)
+        : blackTheme(primaryColor);
+    if (write) {
+      Utilities.addIntToSF('primaryColor', primaryColor.value);
+    } else {
+      notifyListeners();
+    }
+  }
+
+  void changeAppTheme({bool write = false}) {
+    currentTheme = appTheme == AppTheme.Light
+        ? lightTheme(primaryColor)
+        : blackTheme(primaryColor);
+    if (iconColorStatus == IconColorStatus.NoColor) {
+      iconColor = appTheme == AppTheme.Light ? Colors.black : Colors.white;
+    }
+    if (write) {
+      Utilities.addIntToSF('appTheme', appTheme.index);
+    }
+    notifyListeners();
+  }
+
+  void changeLocale(String langCode, {bool write = false}) {
+    if (write) {
+      Utilities.addStringToSF('appLocale', langCode);
+    }
+  }
+
+  void changeIconColor() {
+    Utilities.addIntToSF('iconColorStatus', 1);
+    Utilities.addIntToSF('iconColor', iconColor.value);
+  }
+
+  void changeIconColorStatus(int status) {
+    Utilities.addIntToSF('iconColorStatus', status);
+  }
+}
 
 List<Color> appColors = <Color>[
   Colors.red,
@@ -40,7 +129,6 @@ List<Color> appColors = <Color>[
   Colors.lightGreenAccent,
   Colors.lime,
   Colors.orange,
-  // Colors.orangeAccent,
   Colors.deepOrange,
   Colors.brown,
   Colors.grey,
@@ -54,44 +142,25 @@ List<Color> appColors = <Color>[
   const Color(0xFFfd9400),
   //TODO fix this
   // Colors.black,
-
-// Colors.deepOrangeAccent,
 ];
 
-var shadow = [
+List<BoxShadow> shadow = [
   BoxShadow(
     color: Colors.grey[200]!,
     blurRadius: 30,
     offset: const Offset(0, 10),
   )
 ];
-/*
-Color darken(Color color, [double amount = .1],) {
-  assert(amount >= 0 && amount <= 1);
 
-  final hsl = HSLColor.fromColor(color);
-  final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
-
-  return hslDark.toColor();
-}
-
-Color lighten(Color color, [double amount = .1],) {
-  assert(amount >= 0 && amount <= 1);
-
-  final hsl = HSLColor.fromColor(color);
-  final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
-
-  return hslLight.toColor();
-}*/
 Color darken(Color c, [int percent = 10]) {
-  assert(1 <= percent && percent <= 100);
+  assert(1 <= percent && percent <= 100, 'Percent must be b/w 1&100');
   final f = 1 - percent / 100;
   return Color.fromARGB(c.alpha, (c.red * f).round(), (c.green * f).round(),
       (c.blue * f).round());
 }
 
 Color lighten(Color c, [int percent = 10]) {
-  assert(1 <= percent && percent <= 100);
+  assert(1 <= percent && percent <= 100, 'Percent must be b/w 1&100');
   final p = percent / 100;
   return Color.fromARGB(
     c.alpha,
@@ -102,124 +171,3 @@ Color lighten(Color c, [int percent = 10]) {
 }
 
 enum AppTheme { Dark, Black, Light }
-
-class AppConfiguration with ChangeNotifier {
-  AppConfiguration() {
-    initConfig();
-  }
-
-  late Color _primaryColor;
-  late Color _accentColor;
-  late AppTheme _appTheme;
-  late IconColorStatus _iconColorStatus;
-  late Color _iconColor;
-
-  AppTheme get appTheme => _appTheme;
-
-  IconColorStatus get iconColorStatus => _iconColorStatus;
-
-  Color get primaryColor => _primaryColor;
-
-  Color get accentColor => _accentColor;
-
-  Color get iconColor => _iconColor;
-
-  Future<void> initConfig() async {
-    var intVal = Utilities.getIntValuesSF('primaryColor');
-    if (intVal == null) {
-      _primaryColor = defaultPrimary;
-    } else {
-      _primaryColor = Color(intVal);
-    }
-    selectedPrimaryColor = _primaryColor;
-
-    intVal = null;
-    intVal = Utilities.getIntValuesSF('accentColor');
-    if (intVal == null) {
-      _accentColor = defaultAccent;
-    } else {
-      _accentColor = Color(intVal);
-    }
-    selectedAccentColor = _accentColor;
-
-    intVal = null;
-    intVal = Utilities.getIntValuesSF('appTheme');
-    if (intVal == null) {
-      _appTheme = AppTheme.Light;
-    } else {
-      _appTheme = AppTheme.values[intVal];
-    }
-    selectedAppTheme = _appTheme;
-
-    intVal = -1;
-    intVal = Utilities.getIntValuesSF('iconColorStatus');
-    if (intVal == null) {
-      _iconColorStatus = IconColorStatus.NoColor;
-    } else {
-      _iconColorStatus = IconColorStatus.values[intVal];
-    }
-    selectedIconColorStatus = _iconColorStatus;
-
-    intVal = null;
-    intVal = Utilities.getIntValuesSF('iconColor');
-    if (intVal == null) {
-      switch (_iconColorStatus) {
-        case IconColorStatus.RandomColor:
-          _iconColor = getRandomColor();
-          break;
-        case IconColorStatus.UiColor:
-          _iconColor = primaryColor;
-          break;
-        default:
-          _iconColor =
-              _appTheme == AppTheme.Light ? Colors.black : Colors.black;
-      }
-    } else {
-      _iconColor = Color(intVal);
-    }
-  }
-
-  void changePrimaryColor(Color primary, {bool write = false}) {
-    _primaryColor = primary;
-
-    if (write) {
-      Utilities.addIntToSF('primaryColor', selectedPrimaryColor.value);
-    } else {
-      notifyListeners();
-    }
-  }
-
-  void changeAccentColor(Color accentColor, {bool write = false}) {
-    _accentColor = accentColor;
-    if (write) {
-      Utilities.addIntToSF('accentColor', selectedAccentColor.value);
-    } else {
-      notifyListeners();
-    }
-  }
-
-  void changeAppThemeColor(AppTheme appTheme, {bool write = false}) {
-    _appTheme = appTheme;
-
-    if (write) {
-      Utilities.addIntToSF('appTheme', _appTheme.index);
-    }
-    notifyListeners();
-  }
-
-  void changeLocale(String langCode, {bool write = false}) {
-    if (write) {
-      Utilities.addStringToSF('appLocale', langCode);
-    }
-    // notifyListeners();
-  }
-
-  void changeIconColor(IconColorStatus iconColorStatus,
-      {Color pickedColor = Colors.black}) {
-    _iconColorStatus = iconColorStatus;
-    Utilities.addIntToSF('iconColorStatus', iconColorStatus.index);
-    if (_iconColorStatus == IconColorStatus.PickedColor) {
-      Utilities.addIntToSF('iconColor', pickedColor.value);
-    }
-  }
-}

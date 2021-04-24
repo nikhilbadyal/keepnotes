@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:notes/main.dart';
+import 'package:notes/model/Languages.dart';
 import 'package:notes/model/Note.dart';
-import 'package:notes/screen/EditScreen.dart';
-import 'package:notes/screen/SetPassword.dart';
+import 'package:notes/screen/edit/EditScreen.dart';
+import 'package:notes/screen/lock/SetPassword.dart';
 import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/Languages/Languages.dart';
-import 'package:notes/util/Utilites.dart';
+import 'package:notes/util/LockManager.dart';
+import 'package:notes/util/Utilities.dart';
+import 'package:provider/provider.dart';
 
 Future navigate(String activeRoute, BuildContext context, String route,
     [Object? arguments]) async {
-  if (activeRoute == route && route != NotesRoutes.setpassScreen) {
+  if (activeRoute == route && route != AppRoutes.setpassScreen) {
     return Navigator.pop(context);
   }
-  if (route == NotesRoutes.homeScreen) {
-    // TODO i can also do pop until here
-    await Navigator.pushNamedAndRemoveUntil(
-        context, route, (Route<dynamic> route) => false,
+  if (route == AppRoutes.homeScreen) {
+    await Navigator.pushNamedAndRemoveUntil(context, route, (route) => false,
         arguments: arguments);
   } else {
     if (activeRoute == '/') {
@@ -37,7 +36,7 @@ void goToBugScreen(BuildContext context) {
 Future<void> goToNoteEditScreen(
     {required BuildContext context,
     required Note note,
-    shouldAutoFocus = false}) async {
+    bool shouldAutoFocus = false}) async {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
   await Navigator.push(
@@ -52,33 +51,38 @@ Future<void> goToNoteEditScreen(
 }
 
 Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
-  if (ModalRoute.of(context)!.settings.name == NotesRoutes.hiddenScreen) {
+  if (ModalRoute.of(context)!.settings.name == AppRoutes.hiddenScreen) {
     Navigator.of(context).pop();
     return;
   }
-  if (lockChecker.passwordSet) {
-    if (lockChecker.bioEnabled &&
-        !lockChecker.firstTimeNeeded &&
-        lockChecker.fpDirectly) {
-      final status = await lockChecker.authenticateUser(context);
+  if (Provider.of<LockChecker>(context, listen: false).passwordSet) {
+    if (Provider.of<LockChecker>(context, listen: false).bioEnabled &&
+        !Provider.of<LockChecker>(context, listen: false).firstTimeNeeded &&
+        Provider.of<LockChecker>(context, listen: false).fpDirectly) {
+      final status = await Provider.of<LockChecker>(context, listen: false)
+          .authenticateUser(context);
       if (status) {
         await navigate(ModalRoute.of(context)!.settings.name!, context,
-            NotesRoutes.hiddenScreen);
+            AppRoutes.hiddenScreen);
         return;
       }
     }
     await navigate(
       activeRoute,
       context,
-      NotesRoutes.lockScreen,
+      AppRoutes.lockScreen,
       false,
     );
   } else {
     await navigate(
       activeRoute,
       context,
-      NotesRoutes.setpassScreen,
-      DataObj(true, '', Languages.of(context).enterNewPassword),
+      AppRoutes.setpassScreen,
+      DataObj(
+        '',
+        Language.of(context).enterNewPassword,
+        isFirst: true,
+      ),
     );
   }
 }

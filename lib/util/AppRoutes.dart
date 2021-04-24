@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:notes/animations/routing/BlurRoute.dart';
-import 'package:notes/screen/LockScreen.dart';
-import 'package:notes/screen/SetPassword.dart';
-import 'package:notes/screen/TopWidget.dart';
-import 'package:notes/screen/TopWidgetBase.dart';
+import 'package:notes/screen/lock/LockScreen.dart';
+import 'package:notes/screen/lock/SetPassword.dart';
+import 'package:notes/screen/topWidget/TopWidget.dart';
+import 'package:notes/screen/topWidget/TopWidgetBase.dart';
 import 'package:notes/util/ErrorScreen.dart';
 
-class NotesRoutes {
+class AppRoutes {
   static const hiddenScreen = '/hidden';
   static const lockScreen = '/lock';
   static const setpassScreen = '/setpass';
@@ -22,7 +22,7 @@ class NotesRoutes {
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case NotesRoutes.hiddenScreen:
+      case AppRoutes.hiddenScreen:
         {
           return BlurPageRoute(
             settings: settings,
@@ -32,7 +32,7 @@ class RouteGenerator {
           );
         }
 
-      case NotesRoutes.lockScreen:
+      case AppRoutes.lockScreen:
         {
           return BlurPageRoute(
             settings: settings,
@@ -40,7 +40,7 @@ class RouteGenerator {
           );
         }
 
-      case NotesRoutes.homeScreen:
+      case AppRoutes.homeScreen:
         {
           return BlurPageRoute(
             settings: settings,
@@ -50,7 +50,7 @@ class RouteGenerator {
           );
         }
 
-      case NotesRoutes.archiveScreen:
+      case AppRoutes.archiveScreen:
         {
           return BlurPageRoute(
             settings: settings,
@@ -60,7 +60,7 @@ class RouteGenerator {
           );
         }
 
-      case NotesRoutes.backupScreen:
+      case AppRoutes.backupScreen:
         {
           return BlurPageRoute(
             settings: settings,
@@ -70,7 +70,7 @@ class RouteGenerator {
           );
         }
 
-      case NotesRoutes.trashScreen:
+      case AppRoutes.trashScreen:
         {
           return BlurPageRoute(
             settings: settings,
@@ -80,7 +80,7 @@ class RouteGenerator {
           );
         }
 
-      case NotesRoutes.aboutMeScreen:
+      case AppRoutes.aboutMeScreen:
         {
           return BlurPageRoute(
             settings: settings,
@@ -90,7 +90,7 @@ class RouteGenerator {
           );
         }
 
-      case NotesRoutes.settingsScreen:
+      case AppRoutes.settingsScreen:
         {
           return BlurPageRoute(
             settings: settings,
@@ -100,7 +100,7 @@ class RouteGenerator {
           );
         }
 
-      case NotesRoutes.setpassScreen:
+      case AppRoutes.setpassScreen:
         {
           return BlurPageRoute(
             settings: settings,
@@ -113,9 +113,6 @@ class RouteGenerator {
     }
   }
 
-  static Route<dynamic> _errorRoute() {
-    return BlurPageRoute(builder: (context) {
-      return const ErrorScreen();
-    });
-  }
+  static Route<dynamic> _errorRoute() =>
+      BlurPageRoute(builder: (context) => const ErrorScreen());
 }

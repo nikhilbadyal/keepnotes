@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 class BlurPageRoute<T> extends PageRoute<T>
     with MaterialRouteTransitionMixin<T> {
   BlurPageRoute(
-      {this.duration = const Duration(milliseconds: 500),
+      {required this.builder,
+      this.duration = const Duration(milliseconds: 500),
       this.keepState = false,
       this.blurStrength = 0,
-      required this.builder,
       RouteSettings settings = const RouteSettings(),
       this.maintainState = true,
       bool fullscreenDialog = false,
       this.animationCurve = Curves.fastLinearToSlowEaseIn,
       this.opaque = false,
-      this.slideOffset = const Offset(0.0, 10.0),
+      this.slideOffset = const Offset(0, 10),
       this.useCardExit = true,
       this.backdropColor = Colors.transparent})
       : super(settings: settings, fullscreenDialog: fullscreenDialog);
@@ -28,7 +28,6 @@ class BlurPageRoute<T> extends PageRoute<T>
   bool useCardExit;
   Color backdropColor;
 
-  /// Builds the primary contents of the route.
   final WidgetBuilder builder;
 
   @override
@@ -37,7 +36,6 @@ class BlurPageRoute<T> extends PageRoute<T>
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation, Widget child) {
-    // Create transition from bottom to top, like bottom sheet
     if (animation.status == AnimationStatus.reverse && !useCardExit) {
       return BackdropFilter(
         filter: ImageFilter.blur(
@@ -56,7 +54,7 @@ class BlurPageRoute<T> extends PageRoute<T>
         ).drive(
           Tween<Offset>(
             begin: slideOffset,
-            end: const Offset(0.0, 0.0),
+            end: const Offset(0, 0),
           ),
         ),
         child: BackdropFilter(

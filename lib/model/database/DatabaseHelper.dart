@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:notes/main.dart';
 import 'package:notes/model/Note.dart';
-import 'package:notes/util/DatabaseExceptions.dart';
+import 'package:notes/model/database/DatabaseExceptions.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -24,17 +23,16 @@ class DatabaseHelper {
     final status = await databaseExists(databasePath);
     if (!status) {
       _database = await openDatabase(join(databasePath, 'notes_database.db'),
-          onCreate: (database, version) {
-        return database.execute(
-          query(),
-        );
-      }, version: 1);
+          onCreate: (database, version) => database.execute(
+                query(),
+              ),
+          version: 1);
     }
     return _database;
   }
 
   static String query() {
-    var query = 'CREATE TABLE '; //IF NOT EXISTS
+    var query = 'CREATE TABLE ';
     query += tableName;
     query += '(';
     fieldMap.forEach((key, value) {
@@ -52,7 +50,7 @@ class DatabaseHelper {
         await insertNoteDb(note, isNew: true);
       }
       return true;
-    } catch (e) {
+    } on Exception catch (_) {
       return false;
     }
   }
@@ -66,7 +64,7 @@ class DatabaseHelper {
         isNew ? note.toMap(isNew: true) : note.toMap(isNew: false),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-    } on Error {
+    } on Exception catch (_) {
       throw DatabaseExceptions('1');
     }
     return true;
@@ -83,7 +81,7 @@ class DatabaseHelper {
           where: 'id = ?',
           whereArgs: [note.id],
         );
-      } on Error {
+      } on Exception catch (_) {
         throw DatabaseExceptions('2');
       }
       return true;
@@ -103,7 +101,7 @@ class DatabaseHelper {
           where: 'id = ?',
           whereArgs: [idToUpdate],
         );
-      } on Error {
+      } on Exception catch (_) {
         throw DatabaseExceptions('3');
       }
       return true;
@@ -123,7 +121,7 @@ class DatabaseHelper {
           where: 'id = ?',
           whereArgs: [idToUpdate],
         );
-      } on Error {
+      } on Exception catch (_) {
         throw DatabaseExceptions('4');
       }
       return true;
@@ -144,7 +142,7 @@ class DatabaseHelper {
           where: 'id = ?',
           whereArgs: [idToUpdate],
         );
-      } on Error {
+      } on Exception catch (_) {
         throw DatabaseExceptions('5');
       }
       return true;
@@ -165,7 +163,7 @@ class DatabaseHelper {
           where: 'id = ?',
           whereArgs: [idToUpdate],
         );
-      } on Error {
+      } on Exception catch (_) {
         throw DatabaseExceptions('5');
       }
       return true;
@@ -183,7 +181,7 @@ class DatabaseHelper {
           whereArgs: [note.id],
         );
         return rowsEffected != 0;
-      } on Error {
+      } on Exception catch (_) {
         throw DatabaseExceptions('6');
       }
     }
@@ -202,7 +200,7 @@ class DatabaseHelper {
         where: 'id = ?',
         whereArgs: [idToUpdate],
       );
-    } on Error {
+    } on Exception catch (_) {
       throw DatabaseExceptions('6');
     }
 
@@ -219,7 +217,7 @@ class DatabaseHelper {
         where: 'id = ?',
         whereArgs: [idToUpdate],
       );
-    } on Error {
+    } on Exception catch (_) {
       throw DatabaseExceptions('6');
     }
 
@@ -234,10 +232,9 @@ class DatabaseHelper {
         where: 'state = ?',
         whereArgs: [3],
       );
-      lockChecker.passwordSet = false;
-      lockChecker.updateDetails();
+
       return true;
-    } on Error {
+    } on Exception catch (_) {
       throw DatabaseExceptions('7');
     }
   }
@@ -251,7 +248,7 @@ class DatabaseHelper {
         whereArgs: [NoteState.deleted.index],
       );
       return true;
-    } on Error {
+    } on Exception catch (_) {
       throw DatabaseExceptions('8');
     }
   }
@@ -259,8 +256,7 @@ class DatabaseHelper {
   static Future<List<Map<String, dynamic>>> getAllNotesDb(int noteState,
       {Database? testDb}) async {
     final db = testDb ?? await database;
-    // ignore: prefer_typing_uninitialized_variables
-    late final resultSet;
+    late Future<List<Map<String, Object?>>> resultSet;
     try {
       resultSet = db.query(
         'notes',
@@ -268,7 +264,7 @@ class DatabaseHelper {
         where: 'state = ?',
         whereArgs: [noteState],
       );
-    } on Error {
+    } on Exception catch (_) {
       throw DatabaseExceptions('9');
     }
     return resultSet;
@@ -280,7 +276,7 @@ class DatabaseHelper {
     late Future<List<Map<String, Object?>>> resultSet;
     try {
       resultSet = db.query('notes', orderBy: 'lastModify desc');
-    } on Error {
+    } on Exception catch (_) {
       throw DatabaseExceptions('9');
     }
     return resultSet;
