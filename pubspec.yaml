@@ -26,6 +26,10 @@ dependencies:
   url_launcher: ^6.0.3
   encrypt: ^5.0.0
   flutter_secure_storage: ^4.1.0
+  flutter_linkify: ^5.0.2
+  linkify: ^4.0.0
+
+
 
 dev_dependencies:
   flutter_test:

@@ -4,9 +4,9 @@ import 'package:notes/model/Languages.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/util/Navigations.dart';
+import 'package:notes/widget/AlertDialog.dart';
 import 'package:notes/widget/ItemsList.dart';
 import 'package:notes/widget/NoNotes.dart';
-import 'package:notes/widget/SimpleDialog.dart';
 import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
@@ -138,13 +138,12 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
       });
     } else {
       if (item.state == NoteState.deleted) {
-        await showDialog<bool>(
+        await showDialog<void>(
+          barrierDismissible: true,
           context: context,
-          builder: (context) => MySimpleDialog(
-            title: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(Language.of(context).trashEditingWarning),
-            ),
+          builder: (context) => MyAlertDialog(
+            title: Text(Language.of(context).message),
+            content: Text(Language.of(context).trashEditingWarning),
           ),
         );
       } else {

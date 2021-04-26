@@ -7,10 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:notes/model/Languages.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/screen/backup/TapToExpand.dart';
-import 'package:notes/util/AppRoutes.dart';
 import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilities.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -29,64 +26,24 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
   double bottomPadding = 0;
 
   @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width * 0.7;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        SizedBox(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              AnimatedPadding(
-                padding: EdgeInsets.only(top: padding, bottom: bottomPadding),
-                duration: const Duration(milliseconds: 1000),
-                curve: Curves.fastLinearToSlowEaseIn,
-                child: SizedBox(
-                  child: CardItem(
-                    Theme.of(context).accentColor,
-                    '',
-                    '',
-                    '',
-                    () {
-                      setState(() {
-                        padding = padding == 0 ? 150 : 0;
-                        bottomPadding = bottomPadding == 0 ? 150 : 0;
-                      });
-                    },
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: const EdgeInsets.only(right: 60, top: 150),
-                  height: 180,
-                  width: width,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.2), blurRadius: 30)
-                    ],
-                    color: Colors.grey.shade200.withOpacity(1),
-                    borderRadius: const BorderRadius.vertical(
-                      bottom: Radius.circular(30),
-                    ),
-                  ),
-                  child: Center(
-                    child: Icon(Icons.favorite,
-                        color: Theme.of(context).accentColor.withOpacity(1),
-                        size: 70),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        SingleChildScrollView(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+  Widget build(BuildContext context) => Align(
+        child: SingleChildScrollView(
+          child: Column(
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 14, right: 14),
+                child: Text(
+                  Language.of(context).backupWarning,
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.headline5!.color,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 70,
+              ),
               ElevatedButton(
                 onPressed: () async {
                   final items =
@@ -95,11 +52,18 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
                   if (items.isNotEmpty) {
                     unawaited(
                       exportToFile(items).then(
-                        (_) {
-                          Utilities.showSnackbar(
-                            context,
-                            Language.of(context).error,
-                          );
+                        (value) {
+                          if (value) {
+                            Utilities.showSnackbar(
+                              context,
+                              Language.of(context).done,
+                            );
+                          } else {
+                            Utilities.showSnackbar(
+                              context,
+                              Language.of(context).error,
+                            );
+                          }
                         },
                       ),
                     );
@@ -120,7 +84,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -148,26 +112,24 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
               ),
             ],
           ),
-        )
-      ],
-    );
-  }
+        ),
+      );
 
-  Future<void> exportToFile(List<dynamic> items) async {
+  Future<bool> exportToFile(List<dynamic> items) async {
     try {
       if (await Utilities.requestPermission(Permission.storage)) {
         final str = DateFormat('yyyyMMdd_HHmmss').format(
           DateTime.now(),
         );
         final fileName = 'Export_$str.json';
-        const folderName = '/NotesApp/';
+        const folderName = '/${Utilities.appName}/';
         final path =
             Provider.of<LockChecker>(context, listen: false).exportPath;
         final finalPath = path + folderName + fileName;
         try {
           await File(finalPath).create(recursive: true);
         } on Exception catch (_) {
-          throw Error();
+          return false;
         }
         final file = File(finalPath);
         final jsonList = [];
@@ -181,11 +143,9 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         );
       }
     } on Exception catch (_) {
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).error,
-      );
+      return false;
     }
+    return true;
   }
 
   Future<void> importFromFile(File file) async {
@@ -203,8 +163,6 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         context,
         Language.of(context).done,
       );
-      await navigate(ModalRoute.of(context)!.settings.name!, context,
-          AppRoutes.homeScreen);
     } on Exception catch (_) {
       Utilities.showSnackbar(
         context,

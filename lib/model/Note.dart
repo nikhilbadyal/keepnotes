@@ -66,9 +66,8 @@ class Note implements Comparable<Note> {
 
   static Note fromJson(Map<String, dynamic> json) {
     final int state = json['state'];
-    final int id = json['title'] ?? -1;
     return Note(
-      title: id.toString(),
+      title: json['title'].toString(),
       content: json['content'].toString(),
       lastModify: DateTime.fromMillisecondsSinceEpoch(
         json['lastModify'],

@@ -55,7 +55,7 @@ Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
     Navigator.of(context).pop();
     return;
   }
-  if (Provider.of<LockChecker>(context, listen: false).passwordSet) {
+  if (Provider.of<LockChecker>(context, listen: false).password.isNotEmpty) {
     if (Provider.of<LockChecker>(context, listen: false).bioEnabled &&
         !Provider.of<LockChecker>(context, listen: false).firstTimeNeeded &&
         Provider.of<LockChecker>(context, listen: false).fpDirectly) {

@@ -80,9 +80,12 @@ class _EditScreenState extends State<EditScreen> {
                     border: InputBorder.none),
               ),
               TextField(
+                onTap: () async {},
                 //TODO fix this issue . 1
-                autofocus: widget.shouldAutoFocus,
+                autofocus: true,
+                // autofocus: widget.shouldAutoFocus,
                 readOnly: isReadOnly,
+
                 controller: _contentController,
                 maxLines: null,
                 showCursor: true,
@@ -91,7 +94,8 @@ class _EditScreenState extends State<EditScreen> {
                 ),
                 // TODO fix this 3
                 /*onChanged: (value) {
-                final counter = Provider.of<CharCount>(context, listen: false);
+                final counter =
+                Provider.of<CharCount>(context, listen: false);
                 counter.change(value.length);
               },*/
                 decoration: InputDecoration(

@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <application
-            android:label="Notes"
+            android:label="Keep Notes"
             android:icon="@mipmap/ic_launcher"
             android:allowBackup="false">
         <activity

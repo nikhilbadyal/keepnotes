@@ -43,7 +43,8 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
             ),
             onTap: () async {
               if (Provider.of<LockChecker>(context, listen: false)
-                  .passwordSet) {
+                  .password
+                  .isNotEmpty) {
                 await navigate(
                   ModalRoute.of(context)!.settings.name!,
                   context,
@@ -64,21 +65,6 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
               }
             },
           ),
-          /*ListTile(
-          title: Text(
-            Languages.of(context).resetPassword,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1!.color,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          leading: Icon(
-            Icons.lock_open,
-            color:
-                Provider.of<AppConfiguration>(context, listen: false).iconColor,
-          ),
-          onTap: resetPassword,
-        ),*/
           ListTile(
             title: Text(
               Language.of(context).primaryColor,
@@ -112,31 +98,7 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
             trailing: PopupMenuButton(
               icon: const Icon(Icons.arrow_drop_down),
               iconSize: 30,
-              onSelected: (result) {
-                final status = result! as IconColorStatus;
-                if (status == IconColorStatus.PickedColor) {
-                  showIconColorPicker();
-                } else if (status == IconColorStatus.UiColor) {
-                  Provider.of<AppConfiguration>(context, listen: false)
-                          .iconColor =
-                      Provider.of<AppConfiguration>(context, listen: false)
-                          .primaryColor;
-                } else {
-                  Provider.of<AppConfiguration>(context, listen: false)
-                          .iconColor =
-                      Provider.of<AppConfiguration>(context, listen: false)
-                                  .appTheme ==
-                              AppTheme.Light
-                          ? Colors.black
-                          : Colors.white;
-                }
-                Provider.of<AppConfiguration>(context, listen: false)
-                    .changeIconColorStatus(status.index);
-                setState(() {
-                  Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColorStatus = status;
-                });
-              },
+              onSelected: onIconColorChange,
               itemBuilder: (context) => [
                 PopupMenuItem(
                   value: IconColorStatus.NoColor,
@@ -211,118 +173,129 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.language_outlined,
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                  .iconColor,
-            ),
             title: Text(
               Language.of(context).labelLanguage,
               style: TextStyle(
                   color: Theme.of(context).textTheme.bodyText1!.color,
                   fontWeight: FontWeight.w400),
             ),
-            trailing: Container(
-              color: Colors.transparent,
-              child: DropdownButton<LanguageData>(
-                iconSize: 30,
-                onChanged: onLocaleChange,
-                underline: DropdownButtonHideUnderline(child: Container()),
-                items: supportedLanguages
-                    .map<DropdownMenuItem<LanguageData>>(
-                      (e) => DropdownMenuItem<LanguageData>(
-                        value: e,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(
-                              e.name,
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
+            leading: Icon(
+              Icons.language_outlined,
+              color: Provider.of<AppConfiguration>(context, listen: false)
+                  .iconColor,
+            ),
+            trailing: PopupMenuButton(
+              icon: const Icon(Icons.arrow_drop_down),
+              iconSize: 30,
+              onSelected: onLocaleChange,
+              itemBuilder: (_) => supportedLanguages
+                  .map(
+                    (e) => PopupMenuItem(
+                      value: e,
+                      child: Text(e.name),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ],
       );
 
   Future<void> showPrimaryColorPicker() async {
-    await showDialog(
-      context: context,
-      builder: (context) => MyAlertDialog(
-        title: Text(Language.of(context).pickColor),
-        content: SingleChildScrollView(
-          child: ColorPicker(
-            availableColors: appColors,
-            pickerColor: Provider.of<AppConfiguration>(context).primaryColor,
-            onColorChanged: (value) async {
-              if (Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColorStatus ==
-                  IconColorStatus.UiColor) {
-                Provider.of<AppConfiguration>(context, listen: false)
-                    .iconColor = value;
-              }
-              Provider.of<AppConfiguration>(context, listen: false)
-                  .primaryColor = value;
-              Provider.of<AppConfiguration>(context, listen: false)
-                  .changePrimaryColor();
-            },
+    final initAppColor =
+        Provider.of<AppConfiguration>(context, listen: false).primaryColor;
+    final initIconColor =
+        Provider.of<AppConfiguration>(context, listen: false).iconColor;
+
+    final status = await showDialog(
+          barrierDismissible: true,
+          context: context,
+          builder: (context) => MyAlertDialog(
+            title: Text(Language.of(context).pickColor),
+            content: SingleChildScrollView(
+              child: ColorPicker(
+                availableColors: appColors,
+                pickerColor:
+                    Provider.of<AppConfiguration>(context).primaryColor,
+                onColorChanged: (value) async {
+                  if (Provider.of<AppConfiguration>(context, listen: false)
+                          .iconColorStatus ==
+                      IconColorStatus.UiColor) {
+                    Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor = value;
+                  }
+                  Provider.of<AppConfiguration>(context, listen: false)
+                      .primaryColor = value;
+                  Provider.of<AppConfiguration>(context, listen: false)
+                      .changePrimaryColor();
+                },
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: Text(Language.of(context).done),
+              ),
+            ],
           ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Provider.of<AppConfiguration>(context, listen: false)
-                  .changePrimaryColor(write: true);
-              Navigator.of(context).pop();
-            },
-            child: Text(Language.of(context).done),
-          ),
-        ],
-      ),
-    );
+        ) ??
+        false;
+    if (status) {
+      Provider.of<AppConfiguration>(context, listen: false)
+          .changePrimaryColor(write: true);
+    } else {
+      Provider.of<AppConfiguration>(context, listen: false).iconColor =
+          initIconColor;
+      Provider.of<AppConfiguration>(context, listen: false).primaryColor =
+          initAppColor;
+      Provider.of<AppConfiguration>(context, listen: false)
+          .changePrimaryColor();
+    }
   }
 
   Future<void> showIconColorPicker() async {
-    await showDialog(
-      context: context,
-      builder: (context) => MyAlertDialog(
-        title: Text(Language.of(context).pickColor),
-        content: SingleChildScrollView(
-          child: ColorPicker(
-            availableColors: appColors,
-            pickerColor:
-                Provider.of<AppConfiguration>(context, listen: false).iconColor,
-            onColorChanged: (value) {
-              setState(() {
-                Provider.of<AppConfiguration>(context, listen: false)
-                    .iconColor = value;
-              });
-            },
+    final initColor =
+        Provider.of<AppConfiguration>(context, listen: false).iconColor;
+    final status = await showDialog(
+          barrierDismissible: true,
+          context: context,
+          builder: (context) => MyAlertDialog(
+            title: Text(Language.of(context).pickColor),
+            content: SingleChildScrollView(
+              child: ColorPicker(
+                availableColors: appColors,
+                pickerColor:
+                    Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor,
+                onColorChanged: (value) {
+                  setState(() {
+                    Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor = value;
+                  });
+                },
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop(true);
+                },
+                child: Text(Language.of(context).done),
+              ),
+            ],
           ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () async {
-              Provider.of<AppConfiguration>(context, listen: false)
-                  .changeIconColor();
-              Navigator.of(context).pop();
-            },
-            child: Text(Language.of(context).done),
-          ),
-        ],
-      ),
-    );
+        ) ??
+        false;
+    if (status) {
+      Provider.of<AppConfiguration>(context, listen: false).changeIconColor();
+    } else {
+      setState(() {
+        Provider.of<AppConfiguration>(context, listen: false).iconColor =
+            initColor;
+      });
+    }
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -365,19 +338,41 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
 
   Future<void> resetPassword() async {
     await showDialog(
-        context: context,
-        builder: (_) => MyAlertDialog(
-              title: Text(Language.of(context).message),
-              content: Text(Language.of(context).notAvailJustification),
-            ));
+      barrierDismissible: true,
+      context: context,
+      builder: (_) => MyAlertDialog(
+        title: Text(Language.of(context).message),
+        content: Text(Language.of(context).notAvailJustification),
+      ),
+    );
   }
 
   Future<void> onLocaleChange(LanguageData? value) async {
     // ignore: parameter_assignments
-    value ??= LanguageData('us', 'English', 'en');
-    final locale = await setLocale(value.languageCode);
+    final locale = await setLocale(value!.languageCode);
     Provider.of<AppConfiguration>(context, listen: false)
         .changeLocale(value.languageCode);
     MyNotes.setLocale(context, locale);
+  }
+
+  void onIconColorChange(IconColorStatus status) {
+    if (status == IconColorStatus.PickedColor) {
+      showIconColorPicker();
+    } else if (status == IconColorStatus.UiColor) {
+      Provider.of<AppConfiguration>(context, listen: false).iconColor =
+          Provider.of<AppConfiguration>(context, listen: false).primaryColor;
+    } else {
+      Provider.of<AppConfiguration>(context, listen: false).iconColor =
+          Provider.of<AppConfiguration>(context, listen: false).appTheme ==
+                  AppTheme.Light
+              ? Colors.black
+              : Colors.white;
+    }
+    Provider.of<AppConfiguration>(context, listen: false)
+        .changeIconColorStatus(status.index);
+    setState(() {
+      Provider.of<AppConfiguration>(context, listen: false).iconColorStatus =
+          status;
+    });
   }
 }

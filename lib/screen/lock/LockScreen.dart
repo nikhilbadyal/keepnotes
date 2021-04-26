@@ -10,7 +10,6 @@ import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilities.dart';
 import 'package:notes/widget/AlertDialog.dart';
 import 'package:notes/widget/DoubleBackToClose.dart';
-import 'package:notes/widget/SimpleDialog.dart';
 import 'package:provider/provider.dart';
 
 typedef KeyboardTapCallback = void Function(String text);
@@ -62,11 +61,9 @@ class _LockScreenState extends State<LockScreen> {
         await showDialog<void>(
           context: context,
           barrierDismissible: false,
-          builder: (context) => MySimpleDialog(
-            title: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(Language.of(context).enterPasswordOnce),
-            ),
+          builder: (context) => MyAlertDialog(
+            title: Text(Language.of(context).message),
+            content: Text(Language.of(context).enterPasswordOnce),
           ),
         );
       } else {
@@ -78,42 +75,46 @@ class _LockScreenState extends State<LockScreen> {
         }
       }
     } else {
-      await showDialog<bool>(
-        context: context,
-        builder: (context) => MyAlertDialog(
-          title: Text(Language.of(context).message),
-          content: Text(Language.of(context).setFpFirst),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                Navigator.of(context).pop(true);
-                await Provider.of<LockChecker>(context, listen: false)
-                    .authenticateFirstTimeUser(context);
-                // TODO fix this .2
-                /*if (status) {
-                  Utilities.showSnackbar(
-                    context,
-                    'User Registered',
-                  );
-                }*/
-              },
-              child: Text(
-                Language.of(context).alertDialogOp1,
-                style: const TextStyle(fontSize: 20),
-              ),
+      final isAuthenticated = await showDialog<bool>(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => MyAlertDialog(
+              title: Text(Language.of(context).message),
+              content: Text(Language.of(context).setFpFirst),
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                    final status =
+                        await Provider.of<LockChecker>(context, listen: false)
+                            .authenticateFirstTimeUser(context);
+                    Navigator.of(context).pop(status);
+                  },
+                  child: Text(
+                    Language.of(context).alertDialogOp1,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text(
+                    Language.of(context).alertDialogOp2,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ),
+              ],
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              child: Text(
-                Language.of(context).alertDialogOp2,
-                style: const TextStyle(fontSize: 20),
-              ),
-            ),
-          ],
-        ),
-      );
+          ) ??
+          false;
+      if (isAuthenticated) {
+        Utilities.showSnackbar(
+          context,
+          'User Registered',
+        );
+        await Provider.of<LockChecker>(context, listen: false)
+            .bioEnabledConfig();
+      }
     }
   }
 
@@ -235,7 +236,7 @@ class _MyLockScreenState extends State<MyLockScreen>
       (isValid) => _showValidation(isValid),
     );
     controller = AnimationController(
-        duration: const Duration(milliseconds: 400), vsync: this);
+        duration: const Duration(milliseconds: 500), vsync: this);
     final Animation<double> curve = CurvedAnimation(
       parent: controller,
       curve: ShakeCurve(),
@@ -251,7 +252,7 @@ class _MyLockScreenState extends State<MyLockScreen>
         }
       })
       ..addListener(() {
-        setState(() {});
+        // setState(() {});
       });
   }
 
@@ -300,21 +301,23 @@ class _MyLockScreenState extends State<MyLockScreen>
       controller.forward();
     }
   }
-}
 
-List<Widget> _buildCircles(String enteredPassCode) {
-  final list = <Widget>[];
-  for (var i = 0; i < 4; ++i) {
-    list.add(
-      Container(
-        margin: const EdgeInsets.all(8),
-        child: Circle(
-          isFilled: i < enteredPassCode.length,
+  List<Widget> _buildCircles(String enteredPassCode) {
+    final list = <Widget>[];
+    final size = animation.value;
+    for (var i = 0; i < 4; ++i) {
+      list.add(
+        Container(
+          margin: const EdgeInsets.all(8),
+          child: Circle(
+            isFilled: i < enteredPassCode.length,
+            size: size,
+          ),
         ),
-      ),
-    );
+      );
+    }
+    return list;
   }
-  return list;
 }
 
 Widget _buildKeyBoard(KeyboardTapCallback _onTap, DeleteTapCallback onDelTap,

@@ -11,7 +11,6 @@ import 'package:notes/util/AppRoutes.dart';
 import 'package:notes/util/LockManager.dart';
 import 'package:notes/util/Utilities.dart';
 import 'package:notes/widget/AlertDialog.dart';
-import 'package:notes/widget/SimpleDialog.dart';
 import 'package:provider/provider.dart';
 
 class ModalSheetUnhideWidget extends StatelessWidget {
@@ -276,16 +275,16 @@ class ModalSheetHideWidget extends StatelessWidget {
         fit: FlexFit.tight,
         child: GestureDetector(
           onTap: () async {
-            final status =
-                Provider.of<LockChecker>(context, listen: false).passwordSet;
+            final status = Provider.of<LockChecker>(context, listen: false)
+                .password
+                .isNotEmpty;
             if (!status) {
               await showDialog(
+                barrierDismissible: true,
                 context: context,
-                builder: (_) => MySimpleDialog(
-                  title: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(Language.of(context).setPasswordFirst),
-                  ),
+                builder: (_) => MyAlertDialog(
+                  title: Text(Language.of(context).message),
+                  content: Text(Language.of(context).setPasswordFirst),
                 ),
               );
             } else {
@@ -400,35 +399,38 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
         fit: FlexFit.tight,
         child: GestureDetector(
           onTap: () async {
-            await showDialog<bool>(
-              context: context,
-              builder: (_) => MyAlertDialog(
-                title: Text(Language.of(context).message),
-                content: Text(Language.of(context).emptyTrashWarning),
-                actions: [
-                  TextButton(
-                    onPressed: () async {
-                      if (Provider.of<NotesHelper>(context, listen: false)
-                          .otherNotes
-                          .isNotEmpty) {
-                        await Utilities.onDeleteAllTap(context);
-                      }
-                      Navigator.of(context).popUntil((route) =>
-                          route.settings.name == AppRoutes.trashScreen);
-                    },
-                    child: Text(Language.of(context).alertDialogOp1),
+            final status = await showDialog<bool>(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (_) => MyAlertDialog(
+                    title: Text(Language.of(context).message),
+                    content: Text(Language.of(context).emptyTrashWarning),
+                    actions: [
+                      TextButton(
+                        onPressed: () async {
+                          Navigator.of(context).pop(true);
+                        },
+                        child: Text(Language.of(context).alertDialogOp1),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(false);
+                        },
+                        child: Text(Language.of(context).alertDialogOp2),
+                      ),
+                    ],
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).popUntil(
-                        (route) => route.settings.name == AppRoutes.trashScreen,
-                      );
-                    },
-                    child: Text(Language.of(context).alertDialogOp2),
-                  ),
-                ],
-              ),
-            );
+                ) ??
+                false;
+            if (status) {
+              if (Provider.of<NotesHelper>(context, listen: false)
+                  .otherNotes
+                  .isNotEmpty) {
+                await Utilities.onDeleteAllTap(context);
+              }
+            }
+            Navigator.of(context).popUntil(
+                (route) => route.settings.name == AppRoutes.trashScreen);
           },
           child: Container(
             height: 80,

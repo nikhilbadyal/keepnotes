@@ -148,10 +148,12 @@ class CustomAlign extends StatelessWidget {
 class Circle extends StatefulWidget {
   const Circle({
     required this.isFilled,
+    required this.size,
     Key? key,
   }) : super(key: key);
 
   final bool isFilled;
+  final double size;
 
   @override
   _CircleState createState() => _CircleState();
@@ -160,9 +162,9 @@ class Circle extends StatefulWidget {
 class _CircleState extends State<Circle> {
   @override
   Widget build(BuildContext context) => Container(
-        margin: const EdgeInsets.only(bottom: 1),
-        width: 30,
-        height: 30,
+        margin: EdgeInsets.only(bottom: widget.size),
+        width: 20,
+        height: 20,
         decoration: BoxDecoration(
           color: widget.isFilled
               ? Provider.of<AppConfiguration>(context, listen: false)

@@ -43,6 +43,7 @@ class AppConfiguration with ChangeNotifier {
       iconColorStatus = IconColorStatus.NoColor;
     } else {
       try {
+        intVal = intVal > 2 ? 2 : intVal;
         iconColorStatus = IconColorStatus.values[intVal];
       } on Exception catch (_) {
         unawaited(Utilities.addIntToSF('iconColorStatus', 2));

@@ -65,19 +65,17 @@ class _SetPasswordState extends State<SetPassword> {
 
   Future<void> _doneEnteringPass(String enteredPassCode) async {
     if (isFirst) {
+      debugPrint('first time');
       await navigate(
         ModalRoute.of(context)!.settings.name!,
         context,
         AppRoutes.setpassScreen,
-        DataObj(
-          enteredPassCode,
-          Language.of(context).reEnterPassword,
-          resetPass: args.resetPass,
-          isFirst: true,
-        ),
+        DataObj(enteredPassCode, Language.of(context).reEnterPassword,
+            resetPass: args.resetPass, isFirst: false),
       );
     } else {
       if (enteredPassCode == firstPass) {
+        debugPrint('second time');
         if (args.resetPass) {
           if (Provider.of<LockChecker>(context, listen: false).password ==
               enteredPassCode) {
@@ -86,24 +84,23 @@ class _SetPasswordState extends State<SetPassword> {
               Language.of(context).samePasswordError,
               duration: const Duration(milliseconds: 1500),
             );
-            await Navigator.of(context)
-                .pushReplacementNamed(AppRoutes.settingsScreen);
-            return;
+          } else {
+            await Provider.of<LockChecker>(context, listen: false)
+                .resetConfig(shouldResetBio: false);
+            await Provider.of<NotesHelper>(context, listen: false)
+                .recryptEverything(enteredPassCode);
+            Provider.of<LockChecker>(context, listen: false)
+                .passwordSetConfig(enteredPassCode);
+            Utilities.showSnackbar(
+              context,
+              Language.of(context).done,
+            );
           }
-          await Provider.of<LockChecker>(context, listen: false).resetConfig();
-          await Provider.of<NotesHelper>(context, listen: false)
-              .recryptEverything(enteredPassCode);
-          await Provider.of<LockChecker>(context, listen: false)
-              .passwordSetConfig(enteredPassCode);
-          Utilities.showSnackbar(
-            context,
-            Language.of(context).done,
-          );
           await Navigator.of(context)
               .pushReplacementNamed(AppRoutes.settingsScreen);
           return;
         } else {
-          await Provider.of<LockChecker>(context, listen: false)
+          Provider.of<LockChecker>(context, listen: false)
               .passwordSetConfig(enteredPassCode);
           Utilities.showSnackbar(
             context,

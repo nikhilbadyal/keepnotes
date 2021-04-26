@@ -8,7 +8,6 @@ import 'package:notes/util/Navigations.dart';
 import 'package:notes/widget/AlertDialog.dart';
 import 'package:notes/widget/ItemsList.dart';
 import 'package:notes/widget/NoNotes.dart';
-import 'package:notes/widget/SimpleDialog.dart';
 import 'package:provider/provider.dart';
 
 class HomeBody extends StatefulWidget {
@@ -71,51 +70,47 @@ class _HomeBodyState extends State<HomeBody> {
     );
   }
 
-  Future<void>? showOldVersionUsed() {
+  Future<void>? showOldVersionUsed() async {
     if (Provider.of<LockChecker>(context, listen: false).usedOlderVersion) {
-      showDialog(
-        context: context,
-        builder: (_) => MyAlertDialog(
-          title: Text(Language.of(context).message),
-          content: Text(
-            Language.of(context).oldVersionWarning,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Provider.of<LockChecker>(context, listen: false)
-                    .usedOlderVersion = false;
-                Provider.of<LockChecker>(context, listen: false)
-                    .setUsedOlderVersion();
-                Navigator.of(context).pop();
-              },
-              child: const Text('Never used old version'),
+      final used = await showDialog<bool>(
+            context: context,
+            builder: (_) => MyAlertDialog(
+              title: Text(Language.of(context).message),
+              content: Text(
+                Language.of(context).oldVersionWarning,
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: const Text('Never used old version'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text(Language.of(context).alreadyDone),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Provider.of<NotesHelper>(context, listen: false)
+                        .autoMateEverything();
+
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text(Language.of(context).doItForMe),
+                ),
+              ],
             ),
-            TextButton(
-              onPressed: () {
-                Provider.of<LockChecker>(context, listen: false)
-                    .usedOlderVersion = false;
-                Provider.of<LockChecker>(context, listen: false)
-                    .setUsedOlderVersion();
-                Navigator.of(context).pop();
-              },
-              child: Text(Language.of(context).alreadyDone),
-            ),
-            TextButton(
-              onPressed: () {
-                Provider.of<NotesHelper>(context, listen: false)
-                    .autoMateEverything();
-                Provider.of<LockChecker>(context, listen: false)
-                    .usedOlderVersion = false;
-                Provider.of<LockChecker>(context, listen: false)
-                    .setUsedOlderVersion();
-                Navigator.of(context).pop();
-              },
-              child: Text(Language.of(context).doItForMe),
-            ),
-          ],
-        ),
-      );
+          ) ??
+          true;
+      if (!used) {
+        Provider.of<LockChecker>(context, listen: false).usedOlderVersion =
+            false;
+        await Provider.of<LockChecker>(context, listen: false)
+            .setUsedOlderVersion();
+      }
     }
   }
 }
@@ -189,13 +184,12 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
       });
     } else {
       if (item.state == NoteState.deleted) {
-        await showDialog<bool>(
+        await showDialog<void>(
+          barrierDismissible: true,
           context: context,
-          builder: (context) => MySimpleDialog(
-            title: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(Language.of(context).trashEditingWarning),
-            ),
+          builder: (context) => MyAlertDialog(
+            title: Text(Language.of(context).message),
+            content: Text(Language.of(context).trashEditingWarning),
           ),
         );
       } else {

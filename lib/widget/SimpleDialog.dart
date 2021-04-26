@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*
 
 class MySimpleDialog extends StatelessWidget {
   const MySimpleDialog({
@@ -23,3 +23,4 @@ class MySimpleDialog extends StatelessWidget {
         children: children,
       );
 }
+*/
