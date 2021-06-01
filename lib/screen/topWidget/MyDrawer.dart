@@ -37,20 +37,22 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          UserAccountsDrawerHeader(
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage(
-                'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.png',
+          RepaintBoundary(
+            child: UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage(
+                  'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.png',
+                ),
               ),
+              accountEmail: Text(wish,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  )),
+              accountName: const Text(''),
+              onDetailsPressed: () => goToHiddenScreen(context, _activeRoute),
             ),
-            accountEmail: Text(wish,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                )),
-            accountName: const Text(''),
-            onDetailsPressed: () => goToHiddenScreen(context, _activeRoute),
           ),
           ListTile(
             leading: const Icon(

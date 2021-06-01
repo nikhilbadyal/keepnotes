@@ -14,22 +14,19 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  file_picker: ^3.0.1
+  file_picker: ^3.0.2+2
   flutter_slidable: ^0.6.0
-  flutter_tabler_icons: ^1.0.3-rc.1
+  flutter_tabler_icons: ^1.1.1
   intl: ^0.17.0
   local_auth: ^1.1.5
-  permission_handler: ^7.0.0
+  permission_handler: ^8.0.0+2
   provider: ^5.0.0
-  shared_preferences: ^2.0.5
+  shared_preferences: ^2.0.6
   sqflite: ^2.0.0+3
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.4
   encrypt: ^5.0.0
-  flutter_secure_storage: ^4.1.0
-  flutter_linkify: ^5.0.2
-  linkify: ^4.0.0
-
-
+  flutter_secure_storage: ^4.2.0
+  syncfusion_flutter_pdf: ^19.1.66-beta
 
 dev_dependencies:
   flutter_test:

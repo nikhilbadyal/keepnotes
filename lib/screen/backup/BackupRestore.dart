@@ -128,7 +128,8 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         final finalPath = path + folderName + fileName;
         try {
           await File(finalPath).create(recursive: true);
-        } on Exception catch (_) {
+        } on Exception catch (e) {
+          debugPrint(e.toString());
           return false;
         }
         final file = File(finalPath);
@@ -137,12 +138,15 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         for (final Note note in items) {
           jsonList.add(json.encode(note.toJson()));
         }
-
         file.writeAsStringSync(
           jsonList.toString(),
         );
+      }else{
+        debugPrint('Permission Error'); // TODO Permission Error
       }
-    } on Exception catch (_) {
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+
       return false;
     }
     return true;

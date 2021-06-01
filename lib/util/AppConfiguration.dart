@@ -3,7 +3,8 @@ import 'package:notes/util/ThemeData.dart';
 import 'package:notes/util/Utilities.dart';
 import 'package:pedantic/pedantic.dart';
 
-Color defaultPrimary = const Color(0xFF355C7D);
+Color defaultPrimary = Colors.deepOrangeAccent;
+// Color defaultPrimary = const Color(0xFF355C7D);
 
 Color greyColor = const Color(0xFFEAEAEA);
 
@@ -119,23 +120,24 @@ List<Color> appColors = <Color>[
   Colors.blue,
   Colors.blueAccent,
   Colors.lightBlue,
-  Colors.lightBlueAccent,
+  // Colors.lightBlueAccent,
   Colors.cyan,
-  Colors.cyanAccent,
+  // Colors.cyanAccent,
   Colors.teal,
-  Colors.tealAccent,
+  // Colors.tealAccent,
   Colors.green,
-  Colors.greenAccent,
+  // Colors.greenAccent,
   Colors.lightGreen,
-  Colors.lightGreenAccent,
-  Colors.lime,
+  // Colors.lightGreenAccent,
+  // Colors.lime,
   Colors.orange,
   Colors.deepOrange,
+  Colors.deepOrangeAccent,
   Colors.brown,
   Colors.grey,
   Colors.blueGrey,
 
-  const Color(0xFF00E0C7),
+  // const Color(0xFF00E0C7),
   const Color(0xFF006270),
   const Color(0xFFFF7582),
   const Color(0xFF355C7D),

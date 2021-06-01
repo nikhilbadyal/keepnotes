@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/model/Languages.dart';
 import 'package:notes/model/Note.dart';
@@ -8,6 +10,7 @@ import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/screen/edit/MoreOptionsMenu.dart';
 import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/Utilities.dart';
+import 'package:notes/util/pdf/CreatePdf.dart';
 import 'package:provider/provider.dart';
 
 class EditScreen extends StatefulWidget {
@@ -82,7 +85,7 @@ class _EditScreenState extends State<EditScreen> {
               TextField(
                 onTap: () async {},
                 //TODO fix this issue . 1
-                autofocus: true,
+                autofocus: false,
                 // autofocus: widget.shouldAutoFocus,
                 readOnly: isReadOnly,
 
@@ -250,6 +253,20 @@ class _EditScreenState extends State<EditScreen> {
           onPressed: _onAppLeadingBackPress,
           color: Colors.white,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              debugPrint('Pressed');
+              saveNote();
+              HapticFeedback.vibrate();
+              PdfUtils.createPdf(context, noteInEditing);
+              sleep(
+                const Duration(milliseconds: 200),
+              );
+            },
+            icon: const Icon(Icons.print),
+          ),
+        ],
         elevation: 1,
       );
 

@@ -84,7 +84,7 @@ class ScreenContainer extends TopWidgetBase {
       case ScreenTypes.Archive:
         return Fab(
           onFabTap,
-          noteState: NoteState.hidden,
+          noteState: NoteState.archived,
         );
       case ScreenTypes.Trash:
         return Fab(

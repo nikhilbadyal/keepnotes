@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:notes/animations/routing/BlurRoute.dart';
 import 'package:notes/screen/lock/LockScreen.dart';
@@ -24,7 +25,7 @@ class RouteGenerator {
     switch (settings.name) {
       case AppRoutes.hiddenScreen:
         {
-          return BlurPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Hidden,
@@ -34,7 +35,7 @@ class RouteGenerator {
 
       case AppRoutes.lockScreen:
         {
-          return BlurPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (_) => const LockScreen(),
           );
@@ -42,7 +43,7 @@ class RouteGenerator {
 
       case AppRoutes.homeScreen:
         {
-          return BlurPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Home,
@@ -52,7 +53,7 @@ class RouteGenerator {
 
       case AppRoutes.archiveScreen:
         {
-          return BlurPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Archive,
@@ -62,7 +63,7 @@ class RouteGenerator {
 
       case AppRoutes.backupScreen:
         {
-          return BlurPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Backup,
@@ -72,7 +73,7 @@ class RouteGenerator {
 
       case AppRoutes.trashScreen:
         {
-          return BlurPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Trash,
@@ -82,7 +83,7 @@ class RouteGenerator {
 
       case AppRoutes.aboutMeScreen:
         {
-          return BlurPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.AboutMe,
@@ -92,7 +93,7 @@ class RouteGenerator {
 
       case AppRoutes.settingsScreen:
         {
-          return BlurPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Settings,
@@ -102,7 +103,7 @@ class RouteGenerator {
 
       case AppRoutes.setpassScreen:
         {
-          return BlurPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (_) => const SetPassword(),
           );

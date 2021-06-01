@@ -15,6 +15,8 @@ class NotesHelper with ChangeNotifier {
   Future<Note> insertNoteHelper(Note note,
       {bool isNew = false, bool shouldNotify = true, Database? testDb}) async {
     final copiedNote = note.copyWith(id: note.id);
+    debugPrint(note.state.toString());
+
 
     if (copiedNote.state == NoteState.hidden) {
       encryption.encrypt(copiedNote);

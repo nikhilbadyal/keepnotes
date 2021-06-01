@@ -30,6 +30,7 @@ class ModalSheetUnhideWidget extends StatelessWidget {
         fit: FlexFit.tight,
         child: GestureDetector(
           onTap: () {
+
             autoSaver.cancel();
             saveNote();
             final wantedRoute = getRoute(note.state);

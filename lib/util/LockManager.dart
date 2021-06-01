@@ -65,9 +65,9 @@ class LockChecker with ChangeNotifier {
     unawaited(Utilities.storage.delete(key: 'password'));
   }
 
-  void passwordSetConfig(String enteredPassword) {
+  Future<void> passwordSetConfig(String enteredPassword) async {
     password = enteredPassword;
-    unawaited(Utilities.storage.write(key: 'password', value: enteredPassword));
+    await Utilities.storage.write(key: 'password', value: enteredPassword);
   }
 
   Future<void> bioEnabledConfig() async {

@@ -74,6 +74,8 @@ class _MyNotesState extends State<MyNotes> {
             supportedLanguages.forEach((element) =>
                 supportedLocales.add(Locale(element.languageCode, '')));
             return MaterialApp(
+             /* checkerboardOffscreenLayers: true,
+              checkerboardRasterCacheImages: true,*/
               locale: _locale,
               restorationScopeId: 'keepnotes',
               supportedLocales: supportedLocales,

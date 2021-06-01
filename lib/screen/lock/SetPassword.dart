@@ -10,6 +10,7 @@ import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilities.dart';
 import 'package:notes/widget/DoubleBackToClose.dart';
 import 'package:provider/provider.dart';
+import 'package:pedantic/pedantic.dart';
 
 class SetPassword extends StatefulWidget {
   const SetPassword({Key? key}) : super(key: key);
@@ -65,7 +66,6 @@ class _SetPasswordState extends State<SetPassword> {
 
   Future<void> _doneEnteringPass(String enteredPassCode) async {
     if (isFirst) {
-      debugPrint('first time');
       await navigate(
         ModalRoute.of(context)!.settings.name!,
         context,
@@ -75,7 +75,6 @@ class _SetPasswordState extends State<SetPassword> {
       );
     } else {
       if (enteredPassCode == firstPass) {
-        debugPrint('second time');
         if (args.resetPass) {
           if (Provider.of<LockChecker>(context, listen: false).password ==
               enteredPassCode) {
@@ -89,8 +88,8 @@ class _SetPasswordState extends State<SetPassword> {
                 .resetConfig(shouldResetBio: false);
             await Provider.of<NotesHelper>(context, listen: false)
                 .recryptEverything(enteredPassCode);
-            Provider.of<LockChecker>(context, listen: false)
-                .passwordSetConfig(enteredPassCode);
+            unawaited(Provider.of<LockChecker>(context, listen: false)
+                .passwordSetConfig(enteredPassCode));
             Utilities.showSnackbar(
               context,
               Language.of(context).done,
@@ -100,8 +99,8 @@ class _SetPasswordState extends State<SetPassword> {
               .pushReplacementNamed(AppRoutes.settingsScreen);
           return;
         } else {
-          Provider.of<LockChecker>(context, listen: false)
-              .passwordSetConfig(enteredPassCode);
+          unawaited(Provider.of<LockChecker>(context, listen: false)
+              .passwordSetConfig(enteredPassCode));
           Utilities.showSnackbar(
             context,
             Language.of(context).done,
