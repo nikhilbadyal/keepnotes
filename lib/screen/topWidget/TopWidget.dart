@@ -17,8 +17,8 @@ import 'package:notes/util/Navigations.dart';
 import 'package:notes/util/Utilities.dart';
 import 'package:provider/provider.dart';
 
-typedef slidableActions = Function(Note note, BuildContext context);
-typedef actionGen = Widget Function(Note note, BuildContext context);
+typedef SlidableActions = Function(Note note, BuildContext context);
+typedef ActionGen = Widget Function(Note note, BuildContext context);
 typedef BackPresAction = Future<bool> Function();
 
 class ScreenContainer extends TopWidgetBase {
@@ -229,7 +229,7 @@ class ScreenContainer extends TopWidgetBase {
     return actionList;
   }
 
-  slidableActions getPrimary(ScreenTypes topScreen) {
+  SlidableActions getPrimary(ScreenTypes topScreen) {
     switch (topScreen) {
       case ScreenTypes.Hidden:
         return hiddenPrimary;
@@ -245,7 +245,7 @@ class ScreenContainer extends TopWidgetBase {
     }
   }
 
-  slidableActions getSecondary(ScreenTypes topScreen) {
+  SlidableActions getSecondary(ScreenTypes topScreen) {
     switch (topScreen) {
       case ScreenTypes.Hidden:
         return hiddenSecondary;

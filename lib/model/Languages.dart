@@ -78,6 +78,8 @@ abstract class Language {
 
   String get samePasswordError;
 
+  String get removeBiometric ;
+
   static Language of(BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageEn();
 

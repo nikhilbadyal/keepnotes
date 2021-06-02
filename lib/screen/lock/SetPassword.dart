@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:notes/model/Languages.dart';
 import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/screen/lock/LockScreen.dart';
+import 'package:notes/screen/lock/BaseLockScreen.dart';
 import 'package:notes/util/AppRoutes.dart';
 import 'package:notes/util/LockManager.dart';
 import 'package:notes/util/Navigations.dart';
@@ -36,6 +37,8 @@ class _SetPasswordState extends State<SetPassword> {
   }
 
   void _onTap(String text) {
+    HapticFeedback.vibrate();
+
     setState(() {
       if (isFirst) {
         if (enteredPassCode.length < 4) {
@@ -56,6 +59,7 @@ class _SetPasswordState extends State<SetPassword> {
   }
 
   void _onDelTap() {
+    HapticFeedback.vibrate();
     if (enteredPassCode.isNotEmpty) {
       setState(() {
         enteredPassCode =
@@ -128,11 +132,9 @@ class _SetPasswordState extends State<SetPassword> {
   }
 
   Widget _titleWidget(String title) => Text(
-        title,
+        '$title 🙈',
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       );
-
-  void validationCheck() {}
 
   @override
   Widget build(BuildContext context) {

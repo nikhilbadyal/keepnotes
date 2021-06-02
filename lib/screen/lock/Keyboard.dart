@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/LockManager.dart';
 import 'package:provider/provider.dart';
 
@@ -37,8 +34,35 @@ class Keyboard extends StatelessWidget {
     '-1'
   ];
 
-  Widget _buildDigit(String text) => Container(
+  Widget buildExtra(Widget widget, DeleteTapCallback? onDelTap) => Container(
         margin: const EdgeInsets.all(2),
+        child: ClipOval(
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                onDelTap!();
+              },
+              child: Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.transparent,
+                ),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: widget,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+  Widget buildDigit(String text) => SizedBox(
         child: ClipOval(
           child: Material(
             color: Colors.transparent,
@@ -69,51 +93,23 @@ class Keyboard extends StatelessWidget {
         ),
       );
 
-  Widget _buildExtra(Widget widget, DeleteTapCallback? onDelTap) => Container(
-        margin: const EdgeInsets.all(2),
-        child: ClipOval(
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () {
-                onDelTap!();
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent,
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: widget,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-
   @override
   Widget build(BuildContext context) => CustomAlign(
         children: List.generate(
-            12,
-            (index) => index == 9 || index == 11
-                ? index == 9
-                    ? onFingerTap == null ||
-                            !Provider.of<LockChecker>(context, listen: false)
-                                .bioAvailable
-                        ? Container()
-                        : _buildExtra(
-                            const Icon(Icons.fingerprint_outlined), onFingerTap)
-                    : _buildExtra(
-                        const Icon(Icons.backspace_outlined), onDelTap)
-                : _buildDigit(
-                    keyBoardItem[index],
-                  )),
+          12,
+          (index) => index == 9 || index == 11
+              ? index == 9
+                  ? onFingerTap == null ||
+                          !Provider.of<LockChecker>(context, listen: false)
+                              .bioAvailable
+                      ? Container()
+                      : buildExtra(
+                          const Icon(Icons.fingerprint_outlined), onFingerTap)
+                  : buildExtra(const Icon(Icons.backspace_outlined), onDelTap)
+              : buildDigit(
+                  keyBoardItem[index],
+                ),
+        ),
       );
 }
 
@@ -129,65 +125,14 @@ class CustomAlign extends StatelessWidget {
   Widget build(BuildContext context) => GridView.count(
         shrinkWrap: true,
         crossAxisCount: 3,
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 5,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
         physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.all(15),
         children: children
             .map(
-              (e) => SizedBox(
-                width: 5,
-                height: 5,
-                child: e,
-              ),
+              (e) => e,
             )
             .toList(),
       );
-}
-
-class Circle extends StatefulWidget {
-  const Circle({
-    required this.isFilled,
-    required this.size,
-    Key? key,
-  }) : super(key: key);
-
-  final bool isFilled;
-  final double size;
-
-  @override
-  _CircleState createState() => _CircleState();
-}
-
-class _CircleState extends State<Circle> {
-  @override
-  Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.only(bottom: widget.size),
-        width: 20,
-        height: 20,
-        decoration: BoxDecoration(
-          color: widget.isFilled
-              ? Provider.of<AppConfiguration>(context, listen: false)
-                          .appTheme ==
-                      AppTheme.Light
-                  ? Provider.of<AppConfiguration>(context, listen: false)
-                      .primaryColor
-                  : Colors.white
-              : Colors.transparent,
-          shape: BoxShape.circle,
-          border: Border.all(
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                          .appTheme ==
-                      AppTheme.Light
-                  ? Provider.of<AppConfiguration>(context, listen: false)
-                      .primaryColor
-                  : Colors.white,
-              width: 2),
-        ),
-      );
-}
-
-class ShakeCurve extends Curve {
-  @override
-  double transform(double t) => sin(t * 2.5 * pi).abs();
 }

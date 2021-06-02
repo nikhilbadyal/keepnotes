@@ -3,8 +3,8 @@ import 'package:notes/model/Note.dart';
 import 'package:notes/util/AppConfiguration.dart';
 import 'package:provider/provider.dart';
 
-typedef onTap = void Function();
-typedef onLongPress = void Function();
+typedef OnTap = void Function();
+typedef OnLongPress = void Function();
 
 class ListItem extends StatelessWidget {
   const ListItem({
@@ -17,8 +17,8 @@ class ListItem extends StatelessWidget {
   }) : super(key: key);
 
   final Note note;
-  final onTap? onItemTap;
-  final onLongPress? onItemLongPress;
+  final OnTap? onItemTap;
+  final OnLongPress? onItemLongPress;
   final bool isSelected;
   final Map<int, bool> selectedFlag;
 

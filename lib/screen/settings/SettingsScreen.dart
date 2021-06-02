@@ -67,6 +67,24 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
           ),
           ListTile(
             title: Text(
+              Language.of(context).removeBiometric,
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyText1!.color,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            leading: Icon(
+              Icons.fingerprint_outlined,
+              color: Provider.of<AppConfiguration>(context, listen: false)
+                  .iconColor,
+            ),
+            onTap: () async {
+              await Provider.of<LockChecker>(context, listen: false).resetBio();
+              Utilities.showSnackbar(context, Language.of(context).done);
+            },
+          ),
+          ListTile(
+            title: Text(
               Language.of(context).primaryColor,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyText1!.color,
@@ -375,4 +393,6 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
           status;
     });
   }
+
+  void removeBiometric() {}
 }

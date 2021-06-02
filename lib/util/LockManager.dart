@@ -57,12 +57,18 @@ class LockChecker with ChangeNotifier {
   Future<void> resetConfig({required bool shouldResetBio}) async {
     password = '';
     if (shouldResetBio) {
+      await resetBio();
+    }
+    unawaited(Utilities.storage.delete(key: 'password'));
+  }
+
+  Future<void> resetBio() async {
+    if (bioEnabled) {
       bioEnabled = false;
       firstTimeNeeded = false;
       await Utilities.removeValueFromSF('bio');
       await Utilities.removeValueFromSF('biofirstTimeNeeded');
     }
-    unawaited(Utilities.storage.delete(key: 'password'));
   }
 
   Future<void> passwordSetConfig(String enteredPassword) async {
@@ -100,11 +106,12 @@ class LockChecker with ChangeNotifier {
     try {
       isAuthenticated = await _localAuthentication.authenticate(
         localizedReason: 'Please authenticate',
-        // useErrorDialogs: true,
+        useErrorDialogs: false,
         stickyAuth: true,
         biometricOnly: true,
       );
-    } on PlatformException catch (_) {
+    } on PlatformException catch (e) {
+      await _handleError(errorCode: e.code, context: context);
       isAuthenticated = false;
     }
     return isAuthenticated;

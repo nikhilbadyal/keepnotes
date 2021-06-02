@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +9,8 @@ import 'package:notes/screen/edit/MoreOptionsMenu.dart';
 import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/Utilities.dart';
 import 'package:notes/util/pdf/CreatePdf.dart';
+import 'package:notes/widget/AlertDialog.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class EditScreen extends StatefulWidget {
@@ -83,12 +83,9 @@ class _EditScreenState extends State<EditScreen> {
                     border: InputBorder.none),
               ),
               TextField(
-                onTap: () async {},
                 //TODO fix this issue . 1
-                autofocus: false,
-                // autofocus: widget.shouldAutoFocus,
+                autofocus: noteInEditing.id == -1,
                 readOnly: isReadOnly,
-
                 controller: _contentController,
                 maxLines: null,
                 showCursor: true,
@@ -255,14 +252,41 @@ class _EditScreenState extends State<EditScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              debugPrint('Pressed');
-              saveNote();
-              HapticFeedback.vibrate();
-              PdfUtils.createPdf(context, noteInEditing);
-              sleep(
-                const Duration(milliseconds: 200),
-              );
+            onPressed: () async {
+              if (noteInEditing.title.isEmpty &&
+                  noteInEditing.content.isEmpty) {
+                Utilities.showSnackbar(context, Language.of(context).emptyNote);
+                return;
+              }
+              if (await Utilities.requestPermission(Permission.storage)) {
+                await saveNote();
+                await HapticFeedback.vibrate();
+                await PdfUtils.createPdf(context, noteInEditing);
+                Utilities.showSnackbar(context, Language.of(context).done);
+              } else {
+                await showDialog<void>(
+                  barrierDismissible: true,
+                  context: context,
+                  builder: (context) => MyAlertDialog(
+                    title: Text(Language.of(context).error),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: <Widget>[
+                          Text(Language.of(context).permissionError),
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(Language.of(context).alertDialogOp2),
+                      ),
+                    ],
+                  ),
+                );
+              }
             },
             icon: const Icon(Icons.print),
           ),

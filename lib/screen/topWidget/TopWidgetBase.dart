@@ -16,9 +16,9 @@ enum ScreenTypes {
   Suggestions,
 }
 
-typedef actionFunction = void Function(
-    BuildContext context, Note note, onTapCallback);
-typedef onTapCallback = void Function(BuildContext context, Note note);
+typedef ActionFunction = void Function(
+    BuildContext context, Note note, OnTapCallback);
+typedef OnTapCallback = void Function(BuildContext context, Note note);
 typedef BackPresAction = Future<bool> Function();
 
 abstract class TopWidgetBase extends StatefulWidget {

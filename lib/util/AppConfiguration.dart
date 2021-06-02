@@ -41,7 +41,7 @@ class AppConfiguration with ChangeNotifier {
     intVal = null;
     intVal = Utilities.getIntFromSF('iconColorStatus');
     if (intVal == null) {
-      iconColorStatus = IconColorStatus.NoColor;
+      iconColorStatus = IconColorStatus.UiColor;
     } else {
       try {
         intVal = intVal > 2 ? 2 : intVal;

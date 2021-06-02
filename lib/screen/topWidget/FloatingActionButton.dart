@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:notes/model/Note.dart';
 import 'package:notes/screen/home/HomeBody.dart';
 
@@ -25,7 +26,10 @@ class Fab extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.only(bottom: 25),
         child: GestureDetector(
-          onLongPress: () => Scaffold.of(context).openDrawer(),
+          onLongPress: () {
+            HapticFeedback.vibrate();
+            Scaffold.of(context).openDrawer();
+          },
           child: FloatingActionButton(
             onPressed: () => onFabTap(context, noteState),
             child: icon,

@@ -253,4 +253,7 @@ class LanguageEn extends Language {
 
   @override
   String get samePasswordError => "You can't use same password twice";
+
+  @override
+  String get removeBiometric => 'Remove Biometric';
 }

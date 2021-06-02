@@ -8,19 +8,19 @@ class LanguageHi extends Language {
   String get about => 'डेवलपर';
 
   @override
-  String get archive => 'संगृहीत';
+  String get archive => 'आर्काइव';
 
   @override
-  String get backup => 'बैकअप और पुनर्स्थापना';
+  String get backup => 'बैकअप और रिस्टोर';
 
   @override
   String get hidden => 'छिपे हुए';
 
   @override
-  String get home => 'टिप्पणियाँ';
+  String get home => 'नोटस';
 
   @override
-  String get trash => 'रद्द करें';
+  String get trash => 'हटाए हुए';
 
   @override
   String get settings => 'सेटिंग्स';
@@ -32,7 +32,7 @@ class LanguageHi extends Language {
   String get alertDialogOp1 => 'ज़रूर';
 
   @override
-  String get alertDialogOp2 => 'रद्द करें';
+  String get alertDialogOp2 => 'हटाएँ';
 
   @override
   String get backupWarning => 'ऐप गोपनीयता और सुरक्षा को '
@@ -50,7 +50,7 @@ class LanguageHi extends Language {
   String get clipboard => 'क्लिपबोर्ड';
 
   @override
-  String get copy => 'प्रतिलिपि बनाये ';
+  String get copy => 'कॉपी बनाये ';
 
   @override
   String get hide => 'छिपाये';
@@ -66,7 +66,7 @@ class LanguageHi extends Language {
       'पासवर्ड रीसेट करने के लिए सभी नोट हटाएं';
 
   @override
-  String get deleteNotePermanently => 'नोट को स्थायी रूप से हटाएं';
+  String get deleteNotePermanently => 'नोट को परमानेंटली हटाएं';
 
   @override
   String get devName => 'निखिल';
@@ -75,7 +75,7 @@ class LanguageHi extends Language {
   String get directBio => 'सीधे बायोमेट्रिक के लिए पूछें';
 
   @override
-  String get directDelete => 'प्रत्यक्ष रूप से हटाएं';
+  String get directDelete => 'डायरेक्टली हटाएं';
 
   @override
   String get done => 'हो गया';
@@ -99,10 +99,10 @@ class LanguageHi extends Language {
   String get emptyTrashWarning => 'सबकुछ हट जाएगा';
 
   @override
-  String get enterNoteContent => 'सामग्री दर्ज करें';
+  String get enterNoteContent => 'अपने ख्याल लिखें';
 
   @override
-  String get enterNoteTitle => 'शीर्षक दर्ज करें';
+  String get enterNoteTitle => 'शीर्षक िखें';
 
   @override
   String get enterNewPassword => 'नया पासवर्ड दर्ज करें';
@@ -111,7 +111,7 @@ class LanguageHi extends Language {
   String get changePassword => 'पासवर्ड बदलें';
 
   @override
-  String get enterPassword => 'पास वर्ड दर्ज करें';
+  String get enterPassword => 'पासवर्ड दर्ज करें';
 
   @override
   String get passwordNotMatch => 'पासवर्ड मेल नहीं खाते';
@@ -148,7 +148,7 @@ class LanguageHi extends Language {
   String get error => 'त्रुटि';
 
   @override
-  String get iconColor => 'चिह्न का रंग';
+  String get iconColor => 'आइकॉन का रंग';
 
   @override
   String get importNotes => 'बैकअप उठाये ';
@@ -202,7 +202,7 @@ class LanguageHi extends Language {
   String get trashEditingWarning => 'संपादन से पहले कचरा से नोट निकालें';
 
   @override
-  String get unarchive => 'संग्रह से निकालें';
+  String get unarchive => 'आर्काइव से निकालें';
 
   @override
   String get unhide => 'सामने लाएँ';
@@ -211,7 +211,7 @@ class LanguageHi extends Language {
   String get viewMore => 'और पड़े';
 
   @override
-  String get noColor => 'रंग नहीं';
+  String get noColor => 'कोई रंग नही';
 
   @override
   String get appColor => 'ऐप का रंग';
@@ -222,7 +222,7 @@ class LanguageHi extends Language {
   @override
   String get oldVersionWarning => 'अगर आपने'
       ' कभी पुराना वर्जन इस्तेमाल किया है। कृपया नोटों '
-      'को छिपाने और उन्हें फिर से छिपाने पर विचार करें';
+      'को छिपाने और उन्हें फिर से छिपाएं';
 
   @override
   String get notAvailJustification => 'अगले अद्यतन में हो सकता है?';
@@ -253,4 +253,7 @@ class LanguageHi extends Language {
 
   @override
   String get samePasswordError => 'कृपया अलग पासवर्ड डालें ';
+
+  @override
+  String get removeBiometric => 'बायोमेट्रिक हटाएँ';
 }

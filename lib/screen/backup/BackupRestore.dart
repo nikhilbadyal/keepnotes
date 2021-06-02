@@ -9,6 +9,7 @@ import 'package:notes/model/Note.dart';
 import 'package:notes/model/database/NotesHelper.dart';
 import 'package:notes/util/LockManager.dart';
 import 'package:notes/util/Utilities.dart';
+import 'package:notes/widget/AlertDialog.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -128,8 +129,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         final finalPath = path + folderName + fileName;
         try {
           await File(finalPath).create(recursive: true);
-        } on Exception catch (e) {
-          debugPrint(e.toString());
+        } on Exception catch (_) {
           return false;
         }
         final file = File(finalPath);
@@ -141,12 +141,32 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         file.writeAsStringSync(
           jsonList.toString(),
         );
-      }else{
-        debugPrint('Permission Error'); // TODO Permission Error
+      } else {
+        await showDialog<void>(
+          barrierDismissible: true,
+          context: context,
+          builder: (context) => MyAlertDialog(
+            title: Text(Language.of(context).error),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(Language.of(context).permissionError),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                },
+                child: Text(Language.of(context).alertDialogOp2),
+              ),
+            ],
+          ),
+        );
+        return false;
       }
-    } on Exception catch (e) {
-      debugPrint(e.toString());
-
+    } on Exception catch (_) {
       return false;
     }
     return true;

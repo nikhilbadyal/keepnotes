@@ -7,6 +7,7 @@ Notes is a privacy oriented, Secure ,beautiful and fast application made in flut
 ## Features
 
 + Create and Save Notes
++ Export Notes as PDF file
 + Archive them to avoid clutter
 + Hide your Notes
 + Recycle Bin

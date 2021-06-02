@@ -107,7 +107,8 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 ),
                 const SocialLinksRow(),
                 const SizedBox(height: 16),
-                const Divider(indent: 12, endIndent: 12),
+                const Divider(
+                    height: 60, color: Colors.black, indent: 12, endIndent: 12),
               ],
             ),
           ),

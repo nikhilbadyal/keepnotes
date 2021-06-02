@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/app.dart';
 import 'package:notes/model/Languages.dart';
+import 'package:notes/util/AppConfiguration.dart';
 import 'package:notes/util/AppRoutes.dart';
 import 'package:notes/util/LockManager.dart';
 import 'package:notes/util/Navigations.dart';
@@ -55,98 +56,127 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             ),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.note,
-            ),
+            leading: Icon(Icons.note,
+                color: _activeRoute == AppRoutes.homeScreen
+                    ? Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor
+                    : null),
             title: Text(
               Language.of(context).home,
-              style: const TextStyle(
-                fontWeight: FontWeight.normal,
-              ),
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: _activeRoute == AppRoutes.homeScreen
+                      ? Provider.of<AppConfiguration>(context, listen: false)
+                          .primaryColor
+                      : null),
             ),
-            selected: _activeRoute == AppRoutes.homeScreen,
+            // selected: _activeRoute == AppRoutes.homeScreen,
             onTap: () => navigate(_activeRoute, context, AppRoutes.homeScreen),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.archive_outlined,
-            ),
+            leading: Icon(Icons.archive_outlined,
+                color: _activeRoute == AppRoutes.archiveScreen
+                    ? Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor
+                    : null),
             title: Text(
               Language.of(context).archive,
-              style: const TextStyle(
-                fontWeight: FontWeight.normal,
-              ),
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: _activeRoute == AppRoutes.archiveScreen
+                      ? Provider.of<AppConfiguration>(context, listen: false)
+                          .primaryColor
+                      : null),
             ),
-            selected: _activeRoute == AppRoutes.archiveScreen,
             onTap: () =>
                 navigate(_activeRoute, context, AppRoutes.archiveScreen),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.settings_backup_restore,
-            ),
+            leading: Icon(Icons.settings_backup_restore,
+                color: _activeRoute == AppRoutes.backupScreen
+                    ? Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor
+                    : null),
             title: Text(
               Language.of(context).backup,
-              style: const TextStyle(
-                fontWeight: FontWeight.normal,
-              ),
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: _activeRoute == AppRoutes.backupScreen
+                      ? Provider.of<AppConfiguration>(context, listen: false)
+                          .primaryColor
+                      : null),
             ),
-            selected: _activeRoute == AppRoutes.backupScreen,
             onTap: () =>
                 navigate(_activeRoute, context, AppRoutes.backupScreen),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.delete_outlined,
-            ),
+            leading: Icon(Icons.delete_outlined,
+                color: _activeRoute == AppRoutes.trashScreen
+                    ? Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor
+                    : null),
             title: Text(
               Language.of(context).trash,
-              style: const TextStyle(
-                fontWeight: FontWeight.normal,
-              ),
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: _activeRoute == AppRoutes.trashScreen
+                      ? Provider.of<AppConfiguration>(context, listen: false)
+                          .primaryColor
+                      : null),
             ),
-            selected: _activeRoute == AppRoutes.trashScreen,
             onTap: () => navigate(_activeRoute, context, AppRoutes.trashScreen),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.settings,
-            ),
+            leading: Icon(Icons.settings,
+                color: _activeRoute == AppRoutes.settingsScreen
+                    ? Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor
+                    : null),
             title: Text(
               Language.of(context).settings,
-              style: const TextStyle(
-                fontWeight: FontWeight.normal,
-              ),
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: _activeRoute == AppRoutes.settingsScreen
+                      ? Provider.of<AppConfiguration>(context, listen: false)
+                          .primaryColor
+                      : null),
             ),
-            selected: _activeRoute == AppRoutes.settingsScreen,
             onTap: () =>
                 navigate(_activeRoute, context, AppRoutes.settingsScreen),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.person_outline,
-            ),
+            leading: Icon(Icons.person_outline,
+                color: _activeRoute == AppRoutes.aboutMeScreen
+                    ? Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor
+                    : null),
             title: Text(
               Language.of(context).about,
-              style: const TextStyle(
-                fontWeight: FontWeight.normal,
-              ),
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: _activeRoute == AppRoutes.aboutMeScreen
+                      ? Provider.of<AppConfiguration>(context, listen: false)
+                          .primaryColor
+                      : null),
             ),
-            selected: _activeRoute == AppRoutes.aboutMeScreen,
             onTap: () =>
                 navigate(_activeRoute, context, AppRoutes.aboutMeScreen),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.email_outlined,
-            ),
+            leading: Icon(Icons.email_outlined,
+                color: _activeRoute == AppRoutes.suggestScreen
+                    ? Provider.of<AppConfiguration>(context, listen: false)
+                        .iconColor
+                    : null),
             title: Text(
               Language.of(context).reportSuggest,
-              style: const TextStyle(
-                fontWeight: FontWeight.normal,
-              ),
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: _activeRoute == AppRoutes.suggestScreen
+                      ? Provider.of<AppConfiguration>(context, listen: false)
+                          .primaryColor
+                      : null),
             ),
-            selected: _activeRoute == AppRoutes.suggestScreen,
             onTap: () => goToBugScreen(context),
           ),
         ],
