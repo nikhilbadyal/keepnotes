@@ -122,7 +122,7 @@ class _LockScreenState extends State<LockScreen> {
   }
 
   Widget title(BuildContext context) =>
-      Text('${Language.of(context).enterPassword} 🙈',
+      Text('${Language.of(context).enterPassword}  🙈',
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
 
   void onPasswordEntered(String data) {
