@@ -3,7 +3,7 @@ description: Keep Notes,
 
 publish_to: 'none'
 
-version: 0.0.2+3
+version: 0.0.3+4
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -18,12 +18,12 @@ dependencies:
   flutter_slidable: ^0.6.0
   flutter_tabler_icons: ^1.1.1
   intl: ^0.17.0
-  local_auth: ^1.1.5
+  local_auth: ^1.1.6
   permission_handler: ^8.0.0+2
   provider: ^5.0.0
   shared_preferences: ^2.0.6
   sqflite: ^2.0.0+3
-  url_launcher: ^6.0.4
+  url_launcher: ^6.0.6
   encrypt: ^5.0.0
   flutter_secure_storage: ^4.2.0
   syncfusion_flutter_pdf: ^19.1.66-beta
