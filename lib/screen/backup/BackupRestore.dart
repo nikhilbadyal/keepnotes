@@ -129,7 +129,9 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         final finalPath = path + folderName + fileName;
         try {
           await File(finalPath).create(recursive: true);
-        } on Exception catch (_) {
+        } on Exception catch (e) {
+          debugPrint(e.toString());
+          debugPrint('from here1');
           return false;
         }
         final file = File(finalPath);
@@ -164,9 +166,16 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
             ],
           ),
         );
+
+        debugPrint('from here2');
+
         return false;
       }
-    } on Exception catch (_) {
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+
+      debugPrint('from here3');
+
       return false;
     }
     return true;
