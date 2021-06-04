@@ -5,6 +5,7 @@ import 'package:notes/screen/about/AboutMeScreen.dart';
 import 'package:notes/screen/backup/BackupRestore.dart';
 import 'package:notes/screen/home/HomeBody.dart';
 import 'package:notes/screen/settings/SettingsScreen.dart';
+import 'package:notes/screen/settings/NewSettingsScreen.dart';
 import 'package:notes/screen/topWidget/AppBar.dart';
 import 'package:notes/screen/topWidget/Body.dart';
 import 'package:notes/screen/topWidget/BottomSheet.dart';
@@ -121,7 +122,8 @@ class ScreenContainer extends TopWidgetBase {
         return const AboutMe();
 
       case ScreenTypes.Settings:
-        return const SettingsScreenHelper();
+        return const SettingsScreen();
+      // return const SettingsScreenHelper();
 
       case ScreenTypes.Lock:
         return const ErrorScreen();

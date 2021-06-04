@@ -75,7 +75,7 @@ class LanguageHi extends Language {
   String get directBio => 'सीधे बायोमेट्रिक के लिए पूछें';
 
   @override
-  String get directDelete => 'डायरेक्टली हटाएं';
+  String get directDelete => 'ट्रैश से डायरेक्टली हटाएं';
 
   @override
   String get done => 'हो गया';
@@ -256,4 +256,16 @@ class LanguageHi extends Language {
 
   @override
   String get removeBiometric => 'बायोमेट्रिक हटाएँ';
+
+  @override
+  String get areYouSure => 'पक्का?';
+
+  @override
+  String get general => 'जनरल';
+
+  @override
+  String get security => 'सुरक्षा';
+
+  @override
+  String get ui => 'यूजर इंटरफेस';
 }

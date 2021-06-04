@@ -10,7 +10,7 @@ import 'package:notes/util/ErrorScreen.dart';
 class AppRoutes {
   static const hiddenScreen = '/hidden';
   static const lockScreen = '/lock';
-  static const setpassScreen = '/setpass';
+  static const setPassScreen = '/setpass';
   static const homeScreen = '/';
   static const archiveScreen = '/archive';
   static const backupScreen = '/backup';
@@ -101,7 +101,7 @@ class RouteGenerator {
           );
         }
 
-      case AppRoutes.setpassScreen:
+      case AppRoutes.setPassScreen:
         {
           return MaterialPageRoute(
             settings: settings,

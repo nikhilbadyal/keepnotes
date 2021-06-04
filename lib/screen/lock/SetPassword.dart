@@ -73,7 +73,7 @@ class _SetPasswordState extends State<SetPassword> {
       await navigate(
         ModalRoute.of(context)!.settings.name!,
         context,
-        AppRoutes.setpassScreen,
+        AppRoutes.setPassScreen,
         DataObj(enteredPassCode, Language.of(context).reEnterPassword,
             resetPass: args.resetPass, isFirst: false),
       );
@@ -120,7 +120,7 @@ class _SetPasswordState extends State<SetPassword> {
         await navigate(
           ModalRoute.of(context)!.settings.name!,
           context,
-          AppRoutes.setpassScreen,
+          AppRoutes.setPassScreen,
           DataObj(
             '',
             Language.of(context).enterNewPassword,
@@ -143,15 +143,13 @@ class _SetPasswordState extends State<SetPassword> {
     firstPass = args.firstPass;
     title = args.heading;
     final titleWidget = _titleWidget(title);
-    return DoubleBackToCloseWidget(
-      child: MyLockScreen(
-        title: titleWidget,
-        onTap: _onTap,
-        onDelTap: _onDelTap,
-        enteredPassCode: enteredPassCode,
-        stream: _verificationNotifier.stream,
-        doneCallBack: (_) {},
-      ),
+    return MyLockScreen(
+      title: titleWidget,
+      onTap: _onTap,
+      onDelTap: _onDelTap,
+      enteredPassCode: enteredPassCode,
+      stream: _verificationNotifier.stream,
+      doneCallBack: (_) {},
     );
   }
 }

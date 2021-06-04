@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 Future navigate(String activeRoute, BuildContext context, String route,
     [Object? arguments]) async {
-  if (activeRoute == route && route != AppRoutes.setpassScreen) {
+  if (activeRoute == route && route != AppRoutes.setPassScreen) {
     return Navigator.pop(context);
   }
   if (route == AppRoutes.homeScreen) {
@@ -77,7 +77,7 @@ Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
     await navigate(
       activeRoute,
       context,
-      AppRoutes.setpassScreen,
+      AppRoutes.setPassScreen,
       DataObj(
         '',
         Language.of(context).enterNewPassword,

@@ -58,8 +58,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
           ListTile(
             leading: Icon(Icons.note,
                 color: _activeRoute == AppRoutes.homeScreen
-                    ? Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor
+                    ? Theme.of(context).accentColor
                     : null),
             title: Text(
               Language.of(context).home,
@@ -76,8 +75,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
           ListTile(
             leading: Icon(Icons.archive_outlined,
                 color: _activeRoute == AppRoutes.archiveScreen
-                    ? Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor
+                    ? Theme.of(context).accentColor
                     : null),
             title: Text(
               Language.of(context).archive,
@@ -94,8 +92,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
           ListTile(
             leading: Icon(Icons.settings_backup_restore,
                 color: _activeRoute == AppRoutes.backupScreen
-                    ? Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor
+                    ? Theme.of(context).accentColor
                     : null),
             title: Text(
               Language.of(context).backup,
@@ -112,8 +109,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
           ListTile(
             leading: Icon(Icons.delete_outlined,
                 color: _activeRoute == AppRoutes.trashScreen
-                    ? Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor
+                    ? Theme.of(context).accentColor
                     : null),
             title: Text(
               Language.of(context).trash,
@@ -129,8 +125,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
           ListTile(
             leading: Icon(Icons.settings,
                 color: _activeRoute == AppRoutes.settingsScreen
-                    ? Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor
+                    ? Theme.of(context).accentColor
                     : null),
             title: Text(
               Language.of(context).settings,
@@ -147,8 +142,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
           ListTile(
             leading: Icon(Icons.person_outline,
                 color: _activeRoute == AppRoutes.aboutMeScreen
-                    ? Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor
+                    ? Theme.of(context).accentColor
                     : null),
             title: Text(
               Language.of(context).about,
@@ -165,8 +159,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
           ListTile(
             leading: Icon(Icons.email_outlined,
                 color: _activeRoute == AppRoutes.suggestScreen
-                    ? Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor
+                    ? Theme.of(context).accentColor
                     : null),
             title: Text(
               Language.of(context).reportSuggest,

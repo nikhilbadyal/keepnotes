@@ -176,7 +176,7 @@ class _LockScreenState extends State<LockScreen> {
       await navigate(
         ModalRoute.of(context)!.settings.name!,
         context,
-        AppRoutes.setpassScreen,
+        AppRoutes.setPassScreen,
         DataObj(
           '',
           Language.of(context).enterNewPassword,

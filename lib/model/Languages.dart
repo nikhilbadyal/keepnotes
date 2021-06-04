@@ -80,6 +80,15 @@ abstract class Language {
 
   String get removeBiometric ;
 
+  String get areYouSure ;
+
+  String get general ;
+
+
+  String get security ;
+
+  String get ui ;
+
   static Language of(BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageEn();
 

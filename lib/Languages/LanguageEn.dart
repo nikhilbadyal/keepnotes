@@ -256,4 +256,17 @@ class LanguageEn extends Language {
 
   @override
   String get removeBiometric => 'Remove Biometric';
+
+  @override
+  String get areYouSure => 'Are you sure';
+
+  @override
+  String get general => 'General';
+
+
+  @override
+  String get security => 'Security';
+
+  @override
+  String get ui => 'UI';
 }

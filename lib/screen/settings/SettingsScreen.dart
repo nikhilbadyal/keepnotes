@@ -13,14 +13,14 @@ import 'package:notes/widget/AlertDialog.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 
-class SettingsScreenHelper extends StatefulWidget {
-  const SettingsScreenHelper({Key? key}) : super(key: key);
+class OldSettingsScreen extends StatefulWidget {
+  const OldSettingsScreen({Key? key}) : super(key: key);
 
   @override
-  _SettingsScreenHelperState createState() => _SettingsScreenHelperState();
+  _OldSettingsScreenState createState() => _OldSettingsScreenState();
 }
 
-class _SettingsScreenHelperState extends State<SettingsScreenHelper>
+class _OldSettingsScreenState extends State<OldSettingsScreen>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) => body(context);
@@ -55,7 +55,7 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
                 await navigate(
                   ModalRoute.of(context)!.settings.name!,
                   context,
-                  AppRoutes.setpassScreen,
+                  AppRoutes.setPassScreen,
                   DataObj(
                     '',
                     'Enter New Password',
@@ -297,7 +297,7 @@ class _SettingsScreenHelperState extends State<SettingsScreenHelper>
             ),
             actions: <Widget>[
               TextButton(
-                onPressed: () async {
+                onPressed: ( ) async {
                   Navigator.of(context).pop(true);
                 },
                 child: Text(Language.of(context).done),

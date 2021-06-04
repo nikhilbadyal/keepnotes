@@ -48,7 +48,7 @@ class _HomeBodyState extends State<HomeBody> {
                 return const NoNotesUi(noteState: NoteState.unspecified);
               } else {
                 return NonEmptyHomeUi(
-                  notehelper: notehelper,
+                  noteHelper: notehelper,
                   primary: widget.primary,
                   secondary: widget.secondary,
                 );
@@ -119,13 +119,13 @@ _NonEmptyHomeUiState? homeBody;
 
 class NonEmptyHomeUi extends StatefulWidget {
   const NonEmptyHomeUi({
-    required this.notehelper,
+    required this.noteHelper,
     required this.primary,
     required this.secondary,
     Key? key,
   }) : super(key: key);
 
-  final NotesHelper notehelper;
+  final NotesHelper noteHelper;
 
   final Function(Note note, BuildContext context) primary;
   final Function(Note note, BuildContext context) secondary;
@@ -150,12 +150,11 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
       child: ListView.builder(
         cacheExtent: 100000,
         physics: const BouncingScrollPhysics(),
-        itemCount: widget.notehelper.mainNotes.length,
+        itemCount: widget.noteHelper.mainNotes.length,
         itemBuilder: (context, index) {
-          final item = widget.notehelper.mainNotes[index];
+          final item = widget.noteHelper.mainNotes[index];
           selectedFlag[index] = selectedFlag[index] ?? false;
           final isSelected = selectedFlag[index] ?? false;
-
           return Slidable(
             key: UniqueKey(),
             actions: widget.primary(item, context),
