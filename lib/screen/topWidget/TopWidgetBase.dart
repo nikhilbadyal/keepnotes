@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/screen/topWidget/AppBar.dart';
-import 'package:notes/widget/DoubleBackToClose.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/screen/_screens.dart';
+import 'package:notes/widget/_widgets.dart';
 
 enum ScreenTypes {
   Hidden,
@@ -19,7 +19,6 @@ enum ScreenTypes {
 typedef ActionFunction = void Function(
     BuildContext context, Note note, OnTapCallback);
 typedef OnTapCallback = void Function(BuildContext context, Note note);
-typedef BackPresAction = Future<bool> Function();
 
 abstract class TopWidgetBase extends StatefulWidget {
   const TopWidgetBase({Key? key}) : super(key: key);

@@ -1,13 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/util/AppConfiguration.dart';
-import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/Encryption.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/util/_util.dart';
 
 final RouteObserver<Route> routeObserver = RouteObserver<Route>();
 
@@ -74,7 +68,7 @@ class _MyNotesState extends State<MyNotes> {
             supportedLanguages.forEach((element) =>
                 supportedLocales.add(Locale(element.languageCode, '')));
             return MaterialApp(
-             /* checkerboardOffscreenLayers: true,
+              /* checkerboardOffscreenLayers: true,
               checkerboardRasterCacheImages: true,*/
               locale: _locale,
               restorationScopeId: 'keepnotes',

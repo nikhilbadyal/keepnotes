@@ -1,13 +1,8 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
 import 'package:notes/app.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,11 +12,8 @@ Future<void> main() async {
   final locale = await getLocale();
   FlutterError.onError = (details) {
     FlutterError.dumpErrorToConsole(details);
-    if (kReleaseMode) {
+    if (kReleaseMode || kDebugMode) {
       exit(1);
-    }
-    if (kDebugMode) {
-      timeDilation = 1;
     }
   };
 

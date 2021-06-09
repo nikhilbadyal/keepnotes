@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/widget/ModalSheetWidgets.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
+import 'package:notes/widget/_widgets.dart';
+import 'package:notes/_internalPackages.dart';
 
 class HomeNoteOptions extends StatefulWidget {
   const HomeNoteOptions({
@@ -45,25 +46,37 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                 Flex(
                   direction: Axis.horizontal,
                   children: [
-                    ModalSheetHideWidget(
-                      note: widget.note,
-                      saveNote: widget.saveNote,
-                      autoSaver: widget.autoSaver,
+                    ModalSheetWidget(
+                      label: Language.of(context).hide,
+                      icon: TablerIcons.ghost,
+                      onTap: () {
+                        Utilities.onModalHideTap(context, widget.note,
+                            widget.autoSaver, widget.saveNote);
+                      },
                     ),
-                    ModalSheetArchiveWidget(
-                      note: widget.note,
-                      saveNote: widget.saveNote,
-                      autoSaver: widget.autoSaver,
+                    ModalSheetWidget(
+                      onTap: () {
+                        Utilities.onModalArchiveTap(context, widget.note,
+                            widget.autoSaver, widget.saveNote);
+                      },
+                      icon: Icons.archive_outlined,
+                      label: Language.of(context).archive,
                     ),
-                    ModalSheetCopyToClipBoardWidget(
-                      note: widget.note,
-                      saveNote: widget.saveNote,
-                      autoSaver: widget.autoSaver,
+                    ModalSheetWidget(
+                      icon: TablerIcons.copy,
+                      onTap: () async {
+                        await Utilities.onModalCopyToClipboardTap(context,
+                            widget.note, widget.autoSaver, widget.saveNote);
+                      },
+                      label: Language.of(context).clipboard,
                     ),
-                    ModalSheetTrashWidget(
-                      note: widget.note,
-                      saveNote: widget.saveNote,
-                      autoSaver: widget.autoSaver,
+                    ModalSheetWidget(
+                      icon: Icons.delete_outlined,
+                      onTap: () async {
+                        await Utilities.onModalTrashTap(context, widget.note,
+                            widget.autoSaver, widget.saveNote);
+                      },
+                      label: Language.of(context).trash,
                     ),
                   ],
                 ),
@@ -72,4 +85,27 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
           )
         ],
       );
+
+  Future<void> onHideTap() async {
+    final status =
+        Provider.of<LockChecker>(context, listen: false).password.isNotEmpty;
+    if (!status) {
+      await showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (_) => MyAlertDialog(
+          title: Text(Language.of(context).message),
+          content: Text(Language.of(context).setPasswordFirst),
+        ),
+      );
+    } else {
+      widget.autoSaver.cancel();
+      widget.saveNote();
+      final wantedRoute = getRoute(widget.note.state);
+      await Utilities.onHideTap(context, widget.note);
+      Navigator.of(context).popUntil(
+        (route) => route.settings.name == wantedRoute,
+      );
+    }
+  }
 }

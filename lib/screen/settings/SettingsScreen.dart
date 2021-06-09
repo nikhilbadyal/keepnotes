@@ -1,223 +1,166 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
 import 'package:notes/app.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/screen/lock/SetPassword.dart';
-import 'package:notes/screen/settings/ColorPicker.dart';
-import 'package:notes/util/AppConfiguration.dart';
-import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/Navigations.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:notes/widget/AlertDialog.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/screen/_screens.dart';
+import 'package:notes/util/_util.dart';
+import 'package:notes/widget/_widgets.dart';
 
-class OldSettingsScreen extends StatefulWidget {
-  const OldSettingsScreen({Key? key}) : super(key: key);
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
-  _OldSettingsScreenState createState() => _OldSettingsScreenState();
+  _SettingsScreenState createState() => _SettingsScreenState();
 }
 
-class _OldSettingsScreenState extends State<OldSettingsScreen>
-    with TickerProviderStateMixin {
+class _SettingsScreenState extends State<SettingsScreen> {
   @override
-  Widget build(BuildContext context) => body(context);
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: SafeArea(
+          child: settingsList(),
+        ),
+      ),
+    );
+  }
 
-  Widget body(BuildContext context) => ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          ListTile(
-            title: Text(
-              Language.of(context).changePassword,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText1!.color,
-                fontWeight: FontWeight.w400,
+  Widget settingsList() {
+    return SettingsList(
+      sections: [
+        TilesSection(
+          title: Language.of(context).general,
+          tiles: [
+            SettingsTile(
+              title: Language.of(context).labelLanguage,
+              leading: Icon(Icons.language,
+                  color: Provider.of<AppConfiguration>(context, listen: false)
+                      .iconColor),
+              trailing: languageTrailing(),
+            ),
+            SettingsTile.switchTile(
+              title: Language.of(context).directDelete,
+              switchActiveColor: Theme.of(context).accentColor,
+              leading: Icon(Icons.delete_forever_outlined,
+                  color: Provider.of<AppConfiguration>(context, listen: false)
+                      .iconColor),
+              switchValue: Provider.of<LockChecker>(context, listen: false)
+                  .directlyDelete,
+              onToggle: directDelete,
+            ),
+          ],
+        ),
+        TilesSection(
+          title: Language.of(context).ui,
+          tiles: [
+            SettingsTile(
+              title: Language.of(context).appColor,
+              leading: Icon(
+                Icons.color_lens_outlined,
+                color: Provider.of<AppConfiguration>(context, listen: false)
+                    .iconColor,
               ),
+              onPressed: (context) {
+                showPrimaryColorPicker();
+              },
             ),
-            leading: Icon(
-              Icons.lock_outline,
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                  .iconColor,
-            ),
-            onTap: () async {
-              if (Provider.of<LockChecker>(context, listen: false)
-                  .password
-                  .isNotEmpty) {
-                await navigate(
-                  ModalRoute.of(context)!.settings.name!,
-                  context,
-                  AppRoutes.lockScreen,
-                  true,
-                );
-              } else {
-                await navigate(
-                  ModalRoute.of(context)!.settings.name!,
-                  context,
-                  AppRoutes.setPassScreen,
-                  DataObj(
-                    '',
-                    'Enter New Password',
-                    isFirst: true,
-                  ),
-                );
-              }
-            },
-          ),
-          ListTile(
-            title: Text(
-              Language.of(context).removeBiometric,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText1!.color,
-                fontWeight: FontWeight.w400,
+            SettingsTile(
+              title: Language.of(context).iconColor,
+              leading: Icon(
+                TablerIcons.color_swatch,
+                color: Provider.of<AppConfiguration>(context, listen: false)
+                    .iconColor,
               ),
+              trailing: iconColorTrailing(),
             ),
-            leading: Icon(
-              Icons.fingerprint_outlined,
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                  .iconColor,
+            SettingsTile.switchTile(
+              switchActiveColor: Theme.of(context).accentColor,
+              title: Language.of(context).darkMode,
+              leading: Icon(Icons.dark_mode_outlined,
+                  color: Provider.of<AppConfiguration>(context, listen: false)
+                      .iconColor),
+              switchValue: Provider.of<AppConfiguration>(context, listen: false)
+                      .appTheme !=
+                  AppTheme.Light,
+              onToggle: toggleTheme,
             ),
-            onTap: () async {
-              await Provider.of<LockChecker>(context, listen: false).resetBio();
-              Utilities.showSnackbar(context, Language.of(context).done);
-            },
-          ),
-          ListTile(
-            title: Text(
-              Language.of(context).primaryColor,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText1!.color,
-                fontWeight: FontWeight.w400,
-              ),
+          ],
+        ),
+        TilesSection(
+          title: Language.of(context).security,
+          tiles: [
+            SettingsTile(
+              title: Language.of(context).changePassword,
+              leading: Icon(Icons.phonelink_lock,
+                  color: Provider.of<AppConfiguration>(context, listen: false)
+                      .iconColor),
+              onPressed: (context) {
+                onChangePassword();
+              },
             ),
-            leading: Icon(
-              Icons.color_lens_outlined,
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                  .iconColor,
+            SettingsTile(
+              title: Language.of(context).removeBiometric,
+              leading: Icon(Icons.face_outlined,
+                  color: Provider.of<AppConfiguration>(context, listen: false)
+                      .iconColor),
+              onPressed: (context) {
+                onRemoveBioMetric(context);
+              },
             ),
-            onTap: () async {
-              await showPrimaryColorPicker();
-            },
-          ),
-          ListTile(
-            title: Text(
-              Language.of(context).iconColor,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText1!.color,
-                fontWeight: FontWeight.w400,
-              ),
+            SettingsTile.switchTile(
+              title: Language.of(context).directBio,
+              leading: Icon(Icons.fingerprint_outlined,
+                  color: Provider.of<AppConfiguration>(context, listen: false)
+                      .iconColor),
+              switchActiveColor: Theme.of(context).accentColor,
+              switchValue:
+                  Provider.of<LockChecker>(context, listen: false).fpDirectly,
+              onToggle: toggleBiometric,
             ),
-            leading: Icon(
-              TablerIcons.color_swatch,
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                  .iconColor,
-            ),
-            trailing: PopupMenuButton(
-              icon: const Icon(Icons.arrow_drop_down),
-              iconSize: 30,
-              onSelected: onIconColorChange,
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  value: IconColorStatus.NoColor,
-                  child: Text(Language.of(context).noColor),
-                ),
-                PopupMenuItem(
-                  value: IconColorStatus.PickedColor,
-                  child: Text(Language.of(context).pickColor),
-                ),
-                PopupMenuItem(
-                  value: IconColorStatus.UiColor,
-                  child: Text(Language.of(context).appColor),
-                ),
-              ],
-            ),
-          ),
-          SwitchListTile(
-            title: Text(
-              Language.of(context).darkMode,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText1!.color,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            value: Provider.of<AppConfiguration>(context, listen: false)
-                    .appTheme !=
-                AppTheme.Light,
-            onChanged: toggleTheme,
-            activeColor:
-                Provider.of<AppConfiguration>(context, listen: false).iconColor,
-            secondary: Icon(
-              Icons.colorize_outlined,
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                  .iconColor,
-            ),
-          ),
-          SwitchListTile(
-            title: Text(
-              Language.of(context).directBio,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText1!.color,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            value: Provider.of<LockChecker>(context, listen: false).fpDirectly,
-            onChanged: toggleBiometric,
-            activeColor:
-                Provider.of<AppConfiguration>(context, listen: false).iconColor,
-            secondary: Icon(
-              Icons.fingerprint_outlined,
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                  .iconColor,
-            ),
-          ),
-          SwitchListTile(
-            title: Text(
-              Language.of(context).directDelete,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText1!.color,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            value:
-                Provider.of<LockChecker>(context, listen: false).directlyDelete,
-            onChanged: directDelete,
-            activeColor:
-                Provider.of<AppConfiguration>(context, listen: false).iconColor,
-            secondary: Icon(
-              Icons.delete_forever_outlined,
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                  .iconColor,
-            ),
-          ),
-          ListTile(
-            title: Text(
-              Language.of(context).labelLanguage,
-              style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1!.color,
-                  fontWeight: FontWeight.w400),
-            ),
-            leading: Icon(
-              Icons.language_outlined,
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                  .iconColor,
-            ),
-            trailing: PopupMenuButton(
-              icon: const Icon(Icons.arrow_drop_down),
-              iconSize: 30,
-              onSelected: onLocaleChange,
-              itemBuilder: (_) => supportedLanguages
-                  .map(
-                    (e) => PopupMenuItem(
-                      value: e,
-                      child: Text(e.name),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-        ],
-      );
+          ],
+        ),
+      ],
+    );
+  }
+
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> toggleTheme(bool value) async {
+    setState(
+      () {
+        if (value) {
+          Provider.of<AppConfiguration>(context, listen: false).appTheme =
+              AppTheme.Black;
+        } else {
+          Provider.of<AppConfiguration>(context, listen: false).appTheme =
+              AppTheme.Light;
+        }
+      },
+    );
+    Provider.of<AppConfiguration>(context, listen: false)
+        .changeAppTheme(write: true);
+  }
+
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> toggleBiometric(bool value) async {
+    setState(() {
+      Provider.of<LockChecker>(context, listen: false).fpDirectly = value;
+    });
+    unawaited(
+      Utilities.addBoolToSF('fpDirectly', value: value),
+    );
+  }
+
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> directDelete(bool deleteDirectly) async {
+    setState(() {
+      Provider.of<LockChecker>(context, listen: false).directlyDelete =
+          deleteDirectly;
+    });
+    unawaited(
+      Utilities.addBoolToSF('directlyDelete', value: deleteDirectly),
+    );
+  }
 
   Future<void> showPrimaryColorPicker() async {
     final initAppColor =
@@ -236,16 +179,19 @@ class _OldSettingsScreenState extends State<OldSettingsScreen>
                 pickerColor:
                     Provider.of<AppConfiguration>(context).primaryColor,
                 onColorChanged: (value) async {
-                  if (Provider.of<AppConfiguration>(context, listen: false)
-                          .iconColorStatus ==
-                      IconColorStatus.UiColor) {
+                  setState(() {
+                    if (Provider.of<AppConfiguration>(context, listen: false)
+                            .iconColorStatus ==
+                        IconColorStatus.UiColor) {
+                      debugPrint('change icon color');
+                      Provider.of<AppConfiguration>(context, listen: false)
+                          .iconColor = value;
+                    }
                     Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor = value;
-                  }
-                  Provider.of<AppConfiguration>(context, listen: false)
-                      .primaryColor = value;
-                  Provider.of<AppConfiguration>(context, listen: false)
-                      .changePrimaryColor();
+                        .primaryColor = value;
+                    Provider.of<AppConfiguration>(context, listen: false)
+                        .changePrimaryColor();
+                  });
                 },
               ),
             ),
@@ -297,7 +243,7 @@ class _OldSettingsScreenState extends State<OldSettingsScreen>
             ),
             actions: <Widget>[
               TextButton(
-                onPressed: ( ) async {
+                onPressed: () async {
                   Navigator.of(context).pop(true);
                 },
                 child: Text(Language.of(context).done),
@@ -314,44 +260,6 @@ class _OldSettingsScreenState extends State<OldSettingsScreen>
             initColor;
       });
     }
-  }
-
-  // ignore: avoid_positional_boolean_parameters
-  Future<void> toggleTheme(bool value) async {
-    setState(
-      () {
-        if (value) {
-          Provider.of<AppConfiguration>(context, listen: false).appTheme =
-              AppTheme.Black;
-        } else {
-          Provider.of<AppConfiguration>(context, listen: false).appTheme =
-              AppTheme.Light;
-        }
-      },
-    );
-    Provider.of<AppConfiguration>(context, listen: false)
-        .changeAppTheme(write: true);
-  }
-
-  // ignore: avoid_positional_boolean_parameters
-  Future<void> toggleBiometric(bool value) async {
-    setState(() {
-      Provider.of<LockChecker>(context, listen: false).fpDirectly = value;
-    });
-    unawaited(
-      Utilities.addBoolToSF('fpDirectly', value: value),
-    );
-  }
-
-  // ignore: avoid_positional_boolean_parameters
-  Future<void> directDelete(bool deleteDirectly) async {
-    setState(() {
-      Provider.of<LockChecker>(context, listen: false).directlyDelete =
-          deleteDirectly;
-    });
-    unawaited(
-      Utilities.addBoolToSF('directlyDelete', value: deleteDirectly),
-    );
   }
 
   Future<void> resetPassword() async {
@@ -394,5 +302,93 @@ class _OldSettingsScreenState extends State<OldSettingsScreen>
     });
   }
 
-  void removeBiometric() {}
+  Future<void> onChangePassword() async {
+    if (Provider.of<LockChecker>(context, listen: false).password.isNotEmpty) {
+      await Navigator.pushNamed(context, AppRoutes.lockScreen, arguments: true);
+    } else {
+      await Navigator.pushNamed(
+        context,
+        AppRoutes.setPassScreen,
+        arguments: DataObj(
+          '',
+          'Enter New Password',
+          isFirst: true,
+        ),
+      );
+    }
+  }
+
+  Future<void> onRemoveBioMetric(BuildContext context) async {
+    final choice = await showDialog<bool>(
+          barrierDismissible: true,
+          context: context,
+          builder: (context) => MyAlertDialog(
+            title: Text(Language.of(context).message),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(Language.of(context).areYouSure),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop(true);
+                },
+                child: Text(Language.of(context).alertDialogOp1),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop(false);
+                },
+                child: Text(Language.of(context).alertDialogOp2),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+    if (choice) {
+      await Provider.of<LockChecker>(context, listen: false).resetBio();
+      Utilities.showSnackbar(context, Language.of(context).done);
+    }
+  }
+
+  Widget languageTrailing() {
+    return PopupMenuButton(
+      icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).accentColor),
+      iconSize: 30,
+      onSelected: onLocaleChange,
+      itemBuilder: (_) => supportedLanguages
+          .map(
+            (e) => PopupMenuItem(
+              value: e,
+              child: Text(e.name),
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  Widget iconColorTrailing() {
+    return PopupMenuButton(
+      icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).accentColor),
+      iconSize: 30,
+      onSelected: onIconColorChange,
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: IconColorStatus.NoColor,
+          child: Text(Language.of(context).noColor),
+        ),
+        PopupMenuItem(
+          value: IconColorStatus.PickedColor,
+          child: Text(Language.of(context).pickColor),
+        ),
+        PopupMenuItem(
+          value: IconColorStatus.UiColor,
+          child: Text(Language.of(context).appColor),
+        ),
+      ],
+    );
+  }
 }

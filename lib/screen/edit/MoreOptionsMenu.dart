@@ -1,11 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/screen/archive/ArchiveNoteOptions.dart';
-import 'package:notes/screen/edit/ErrorModelSheet.dart';
-import 'package:notes/screen/hidden/HiddenNoteOptions.dart';
-import 'package:notes/screen/home/HomeNoteOptions.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/screen/_screens.dart';
 
 class MoreOptionsMenu extends StatefulWidget {
   const MoreOptionsMenu({

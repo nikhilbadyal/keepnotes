@@ -1,6 +1,6 @@
 // In case something messes up. I hope no one come across this
-import 'package:flutter/material.dart';
-import 'package:notes/model/Languages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({Key? key}) : super(key: key);

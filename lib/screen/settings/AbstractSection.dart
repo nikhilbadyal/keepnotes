@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:notes/_internalPackages.dart';
 
 // ignore: must_be_immutable
 abstract class AbstractSection extends StatelessWidget {

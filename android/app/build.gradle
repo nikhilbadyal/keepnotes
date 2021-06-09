@@ -53,10 +53,8 @@ android {
         versionName flutterVersionName
         resValue "string", "app_name", "KeepNotes"
     }
-   /*
 
 
-*/
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }

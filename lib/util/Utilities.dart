@@ -1,21 +1,8 @@
-import 'dart:math';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/Navigations.dart';
-import 'package:notes/widget/AlertDialog.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
+import 'package:notes/widget/_widgets.dart';
 
 enum IconColorStatus { NoColor, PickedColor, UiColor }
 
@@ -50,6 +37,79 @@ class Utilities {
   static const appName = 'KeepNotes';
 
   static late FlutterSecureStorage storage;
+
+  static Future<void> onModalHideTap(BuildContext context, Note note,
+      Timer autoSaver, final Function() saveNote) async {
+    final status =
+        Provider.of<LockChecker>(context, listen: false).password.isNotEmpty;
+    if (!status) {
+      await showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (_) => MyAlertDialog(
+          title: Text(Language.of(context).message),
+          content: Text(Language.of(context).setPasswordFirst),
+        ),
+      );
+    } else {
+      autoSaver.cancel();
+      saveNote();
+      final wantedRoute = getRoute(note.state);
+      await Utilities.onHideTap(context, note);
+      Navigator.of(context).popUntil(
+        (route) => route.settings.name == wantedRoute,
+      );
+    }
+  }
+
+  static Future<void> onModalArchiveTap(BuildContext context, Note note,
+      Timer autoSaver, final Function() saveNote) async {
+    autoSaver.cancel();
+    saveNote();
+    final wantedRoute = getRoute(note.state);
+    await Utilities.onArchiveTap(context, note);
+    Navigator.of(context).popUntil(
+      (route) => route.settings.name == wantedRoute,
+    );
+  }
+
+  static Future<void> onModalUnArchiveTap(BuildContext context, Note note,
+      Timer autoSaver, final Function() saveNote) async {
+    autoSaver.cancel();
+    saveNote();
+    final wantedRoute = getRoute(note.state);
+    await Utilities.onUnArchiveTap(context,note);
+    Navigator.of(context).popUntil(
+          (route) => route.settings.name == wantedRoute,
+    );
+  }
+
+  static Future<void> onModalTrashTap(BuildContext context, Note note,
+      Timer autoSaver, final Function() saveNote) async {
+    autoSaver.cancel();
+    saveNote();
+    final wantedRoute = getRoute(note.state);
+    await Utilities.onTrashTap(context, note);
+    Navigator.of(context).popUntil(
+      (route) => route.settings.name == wantedRoute,
+    );
+  }
+
+  static Future<void> onModalCopyToClipboardTap(BuildContext context, Note note,
+      Timer autoSaver, final Function() saveNote) async {
+    autoSaver.cancel();
+    saveNote();
+    Navigator.of(context).pop();
+    await Clipboard.setData(
+      ClipboardData(text: note.title),
+    );
+    await Clipboard.setData(
+      ClipboardData(text: note.content),
+    ).then(
+      (value) => Utilities.showSnackbar(context, Language.of(context).done,
+          snackBarBehavior: SnackBarBehavior.floating),
+    );
+  }
 
   static Future<void> resetPassword(BuildContext context,
       {bool deleteAllNotes = false}) async {
@@ -226,7 +286,7 @@ class Utilities {
     var choice = true;
     if (!deleteDirectly) {
       choice = await showDialog<bool>(
-        barrierDismissible: false,
+            barrierDismissible: false,
             context: context,
             builder: (_) => MyAlertDialog(
               title: Text(Language.of(context).message),

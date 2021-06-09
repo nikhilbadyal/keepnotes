@@ -26,7 +26,10 @@ dependencies:
   url_launcher: ^6.0.6
   encrypt: ^5.0.0
   flutter_secure_storage: ^4.2.0
-  syncfusion_flutter_pdf: ^19.1.66-beta
+  syncfusion_flutter_pdf: ^19.1.67-beta
+  keepsettings:
+    git:
+      url: https://github.com/ProblematicDude/keepsettings.git
 dev_dependencies:
   flutter_test:
     sdk: flutter

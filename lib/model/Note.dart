@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+import 'package:notes/_externalPackages.dart';
 
 enum NoteState {
   unspecified,

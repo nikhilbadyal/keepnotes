@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:notes/model/Languages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
 
 class ErrorModalSheet extends StatelessWidget {
   const ErrorModalSheet({Key? key}) : super(key: key);

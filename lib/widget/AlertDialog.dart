@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:notes/_internalPackages.dart';
 
 class MyAlertDialog extends StatelessWidget {
   const MyAlertDialog({

@@ -1,18 +1,66 @@
-import 'dart:async';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
+import 'package:notes/widget/_widgets.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/util/AppConfiguration.dart';
-import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:notes/widget/AlertDialog.dart';
-import 'package:provider/provider.dart';
+abstract class ModalSheetWidgets extends StatelessWidget {
+  const ModalSheetWidgets(
+      {required this.onTap, required this.icon, required this.label, Key? key})
+      : super(key: key);
+  final Function()? onTap;
+  final IconData icon;
+  final String label;
+}
 
+class ModalSheetWidget extends ModalSheetWidgets {
+  const ModalSheetWidget(
+      {required Function()? onTap,
+      required IconData icon,
+      required String label,
+      Key? key})
+      : super(key: key, onTap: onTap, icon: icon, label: label);
+
+  @override
+  Widget build(BuildContext context) => Flexible(
+        fit: FlexFit.tight,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Container(
+            margin: const EdgeInsets.only(left: 8),
+            height: 80,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Theme.of(context).iconTheme.color!.withOpacity(0.1),
+                width: 1.5,
+              ),
+              color: Theme.of(context).cardColor,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 12,
+                  color: Colors.black.withOpacity(0.04),
+                )
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  size: 35,
+                  color: Provider.of<AppConfiguration>(context, listen: false)
+                      .iconColor,
+                ),
+                const SizedBox(width: 16),
+                Text(label),
+              ],
+            ),
+          ),
+        ),
+      );
+}
+/*
 class ModalSheetUnhideWidget extends StatelessWidget {
   const ModalSheetUnhideWidget({
     required this.note,
@@ -30,7 +78,6 @@ class ModalSheetUnhideWidget extends StatelessWidget {
         fit: FlexFit.tight,
         child: GestureDetector(
           onTap: () {
-
             autoSaver.cancel();
             saveNote();
             final wantedRoute = getRoute(note.state);
@@ -390,7 +437,7 @@ class ModalSheetUnarchiveWidget extends StatelessWidget {
           ),
         ),
       );
-}
+}*/
 
 class ModalSheetDeleteAllWidget extends StatelessWidget {
   const ModalSheetDeleteAllWidget({Key? key}) : super(key: key);

@@ -1,8 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/util/Navigations.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
 
 class NoNotesUi extends StatelessWidget {
   const NoNotesUi({

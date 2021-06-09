@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:notes/screen/lock/Keyboard.dart';
-import 'package:notes/screen/lock/PasswordCircles.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/screen/_screens.dart';
 
 class MyLockScreen extends StatefulWidget {
   const MyLockScreen({
@@ -175,8 +174,8 @@ class ShakeWidget extends StatelessWidget {
         tween: Tween(begin: 0, end: 1),
         duration: duration,
         builder: (context, animation, child) => Transform.translate(
-          offset: Offset(deltaX * shake(animation),
-                deltaX * shake(animation)*0.4),
+          offset: Offset(
+              deltaX * shake(animation), deltaX * shake(animation) * 0.4),
           child: child,
         ),
         child: child,

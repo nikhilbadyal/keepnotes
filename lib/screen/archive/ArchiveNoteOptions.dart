@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/widget/ModalSheetWidgets.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
+import 'package:notes/widget/_widgets.dart';
 
 class ArchiveNoteOptions extends StatefulWidget {
   const ArchiveNoteOptions({
@@ -47,25 +48,37 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                 Flex(
                   direction: Axis.horizontal,
                   children: [
-                    ModalSheetHideWidget(
-                      note: widget.note,
-                      saveNote: widget.saveNote,
-                      autoSaver: widget.autoSaver,
+                    ModalSheetWidget(
+                      label: Language.of(context).hide,
+                      icon: TablerIcons.ghost,
+                      onTap: () {
+                        Utilities.onModalHideTap(context, widget.note,
+                            widget.autoSaver, widget.saveNote);
+                      },
                     ),
-                    ModalSheetUnarchiveWidget(
-                      note: widget.note,
-                      saveNote: widget.saveNote,
-                      autoSaver: widget.autoSaver,
+                    ModalSheetWidget(
+                      label: Language.of(context).unarchive,
+                      onTap: () {
+                        Utilities.onModalUnArchiveTap(context, widget.note,
+                            widget.autoSaver, widget.saveNote);
+                      },
+                      icon: Icons.unarchive_outlined,
                     ),
-                    ModalSheetCopyToClipBoardWidget(
-                      note: widget.note,
-                      saveNote: widget.saveNote,
-                      autoSaver: widget.autoSaver,
+                    ModalSheetWidget(
+                      icon: TablerIcons.copy,
+                      onTap: () async {
+                        await Utilities.onModalCopyToClipboardTap(context,
+                            widget.note, widget.autoSaver, widget.saveNote);
+                      },
+                      label: Language.of(context).clipboard,
                     ),
-                    ModalSheetTrashWidget(
-                      note: widget.note,
-                      saveNote: widget.saveNote,
-                      autoSaver: widget.autoSaver,
+                    ModalSheetWidget(
+                      icon: Icons.delete_outlined,
+                      onTap: () async {
+                        await Utilities.onModalTrashTap(context, widget.note,
+                            widget.autoSaver, widget.saveNote);
+                      },
+                      label: Language.of(context).trash,
                     ),
                   ],
                 ),

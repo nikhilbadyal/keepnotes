@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/widget/ModalSheetWidgets.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/widget/_widgets.dart';
 
 void moreOptions(BuildContext context) {
   showModalBottomSheet<dynamic>(

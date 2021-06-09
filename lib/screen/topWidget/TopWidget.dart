@@ -1,22 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/screen/about/AboutMeScreen.dart';
-import 'package:notes/screen/backup/BackupRestore.dart';
-import 'package:notes/screen/home/HomeBody.dart';
-import 'package:notes/screen/settings/SettingsScreen.dart';
-import 'package:notes/screen/settings/NewSettingsScreen.dart';
-import 'package:notes/screen/topWidget/AppBar.dart';
-import 'package:notes/screen/topWidget/Body.dart';
-import 'package:notes/screen/topWidget/BottomSheet.dart';
-import 'package:notes/screen/topWidget/FloatingActionButton.dart';
-import 'package:notes/screen/topWidget/MyDrawer.dart';
-import 'package:notes/screen/topWidget/TopWidgetBase.dart';
-import 'package:notes/util/ErrorScreen.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/Navigations.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/screen/_screens.dart';
+import 'package:notes/util/_util.dart';
 
 typedef SlidableActions = Function(Note note, BuildContext context);
 typedef ActionGen = Widget Function(Note note, BuildContext context);

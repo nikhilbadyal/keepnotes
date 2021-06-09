@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
 
 class SocialLinksRow extends StatelessWidget {
   const SocialLinksRow({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/util/_util.dart';
 
 typedef KeyboardTapCallback = void Function(String text);
 typedef DeleteTapCallback = void Function();
@@ -9,30 +9,31 @@ typedef DoneCallBack = void Function(String text);
 typedef DoneEntered = Future<void> Function(String enteredPassCode);
 
 class Keyboard extends StatelessWidget {
-  Keyboard({
-    required this.onKeyboardTap,
-    required this.onDelTap,
-    this.onFingerTap,
-    Key? key,
-  }) : super(key: key);
+  const Keyboard(
+      {required this.onKeyboardTap,
+      required this.onDelTap,
+      this.onFingerTap,
+      this.keyBoardItem = const [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '-1',
+        '0',
+        '-1'
+      ],
+      Key? key})
+      : super(key: key);
 
   final KeyboardTapCallback onKeyboardTap;
   final DeleteTapCallback onDelTap;
   final FingerTapCallback? onFingerTap;
-  final List<String> keyBoardItem = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '-1',
-    '0',
-    '-1'
-  ];
+  final List<String>? keyBoardItem;
 
   Widget buildExtra(Widget widget, DeleteTapCallback? onDelTap) => Container(
         margin: const EdgeInsets.all(2),
@@ -107,7 +108,7 @@ class Keyboard extends StatelessWidget {
                           const Icon(Icons.fingerprint_outlined), onFingerTap)
                   : buildExtra(const Icon(Icons.backspace_outlined), onDelTap)
               : buildDigit(
-                  keyBoardItem[index],
+                  keyBoardItem![index],
                 ),
         ),
       );

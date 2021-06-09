@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/screen/home/HomeBody.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/screen/_screens.dart';
+import 'package:notes/_internalPackages.dart';
 
 typedef OnFabTap = Future<void> Function(
     BuildContext context, NoteState noteState);

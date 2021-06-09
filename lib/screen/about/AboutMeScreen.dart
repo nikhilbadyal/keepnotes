@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/screen/about/SocialRow.dart';
-import 'package:notes/util/AppConfiguration.dart';
-import 'package:notes/util/Navigations.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/screen/_screens.dart';
+import 'package:notes/util/_util.dart';
 
 class AboutMe extends StatefulWidget {
   const AboutMe({Key? key}) : super(key: key);

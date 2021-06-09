@@ -1,7 +1,6 @@
-
-import 'package:flutter/material.dart';
-import 'package:notes/util/AppConfiguration.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/util/_util.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
 
 class Circle extends StatefulWidget {
   const Circle({
@@ -19,28 +18,30 @@ class Circle extends StatefulWidget {
 
 class _CircleState extends State<Circle> {
   @override
-  Widget build(BuildContext context) => Container(
-    margin: EdgeInsets.only(bottom: widget.size),
-    width: 20,
-    height: 20,
-    decoration: BoxDecoration(
-      color: widget.isFilled
-          ? Provider.of<AppConfiguration>(context, listen: false)
-          .appTheme ==
-          AppTheme.Light
-          ? Provider.of<AppConfiguration>(context, listen: false)
-          .primaryColor
-          : Colors.white
-          : Colors.transparent,
-      shape: BoxShape.circle,
-      border: Border.all(
-          color: Provider.of<AppConfiguration>(context, listen: false)
-              .appTheme ==
-              AppTheme.Light
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(bottom: widget.size),
+        width: 20,
+        height: 20,
+        decoration: BoxDecoration(
+          color: widget.isFilled
               ? Provider.of<AppConfiguration>(context, listen: false)
-              .primaryColor
-              : Colors.white,
-          width: 2),
-    ),
-  );
+                          .appTheme ==
+                      AppTheme.Light
+                  ? Provider.of<AppConfiguration>(context, listen: false)
+                      .primaryColor
+                  : Colors.white
+              : Colors.transparent,
+          shape: BoxShape.circle,
+          border: Border.all(
+              color: Provider.of<AppConfiguration>(context, listen: false)
+                          .appTheme ==
+                      AppTheme.Light
+                  ? Provider.of<AppConfiguration>(context, listen: false)
+                      .primaryColor
+                  : Colors.white,
+              width: 2),
+        ),
+      );
+  }
 }

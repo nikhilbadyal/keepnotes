@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/Utilities.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
 
 typedef BackPresAction = Future<bool> Function();
 

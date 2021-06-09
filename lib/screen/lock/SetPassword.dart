@@ -1,17 +1,8 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/screen/lock/BaseLockScreen.dart';
-import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/Navigations.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:notes/widget/DoubleBackToClose.dart';
-import 'package:provider/provider.dart';
-import 'package:pedantic/pedantic.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/screen/_screens.dart';
+import 'package:notes/util/_util.dart';
 
 class SetPassword extends StatefulWidget {
   const SetPassword({Key? key}) : super(key: key);

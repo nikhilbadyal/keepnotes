@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/util/AppConfiguration.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
 
 typedef OnTap = void Function();
 typedef OnLongPress = void Function();
@@ -69,7 +69,7 @@ class ListItem extends StatelessWidget {
                           maxLines: 2,
                           style: const TextStyle(
                             fontSize: 15,
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(

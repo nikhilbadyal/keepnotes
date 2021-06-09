@@ -1,22 +1,9 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/screen/lock/BaseLockScreen.dart';
-import 'package:notes/screen/lock/SetPassword.dart';
-import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/Navigations.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:notes/widget/AlertDialog.dart';
-import 'package:provider/provider.dart';
-
-typedef KeyboardTapCallback = void Function(String text);
-typedef DeleteTapCallback = void Function();
-typedef FingerTapCallback = void Function();
-typedef DoneCallBack = void Function(String text);
-typedef DoneEntered = Future<void> Function(String enteredPassCode);
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/screen/_screens.dart';
+import 'package:notes/util/_util.dart';
+import 'package:notes/widget/_widgets.dart';
 
 class LockScreen extends StatefulWidget {
   const LockScreen({Key? key}) : super(key: key);

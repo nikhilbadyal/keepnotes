@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/util/_util.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MyAppBar({

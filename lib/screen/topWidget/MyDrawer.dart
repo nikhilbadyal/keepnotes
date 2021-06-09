@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
 import 'package:notes/app.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/util/AppConfiguration.dart';
-import 'package:notes/util/AppRoutes.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/Navigations.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -52,7 +50,11 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                     fontWeight: FontWeight.bold,
                   )),
               accountName: const Text(''),
-              onDetailsPressed: () => goToHiddenScreen(context, _activeRoute),
+              onDetailsPressed: () {
+                unawaited(Provider.of<AppConfiguration>(context, listen: false)
+                    .setHiddenDiscovered(true));
+                goToHiddenScreen(context, _activeRoute);
+              },
             ),
           ),
           ListTile(
@@ -157,7 +159,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                 navigate(_activeRoute, context, AppRoutes.aboutMeScreen),
           ),
           ListTile(
-            leading: Icon(Icons.email_outlined,
+            leading: Icon(Icons.bug_report_outlined,
                 color: _activeRoute == AppRoutes.suggestScreen
                     ? Theme.of(context).accentColor
                     : null),
@@ -191,6 +193,9 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
       wish = '$startWish ${Language.of(context).afternoon}, $gender';
     } else {
       wish = '$startWish ${Language.of(context).night}, $gender';
+    }
+    if (!Provider.of<AppConfiguration>(context).isHiddenDiscovered) {
+      wish += ' Tap me';
     }
     return wish;
   }

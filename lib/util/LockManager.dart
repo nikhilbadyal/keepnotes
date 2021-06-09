@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:notes/widget/AlertDialog.dart';
-import 'package:pedantic/pedantic.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
+import 'package:notes/widget/_widgets.dart';
 
 class LockChecker with ChangeNotifier {
   LockChecker(this.password) {

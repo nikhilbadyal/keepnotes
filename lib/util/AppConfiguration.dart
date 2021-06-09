@@ -1,12 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:notes/util/ThemeData.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:pedantic/pedantic.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/util/_util.dart';
 
 Color defaultPrimary = Colors.deepOrangeAccent;
-// Color defaultPrimary = const Color(0xFF355C7D);
-
-Color greyColor = const Color(0xFFEAEAEA);
 
 class AppConfiguration with ChangeNotifier {
   AppConfiguration() {
@@ -18,52 +14,14 @@ class AppConfiguration with ChangeNotifier {
   late IconColorStatus iconColorStatus;
   late Color iconColor;
   late ThemeData currentTheme;
+  late bool isHiddenDiscovered;
 
   Future<void> initConfig() async {
-    var intVal = Utilities.getIntFromSF('primaryColor');
-    if (intVal == null) {
-      primaryColor = defaultPrimary;
-    } else {
-      primaryColor = Color(intVal);
-    }
-
-    intVal = null;
-    intVal = Utilities.getIntFromSF('appTheme');
-    if (intVal == null) {
-      appTheme = AppTheme.Light;
-    } else {
-      appTheme = AppTheme.values[intVal];
-    }
-    currentTheme = appTheme == AppTheme.Light
-        ? lightTheme(primaryColor)
-        : blackTheme(primaryColor);
-
-    intVal = null;
-    intVal = Utilities.getIntFromSF('iconColorStatus');
-    if (intVal == null) {
-      iconColorStatus = IconColorStatus.UiColor;
-    } else {
-      try {
-        intVal = intVal > 2 ? 2 : intVal;
-        iconColorStatus = IconColorStatus.values[intVal];
-      } on Exception catch (_) {
-        unawaited(Utilities.addIntToSF('iconColorStatus', 2));
-        iconColorStatus = IconColorStatus.UiColor;
-      }
-    }
-    intVal = null;
-    intVal = Utilities.getIntFromSF('iconColor');
-    switch (iconColorStatus) {
-      case IconColorStatus.NoColor:
-        iconColor = appTheme == AppTheme.Light ? Colors.black : Colors.white;
-        break;
-      case IconColorStatus.PickedColor:
-        iconColor = Color(intVal!);
-        break;
-      case IconColorStatus.UiColor:
-        iconColor = primaryColor;
-        break;
-    }
+    getPrimaryColor();
+    getAppTheme();
+    getIconColorStatus();
+    getIconColor();
+    getDiscoveryStat();
   }
 
   void changePrimaryColor({bool write = false}) {
@@ -75,6 +33,12 @@ class AppConfiguration with ChangeNotifier {
     } else {
       notifyListeners();
     }
+  }
+
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> setHiddenDiscovered(bool status) async {
+    isHiddenDiscovered = status;
+    await Utilities.addBoolToSF('hiddenDiscovered', value: status);
   }
 
   void changeAppTheme({bool write = false}) {
@@ -103,6 +67,66 @@ class AppConfiguration with ChangeNotifier {
 
   void changeIconColorStatus(int status) {
     Utilities.addIntToSF('iconColorStatus', status);
+  }
+
+  void getPrimaryColor() {
+    final intVal = Utilities.getIntFromSF('primaryColor');
+    if (intVal == null) {
+      primaryColor = defaultPrimary;
+    } else {
+      primaryColor = Color(intVal);
+    }
+  }
+
+  void getAppTheme() {
+    final intVal = Utilities.getIntFromSF('appTheme');
+    if (intVal == null) {
+      appTheme = AppTheme.Light;
+    } else {
+      appTheme = AppTheme.values[intVal];
+    }
+    currentTheme = appTheme == AppTheme.Light
+        ? lightTheme(primaryColor)
+        : blackTheme(primaryColor);
+  }
+
+  void getIconColorStatus() {
+    var intVal = Utilities.getIntFromSF('iconColorStatus');
+    if (intVal == null) {
+      iconColorStatus = IconColorStatus.UiColor;
+    } else {
+      try {
+        intVal = intVal > 2 ? 2 : intVal;
+        iconColorStatus = IconColorStatus.values[intVal];
+      } on Exception catch (_) {
+        unawaited(Utilities.addIntToSF('iconColorStatus', 2));
+        iconColorStatus = IconColorStatus.UiColor;
+      }
+    }
+  }
+
+  void getIconColor() {
+    final intVal = Utilities.getIntFromSF('iconColor');
+    switch (iconColorStatus) {
+      case IconColorStatus.NoColor:
+        iconColor = appTheme == AppTheme.Light ? Colors.black : Colors.white;
+        break;
+      case IconColorStatus.PickedColor:
+        iconColor = Color(intVal!);
+        break;
+      case IconColorStatus.UiColor:
+        iconColor = primaryColor;
+        break;
+    }
+  }
+
+  void getDiscoveryStat() {
+    final stat = Utilities.getBoolFromSF('hiddenDiscovered');
+    if (stat == null) {
+      isHiddenDiscovered = false;
+    } else {
+      isHiddenDiscovered = stat;
+    }
   }
 }
 
@@ -154,23 +178,5 @@ List<BoxShadow> shadow = [
     offset: const Offset(0, 10),
   )
 ];
-
-Color darken(Color c, [int percent = 10]) {
-  assert(1 <= percent && percent <= 100, 'Percent must be b/w 1&100');
-  final f = 1 - percent / 100;
-  return Color.fromARGB(c.alpha, (c.red * f).round(), (c.green * f).round(),
-      (c.blue * f).round());
-}
-
-Color lighten(Color c, [int percent = 10]) {
-  assert(1 <= percent && percent <= 100, 'Percent must be b/w 1&100');
-  final p = percent / 100;
-  return Color.fromARGB(
-    c.alpha,
-    c.red + ((255 - c.red) * p).round(),
-    c.green + ((255 - c.green) * p).round(),
-    c.blue + ((255 - c.blue) * p).round(),
-  );
-}
 
 enum AppTheme { Dark, Black, Light }

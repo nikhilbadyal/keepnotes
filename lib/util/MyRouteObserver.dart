@@ -1,6 +1,6 @@
 //26-02-2021
 
-import 'package:flutter/material.dart';
+import 'package:notes/_internalPackages.dart';
 
 class MyRouteObserver extends RouteObserver<PageRoute<dynamic>> {
   late String? currentScreen;

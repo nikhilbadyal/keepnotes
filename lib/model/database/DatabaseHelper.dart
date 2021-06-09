@@ -1,9 +1,7 @@
-import 'dart:async';
-
-import 'package:notes/model/Note.dart';
-import 'package:notes/model/database/DatabaseExceptions.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
 import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static String tableName = 'notes';

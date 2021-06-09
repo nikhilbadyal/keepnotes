@@ -1,5 +1,5 @@
 import 'package:encrypt/encrypt.dart';
-import 'package:notes/model/Note.dart';
+import 'package:notes/model/_model.dart';
 
 class Encrypt {
   Encrypt(String password) {

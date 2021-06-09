@@ -1,18 +1,8 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:notes/model/Languages.dart';
-import 'package:notes/model/Note.dart';
-import 'package:notes/model/database/NotesHelper.dart';
-import 'package:notes/util/LockManager.dart';
-import 'package:notes/util/Utilities.dart';
-import 'package:notes/widget/AlertDialog.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
+import 'package:notes/_externalPackages.dart';
+import 'package:notes/_internalPackages.dart';
+import 'package:notes/model/_model.dart';
+import 'package:notes/util/_util.dart';
+import 'package:notes/widget/_widgets.dart';
 
 class BackUpScreenHelper extends StatefulWidget {
   const BackUpScreenHelper({Key? key}) : super(key: key);

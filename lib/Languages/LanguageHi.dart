@@ -1,4 +1,4 @@
-import 'package:notes/model/Languages.dart';
+import 'package:notes/model/_model.dart';
 
 class LanguageHi extends Language {
   @override

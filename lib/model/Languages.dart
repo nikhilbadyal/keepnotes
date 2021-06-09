@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:notes/Languages/LanguageEn.dart';
-import 'package:notes/Languages/LanguageHi.dart';
+import 'package:notes/Languages/_language.dart';
+import 'package:notes/_internalPackages.dart';
 import 'package:notes/app.dart';
-import 'package:notes/util/Utilities.dart';
+import 'package:notes/util/_util.dart';
 
 final supportedLanguages = <LanguageData>[
   LanguageData('🇺🇸', 'English', 'en'),
@@ -78,16 +77,15 @@ abstract class Language {
 
   String get samePasswordError;
 
-  String get removeBiometric ;
+  String get removeBiometric;
 
-  String get areYouSure ;
+  String get areYouSure;
 
-  String get general ;
+  String get general;
 
+  String get security;
 
-  String get security ;
-
-  String get ui ;
+  String get ui;
 
   static Language of(BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageEn();

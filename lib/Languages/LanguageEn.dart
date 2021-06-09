@@ -1,4 +1,4 @@
-import 'package:notes/model/Languages.dart';
+import 'package:notes/model/_model.dart';
 
 class LanguageEn extends Language {
   @override
@@ -262,7 +262,6 @@ class LanguageEn extends Language {
 
   @override
   String get general => 'General';
-
 
   @override
   String get security => 'Security';

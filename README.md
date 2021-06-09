@@ -26,3 +26,12 @@ Notes is a privacy oriented, Secure ,beautiful and fast application made in flut
 <img src="https://i.imgur.com/8EbHitS.jpg" height="800">
 
 ---
+
+##Icon
+<div>
+    Icons made by 
+        <a href="https://www.freepik.com" title="Freepik">Freepik</a>
+    from 
+        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+</div>
+

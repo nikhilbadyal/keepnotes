@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:notes/_internalPackages.dart';
 
 class BlurPageRoute<T> extends PageRoute<T>
     with MaterialRouteTransitionMixin<T> {
