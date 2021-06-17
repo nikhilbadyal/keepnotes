@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/screen/_screens.dart';
-import 'package:notes/screen/login/ForgetPassword.dart';
 import 'package:notes/util/_util.dart';
 
 class AppRoutes {
@@ -31,21 +30,6 @@ class RouteGenerator {
             ),
           );
         }
-      case AppRoutes.loginScreen:
-        {
-          return CupertinoPageRoute(
-            settings: settings,
-            builder: (_) => const Login(),
-          );
-        }
-      case AppRoutes.forgotPasswordScreen:
-        {
-          return CupertinoPageRoute(
-            settings: settings,
-            builder: (_) => const ForgetPassword(),
-          );
-        }
-
       case AppRoutes.lockScreen:
         {
           return CupertinoPageRoute(

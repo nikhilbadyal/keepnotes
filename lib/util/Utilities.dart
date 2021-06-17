@@ -548,13 +548,4 @@ class Utilities {
       return false;
     }
   }
-  static void initialize(BuildContext context) {
-    final curUser = Provider.of<Auth>(context, listen: false).auth.currentUser;
-    encryption = Encrypt(curUser!.uid);
-    Provider.of<LockChecker>(context, listen: false).password =
-        encryption.decryptStr(Utilities.getStringFromSF('password')) ?? '';
-    debugPrint(Provider.of<LockChecker>(context, listen: false).password);
-    // TODO
-    // FirebaseDatabaseHelper(curUser.uid);
-  }
 }
