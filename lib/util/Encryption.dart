@@ -43,4 +43,13 @@ class Encrypt {
       copiedNote.content = encrypter.decrypt64(copiedNote.content, iv: iv);
     }
   }
+  String? decryptStr(String? str) {
+    if (str == null) {
+      return null;
+    }
+    return encrypter.decrypt64(str, iv: iv);
+  }
+  String encryptStr(String str) {
+    return encrypter.encrypt(str, iv: iv).base64;
+  }
 }

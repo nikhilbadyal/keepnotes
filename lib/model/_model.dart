@@ -1,5 +1,6 @@
-export 'package:notes/model/Languages.dart';
+
 export 'package:notes/model/Note.dart';
-export 'package:notes/model/database/DatabaseExceptions.dart';
-export 'package:notes/model/database/DatabaseHelper.dart';
-export 'package:notes/model/database/NotesHelper.dart';
+export 'package:notes/model/language/Languages.dart';
+export 'package:notes/model/user.dart';
+export 'package:notes/model/language/languages/LanguageEn.dart';
+export 'package:notes/model/language/languages/LanguageHi.dart';

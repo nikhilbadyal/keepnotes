@@ -1,15 +1,28 @@
+import 'package:notes/_appPackages.dart';
 import 'package:notes/_externalPackages.dart';
 import 'package:notes/_internalPackages.dart';
-import 'package:notes/app.dart';
-import 'package:notes/model/_model.dart';
-import 'package:notes/util/_util.dart';
+
+
+
+class SimpleLogPrinter extends LogPrinter {
+  @override
+  List<String> log(LogEvent event) {
+    final color = PrettyPrinter.levelColors[event.level];
+    final emoji = PrettyPrinter.levelEmojis[event.level];
+    final str = color!('$emoji - ${event.message}');
+    return [str];
+  }
+}
+
+Logger logger = Logger(
+  printer: SimpleLogPrinter(),
+);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Utilities.prefs = await SharedPreferences.getInstance();
   Utilities.storage = const FlutterSecureStorage();
   final password = await Utilities.storage.read(key: 'password') ?? '';
-  final locale = await getLocale();
   FlutterError.onError = (details) {
     FlutterError.dumpErrorToConsole(details);
     if (kReleaseMode || kDebugMode) {
@@ -23,7 +36,6 @@ Future<void> main() async {
     (_) => runApp(
       MyNotes(
         password,
-        locale: locale,
       ),
     ),
   );

@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/animations/routing/BlurRoute.dart';
 import 'package:notes/screen/_screens.dart';
+import 'package:notes/screen/login/ForgetPassword.dart';
 import 'package:notes/util/_util.dart';
 
 class AppRoutes {
@@ -14,6 +15,8 @@ class AppRoutes {
   static const aboutMeScreen = '/about';
   static const settingsScreen = '/settings';
   static const suggestScreen = '/suggestion';
+  static const loginScreen = '/login';
+  static const forgotPasswordScreen = '/forgot';
 }
 
 class RouteGenerator {
@@ -21,17 +24,31 @@ class RouteGenerator {
     switch (settings.name) {
       case AppRoutes.hiddenScreen:
         {
-          return BlurPageRoute(
+          return CupertinoPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Hidden,
             ),
           );
         }
+      case AppRoutes.loginScreen:
+        {
+          return CupertinoPageRoute(
+            settings: settings,
+            builder: (_) => const Login(),
+          );
+        }
+      case AppRoutes.forgotPasswordScreen:
+        {
+          return CupertinoPageRoute(
+            settings: settings,
+            builder: (_) => const ForgetPassword(),
+          );
+        }
 
       case AppRoutes.lockScreen:
         {
-          return BlurPageRoute(
+          return CupertinoPageRoute(
             settings: settings,
             builder: (_) => const LockScreen(),
           );
@@ -39,7 +56,7 @@ class RouteGenerator {
 
       case AppRoutes.homeScreen:
         {
-          return BlurPageRoute(
+          return CupertinoPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Home,
@@ -49,7 +66,7 @@ class RouteGenerator {
 
       case AppRoutes.archiveScreen:
         {
-          return BlurPageRoute(
+          return CupertinoPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Archive,
@@ -59,7 +76,7 @@ class RouteGenerator {
 
       case AppRoutes.backupScreen:
         {
-          return BlurPageRoute(
+          return CupertinoPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Backup,
@@ -69,7 +86,7 @@ class RouteGenerator {
 
       case AppRoutes.trashScreen:
         {
-          return BlurPageRoute(
+          return CupertinoPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Trash,
@@ -79,7 +96,7 @@ class RouteGenerator {
 
       case AppRoutes.aboutMeScreen:
         {
-          return BlurPageRoute(
+          return CupertinoPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.AboutMe,
@@ -89,7 +106,7 @@ class RouteGenerator {
 
       case AppRoutes.settingsScreen:
         {
-          return BlurPageRoute(
+          return CupertinoPageRoute(
             settings: settings,
             builder: (_) => const ScreenContainer(
               topScreen: ScreenTypes.Settings,
@@ -99,7 +116,7 @@ class RouteGenerator {
 
       case AppRoutes.setPassScreen:
         {
-          return BlurPageRoute(
+          return CupertinoPageRoute(
             settings: settings,
             builder: (_) => const SetPassword(),
           );
@@ -110,8 +127,7 @@ class RouteGenerator {
     }
   }
 
-  static Route<dynamic> _errorRoute() =>
-      BlurPageRoute(builder: (context) {
+  static Route<dynamic> _errorRoute() => CupertinoPageRoute(builder: (context) {
         return const ErrorScreen();
       });
 }

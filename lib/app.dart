@@ -1,3 +1,4 @@
+import 'package:notes/_appPackages.dart';
 import 'package:notes/model/_model.dart';
 import 'package:notes/_externalPackages.dart';
 import 'package:notes/_internalPackages.dart';
@@ -11,11 +12,9 @@ late Encrypt encryption;
 class MyNotes extends StatefulWidget {
   const MyNotes(
     this.password, {
-    required this.locale,
     Key? key,
   }) : super(key: key);
 
-  final Locale locale;
   final String password;
 
   static void setLocale(BuildContext context, Locale newLocale) {
@@ -68,8 +67,6 @@ class _MyNotesState extends State<MyNotes> {
             supportedLanguages.forEach((element) =>
                 supportedLocales.add(Locale(element.languageCode, '')));
             return MaterialApp(
-              /* checkerboardOffscreenLayers: true,
-              checkerboardRasterCacheImages: true,*/
               locale: _locale,
               restorationScopeId: 'keepnotes',
               supportedLocales: supportedLocales,

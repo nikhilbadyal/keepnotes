@@ -1,3 +1,4 @@
+import 'package:notes/_appPackages.dart';
 import 'package:notes/_externalPackages.dart';
 import 'package:notes/_internalPackages.dart';
 import 'package:notes/model/_model.dart';
@@ -546,5 +547,14 @@ class Utilities {
     } on Exception catch (_) {
       return false;
     }
+  }
+  static void initialize(BuildContext context) {
+    final curUser = Provider.of<Auth>(context, listen: false).auth.currentUser;
+    encryption = Encrypt(curUser!.uid);
+    Provider.of<LockChecker>(context, listen: false).password =
+        encryption.decryptStr(Utilities.getStringFromSF('password')) ?? '';
+    debugPrint(Provider.of<LockChecker>(context, listen: false).password);
+    // TODO
+    // FirebaseDatabaseHelper(curUser.uid);
   }
 }

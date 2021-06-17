@@ -1,5 +1,6 @@
 import 'package:notes/_externalPackages.dart';
 import 'package:notes/_internalPackages.dart';
+import 'package:notes/database/sql/DatabaseExceptions.dart';
 import 'package:notes/model/_model.dart';
 import 'package:path/path.dart';
 

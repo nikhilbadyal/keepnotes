@@ -1,7 +1,6 @@
-import 'package:notes/Languages/_language.dart';
 import 'package:notes/_internalPackages.dart';
-import 'package:notes/app.dart';
-import 'package:notes/util/_util.dart';
+import 'package:notes/_appPackages.dart';
+
 
 final supportedLanguages = <LanguageData>[
   LanguageData('🇺🇸', 'English', 'en'),

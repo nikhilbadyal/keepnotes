@@ -1,7 +1,6 @@
+import 'package:notes/_appPackages.dart';
 import 'package:notes/_externalPackages.dart';
 import 'package:notes/_internalPackages.dart';
-import 'package:notes/app.dart';
-import 'package:notes/model/_model.dart';
 
 class NotesHelper with ChangeNotifier {
   List _mainNotes = [];
