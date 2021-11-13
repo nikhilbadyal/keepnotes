@@ -3,8 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 //TODO add while build release
-const dsn =
-    'https://7cf8cb5b5ed84482892cd634fef51ff4@o835230.ingest.sentry.io/5813167';
+const dsn = '';
 
 final sentry = SentryClient(SentryOptions(dsn: dsn));
 
