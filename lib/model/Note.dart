@@ -1,4 +1,5 @@
-import 'package:notes/_externalPackages.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:notes/_external_packages.dart';
 
 enum NoteState {
   unspecified,
@@ -11,19 +12,19 @@ enum NoteState {
 class Note implements Comparable<Note> {
   Note(
       {required this.lastModify,
-      this.id = -1,
+      required this.id,
       this.title = '',
       this.content = '',
       this.state = NoteState.unspecified});
 
-  int id;
+  String id;
   String title;
   String content;
   DateTime lastModify;
   NoteState state;
 
   Note copyWith({
-    int id = -1,
+    required String id,
     String? title,
     String? content,
     DateTime? lastModify,
@@ -39,34 +40,33 @@ class Note implements Comparable<Note> {
   @override
   String toString() => 'Object is $id $title $content $lastModify $state';
 
-  Map<String, dynamic> toMap({required bool isNew}) {
+  Map<String, dynamic> toMap() {
     final data = <String, dynamic>{
+      'id': id,
       'title': title,
       'content': content,
       'lastModify': lastModify.millisecondsSinceEpoch,
       'state': state.index,
     };
-    if (!isNew) {
-      data['id'] = id;
-    }
     return data;
   }
 
-  void update(Note other, {bool updateTimestamp = true}) {
-    title = other.title;
-    content = other.content;
-    state = other.state;
-
-    if (updateTimestamp) {
-      lastModify = DateTime.now();
-    } else {
-      lastModify = other.lastModify;
-    }
+  static Note fromMap(Map<String, dynamic> json) {
+    return Note(
+      id: const Uuid().v4(),
+      title: json['title'].toString(),
+      content: json['content'].toString(),
+      lastModify: DateTime.fromMillisecondsSinceEpoch(
+        json['lastModify'],
+      ),
+      state: NoteState.values[json['state']],
+    );
   }
 
-  static Note fromJson(Map<String, dynamic> json) {
+  static Note fromDocumentSnapshot(QueryDocumentSnapshot json) {
     final int state = json['state'];
     return Note(
+      id: json['id'],
       title: json['title'].toString(),
       content: json['content'].toString(),
       lastModify: DateTime.fromMillisecondsSinceEpoch(
@@ -74,16 +74,6 @@ class Note implements Comparable<Note> {
       ),
       state: NoteState.values[state],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = {
-      'title': title,
-      'content': content,
-      'lastModify': lastModify.millisecondsSinceEpoch,
-      'state': state.index,
-    };
-    return data;
   }
 
   String get strLastModifiedDate =>

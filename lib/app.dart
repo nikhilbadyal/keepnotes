@@ -1,8 +1,6 @@
-import 'package:notes/_appPackages.dart';
-import 'package:notes/model/_model.dart';
-import 'package:notes/_externalPackages.dart';
-import 'package:notes/_internalPackages.dart';
-import 'package:notes/util/_util.dart';
+import 'package:notes/_app_packages.dart';
+import 'package:notes/_external_packages.dart';
+import 'package:notes/_internal_packages.dart';
 
 final RouteObserver<Route> routeObserver = RouteObserver<Route>();
 
@@ -10,12 +8,9 @@ final RouteObserver<Route> routeObserver = RouteObserver<Route>();
 late Encrypt encryption;
 
 class MyNotes extends StatefulWidget {
-  const MyNotes(
-    this.password, {
+  const MyNotes({
     Key? key,
   }) : super(key: key);
-
-  final String password;
 
   static void setLocale(BuildContext context, Locale newLocale) {
     final state = context.findAncestorStateOfType<_MyNotesState>();
@@ -55,17 +50,25 @@ class _MyNotesState extends State<MyNotes> {
             create: (_) => AppConfiguration(),
           ),
           ChangeNotifierProvider<LockChecker>(
-            create: (_) => LockChecker(widget.password),
+            create: (_) => LockChecker(),
+          ),
+          ChangeNotifierProvider<Auth>(
+            create: (_) => Auth(),
           ),
         ],
         child: Builder(
           builder: (context) {
             Provider.of<AppConfiguration>(context);
-            final lockChecker = Provider.of<LockChecker>(context);
-            encryption = Encrypt(lockChecker.password);
+            final curUser =
+                Provider.of<Auth>(context, listen: false).auth.currentUser;
+            if (curUser != null) {
+              logger.i('Initialising firebase');
+              Utilities.initialize(context);
+            }
             final supportedLocales = <Locale>[];
-            supportedLanguages.forEach((element) =>
-                supportedLocales.add(Locale(element.languageCode, '')));
+            for (final element in supportedLanguages) {
+              supportedLocales.add(Locale(element.languageCode, ''));
+            }
             return MaterialApp(
               locale: _locale,
               restorationScopeId: 'keepnotes',
@@ -88,7 +91,11 @@ class _MyNotesState extends State<MyNotes> {
               theme: Provider.of<AppConfiguration>(context, listen: false)
                   .currentTheme,
               title: Language.of(context).appTitle,
-              initialRoute: '/',
+              home: Provider.of<Auth>(context, listen: false).isLoggedIn
+                  ? const ScreenContainer(
+                      topScreen: ScreenTypes.home,
+                    )
+                  : const Login(),
               debugShowCheckedModeBanner: false,
               onGenerateRoute: RouteGenerator.generateRoute,
             );

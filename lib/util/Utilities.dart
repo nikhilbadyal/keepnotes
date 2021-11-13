@@ -1,11 +1,8 @@
-import 'package:notes/_appPackages.dart';
-import 'package:notes/_externalPackages.dart';
-import 'package:notes/_internalPackages.dart';
-import 'package:notes/model/_model.dart';
-import 'package:notes/util/_util.dart';
-import 'package:notes/widget/_widgets.dart';
+import 'package:notes/_app_packages.dart';
+import 'package:notes/_external_packages.dart';
+import 'package:notes/_internal_packages.dart';
 
-enum IconColorStatus { NoColor, PickedColor, UiColor }
+enum IconColorStatus { noColor, pickedColor, uiColor }
 
 MaterialColor createMaterialColor(Color color) {
   final strengths = <double>[0.05];
@@ -79,9 +76,9 @@ class Utilities {
     autoSaver.cancel();
     saveNote();
     final wantedRoute = getRoute(note.state);
-    await Utilities.onUnArchiveTap(context,note);
+    await Utilities.onUnArchiveTap(context, note);
     Navigator.of(context).popUntil(
-          (route) => route.settings.name == wantedRoute,
+      (route) => route.settings.name == wantedRoute,
     );
   }
 
@@ -235,13 +232,15 @@ class Utilities {
         behavior: snackBarBehavior ?? Theme.of(context).snackBarTheme.behavior,
       );
 
-  static Widget hideAction(BuildContext context, Note note) => IconSlideAction(
-        icon: TablerIcons.ghost,
-        caption: Language.of(context).hide,
-        color: Colors.transparent,
-        foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onTap: () => onHideTap(context, note),
-      );
+  static Widget hideAction(BuildContext context, Note note) {
+    return SlidableAction(
+      icon: TablerIcons.ghost,
+      label: Language.of(context).hide,
+      backgroundColor: Colors.transparent,
+      foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
+      onPressed: (context) => onHideTap(context, note),
+    );
+  }
 
   static Future<void> onHideTap(BuildContext context, Note note) async {
     final status =
@@ -274,12 +273,13 @@ class Utilities {
 
   static Widget deleteAction(BuildContext context, Note note,
           {bool shouldAsk = true}) =>
-      IconSlideAction(
+      SlidableAction(
         icon: Icons.delete_forever_outlined,
-        caption: Language.of(context).delete,
-        color: Colors.transparent,
+        label: Language.of(context).delete,
+        backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onTap: () => onDeleteTap(context, note, deleteDirectly: shouldAsk),
+        onPressed: (context) =>
+            onDeleteTap(context, note, deleteDirectly: shouldAsk),
       );
 
   static Future<void> onDeleteTap(BuildContext context, Note note,
@@ -323,12 +323,12 @@ class Utilities {
     }
   }
 
-  static Widget trashAction(BuildContext context, Note note) => IconSlideAction(
+  static Widget trashAction(BuildContext context, Note note) => SlidableAction(
         icon: Icons.delete_outline,
-        caption: Language.of(context).trash,
-        color: Colors.transparent,
+        label: Language.of(context).trash,
+        backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onTap: () => onTrashTap(context, note),
+        onPressed: (context) => onTrashTap(context, note),
       );
 
   static Future<void> onTrashTap(BuildContext context, Note note) async {
@@ -347,12 +347,12 @@ class Utilities {
     }
   }
 
-  static Widget copyAction(BuildContext context, Note note) => IconSlideAction(
+  static Widget copyAction(BuildContext context, Note note) => SlidableAction(
         icon: TablerIcons.copy,
-        caption: Language.of(context).copy,
-        color: Colors.transparent,
+        label: Language.of(context).copy,
+        backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onTap: () => onCopyTap(context, note),
+        onPressed: (context) => onCopyTap(context, note),
       );
 
   static Future<void> onCopyTap(BuildContext context, Note note) async {
@@ -372,12 +372,12 @@ class Utilities {
   }
 
   static Widget archiveAction(BuildContext context, Note note) =>
-      IconSlideAction(
+      SlidableAction(
         icon: Icons.archive_outlined,
-        caption: Language.of(context).archive,
-        color: Colors.transparent,
+        label: Language.of(context).archive,
+        backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onTap: () => onArchiveTap(context, note),
+        onPressed: (context) => onArchiveTap(context, note),
       );
 
   static Future<void> onArchiveTap(BuildContext context, Note note) async {
@@ -396,13 +396,12 @@ class Utilities {
     }
   }
 
-  static Widget unHideAction(BuildContext context, Note note) =>
-      IconSlideAction(
+  static Widget unHideAction(BuildContext context, Note note) => SlidableAction(
         icon: Icons.drive_file_move_outline,
-        caption: Language.of(context).unhide,
-        color: Colors.transparent,
+        label: Language.of(context).unhide,
+        backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onTap: () => onUnHideTap(context, note),
+        onPressed: (context) => onUnHideTap(context, note),
       );
 
   static Future<void> onUnHideTap(BuildContext context, Note note) async {
@@ -422,12 +421,12 @@ class Utilities {
   }
 
   static Widget unArchiveAction(BuildContext context, Note note) =>
-      IconSlideAction(
+      SlidableAction(
         icon: Icons.unarchive_outlined,
-        caption: Language.of(context).unarchive,
-        color: Colors.transparent,
+        label: Language.of(context).unarchive,
+        backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onTap: () => onUnArchiveTap(context, note),
+        onPressed: (context) => onUnArchiveTap(context, note),
       );
 
   static Future<void> onUnArchiveTap(BuildContext context, Note note) async {
@@ -447,12 +446,12 @@ class Utilities {
   }
 
   static Widget restoreAction(BuildContext context, Note note) =>
-      IconSlideAction(
+      SlidableAction(
         icon: Icons.restore_from_trash_outlined,
-        caption: Language.of(context).restore,
-        color: Colors.transparent,
+        label: Language.of(context).restore,
+        backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onTap: () => onRestoreTap(context, note),
+        onPressed: (context) => onRestoreTap(context, note),
       );
 
   static Future<void> onRestoreTap(BuildContext context, Note note) async {
@@ -547,5 +546,14 @@ class Utilities {
     } on Exception catch (_) {
       return false;
     }
+  }
+
+  static void initialize(BuildContext context) {
+    final curUser = Provider.of<Auth>(context, listen: false).auth.currentUser;
+    encryption = Encrypt(curUser!.uid);
+    Provider.of<LockChecker>(context, listen: false).password =
+        encryption.decryptStr(Utilities.getStringFromSF('password')) ?? '';
+    debugPrint(Provider.of<LockChecker>(context, listen: false).password);
+    FirebaseDatabaseHelper(curUser.uid);
   }
 }

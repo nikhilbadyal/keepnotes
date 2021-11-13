@@ -1,9 +1,10 @@
-import 'package:notes/_appPackages.dart';
-import 'package:notes/_externalPackages.dart';
-import 'package:notes/_internalPackages.dart';
+import 'package:notes/_app_packages.dart';
+import 'package:notes/_external_packages.dart';
+import 'package:notes/_internal_packages.dart';
 
 //TODO add while build release
-const dsn = '';
+const dsn =
+    'https://7cf8cb5b5ed84482892cd634fef51ff4@o835230.ingest.sentry.io/5813167';
 
 final sentry = SentryClient(SentryOptions(dsn: dsn));
 
@@ -23,9 +24,10 @@ Logger logger = Logger(
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   Utilities.prefs = await SharedPreferences.getInstance();
   Utilities.storage = const FlutterSecureStorage();
-  final password = await Utilities.storage.read(key: 'password') ?? '';
   if (kDebugMode) {
     timeDilation = 1;
   }
@@ -59,7 +61,7 @@ Future<void> main() async {
     await runZonedGuarded(() async {
       return SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
-      ).then((_) => runApp(const MyNotes('')));
+      ).then((_) => runApp(const MyNotes()));
     }, reportError);
   } else {
     logger.w('reportError DNS NOT FOUND');

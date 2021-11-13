@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:notes/_externalPackages.dart';
-import 'package:notes/_internalPackages.dart';
-import 'package:notes/model/_model.dart';
-import 'package:notes/screen/_screens.dart';
-import 'package:notes/util/_util.dart';
+import 'package:notes/_app_packages.dart';
+import 'package:notes/_external_packages.dart';
+import 'package:notes/_internal_packages.dart';
 
 Future navigate(String activeRoute, BuildContext context, String route,
     [Object? arguments]) async {

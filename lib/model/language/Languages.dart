@@ -1,6 +1,5 @@
-import 'package:notes/_internalPackages.dart';
-import 'package:notes/_appPackages.dart';
-
+import 'package:notes/_app_packages.dart';
+import 'package:notes/_internal_packages.dart';
 
 final supportedLanguages = <LanguageData>[
   LanguageData('🇺🇸', 'English', 'en'),
@@ -32,8 +31,9 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<Language> {
   @override
   bool isSupported(Locale locale) {
     final supportedLanguageCodes = <String>[];
-    supportedLanguages
-        .forEach((element) => supportedLanguageCodes.add(element.languageCode));
+    for (final element in supportedLanguages) {
+      supportedLanguageCodes.add(element.languageCode);
+    }
     return supportedLanguageCodes.contains(locale.languageCode);
   }
 

@@ -1,9 +1,6 @@
-import 'package:notes/_appPackages.dart';
-import 'package:notes/_externalPackages.dart';
-import 'package:notes/_internalPackages.dart';
-import 'package:notes/model/_model.dart';
-import 'package:notes/util/_util.dart';
-import 'package:notes/widget/_widgets.dart';
+import 'package:notes/_app_packages.dart';
+import 'package:notes/_external_packages.dart';
+import 'package:notes/_internal_packages.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -104,14 +101,14 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
           physics: const BouncingScrollPhysics(),
           itemCount: widget.notehelper.otherNotes.length,
           itemBuilder: (context, index) {
-            final item = widget.notehelper.otherNotes[index];
+            final item = widget.notehelper.otherNotes.elementAt(index);
             selectedFlag[index] = selectedFlag[index] ?? false;
             final isSelected = selectedFlag[index] ?? false;
             return Slidable(
               key: UniqueKey(),
-              actions: widget.primary(item, context),
-              secondaryActions: widget.secondary(item, context),
-              actionPane: const SlidableDrawerActionPane(),
+              startActionPane: widget.primary(item, context),
+              endActionPane: widget.secondary(item, context),
+              // actionPane: const SlidableDrawerActionPane(),
               child: ListItem(
                 note: item,
                 onItemTap: () => onItemTap(item, index, isSelected: isSelected),
