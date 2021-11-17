@@ -23,7 +23,7 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
           autoSaverTimer.cancel();
           unawaited(saveNote().then((value) {
             if (!value) {
-              Utilities.showSnackbar(context, 'Error while saving note');
+              Utilities.showSnackbar(context, Language.of(context).error);
             }
           }));
           Navigator.of(context).pop();

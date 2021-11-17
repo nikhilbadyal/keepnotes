@@ -172,10 +172,6 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
           .toList();*/
       // TODO work on this option
       // await Provider.of<NotesHelper>(context, listen: false).addAll(notesList);
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).done,
-      );
     } on Exception catch (_) {
       Utilities.showSnackbar(
         context,

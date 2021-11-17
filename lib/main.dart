@@ -1,9 +1,10 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
+import 'package:notes/sentryDns.dart';
 
-//TODO add/remove while build release
-const dsn = '';
+//TODO Add your own link
+const dsn = dsnLink;
 
 final sentry = SentryClient(SentryOptions(dsn: dsn));
 

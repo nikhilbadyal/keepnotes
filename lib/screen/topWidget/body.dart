@@ -145,10 +145,5 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
     }
   }
 
-  void onItemLongPress(int index, {bool isSelected = false}) {
-    /*setState(() {
-      selectedFlag[index] = !isSelected;
-      isSelectionMode = selectedFlag.containsValue(true);
-    });*/
-  }
+  void onItemLongPress(int index, {bool isSelected = false}) {}
 }

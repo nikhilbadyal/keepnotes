@@ -86,6 +86,8 @@ abstract class Language {
 
   String get ui;
 
+  String get insufficientData;
+
   static Language of(BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageEn();
 
@@ -236,6 +238,8 @@ abstract class Language {
   String get alertDialogOp1;
 
   String get alertDialogOp2;
+
+  String get checkEmail;
 }
 
 const String prefSelectedLanguageCode = 'SelectedLanguageCode';

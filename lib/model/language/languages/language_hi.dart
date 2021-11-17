@@ -273,4 +273,10 @@ class LanguageHi extends Language {
 
   @override
   String get logOut => 'लॉग आउट';
+
+  @override
+  String get checkEmail => 'कृपया ईमेल जांचें';
+
+  @override
+  String get insufficientData => 'विवरण ठीक से भरें';
 }

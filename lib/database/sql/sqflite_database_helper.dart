@@ -102,17 +102,6 @@ class SqfliteDatabaseHelper {
     return resultSet;
   }
 
-  /*static Future<bool> addAll(List<Note> jsonList) async {
-    try {
-      for (final note in jsonList) {
-        await insert(note);
-      }
-      return true;
-    } on Exception catch (_) {
-      return false;
-    }
-  }*/
-
   static Future<bool> addAll(List<Map<String, dynamic>> notesList) async {
     final db = await database;
     final batch = db.batch();

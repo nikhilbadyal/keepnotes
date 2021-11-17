@@ -120,8 +120,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   .forgetPassword(email: email ?? '');
               if (response != 'success') {
                 handleError(response, context);
+              } else {
+                Utilities.showSnackbar(
+                    context, Language.of(context).checkEmail);
               }
-              Utilities.showSnackbar(context, 'Check your email');
               await navigate(
                 AppRoutes.forgotPasswordScreen,
                 context,

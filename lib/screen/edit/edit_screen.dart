@@ -108,7 +108,7 @@ class _EditScreenState extends State<EditScreen> {
     autoSaverTimer.cancel();
     unawaited(saveNote().then((value) {
       if (!value) {
-        Utilities.showSnackbar(context, 'Error while saving note');
+        Utilities.showSnackbar(context, Language.of(context).error);
       }
     }));
     return true;

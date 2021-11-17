@@ -66,14 +66,6 @@ class Utilities {
     saveNote();
     final wantedRoute = getRoute(note.state);
     await Utilities.onArchiveTap(context, note);
-    // int count = 0;
-    /*Navigator.of(context).popUntil(
-      (route) {
-        debugPrint(route.settings.name ?? "Nullo " + count.toString());
-        count++;
-        return route.settings.name == wantedRoute;
-      },
-    );*/
     Navigator.of(context).popUntil(ModalRoute.withName(wantedRoute));
   }
 
@@ -263,12 +255,7 @@ class Utilities {
     } else {
       final value =
           await Provider.of<NotesHelper>(context, listen: false).hide(note);
-      if (value) {
-        Utilities.showSnackbar(
-          context,
-          Language.of(context).done,
-        );
-      } else {
+      if (!value) {
         Utilities.showSnackbar(
           context,
           Language.of(context).error,
@@ -314,12 +301,7 @@ class Utilities {
     if (choice) {
       final value =
           await Provider.of<NotesHelper>(context, listen: false).delete(note);
-      if (value) {
-        Utilities.showSnackbar(
-          context,
-          Language.of(context).done,
-        );
-      } else {
+      if (!value) {
         Utilities.showSnackbar(
           context,
           Language.of(context).error,
@@ -341,12 +323,7 @@ class Utilities {
   static Future<void> onTrashTap(BuildContext context, Note note) async {
     final value =
         await Provider.of<NotesHelper>(context, listen: false).trash(note);
-    if (value) {
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).done,
-      );
-    } else {
+    if (!value) {
       Utilities.showSnackbar(
         context,
         Language.of(context).error,
@@ -365,12 +342,7 @@ class Utilities {
   static Future<void> onCopyTap(BuildContext context, Note note) async {
     final value =
         await Provider.of<NotesHelper>(context, listen: false).copy(note);
-    if (value) {
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).done,
-      );
-    } else {
+    if (!value) {
       Utilities.showSnackbar(
         context,
         Language.of(context).error,
@@ -390,12 +362,7 @@ class Utilities {
   static Future<void> onArchiveTap(BuildContext context, Note note) async {
     final value =
         await Provider.of<NotesHelper>(context, listen: false).archive(note);
-    if (value) {
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).done,
-      );
-    } else {
+    if (!value) {
       Utilities.showSnackbar(
         context,
         Language.of(context).error,
@@ -414,12 +381,7 @@ class Utilities {
   static Future<void> onUnHideTap(BuildContext context, Note note) async {
     final value =
         await Provider.of<NotesHelper>(context, listen: false).unhide(note);
-    if (value) {
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).done,
-      );
-    } else {
+    if (!value) {
       Utilities.showSnackbar(
         context,
         Language.of(context).error,
@@ -439,12 +401,7 @@ class Utilities {
   static Future<void> onUnArchiveTap(BuildContext context, Note note) async {
     final value =
         await Provider.of<NotesHelper>(context, listen: false).unarchive(note);
-    if (value) {
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).done,
-      );
-    } else {
+    if (!value) {
       Utilities.showSnackbar(
         context,
         Language.of(context).error,
@@ -464,12 +421,7 @@ class Utilities {
   static Future<void> onRestoreTap(BuildContext context, Note note) async {
     final value =
         await Provider.of<NotesHelper>(context, listen: false).undelete(note);
-    if (value) {
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).done,
-      );
-    } else {
+    if (!value) {
       Utilities.showSnackbar(
         context,
         Language.of(context).error,
@@ -480,12 +432,7 @@ class Utilities {
   static Future<void> onDeleteAllTap(BuildContext context) async {
     final value =
         await Provider.of<NotesHelper>(context, listen: false).emptyTrash();
-    if (value) {
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).done,
-      );
-    } else {
+    if (!value) {
       Utilities.showSnackbar(
         context,
         Language.of(context).error,

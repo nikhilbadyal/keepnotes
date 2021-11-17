@@ -27,15 +27,3 @@ class MainActivity : FlutterFragmentActivity() {
     }
 
 }
-//TODO  implement this
-/*
-class MyFlutterFragment : FlutterFragment() {
-    override fun provideSplashScreen(): SplashScreen? {
-        // Load the splash Drawable.
-        val splash: Drawable = resources.getDrawable(R.drawable.my_splash)
-
-        // Construct a DrawableSplashScreen with the loaded splash
-        // Drawable and return it.
-        return DrawableSplashScreen(splash)
-    }
-}*/

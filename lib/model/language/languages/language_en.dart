@@ -273,4 +273,10 @@ class LanguageEn extends Language {
 
   @override
   String get logOut => 'Log Out';
+
+  @override
+  String get checkEmail => 'Please check Email.';
+
+  @override
+  String get insufficientData => 'Fill details properly';
 }

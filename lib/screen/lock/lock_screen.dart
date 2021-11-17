@@ -95,10 +95,6 @@ class _LockScreenState extends State<LockScreen> {
           ) ??
           false;
       if (isAuthenticated) {
-        Utilities.showSnackbar(
-          context,
-          Language.of(context).done,
-        );
         await Provider.of<LockChecker>(context, listen: false)
             .bioEnabledConfig();
       }

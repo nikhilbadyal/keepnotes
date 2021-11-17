@@ -83,10 +83,6 @@ class _SetPasswordState extends State<SetPassword> {
                 .recryptEverything(enteredPassCode);
             unawaited(Provider.of<LockChecker>(context, listen: false)
                 .passwordSetConfig(enteredPassCode));
-            Utilities.showSnackbar(
-              context,
-              Language.of(context).done,
-            );
           }
           await Navigator.of(context)
               .pushReplacementNamed(AppRoutes.settingsScreen);

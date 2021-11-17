@@ -3,7 +3,6 @@ export 'package:notes/util/create_pdf.dart';
 export 'package:notes/util/encryption.dart';
 export 'package:notes/util/lock_manager.dart';
 export 'package:notes/util/navigation/app_routes.dart';
-export 'package:notes/util/navigation/my_route_observer.dart';
 export 'package:notes/util/navigation/navigations.dart';
 export 'package:notes/util/ui_color/app_configuration.dart';
 export 'package:notes/util/ui_color/color_picker.dart';

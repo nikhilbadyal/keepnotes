@@ -105,15 +105,4 @@ class FirebaseDatabaseHelper {
   static Future<QuerySnapshot<Map<String, dynamic>>> getAll() async {
     return notesReference.get();
   }
-
-  /*static Future<bool> addAll(List<Note> jsonList) async {
-    try {
-      for (final note in jsonList) {
-        await insert(note);
-      }
-      return true;
-    } on Exception catch (_) {
-      return false;
-    }
-  }*/
 }

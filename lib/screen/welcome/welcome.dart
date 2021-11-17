@@ -164,11 +164,7 @@ class _WelcomeState extends State<Welcome> {
       Navigator.of(context).pop();
 
       if (response == 'success') {
-        Utilities.showSnackbar(
-            context,
-            'Registration '
-            'successful. Please check your '
-            'email to confirm your account');
+        Utilities.showSnackbar(context, Language.of(context).checkEmail);
         setState(() {
           _pageState = 1;
         });
@@ -179,7 +175,7 @@ class _WelcomeState extends State<Welcome> {
         );
       }
     } else {
-      Utilities.showSnackbar(context, 'Please fill details properly');
+      Utilities.showSnackbar(context, Language.of(context).insufficientData);
     }
   }
 
@@ -223,7 +219,7 @@ class _WelcomeState extends State<Welcome> {
         );
       }
     } else {
-      Utilities.showSnackbar(context, 'Please see errors above');
+      Utilities.showSnackbar(context, Language.of(context).insufficientData);
     }
   }
 

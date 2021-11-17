@@ -137,10 +137,6 @@ Widget login(
                   btnText: 'Create New Account',
                   onTap: goToSignupTap,
                 )
-                /*const OutlineBtnNew(
-                  btnText: 'Create New Account',
-
-                )*/
               ],
             ),
           ],

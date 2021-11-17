@@ -91,11 +91,9 @@ class _MyNotesState extends State<MyNotes> {
               theme: Provider.of<AppConfiguration>(context, listen: false)
                   .currentTheme,
               title: Language.of(context).appTitle,
-              home: Provider.of<Auth>(context, listen: false).isLoggedIn
-                  ? const ScreenContainer(
-                      topScreen: ScreenTypes.home,
-                    )
-                  : const Welcome(),
+              initialRoute: Provider.of<Auth>(context, listen: false).isLoggedIn
+                  ? AppRoutes.homeScreen
+                  : AppRoutes.welcomeScreen,
               debugShowCheckedModeBanner: false,
               navigatorObservers: [routeObserver],
               onGenerateRoute: RouteGenerator.generateRoute,
