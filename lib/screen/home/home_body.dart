@@ -3,7 +3,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-
 import 'package:notes/util/_util.dart';
 import 'package:notes/widget/_widgets.dart';
 
@@ -28,13 +27,12 @@ class _HomeBodyState extends State<HomeBody> {
   @override
   void initState() {
     myFuture = Provider.of<NotesHelper>(context, listen: false)
-        .getAllNotesHelper(NoteState.unspecified.index);
+        .getAllNotes(NoteState.unspecified.index);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () => showOldVersionUsed());
     return FutureBuilder(
       future: myFuture,
       builder: (context, projectSnap) {
@@ -65,50 +63,6 @@ class _HomeBodyState extends State<HomeBody> {
         }
       },
     );
-  }
-
-  Future<void>? showOldVersionUsed() async {
-    if (Provider.of<LockChecker>(context, listen: false).usedOlderVersion) {
-      final used = await showDialog<bool>(
-            context: context,
-            builder: (_) => MyAlertDialog(
-              title: Text(Language.of(context).message),
-              content: Text(
-                Language.of(context).oldVersionWarning,
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
-                  child: const Text('Never used old version'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
-                  child: Text(Language.of(context).alreadyDone),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Provider.of<NotesHelper>(context, listen: false)
-                        .autoMateEverything();
-
-                    Navigator.of(context).pop(false);
-                  },
-                  child: Text(Language.of(context).doItForMe),
-                ),
-              ],
-            ),
-          ) ??
-          true;
-      if (!used) {
-        Provider.of<LockChecker>(context, listen: false).usedOlderVersion =
-            false;
-        await Provider.of<LockChecker>(context, listen: false)
-            .setUsedOlderVersion();
-      }
-    }
   }
 }
 
@@ -143,9 +97,8 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
   Widget build(BuildContext context) {
     homeBody = this;
     return Padding(
-      padding: const EdgeInsets.only(),
+      padding: EdgeInsets.zero,
       child: ListView.builder(
-        cacheExtent: 100000,
         physics: const BouncingScrollPhysics(),
         itemCount: widget.noteHelper.mainNotes.length,
         itemBuilder: (context, index) {
@@ -156,7 +109,6 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
             key: UniqueKey(),
             startActionPane: widget.primary(item, context),
             endActionPane: widget.secondary(item, context),
-            // actionPane: const SlidableDrawerActionPane(),
             child: ListItem(
               note: item,
               onItemTap: () => onItemTap(item, index, isSelected: isSelected),

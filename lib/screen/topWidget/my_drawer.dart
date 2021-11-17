@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
@@ -23,7 +24,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
 
   @override
   void didPush() {
-    _activeRoute = ModalRoute.of(context)!.settings.name!;
+    _activeRoute = ModalRoute.of(context)!.settings.name ?? '/';
   }
 
   @override
@@ -34,24 +35,31 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
         children: <Widget>[
           RepaintBoundary(
             child: UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: Theme.of(context).canvasColor),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.transparent,
                 backgroundImage: AssetImage(
                   'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.png',
                 ),
               ),
-              accountEmail: Text(wish,
-                  style: const TextStyle(
+              accountEmail: Text(
+                wish,
+                style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                  )),
-              accountName: const Text(''),
+                    color: Theme.of(context).iconTheme.color),
+              ),
+              accountName: null,
               onDetailsPressed: () {
                 unawaited(Provider.of<AppConfiguration>(context, listen: false)
                     .setHiddenDiscovered(true));
                 goToHiddenScreen(context, _activeRoute);
               },
             ),
+          ),
+          const Divider(
+            height: 0,
+            color: Colors.grey,
           ),
           ListTile(
             leading: Icon(Icons.note,
@@ -63,12 +71,13 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.homeScreen
-                      ? Provider.of<AppConfiguration>(context, listen: false)
-                          .primaryColor
+                      ? Theme.of(context).colorScheme.secondary
                       : null),
             ),
-            // selected: _activeRoute == AppRoutes.homeScreen,
-            onTap: () => navigate(_activeRoute, context, AppRoutes.homeScreen),
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, AppRoutes.homeScreen, (route) => false);
+            },
           ),
           ListTile(
             leading: Icon(Icons.archive_outlined,
@@ -80,12 +89,15 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.archiveScreen
-                      ? Provider.of<AppConfiguration>(context, listen: false)
-                          .primaryColor
+                      ? Theme.of(context).colorScheme.secondary
                       : null),
             ),
             onTap: () =>
                 navigate(_activeRoute, context, AppRoutes.archiveScreen),
+          ),
+          const Divider(
+            height: 15,
+            color: Colors.transparent,
           ),
           ListTile(
             leading: Icon(Icons.settings_backup_restore,
@@ -97,8 +109,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.backupScreen
-                      ? Provider.of<AppConfiguration>(context, listen: false)
-                          .primaryColor
+                      ? Theme.of(context).colorScheme.secondary
                       : null),
             ),
             onTap: () =>
@@ -114,11 +125,14 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.trashScreen
-                      ? Provider.of<AppConfiguration>(context, listen: false)
-                          .primaryColor
+                      ? Theme.of(context).colorScheme.secondary
                       : null),
             ),
             onTap: () => navigate(_activeRoute, context, AppRoutes.trashScreen),
+          ),
+          const Divider(
+            height: 15,
+            color: Colors.transparent,
           ),
           ListTile(
             leading: Icon(Icons.settings,
@@ -130,8 +144,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.settingsScreen
-                      ? Provider.of<AppConfiguration>(context, listen: false)
-                          .primaryColor
+                      ? Theme.of(context).colorScheme.secondary
                       : null),
             ),
             onTap: () =>
@@ -147,8 +160,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.aboutMeScreen
-                      ? Provider.of<AppConfiguration>(context, listen: false)
-                          .primaryColor
+                      ? Theme.of(context).colorScheme.secondary
                       : null),
             ),
             onTap: () =>
@@ -164,8 +176,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.suggestScreen
-                      ? Provider.of<AppConfiguration>(context, listen: false)
-                          .primaryColor
+                      ? Theme.of(context).colorScheme.secondary
                       : null),
             ),
             onTap: () => goToBugScreen(context),

@@ -47,8 +47,6 @@ class ModalSheetWidget extends ModalSheetWidgets {
                 Icon(
                   icon,
                   size: 35,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor,
                 ),
                 const SizedBox(width: 16),
                 Text(label),
@@ -107,8 +105,7 @@ class ModalSheetUnhideWidget extends StatelessWidget {
                 Icon(
                   Icons.drive_file_move_outline,
                   size: 35,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor,
+                  ,
                 ),
                 const SizedBox(width: 16),
                 Text(Language.of(context).unhide),
@@ -166,8 +163,7 @@ class ModalSheetArchiveWidget extends StatelessWidget {
                 Icon(
                   Icons.archive_outlined,
                   size: 35,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor,
+                  ,
                 ),
                 const SizedBox(width: 16),
                 Text(Language.of(context).archive),
@@ -232,8 +228,7 @@ class ModalSheetCopyToClipBoardWidget extends StatelessWidget {
                 Icon(
                   TablerIcons.copy,
                   size: 35,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor,
+                  ,
                 ),
                 const SizedBox(width: 16),
                 Text(Language.of(context).clipboard)
@@ -292,8 +287,7 @@ class ModalSheetTrashWidget extends StatelessWidget {
                 Icon(
                   Icons.delete_outlined,
                   size: 35,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor,
+                  ,
                 ),
                 const SizedBox(width: 16),
                 Text(Language.of(context).trash)
@@ -366,8 +360,7 @@ class ModalSheetHideWidget extends StatelessWidget {
                 Icon(
                   TablerIcons.ghost,
                   size: 35,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor,
+                  ,
                 ),
                 const SizedBox(width: 16),
                 Text(Language.of(context).hide),
@@ -425,8 +418,7 @@ class ModalSheetUnarchiveWidget extends StatelessWidget {
                 Icon(
                   Icons.unarchive_outlined,
                   size: 35,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor,
+                  ,
                 ),
                 const SizedBox(width: 16),
                 Text(Language.of(context).unarchive),
@@ -497,11 +489,9 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   TablerIcons.trash,
                   size: 35,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor,
                 ),
                 const SizedBox(width: 16),
                 Text(Language.of(context).emptyTrash),

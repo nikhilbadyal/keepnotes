@@ -2,27 +2,23 @@ import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-Widget login(
+Widget signup(
     BuildContext context,
-    double _loginWidth,
-    double _loginHeight,
-    double _loginYOffset,
-    double _loginXOffset,
-    double _loginOpacity,
-    GlobalKey<FormState> loginKey,
+    double _registerHeight,
+    double _registerYOffset,
+    GlobalKey<FormState> signupKey,
     NotesUser user,
     String Function() passwordRegEx,
-    Function() loginTap,
-    Function() goToSignupTap) {
+    Function() createAccountOnTap,
+    Function() goToLoginOnTap) {
   return AnimatedContainer(
+    height: _registerHeight,
     padding: const EdgeInsets.all(32),
-    width: _loginWidth,
-    height: _loginHeight,
     curve: Curves.fastLinearToSlowEaseIn,
     duration: const Duration(milliseconds: 1000),
-    transform: Matrix4.translationValues(_loginXOffset, _loginYOffset, 1),
+    transform: Matrix4.translationValues(0, _registerYOffset, 1),
     decoration: BoxDecoration(
-      color: Theme.of(context).canvasColor.withOpacity(_loginOpacity),
+      color: Theme.of(context).canvasColor,
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(25),
         topRight: Radius.circular(25),
@@ -30,7 +26,7 @@ Widget login(
     ),
     child: SingleChildScrollView(
       child: Form(
-        key: loginKey,
+        key: signupKey,
         child: Wrap(
           children: <Widget>[
             Column(
@@ -38,7 +34,7 @@ Widget login(
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
                   child: const Text(
-                    'Login To Continue',
+                    'Create a New Account',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -77,7 +73,16 @@ Widget login(
                     },
                     validator: Validators.compose([
                       Validators.required('* Required'),
+                      Validators.patternRegExp(
+                          RegExp(passwordRegEx()),
+                          'Please meet the following criteria\n'
+                          '8 characters length\n'
+                          '2 letters in Upper Case\n'
+                          '1 Special Character\n'
+                          '2 numerals (0-9)\n'
+                          '3 letters in Lower Case\n')
                     ]),
+                    // NIkhi@12
                     obscureText: true,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
@@ -108,11 +113,8 @@ Widget login(
                       ),
                     ),
                     onPressed: () async {
-                      await Navigator.pushNamed(
-                        context,
-                        '/forgot',
-                      );
-                      // navigate('/login', context, '/forgot');
+                      await navigate(AppRoutes.welcomeScreen, context,
+                          AppRoutes.forgotPasswordScreen);
                     },
                     child: Text(
                       'Forgot Password?',
@@ -130,20 +132,16 @@ Widget login(
             Column(
               children: <Widget>[
                 PrimaryButton(
-                  btnText: 'Login',
-                  onTap: loginTap,
+                  btnText: 'Create Account',
+                  onTap: createAccountOnTap,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 OutlineBtn(
-                  btnText: 'Create New Account',
-                  onTap: goToSignupTap,
-                )
-                /*const OutlineBtnNew(
-                  btnText: 'Create New Account',
-
-                )*/
+                  btnText: 'Back To Login',
+                  onTap: goToLoginOnTap,
+                ),
               ],
             ),
           ],

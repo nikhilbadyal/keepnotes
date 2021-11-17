@@ -26,7 +26,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     myFuture = Provider.of<NotesHelper>(context, listen: false)
-        .getAllNotesHelper(widget.fromWhere.index);
+        .getAllNotes(widget.fromWhere.index);
     super.initState();
   }
 
@@ -95,7 +95,7 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(),
+        padding: EdgeInsets.zero,
         child: ListView.builder(
           cacheExtent: 100000,
           physics: const BouncingScrollPhysics(),

@@ -2,7 +2,7 @@ import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-//TODO add while build release
+//TODO add/remove while build release
 const dsn = '';
 
 final sentry = SentryClient(SentryOptions(dsn: dsn));
@@ -56,7 +56,7 @@ Future<void> main() async {
     }
   }
 
-  if (dsn.isNotEmpty) {
+  if (dsn.isNotEmpty || kDebugMode) {
     await runZonedGuarded(() async {
       return SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],

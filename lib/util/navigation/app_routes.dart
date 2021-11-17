@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
+import 'package:notes/screen/welcome/forget_password.dart';
 
 class AppRoutes {
   static const hiddenScreen = '/hidden';
@@ -13,8 +14,9 @@ class AppRoutes {
   static const aboutMeScreen = '/about';
   static const settingsScreen = '/settings';
   static const suggestScreen = '/suggestion';
-  static const loginScreen = '/login';
+  static const welcomeScreen = '/welcome';
   static const forgotPasswordScreen = '/forgot';
+  static const editScreen = '/edit';
 }
 
 class RouteGenerator {
@@ -36,7 +38,13 @@ class RouteGenerator {
             builder: (_) => const LockScreen(),
           );
         }
-
+      case AppRoutes.setPassScreen:
+        {
+          return CupertinoPageRoute(
+            settings: settings,
+            builder: (_) => const SetPassword(),
+          );
+        }
       case AppRoutes.homeScreen:
         {
           return CupertinoPageRoute(
@@ -97,20 +105,37 @@ class RouteGenerator {
           );
         }
 
-      case AppRoutes.setPassScreen:
+      case AppRoutes.welcomeScreen:
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const SetPassword(),
+            builder: (_) => const Welcome(),
           );
         }
-
+      case AppRoutes.forgotPasswordScreen:
+        {
+          return CupertinoPageRoute(
+            settings: settings,
+            builder: (_) => const ForgetPassword(),
+          );
+        }
+      case AppRoutes.editScreen:
+        {
+          return CupertinoPageRoute(
+            settings: settings,
+            builder: (context) => const EditScreen(),
+          );
+        }
       default:
-        return _errorRoute();
+        return errorRoute();
     }
   }
 
-  static Route<dynamic> _errorRoute() => CupertinoPageRoute(builder: (context) {
+  static Route<dynamic> errorRoute() {
+    return CupertinoPageRoute(
+      builder: (context) {
         return const ErrorScreen();
-      });
+      },
+    );
+  }
 }

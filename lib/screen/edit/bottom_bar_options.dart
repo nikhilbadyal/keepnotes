@@ -1,8 +1,8 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-class MoreOptionsMenu extends StatefulWidget {
-  const MoreOptionsMenu({
+class BottomBarOptions extends StatefulWidget {
+  const BottomBarOptions({
     required this.note,
     required this.autoSaver,
     required this.saveNote,
@@ -13,10 +13,10 @@ class MoreOptionsMenu extends StatefulWidget {
   final Function() saveNote;
 
   @override
-  _MoreOptionsMenuState createState() => _MoreOptionsMenuState();
+  _BottomBarOptionsState createState() => _BottomBarOptionsState();
 }
 
-class _MoreOptionsMenuState extends State<MoreOptionsMenu>
+class _BottomBarOptionsState extends State<BottomBarOptions>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) => AnimatedSize(

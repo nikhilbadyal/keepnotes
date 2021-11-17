@@ -95,11 +95,14 @@ class _MyNotesState extends State<MyNotes> {
                   ? const ScreenContainer(
                       topScreen: ScreenTypes.home,
                     )
-                  : const Login(),
+                  : const Welcome(),
               debugShowCheckedModeBanner: false,
+              navigatorObservers: [routeObserver],
               onGenerateRoute: RouteGenerator.generateRoute,
             );
           },
         ),
       );
 }
+
+//TODO fix splash screen android S

@@ -18,12 +18,12 @@ class NotesHelper with ChangeNotifier {
   SplayTreeSet<Note> mainNotes = SplayTreeSet();
   SplayTreeSet<Note> otherNotes = SplayTreeSet();
 
-  Future<Note> insertNoteHelper(Note note, {Database? testDb}) async {
+  Future<Note> insert(Note note) async {
     final copiedNote = note.copyWith(id: note.id);
-
     if (copiedNote.state == NoteState.hidden) {
       encryption.encrypt(copiedNote);
     }
+    // This is because of background insertion
     if (copiedNote.state == NoteState.unspecified) {
       mainNotes.removeWhere((element) {
         return element.id == copiedNote.id;
@@ -37,12 +37,13 @@ class NotesHelper with ChangeNotifier {
         ? mainNotes.add(note)
         : otherNotes.add(note);
     notifyListeners();
-    await DatabaseHelper.insertNoteDb(copiedNote, testDb: testDb);
+    await SqfliteDatabaseHelper.insert(copiedNote);
+    await FirebaseDatabaseHelper.insert(copiedNote);
     note.id = copiedNote.id;
     return note;
   }
 
-  Future<bool> copyNoteHelper(Note note, {Database? testDb}) async {
+  Future<bool> copy(Note note) async {
     final copiedNote = note.copyWith(
       id: const Uuid().v4(),
       lastModify: DateTime.now(),
@@ -51,11 +52,12 @@ class NotesHelper with ChangeNotifier {
         ? mainNotes.add(copiedNote)
         : otherNotes.add(copiedNote);
     notifyListeners();
-    await DatabaseHelper.insertNoteDb(copiedNote, isNew: true, testDb: testDb);
+    await SqfliteDatabaseHelper.insert(copiedNote);
+    await FirebaseDatabaseHelper.insert(copiedNote);
     return true;
   }
 
-  Future<bool> archiveNoteHelper(Note note, {Database? testDb}) async {
+  Future<bool> archive(Note note) async {
     note.state == NoteState.unspecified
         ? mainNotes.removeWhere((element) {
             return element.id == note.id;
@@ -63,13 +65,14 @@ class NotesHelper with ChangeNotifier {
         : otherNotes.removeWhere((element) {
             return element.id == note.id;
           });
-    await DatabaseHelper.archiveNoteDb(note, testDb: testDb);
-
+    note.state = NoteState.archived;
+    await SqfliteDatabaseHelper.update(note);
+    await FirebaseDatabaseHelper.update(note);
     notifyListeners();
     return true;
   }
 
-  Future<bool> hideNoteHelper(Note note, {Database? testDb}) async {
+  Future<bool> hide(Note note) async {
     final copiedNote = note.copyWith(id: note.id);
     encryption.encrypt(copiedNote);
     note.state == NoteState.unspecified
@@ -79,46 +82,50 @@ class NotesHelper with ChangeNotifier {
         : otherNotes.removeWhere((element) {
             return element.id == note.id;
           });
-    await DatabaseHelper.hideNoteDb(copiedNote, testDb: testDb);
+    note.state = NoteState.hidden;
+    await SqfliteDatabaseHelper.update(copiedNote);
+    await FirebaseDatabaseHelper.update(copiedNote);
     notifyListeners();
     return true;
   }
 
-  Future<bool> unhideNoteHelper(Note note, {Database? testDb}) async {
+  Future<bool> unhide(Note note) async {
     mainNotes.add(note);
     otherNotes.removeWhere((element) {
       return element.id == note.id;
     });
-    await DatabaseHelper.unhideNoteDb(note, testDb: testDb);
-
+    note.state = NoteState.unspecified;
+    await SqfliteDatabaseHelper.update(note);
+    await FirebaseDatabaseHelper.update(note);
     notifyListeners();
     return true;
   }
 
-  Future<bool> unarchiveNoteHelper(Note note, {Database? testDb}) async {
+  Future<bool> unarchive(Note note) async {
     mainNotes.add(note);
     otherNotes.removeWhere((element) {
       return element.id == note.id;
     });
-    await DatabaseHelper.unarchiveNoteDb(note, testDb: testDb);
-
+    note.state = NoteState.unspecified;
+    await SqfliteDatabaseHelper.update(note);
+    await FirebaseDatabaseHelper.update(note);
     notifyListeners();
     return true;
   }
 
-  Future<bool> undeleteHelper(Note note, {Database? testDb}) async {
+  Future<bool> undelete(Note note) async {
     mainNotes.add(note);
     otherNotes.removeWhere((element) {
       return element.id == note.id;
     });
-    await DatabaseHelper.undeleteDb(note, testDb: testDb);
-
+    note.state = NoteState.unspecified;
+    await SqfliteDatabaseHelper.update(note);
+    await FirebaseDatabaseHelper.update(note);
     notifyListeners();
     return true;
   }
 
-  Future<bool> deleteNoteHelper(Note note, {Database? testDb}) async {
-    var status = false;
+  Future<bool> delete(Note note) async {
     try {
       note.state == NoteState.unspecified
           ? mainNotes.removeWhere((element) {
@@ -127,16 +134,16 @@ class NotesHelper with ChangeNotifier {
           : otherNotes.removeWhere((element) {
               return element.id == note.id;
             });
-      status = await DatabaseHelper.deleteNoteDb(note, testDb: testDb);
+      await SqfliteDatabaseHelper.delete('id = ?', [note.id]);
+      await FirebaseDatabaseHelper.delete(NoteOperation.delete, note);
     } on Exception catch (_) {
       return false;
     }
     notifyListeners();
-    return status;
+    return true;
   }
 
-  Future<bool> trashNoteHelper(Note note, {Database? testDb}) async {
-    var stat = false;
+  Future<bool> trash(Note note) async {
     note.state == NoteState.unspecified
         ? mainNotes.removeWhere((element) {
             return element.id == note.id;
@@ -144,59 +151,38 @@ class NotesHelper with ChangeNotifier {
         : otherNotes.removeWhere((element) {
             return element.id == note.id;
           });
-    stat = await DatabaseHelper.trashNoteDb(note, testDb: testDb);
-
+    note.state = NoteState.deleted;
+    await SqfliteDatabaseHelper.update(note);
+    await FirebaseDatabaseHelper.update(note);
     notifyListeners();
-    return stat;
+    return true;
   }
 
-  Future<bool> deleteAllHiddenNotesHelper({Database? testDb}) async {
+  Future<bool> deleteAllHidden() async {
     notifyListeners();
-    return DatabaseHelper.deleteAllHiddenNotesDb(testDb: testDb);
+    await SqfliteDatabaseHelper.delete('state = ?', [NoteState.hidden.index]);
+    await FirebaseDatabaseHelper.batchDelete('state',
+        isEqualTo: [NoteState.hidden.index]);
+    return true;
   }
 
-  Future<bool> deleteAllTrashNotesHelper({Database? testDb}) async {
+  Future<bool> emptyTrash() async {
     otherNotes.clear();
-    final status = await DatabaseHelper.deleteAllTrashNoteDb(testDb: testDb);
-
+    await SqfliteDatabaseHelper.delete('state = ?', [NoteState.deleted.index]);
+    await FirebaseDatabaseHelper.batchDelete('state', isEqualTo: 4);
     notifyListeners();
-    return status;
+    return true;
   }
 
-  Future<List> getNotesAllForBackupHelper({Database? testDb}) async {
-    final notesList =
-        await DatabaseHelper.getNotesAllForBackupDb(testDb: testDb);
-    final items = notesList.map(
-      (itemVar) {
-        final note = Note(
-          // TODO Check this
-          id: const Uuid().v4(),
-          title: itemVar['title'].toString(),
-          content: itemVar['content'].toString(),
-          lastModify: DateTime.fromMillisecondsSinceEpoch(
-            itemVar['lastModify'],
-          ),
-          state: NoteState.values[itemVar['state']],
-        );
-        if (note.state == NoteState.hidden) {
-          note.state = NoteState.unspecified;
-          encryption.decrypt(note);
-        }
-        return note;
-      },
-    ).toList();
+  Future<List<Map<String, dynamic>>> myGetAll() async {
+    final notesList = await FirebaseDatabaseHelper.getAll();
+    final items = notesList.docs.map((e) => e.data()).toList();
     return items;
   }
 
-  Future<bool> addAllNotesToDatabaseHelper(List<Note> notesList,
-      {Database? testDb}) async {
-    final status = await DatabaseHelper.addAllNotesToBackupDb(notesList);
-    notifyListeners();
-    return status;
-  }
-
   Future<void> encryptAllHidden() async {
-    final notes = await DatabaseHelper.getAllNotesDb(NoteState.hidden.index);
+    final notes = await SqfliteDatabaseHelper.queryData(
+        whereCond: [NoteState.hidden.index]);
     final notesList = notes
         .map(
           (itemVar) => Note(
@@ -212,13 +198,14 @@ class NotesHelper with ChangeNotifier {
         .toList();
     for (final notes in notesList) {
       encryption.encrypt(notes);
-      await DatabaseHelper.insertNoteDb(notes);
+      await SqfliteDatabaseHelper.insert(notes);
+      await FirebaseDatabaseHelper.insert(notes);
     }
   }
 
-  Future getAllNotesHelper(int noteState, {Database? testDb}) async {
-    final notesList =
-        await DatabaseHelper.getAllNotesDb(noteState, testDb: testDb);
+  Future getAllNotes(int noteState) async {
+    final notesList = await SqfliteDatabaseHelper.queryData(
+        whereStr: 'state = ?', whereCond: [noteState]);
     noteState == NoteState.unspecified.index
         ? mainNotes = SplayTreeSet.from(notesList
             .map(
@@ -255,9 +242,8 @@ class NotesHelper with ChangeNotifier {
 
   Future<bool> recryptEverything(String password) async {
     try {
-      final notesList = await DatabaseHelper.getAllNotesDb(
-        NoteState.hidden.index,
-      );
+      final notesList = await SqfliteDatabaseHelper.queryData(
+          whereStr: 'state = ?', whereCond: [NoteState.hidden.index]);
       final myList = notesList
           .map(
             (itemVar) => Note(
@@ -279,42 +265,7 @@ class NotesHelper with ChangeNotifier {
       encryption.resetDetails(password);
       for (final note in myList) {
         encryption.encrypt(note);
-        await DatabaseHelper.encryptNotesDb(note);
-      }
-    } on Exception catch (_) {
-      return false;
-    }
-    return true;
-  }
-
-  Future<bool> autoMateEverything() async {
-    try {
-      final notesList = await DatabaseHelper.getAllNotesDb(
-        NoteState.hidden.index,
-      );
-      final myList = notesList
-          .map(
-            (itemVar) => Note(
-              id: itemVar['id'],
-              title: itemVar['title'].toString(),
-              content: itemVar['content'].toString(),
-              lastModify: DateTime.fromMillisecondsSinceEpoch(
-                itemVar['lastModify'],
-              ),
-              state: NoteState.values[itemVar['state']],
-            ),
-          )
-          .toList();
-      try {
-        for (var i = 0; i < myList.length; i++) {
-          final element = myList[i];
-          encryption.decrypt(element);
-        }
-      } on Exception catch (_) {}
-
-      for (final note in myList) {
-        encryption.encrypt(note);
-        await DatabaseHelper.encryptNotesDb(note);
+        await SqfliteDatabaseHelper.update(note);
       }
     } on Exception catch (_) {
       return false;

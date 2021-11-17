@@ -39,8 +39,8 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
       return Future.value(true);
     } else {
       _lastTimeBackButtonWasTapped = DateTime.now().millisecondsSinceEpoch;
-      if (ModalRoute.of(context)!.settings.name! == '/lock' ||
-          ModalRoute.of(context)!.settings.name! == '/setpass') {
+      if (ModalRoute.of(context)!.settings.name! == AppRoutes.lockScreen ||
+          ModalRoute.of(context)!.settings.name! == AppRoutes.setPassScreen) {
         Navigator.of(context)
             .popUntil((route) => route.settings.name == AppRoutes.homeScreen);
         return Future.value(true);

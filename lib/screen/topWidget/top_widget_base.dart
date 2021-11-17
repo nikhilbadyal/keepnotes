@@ -35,13 +35,15 @@ abstract class TopWidgetBase extends StatefulWidget {
 
 class _TopWidgetBaseState extends State<TopWidgetBase> {
   @override
-  Widget build(BuildContext context) => DoubleBackToCloseWidget(
-        child: Scaffold(
-          appBar: widget.appBar(context),
-          drawer: widget.myDrawer(context),
-          body: widget.body(context),
-          floatingActionButton: widget.floatingActionButton(context),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        ),
-      );
+  Widget build(BuildContext context) {
+    return DoubleBackToCloseWidget(
+      child: Scaffold(
+        appBar: widget.appBar(context),
+        drawer: widget.myDrawer(context),
+        body: widget.body(context),
+        floatingActionButton: widget.floatingActionButton(context),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      ),
+    );
+  }
 }

@@ -2,23 +2,27 @@ import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-Widget signup(
+Widget login(
     BuildContext context,
-    double _registerHeight,
-    double _registerYOffset,
-    GlobalKey<FormState> signupKey,
+    double _loginWidth,
+    double _loginHeight,
+    double _loginYOffset,
+    double _loginXOffset,
+    double _loginOpacity,
+    GlobalKey<FormState> loginKey,
     NotesUser user,
     String Function() passwordRegEx,
-    Function() createAccountOnTap,
-    Function() goToLoginOnTap) {
+    Function() loginTap,
+    Function() goToSignupTap) {
   return AnimatedContainer(
-    height: _registerHeight,
     padding: const EdgeInsets.all(32),
+    width: _loginWidth,
+    height: _loginHeight,
     curve: Curves.fastLinearToSlowEaseIn,
     duration: const Duration(milliseconds: 1000),
-    transform: Matrix4.translationValues(0, _registerYOffset, 1),
+    transform: Matrix4.translationValues(_loginXOffset, _loginYOffset, 1),
     decoration: BoxDecoration(
-      color: Theme.of(context).canvasColor,
+      color: Theme.of(context).canvasColor.withOpacity(_loginOpacity),
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(25),
         topRight: Radius.circular(25),
@@ -26,7 +30,7 @@ Widget signup(
     ),
     child: SingleChildScrollView(
       child: Form(
-        key: signupKey,
+        key: loginKey,
         child: Wrap(
           children: <Widget>[
             Column(
@@ -34,7 +38,7 @@ Widget signup(
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
                   child: const Text(
-                    'Create a New Account',
+                    'Login To Continue',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
@@ -73,16 +77,7 @@ Widget signup(
                     },
                     validator: Validators.compose([
                       Validators.required('* Required'),
-                      Validators.patternRegExp(
-                          RegExp(passwordRegEx()),
-                          'Please meet the following criteria\n'
-                          '8 characters length\n'
-                          '2 letters in Upper Case\n'
-                          '1 Special Character\n'
-                          '2 numerals (0-9)\n'
-                          '3 letters in Lower Case\n')
                     ]),
-                    // NIkhi@12
                     obscureText: true,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
@@ -96,19 +91,56 @@ Widget signup(
                 )
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(right: 20, top: 1),
+                  child: TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            return Colors.transparent;
+                          }
+                          return Colors.transparent;
+                        },
+                      ),
+                    ),
+                    onPressed: () async {
+                      await navigate(AppRoutes.welcomeScreen, context,
+                          AppRoutes.forgotPasswordScreen);
+                    },
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 15,
+                      ),
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                ),
+              ],
+            ),
             Column(
               children: <Widget>[
                 PrimaryButton(
-                  btnText: 'Create Account',
-                  onTap: createAccountOnTap,
+                  btnText: 'Login',
+                  onTap: loginTap,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 OutlineBtn(
-                  btnText: 'Back To Login',
-                  onTap: goToLoginOnTap,
-                ),
+                  btnText: 'Create New Account',
+                  onTap: goToSignupTap,
+                )
+                /*const OutlineBtnNew(
+                  btnText: 'Create New Account',
+
+                )*/
               ],
             ),
           ],

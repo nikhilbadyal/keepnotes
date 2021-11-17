@@ -35,9 +35,10 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final items =
+                  // TODO fix this
+                  /*final items =
                       await Provider.of<NotesHelper>(context, listen: false)
-                          .getNotesAllForBackupHelper();
+                          .getAll();
                   if (items.isNotEmpty) {
                     unawaited(
                       exportToFile(items).then(
@@ -65,7 +66,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
                       context,
                       Language.of(context).done,
                     );
-                  }
+                  }*/
                 },
                 child: Text(
                   Language.of(context).exportNotes,
@@ -117,9 +118,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
         final finalPath = path + folderName + fileName;
         try {
           await File(finalPath).create(recursive: true);
-        } on Exception catch (e) {
-          debugPrint(e.toString());
-          debugPrint('from here1');
+        } on Exception catch (_) {
           return false;
         }
         final file = File(finalPath);
@@ -154,16 +153,9 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
             ],
           ),
         );
-
-        debugPrint('from here2');
-
         return false;
       }
-    } on Exception catch (e) {
-      debugPrint(e.toString());
-
-      debugPrint('from here3');
-
+    } on Exception catch (_) {
       return false;
     }
     return true;
@@ -171,15 +163,15 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
 
   Future<void> importFromFile(File file) async {
     try {
-      final stringContent = file.readAsStringSync();
-      final List jsonList = json.decode(stringContent);
-      final notesList = jsonList
+      // final String stringContent = file.readAsStringSync();
+      // final List jsonList = json.decode(stringContent);
+      /*final notesList = jsonList
           .map(
-            (json) => Note.fromMap(json),
+            (json) => json,
           )
-          .toList();
-      await Provider.of<NotesHelper>(context, listen: false)
-          .addAllNotesToDatabaseHelper(notesList);
+          .toList();*/
+      // TODO work on this option
+      // await Provider.of<NotesHelper>(context, listen: false).addAll(notesList);
       Utilities.showSnackbar(
         context,
         Language.of(context).done,

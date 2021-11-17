@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
@@ -96,14 +97,16 @@ class ImageWig extends StatelessWidget {
   const ImageWig({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        height: MediaQuery.of(context).size.height * 0.4,
-        width: MediaQuery.of(context).size.width * 0.5,
-        child: Image.asset(
-          'assets/images/noNotes.png',
-          fit: BoxFit.contain,
-          width: 120,
-          height: 200,
-        ),
-      );
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.4,
+      width: MediaQuery.of(context).size.width * 0.5,
+      child: Image.asset(
+        'assets/images/noNotes.png',
+        fit: BoxFit.contain,
+        width: 120,
+        height: 200,
+      ),
+    );
+  }
 }

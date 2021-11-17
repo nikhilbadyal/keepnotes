@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
@@ -13,11 +14,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: SafeArea(
-          child: settingsList(),
-        ),
+      body: SafeArea(
+        child: settingsList(),
       ),
     );
   }
@@ -30,17 +28,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           tiles: [
             SettingsTile(
               title: Language.of(context).labelLanguage,
-              leading: Icon(Icons.language,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor),
+              leading: const Icon(Icons.language),
               trailing: languageTrailing(),
             ),
             SettingsTile.switchTile(
               title: Language.of(context).directDelete,
+              leading: const Icon(Icons.delete_forever_outlined),
               switchActiveColor: Theme.of(context).colorScheme.secondary,
-              leading: Icon(Icons.delete_forever_outlined,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor),
               switchValue: Provider.of<LockChecker>(context, listen: false)
                   .directlyDelete,
               onToggle: directDelete,
@@ -51,31 +45,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Language.of(context).ui,
           tiles: [
             SettingsTile(
+              trailing: const Icon(Icons.arrow_forward_ios),
               title: Language.of(context).appColor,
-              leading: Icon(
+              leading: const Icon(
                 Icons.color_lens_outlined,
-                color: Provider.of<AppConfiguration>(context, listen: false)
-                    .iconColor,
               ),
-              onPressed: (context) {
-                showPrimaryColorPicker();
+              onPressed: (_) {
+                colorPicker(
+                    'Pick Primary Color', primaryColors, onPrimaryColorChange);
               },
             ),
             SettingsTile(
-              title: Language.of(context).iconColor,
-              leading: Icon(
+              trailing: const Icon(Icons.arrow_forward_ios),
+              title: Language.of(context).accentColor,
+              leading: const Icon(
                 TablerIcons.color_swatch,
-                color: Provider.of<AppConfiguration>(context, listen: false)
-                    .iconColor,
               ),
-              trailing: iconColorTrailing(),
+              onPressed: (_) {
+                colorPicker(
+                    'Pick Accent Color', accentColors, onAccentColorChange);
+              },
             ),
             SettingsTile.switchTile(
               switchActiveColor: Theme.of(context).colorScheme.secondary,
               title: Language.of(context).darkMode,
-              leading: Icon(Icons.dark_mode_outlined,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor),
+              leading: const Icon(
+                Icons.dark_mode_outlined,
+              ),
               switchValue: Provider.of<AppConfiguration>(context, listen: false)
                       .appTheme !=
                   AppTheme.light,
@@ -86,38 +82,99 @@ class _SettingsScreenState extends State<SettingsScreen> {
         TilesSection(
           title: Language.of(context).security,
           tiles: [
+            SettingsTile.switchTile(
+              title: Language.of(context).directBio,
+              leading: const Icon(
+                Icons.fingerprint_outlined,
+              ),
+              switchActiveColor: Theme.of(context).colorScheme.secondary,
+              switchValue:
+                  Provider.of<LockChecker>(context, listen: false).fpDirectly,
+              onToggle: toggleBiometric,
+            ),
             SettingsTile(
               title: Language.of(context).changePassword,
-              leading: Icon(Icons.phonelink_lock,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor),
+              leading: const Icon(
+                Icons.phonelink_lock,
+              ),
               onPressed: (context) {
                 onChangePassword();
               },
             ),
             SettingsTile(
               title: Language.of(context).removeBiometric,
-              leading: Icon(Icons.face_outlined,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor),
+              leading: const Icon(
+                Icons.face_outlined,
+              ),
               onPressed: (context) {
                 onRemoveBioMetric(context);
               },
             ),
-            SettingsTile.switchTile(
-              title: Language.of(context).directBio,
-              leading: Icon(Icons.fingerprint_outlined,
-                  color: Provider.of<AppConfiguration>(context, listen: false)
-                      .iconColor),
-              switchActiveColor: Theme.of(context).colorScheme.secondary,
-              switchValue:
-                  Provider.of<LockChecker>(context, listen: false).fpDirectly,
-              onToggle: toggleBiometric,
+            SettingsTile(
+              trailing: const Icon(Icons.logout_outlined),
+              title: Language.of(context).logOut,
+              leading: const Icon(
+                TablerIcons.color_swatch,
+              ),
+              onPressed: (_) async {
+                await Provider.of<Auth>(
+                  context,
+                  listen: false,
+                ).signOut();
+                unawaited(SqfliteDatabaseHelper.deleteDB());
+                await Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoutes.welcomeScreen, (route) => false);
+              },
             ),
           ],
         ),
       ],
     );
+  }
+
+  Future<void> colorPicker(String title, List<Color> appColors,
+      ValueChanged<Color> onColorChange) async {
+    final status = await showDialog(
+          barrierDismissible: true,
+          context: context,
+          builder: (context) => MyAlertDialog(
+            title: Text(title),
+            content: SingleChildScrollView(
+              child: ColorPicker(
+                availableColors: appColors,
+                pickerColor: Colors.deepOrangeAccent,
+                onColorChanged: onColorChange,
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text('Done'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+    if (status) {}
+  }
+
+  void onPrimaryColorChange(Color value) {
+    setState(() {
+      Provider.of<AppConfiguration>(context, listen: false).primaryColor =
+          value;
+    });
+    Provider.of<AppConfiguration>(context, listen: false)
+        .changePrimaryColor(write: true);
+  }
+
+  void onAccentColorChange(Color value) {
+    setState(() {
+      Provider.of<AppConfiguration>(context, listen: false).accentColor = value;
+    });
+    Provider.of<AppConfiguration>(context, listen: false)
+        .changeAccentColor(write: true);
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -158,106 +215,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Future<void> showPrimaryColorPicker() async {
-    final initAppColor =
-        Provider.of<AppConfiguration>(context, listen: false).primaryColor;
-    final initIconColor =
-        Provider.of<AppConfiguration>(context, listen: false).iconColor;
-
-    final status = await showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => MyAlertDialog(
-            title: Text(Language.of(context).pickColor),
-            content: SingleChildScrollView(
-              child: ColorPicker(
-                availableColors: appColors,
-                pickerColor:
-                    Provider.of<AppConfiguration>(context).primaryColor,
-                onColorChanged: (value) async {
-                  setState(() {
-                    if (Provider.of<AppConfiguration>(context, listen: false)
-                            .iconColorStatus ==
-                        IconColorStatus.uiColor) {
-                      debugPrint('change icon color');
-                      Provider.of<AppConfiguration>(context, listen: false)
-                          .iconColor = value;
-                    }
-                    Provider.of<AppConfiguration>(context, listen: false)
-                        .primaryColor = value;
-                    Provider.of<AppConfiguration>(context, listen: false)
-                        .changePrimaryColor();
-                  });
-                },
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                child: Text(Language.of(context).done),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-    if (status) {
-      Provider.of<AppConfiguration>(context, listen: false)
-          .changePrimaryColor(write: true);
-    } else {
-      Provider.of<AppConfiguration>(context, listen: false).iconColor =
-          initIconColor;
-      Provider.of<AppConfiguration>(context, listen: false).primaryColor =
-          initAppColor;
-      Provider.of<AppConfiguration>(context, listen: false)
-          .changePrimaryColor();
-    }
-  }
-
-  Future<void> showIconColorPicker() async {
-    final initColor =
-        Provider.of<AppConfiguration>(context, listen: false).iconColor;
-    final status = await showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (context) => MyAlertDialog(
-            title: Text(Language.of(context).pickColor),
-            content: SingleChildScrollView(
-              child: ColorPicker(
-                availableColors: appColors,
-                pickerColor:
-                    Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor,
-                onColorChanged: (value) {
-                  setState(() {
-                    Provider.of<AppConfiguration>(context, listen: false)
-                        .iconColor = value;
-                  });
-                },
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () async {
-                  Navigator.of(context).pop(true);
-                },
-                child: Text(Language.of(context).done),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-    if (status) {
-      Provider.of<AppConfiguration>(context, listen: false).changeIconColor();
-    } else {
-      setState(() {
-        Provider.of<AppConfiguration>(context, listen: false).iconColor =
-            initColor;
-      });
-    }
-  }
-
   Future<void> resetPassword() async {
     await showDialog(
       barrierDismissible: true,
@@ -277,35 +234,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     MyNotes.setLocale(context, locale);
   }
 
-  void onIconColorChange(IconColorStatus status) {
-    if (status == IconColorStatus.pickedColor) {
-      showIconColorPicker();
-    } else if (status == IconColorStatus.uiColor) {
-      Provider.of<AppConfiguration>(context, listen: false).iconColor =
-          Provider.of<AppConfiguration>(context, listen: false).primaryColor;
-    } else {
-      Provider.of<AppConfiguration>(context, listen: false).iconColor =
-          Provider.of<AppConfiguration>(context, listen: false).appTheme ==
-                  AppTheme.light
-              ? Colors.black
-              : Colors.white;
-    }
-    Provider.of<AppConfiguration>(context, listen: false)
-        .changeIconColorStatus(status.index);
-    setState(() {
-      Provider.of<AppConfiguration>(context, listen: false).iconColorStatus =
-          status;
-    });
-  }
-
   Future<void> onChangePassword() async {
     if (Provider.of<LockChecker>(context, listen: false).password.isNotEmpty) {
       await Navigator.pushNamed(context, AppRoutes.lockScreen, arguments: true);
     } else {
-      await Navigator.pushNamed(
+      await navigate(
+        AppRoutes.settingsScreen,
         context,
         AppRoutes.setPassScreen,
-        arguments: DataObj(
+        DataObj(
           '',
           'Enter New Password',
           isFirst: true,
@@ -367,26 +304,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget iconColorTrailing() {
-    return PopupMenuButton(
-      icon: Icon(Icons.arrow_drop_down,
-          color: Theme.of(context).colorScheme.secondary),
-      iconSize: 30,
-      onSelected: onIconColorChange,
-      itemBuilder: (context) => [
-        PopupMenuItem(
-          value: IconColorStatus.noColor,
-          child: Text(Language.of(context).noColor),
-        ),
-        PopupMenuItem(
-          value: IconColorStatus.pickedColor,
-          child: Text(Language.of(context).pickColor),
-        ),
-        PopupMenuItem(
-          value: IconColorStatus.uiColor,
-          child: Text(Language.of(context).appColor),
-        ),
-      ],
-    );
-  }
+  List<Color> primaryColors = <Color>[
+    Colors.red,
+    Colors.pink,
+    Colors.purple,
+    Colors.deepPurple,
+    Colors.blue,
+    Colors.indigo,
+    Colors.cyan,
+    Colors.teal,
+    Colors.orange,
+    Colors.deepOrange,
+    Colors.amber,
+    Colors.brown,
+    Colors.grey,
+    Colors.blueGrey,
+    Colors.black,
+  ];
+
+  List<Color> accentColors = <Color>[
+    Colors.redAccent,
+    Colors.pinkAccent,
+    Colors.purpleAccent,
+    Colors.deepPurpleAccent,
+    Colors.blueAccent,
+    Colors.indigoAccent,
+    Colors.cyanAccent,
+    Colors.tealAccent,
+    Colors.orangeAccent,
+    Colors.deepOrangeAccent,
+    Colors.lightBlueAccent,
+    Colors.amberAccent,
+    const Color(0xFFFF7582),
+  ];
 }

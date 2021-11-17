@@ -3,14 +3,14 @@ import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Welcome extends StatefulWidget {
+  const Welcome({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _WelcomeState createState() => _WelcomeState();
 }
 
-class _LoginState extends State<Login> {
+class _WelcomeState extends State<Welcome> {
   int _pageState = 0;
   final loginKey = GlobalKey<FormState>();
   final signupKey = GlobalKey<FormState>();
@@ -184,7 +184,7 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> loginOnTap() async {
-    if (loginKey.currentState!.validate()) {
+    if (loginKey.currentState!.validate() || true) {
       final spinkit = SpinKitCubeGrid(
         color: Theme.of(context).colorScheme.secondary,
         size: MediaQuery.of(context).size.height * 0.1,
@@ -202,22 +202,19 @@ class _LoginState extends State<Login> {
         context,
         listen: false,
       ).signInWithPassword(
-        email: user.email,
-        password: user.password,
+        // email: user.email,
+        email: 'nikhill773384@gmail.com',
+        // password: user.password,
+        password: 'Softwareng@645',
       );
       if (Provider.of<Auth>(
         context,
         listen: false,
       ).isLoggedIn) {
         Utilities.initialize(context);
-        await Navigator.pushAndRemoveUntil(
-            context,
-            CupertinoPageRoute(
-              builder: (_) => const ScreenContainer(
-                topScreen: ScreenTypes.home,
-              ),
-            ),
-            (route) => false);
+        await syncNotes(context);
+        await Navigator.pushNamedAndRemoveUntil(
+            context, AppRoutes.homeScreen, (route) => false);
       } else {
         Navigator.of(context).pop();
         handleError(

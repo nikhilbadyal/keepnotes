@@ -77,10 +77,11 @@ Widget home(
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Get Started',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(
+                      color: Theme.of(context).canvasColor, fontSize: 20),
                 ),
               ),
             ),

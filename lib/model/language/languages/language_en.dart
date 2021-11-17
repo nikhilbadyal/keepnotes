@@ -149,7 +149,7 @@ class LanguageEn extends Language {
   String get error => 'Error';
 
   @override
-  String get iconColor => 'Icon Color';
+  String get accentColor => 'Accent Color';
 
   @override
   String get importNotes => 'Import Notes';
@@ -240,7 +240,8 @@ class LanguageEn extends Language {
   String get good => 'Good';
 
   @override
-  String get king => 'King';
+  // String get king => 'King';
+  String get king => '';
 
   @override
   String get morning => 'Morning';
@@ -249,7 +250,8 @@ class LanguageEn extends Language {
   String get night => 'Night';
 
   @override
-  String get queen => 'Queen';
+  String get queen => '';
+  // String get queen => 'Queen';
 
   @override
   String get samePasswordError => "You can't use same password twice";
@@ -268,4 +270,7 @@ class LanguageEn extends Language {
 
   @override
   String get ui => 'UI';
+
+  @override
+  String get logOut => 'Log Out';
 }

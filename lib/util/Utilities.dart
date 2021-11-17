@@ -66,9 +66,15 @@ class Utilities {
     saveNote();
     final wantedRoute = getRoute(note.state);
     await Utilities.onArchiveTap(context, note);
-    Navigator.of(context).popUntil(
-      (route) => route.settings.name == wantedRoute,
-    );
+    // int count = 0;
+    /*Navigator.of(context).popUntil(
+      (route) {
+        debugPrint(route.settings.name ?? "Nullo " + count.toString());
+        count++;
+        return route.settings.name == wantedRoute;
+      },
+    );*/
+    Navigator.of(context).popUntil(ModalRoute.withName(wantedRoute));
   }
 
   static Future<void> onModalUnArchiveTap(BuildContext context, Note note,
@@ -112,8 +118,7 @@ class Utilities {
   static Future<void> resetPassword(BuildContext context,
       {bool deleteAllNotes = false}) async {
     if (deleteAllNotes) {
-      await Provider.of<NotesHelper>(context, listen: false)
-          .deleteAllHiddenNotesHelper();
+      await Provider.of<NotesHelper>(context, listen: false).deleteAllHidden();
     } else {
       Utilities.showSnackbar(context, Language.of(context).done);
       unawaited(Provider.of<NotesHelper>(context, listen: false)
@@ -135,10 +140,11 @@ class Utilities {
     await navigate('', context, AppRoutes.homeScreen);
   }
 
-  static Future<bool> launchUrl(String url) async {
+  static Future<bool> launchUrl(BuildContext context, String url) async {
     if (await canLaunch(url)) {
       return launch(url);
     } else {
+      Utilities.getSnackBar(context, 'Unable to lanuch email app;');
       return false;
     }
   }
@@ -238,7 +244,7 @@ class Utilities {
       label: Language.of(context).hide,
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-      onPressed: (context) => onHideTap(context, note),
+      onPressed: (_) => onHideTap(context, note),
     );
   }
 
@@ -255,8 +261,8 @@ class Utilities {
         ),
       );
     } else {
-      final value = await Provider.of<NotesHelper>(context, listen: false)
-          .hideNoteHelper(note);
+      final value =
+          await Provider.of<NotesHelper>(context, listen: false).hide(note);
       if (value) {
         Utilities.showSnackbar(
           context,
@@ -278,8 +284,7 @@ class Utilities {
         label: Language.of(context).delete,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onPressed: (context) =>
-            onDeleteTap(context, note, deleteDirectly: shouldAsk),
+        onPressed: (_) => onDeleteTap(context, note, deleteDirectly: shouldAsk),
       );
 
   static Future<void> onDeleteTap(BuildContext context, Note note,
@@ -307,8 +312,8 @@ class Utilities {
           false;
     }
     if (choice) {
-      final value = await Provider.of<NotesHelper>(context, listen: false)
-          .deleteNoteHelper(note);
+      final value =
+          await Provider.of<NotesHelper>(context, listen: false).delete(note);
       if (value) {
         Utilities.showSnackbar(
           context,
@@ -323,17 +328,19 @@ class Utilities {
     }
   }
 
-  static Widget trashAction(BuildContext context, Note note) => SlidableAction(
-        icon: Icons.delete_outline,
-        label: Language.of(context).trash,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onPressed: (context) => onTrashTap(context, note),
-      );
+  static Widget trashAction(BuildContext context, Note note) {
+    return SlidableAction(
+      icon: Icons.delete_outline,
+      label: Language.of(context).trash,
+      backgroundColor: Colors.transparent,
+      foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
+      onPressed: (_) => onTrashTap(context, note),
+    );
+  }
 
   static Future<void> onTrashTap(BuildContext context, Note note) async {
-    final value = await Provider.of<NotesHelper>(context, listen: false)
-        .trashNoteHelper(note);
+    final value =
+        await Provider.of<NotesHelper>(context, listen: false).trash(note);
     if (value) {
       Utilities.showSnackbar(
         context,
@@ -352,12 +359,12 @@ class Utilities {
         label: Language.of(context).copy,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onPressed: (context) => onCopyTap(context, note),
+        onPressed: (_) => onCopyTap(context, note),
       );
 
   static Future<void> onCopyTap(BuildContext context, Note note) async {
-    final value = await Provider.of<NotesHelper>(context, listen: false)
-        .copyNoteHelper(note);
+    final value =
+        await Provider.of<NotesHelper>(context, listen: false).copy(note);
     if (value) {
       Utilities.showSnackbar(
         context,
@@ -377,12 +384,12 @@ class Utilities {
         label: Language.of(context).archive,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onPressed: (context) => onArchiveTap(context, note),
+        onPressed: (_) => onArchiveTap(context, note),
       );
 
   static Future<void> onArchiveTap(BuildContext context, Note note) async {
-    final value = await Provider.of<NotesHelper>(context, listen: false)
-        .archiveNoteHelper(note);
+    final value =
+        await Provider.of<NotesHelper>(context, listen: false).archive(note);
     if (value) {
       Utilities.showSnackbar(
         context,
@@ -401,12 +408,12 @@ class Utilities {
         label: Language.of(context).unhide,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onPressed: (context) => onUnHideTap(context, note),
+        onPressed: (_) => onUnHideTap(context, note),
       );
 
   static Future<void> onUnHideTap(BuildContext context, Note note) async {
-    final value = await Provider.of<NotesHelper>(context, listen: false)
-        .unhideNoteHelper(note);
+    final value =
+        await Provider.of<NotesHelper>(context, listen: false).unhide(note);
     if (value) {
       Utilities.showSnackbar(
         context,
@@ -426,12 +433,12 @@ class Utilities {
         label: Language.of(context).unarchive,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onPressed: (context) => onUnArchiveTap(context, note),
+        onPressed: (_) => onUnArchiveTap(context, note),
       );
 
   static Future<void> onUnArchiveTap(BuildContext context, Note note) async {
-    final value = await Provider.of<NotesHelper>(context, listen: false)
-        .unarchiveNoteHelper(note);
+    final value =
+        await Provider.of<NotesHelper>(context, listen: false).unarchive(note);
     if (value) {
       Utilities.showSnackbar(
         context,
@@ -451,12 +458,12 @@ class Utilities {
         label: Language.of(context).restore,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-        onPressed: (context) => onRestoreTap(context, note),
+        onPressed: (_) => onRestoreTap(context, note),
       );
 
   static Future<void> onRestoreTap(BuildContext context, Note note) async {
-    final value = await Provider.of<NotesHelper>(context, listen: false)
-        .undeleteHelper(note);
+    final value =
+        await Provider.of<NotesHelper>(context, listen: false).undelete(note);
     if (value) {
       Utilities.showSnackbar(
         context,
@@ -471,8 +478,8 @@ class Utilities {
   }
 
   static Future<void> onDeleteAllTap(BuildContext context) async {
-    final value = await Provider.of<NotesHelper>(context, listen: false)
-        .deleteAllTrashNotesHelper();
+    final value =
+        await Provider.of<NotesHelper>(context, listen: false).emptyTrash();
     if (value) {
       Utilities.showSnackbar(
         context,
@@ -553,7 +560,6 @@ class Utilities {
     encryption = Encrypt(curUser!.uid);
     Provider.of<LockChecker>(context, listen: false).password =
         encryption.decryptStr(Utilities.getStringFromSF('password')) ?? '';
-    debugPrint(Provider.of<LockChecker>(context, listen: false).password);
     FirebaseDatabaseHelper(curUser.uid);
   }
 }

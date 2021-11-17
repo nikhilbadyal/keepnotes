@@ -117,7 +117,9 @@ abstract class Language {
 
   String get primaryColor;
 
-  String get iconColor;
+  String get accentColor;
+
+  String get logOut;
 
   String get darkMode;
 

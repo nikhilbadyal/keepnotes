@@ -1,21 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-Future navigate(String activeRoute, BuildContext context, String route,
+Future navigate(String activeRoute, BuildContext context, String newRoute,
     [Object? arguments]) async {
-  if (activeRoute == route && route != AppRoutes.setPassScreen) {
+  if (activeRoute == newRoute && newRoute != AppRoutes.setPassScreen) {
     return Navigator.pop(context);
   }
-  if (route == AppRoutes.homeScreen) {
-    await Navigator.pushNamedAndRemoveUntil(context, route, (route) => false,
-        arguments: arguments);
+  if (newRoute == AppRoutes.homeScreen) {
+    await Navigator.pushNamedAndRemoveUntil(context, newRoute, (route) {
+      return false;
+    }, arguments: arguments);
   } else {
     if (activeRoute == '/') {
       Navigator.pop(context);
-      await Navigator.pushNamed(context, route, arguments: arguments);
+      await Navigator.pushNamed(context, newRoute, arguments: arguments);
     } else {
-      await Navigator.pushReplacementNamed(context, route,
+      await Navigator.pushReplacementNamed(context, newRoute,
           arguments: arguments);
     }
   }
@@ -23,6 +25,7 @@ Future navigate(String activeRoute, BuildContext context, String route,
 
 void goToBugScreen(BuildContext context) {
   Utilities.launchUrl(
+    context,
     Utilities.emailLaunchUri.toString(),
   );
 }
@@ -33,15 +36,7 @@ Future<void> goToNoteEditScreen(
     bool shouldAutoFocus = false}) async {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
-  await Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => EditScreen(
-        currentNote: note,
-        shouldAutoFocus: shouldAutoFocus,
-      ),
-    ),
-  );
+  await Navigator.pushNamed(context, AppRoutes.editScreen, arguments: note);
 }
 
 Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
@@ -78,21 +73,5 @@ Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
         isFirst: true,
       ),
     );
-  }
-}
-
-class FadeInSlideOutRoute<T> extends MaterialPageRoute<T> {
-  FadeInSlideOutRoute({required WidgetBuilder builder, RouteSettings? settings})
-      : super(builder: builder, settings: settings);
-
-  @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
-    if (animation.status == AnimationStatus.reverse) {
-      return super
-          .buildTransitions(context, animation, secondaryAnimation, child);
-    }
-
-    return FadeTransition(opacity: animation, child: child);
   }
 }

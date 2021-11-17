@@ -29,7 +29,7 @@ class ListItem extends StatelessWidget {
           onLongPress: onItemLongPress,
           onTap: onItemTap,
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
@@ -37,7 +37,7 @@ class ListItem extends StatelessWidget {
                           .appTheme ==
                       AppTheme.light
                   ? Theme.of(context).floatingActionButtonTheme.foregroundColor
-                  : Colors.grey[900],
+                  : Colors.black,
               boxShadow: Provider.of<AppConfiguration>(context, listen: false)
                           .appTheme ==
                       AppTheme.light
@@ -49,7 +49,7 @@ class ListItem extends StatelessWidget {
                             .appTheme ==
                         AppTheme.light
                     ? greyColor
-                    : Theme.of(context).primaryColor,
+                    : Colors.grey[900] ?? Colors.transparent,
               ),
             ),
             child: Row(

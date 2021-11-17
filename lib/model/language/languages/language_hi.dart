@@ -148,7 +148,7 @@ class LanguageHi extends Language {
   String get error => 'त्रुटि';
 
   @override
-  String get iconColor => 'आइकॉन का रंग';
+  String get accentColor => 'एक्सेंट रंग';
 
   @override
   String get importNotes => 'बैकअप उठाये ';
@@ -181,7 +181,7 @@ class LanguageHi extends Language {
   String get pickColor => 'रंग उठाओ!';
 
   @override
-  String get primaryColor => 'प्राथमिक रंग';
+  String get primaryColor => 'पप्राइमरी रंग';
 
   @override
   String get restore => 'पुनर्स्थापित';
@@ -240,7 +240,8 @@ class LanguageHi extends Language {
   String get good => 'शुभ';
 
   @override
-  String get king => 'सम्राट';
+  String get king => '';
+  // String get king => 'सम्राट';
 
   @override
   String get morning => 'प्रभात';
@@ -249,7 +250,8 @@ class LanguageHi extends Language {
   String get night => 'रात्रि';
 
   @override
-  String get queen => 'महारानी';
+  String get queen => '';
+  // String get queen => 'महारानी';
 
   @override
   String get samePasswordError => 'कृपया अलग पासवर्ड डालें ';
@@ -268,4 +270,7 @@ class LanguageHi extends Language {
 
   @override
   String get ui => 'यूजर इंटरफेस';
+
+  @override
+  String get logOut => 'लॉग आउट';
 }

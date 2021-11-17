@@ -32,8 +32,6 @@ class LockChecker with ChangeNotifier {
     unawaited(Utilities.removeValueFromSF('password'));
     bioEnabled = Utilities.getBoolFromSF('bio') ?? false;
     firstTimeNeeded = Utilities.getBoolFromSF('firstTimeNeeded') ?? false;
-    // bioAvailable = false;
-    //TODO fix this
     bioAvailable = bioEnabled;
     fpDirectly = Utilities.getBoolFromSF('fpDirectly') ?? false;
     directlyDelete = Utilities.getBoolFromSF('directlyDelete') ?? true;

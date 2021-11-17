@@ -21,13 +21,14 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _MyAppBarState extends State<MyAppBar> {
   @override
-  AppBar build(BuildContext context) => AppBar(
-        elevation: 0.6,
-        title: widget.title,
-        actions: [
-          widget.appBarWidget,
-        ],
-      );
+  AppBar build(BuildContext context) {
+    return AppBar(
+      title: widget.title,
+      actions: [
+        widget.appBarWidget,
+      ],
+    );
+  }
 }
 
 class AppBarAvatar extends StatefulWidget {

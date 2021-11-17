@@ -1,3 +1,4 @@
+/*
 import 'package:notes/_internal_packages.dart';
 
 class MyRouteObserver extends RouteObserver<PageRoute<dynamic>> {
@@ -35,3 +36,4 @@ class MyRouteObserver extends RouteObserver<PageRoute<dynamic>> {
     }
   }
 }
+*/

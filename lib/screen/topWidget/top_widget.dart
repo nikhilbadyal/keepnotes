@@ -4,6 +4,7 @@ import 'package:notes/_internal_packages.dart';
 
 typedef SlidableActions = Function(Note note, BuildContext context);
 typedef ActionGen = Widget Function(Note note, BuildContext context);
+
 class ScreenContainer extends TopWidgetBase {
   const ScreenContainer({
     required this.topScreen,
@@ -12,7 +13,9 @@ class ScreenContainer extends TopWidgetBase {
   final ScreenTypes topScreen;
 
   @override
-  Widget myDrawer(BuildContext context) => const MyDrawer();
+  Widget myDrawer(BuildContext context) {
+    return const MyDrawer();
+  }
 
   @override
   MyAppBar? appBar(BuildContext context) {
@@ -44,7 +47,7 @@ class ScreenContainer extends TopWidgetBase {
       case ScreenTypes.aboutMe:
         return MyAppBar(
           title: Text(Language.of(context).about),
-          // TODO add attribution
+          // TODO add attribution and contribution
         );
 
       case ScreenTypes.settings:
@@ -150,68 +153,82 @@ class ScreenContainer extends TopWidgetBase {
     }
   }
 
-  List<Widget> homePrimary(Note note, BuildContext context) {
-    final actionList = <Widget>[
-      Utilities.hideAction(context, note),
-      Utilities.archiveAction(context, note),
-    ];
-    return actionList;
+  ActionPane homePrimary(Note note, BuildContext context) {
+    return ActionPane(
+      motion: const ScrollMotion(),
+      children: [
+        Utilities.hideAction(context, note),
+        Utilities.archiveAction(context, note),
+      ],
+    );
   }
 
-  List<Widget> homeSecondary(Note note, BuildContext context) {
-    final actionList = <Widget>[
-      Utilities.copyAction(context, note),
-      Utilities.trashAction(context, note)
-    ];
-
-    return actionList;
+  ActionPane homeSecondary(Note note, BuildContext context) {
+    return ActionPane(
+      motion: const ScrollMotion(),
+      children: [
+        Utilities.copyAction(context, note),
+        Utilities.trashAction(context, note)
+      ],
+    );
   }
 
-  List<Widget> hiddenPrimary(Note note, BuildContext context) {
-    final actionList = <Widget>[
-      Utilities.unHideAction(context, note),
-    ];
-    return actionList;
+  ActionPane hiddenPrimary(Note note, BuildContext context) {
+    return ActionPane(
+      motion: const ScrollMotion(),
+      children: [
+        Utilities.unHideAction(context, note),
+      ],
+    );
   }
 
-  List<Widget> hiddenSecondary(Note note, BuildContext context) {
-    final actionList = <Widget>[
-      Utilities.trashAction(context, note),
-    ];
-    return actionList;
+  ActionPane hiddenSecondary(Note note, BuildContext context) {
+    return ActionPane(
+      motion: const ScrollMotion(),
+      children: [
+        Utilities.trashAction(context, note),
+      ],
+    );
   }
 
-  List<Widget> archivePrimary(Note note, BuildContext context) {
-    final actionList = <Widget>[
-      Utilities.hideAction(context, note),
-      Utilities.unArchiveAction(context, note),
-    ];
-    return actionList;
+  ActionPane archivePrimary(Note note, BuildContext context) {
+    return ActionPane(
+      motion: const ScrollMotion(),
+      children: [
+        Utilities.hideAction(context, note),
+        Utilities.unArchiveAction(context, note),
+      ],
+    );
   }
 
-  List<Widget> archiveSecondary(Note note, BuildContext context) {
-    final actionList = <Widget>[
-      Utilities.copyAction(context, note),
-      Utilities.trashAction(context, note),
-    ];
-    return actionList;
+  ActionPane archiveSecondary(Note note, BuildContext context) {
+    return ActionPane(
+      motion: const ScrollMotion(),
+      children: [
+        Utilities.copyAction(context, note),
+        Utilities.trashAction(context, note),
+      ],
+    );
   }
 
-  List<Widget> trashSecondary(Note note, BuildContext context) {
-    final actionList = <Widget>[
-      Utilities.deleteAction(context, note,
-          shouldAsk:
-              Provider.of<LockChecker>(context, listen: false).directlyDelete),
-    ];
-
-    return actionList;
+  ActionPane trashSecondary(Note note, BuildContext context) {
+    return ActionPane(
+      motion: const ScrollMotion(),
+      children: [
+        Utilities.deleteAction(context, note,
+            shouldAsk: Provider.of<LockChecker>(context, listen: false)
+                .directlyDelete),
+      ],
+    );
   }
 
-  List<Widget> trashPrimary(Note note, BuildContext context) {
-    final actionList = <Widget>[
-      Utilities.restoreAction(context, note),
-    ];
-    return actionList;
+  ActionPane trashPrimary(Note note, BuildContext context) {
+    return ActionPane(
+      motion: const ScrollMotion(),
+      children: [
+        Utilities.restoreAction(context, note),
+      ],
+    );
   }
 
   SlidableActions getPrimary(ScreenTypes topScreen) {

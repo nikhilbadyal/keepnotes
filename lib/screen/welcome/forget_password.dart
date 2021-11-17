@@ -122,7 +122,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 handleError(response, context);
               }
               Utilities.showSnackbar(context, 'Check your email');
-              await navigate('/forgot', context, '/login');
+              await navigate(
+                AppRoutes.forgotPasswordScreen,
+                context,
+                AppRoutes.welcomeScreen,
+              );
             }
           },
           child: SizedBox(

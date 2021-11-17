@@ -1,5 +1,4 @@
 import 'package:notes/_app_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class AboutMe extends StatefulWidget {
@@ -23,7 +22,8 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 Center(
                   child: GestureDetector(
                     onTap: () {
-                      Utilities.launchUrl('https://github.com/ProblematicDude');
+                      Utilities.launchUrl(
+                          context, 'https://github.com/ProblematicDude');
                     },
                     child: const CircleAvatar(
                       backgroundColor: Colors.transparent,
@@ -46,8 +46,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 Text(
                   Language.of(context).devName,
                   style: TextStyle(
-                    color: Provider.of<AppConfiguration>(context, listen: false)
-                        .primaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
                   ),
@@ -64,10 +63,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 const SizedBox(height: 30),
                 Row(
                   children: <Widget>[
-                    Icon(Icons.email,
-                        color: Provider.of<AppConfiguration>(context,
-                                listen: false)
-                            .iconColor),
+                    const Icon(Icons.email),
                     const SizedBox(
                       width: 10,
                     ),
@@ -77,9 +73,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                         'nikhildevelops@gmail.com',
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
-                          color: Provider.of<AppConfiguration>(context,
-                                  listen: false)
-                              .primaryColor,
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 15,
                         ),
                       ),
