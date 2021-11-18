@@ -234,6 +234,7 @@ class NotesHelper with ChangeNotifier {
             )
             .toList());
     if (noteState == NoteState.hidden.index) {
+      // ignore: prefer_foreach
       for (final element in otherNotes) {
         encryption.decrypt(element);
       }

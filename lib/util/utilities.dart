@@ -31,7 +31,6 @@ Color getRandomColor() => Color(Random().nextInt(0xffffffff));
 class Utilities {
   static late SharedPreferences prefs;
   static const passLength = 4;
-  static const aboutMePic = 'me.png';
   static const appName = 'KeepNotes';
 
   static late FlutterSecureStorage storage;

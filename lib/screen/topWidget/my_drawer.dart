@@ -38,8 +38,8 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               decoration: BoxDecoration(color: Theme.of(context).canvasColor),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.transparent,
-                backgroundImage: AssetImage(
-                  'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.png',
+                child: SvgPicture.asset(
+                  'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.svg',
                 ),
               ),
               accountEmail: Text(

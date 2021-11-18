@@ -11,86 +11,88 @@ class NoNotesUi extends StatelessWidget {
   final NoteState noteState;
 
   @override
-  Widget build(BuildContext context) => Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              const ImageWig(),
-              if (noteState == NoteState.deleted)
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: Language.of(context).nothingHere,
-                          style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyText1!.color),
-                        ),
-                      ],
+  Widget build(BuildContext context) {
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            const ImageWig(),
+            if (noteState == NoteState.deleted)
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
                     ),
-                  ),
-                )
-              else
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
+                    children: [
+                      TextSpan(
+                        text: Language.of(context).nothingHere,
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color),
                       ),
-                      children: [
-                        TextSpan(
-                          text: '\t\t\t\t\t\t\t'
-                              '${Language.of(context).nothingHere}\n',
-                          style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyText1!.color),
-                        ),
-                        TextSpan(
-                          text: Language.of(context).tapOn,
-                          style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyText1!.color),
-                        ),
-                        TextSpan(
-                          text: '+',
-                          style: TextStyle(
-                            fontSize: 30,
-                            color: Theme.of(context)
-                                .floatingActionButtonTheme
-                                .backgroundColor,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              final emptyNote = Note(
-                                id: const Uuid().v4(),
-                                lastModify: DateTime.now(),
-                                state: noteState,
-                              );
-                              goToNoteEditScreen(
-                                  context: context, note: emptyNote);
-                            },
-                        ),
-                        TextSpan(
-                          text: Language.of(context).toAddNewNote,
-                          style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyText1!.color),
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
                 ),
-            ],
-          ),
+              )
+            else
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: '\t\t\t\t\t\t\t'
+                            '${Language.of(context).nothingHere}\n',
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color),
+                      ),
+                      TextSpan(
+                        text: Language.of(context).tapOn,
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color),
+                      ),
+                      TextSpan(
+                        text: '+',
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Theme.of(context)
+                              .floatingActionButtonTheme
+                              .backgroundColor,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            final emptyNote = Note(
+                              id: const Uuid().v4(),
+                              lastModify: DateTime.now(),
+                              state: noteState,
+                            );
+                            goToNoteEditScreen(
+                                context: context, note: emptyNote);
+                          },
+                      ),
+                      TextSpan(
+                        text: Language.of(context).toAddNewNote,
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).textTheme.bodyText1!.color),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }
 
 class ImageWig extends StatelessWidget {

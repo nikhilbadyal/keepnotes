@@ -45,7 +45,7 @@ class _EditScreenState extends State<EditScreen> {
           saveNote: saveNote,
           autoSaverTimer: autoSaverTimer,
         ),
-        body: Body(context),
+        body: body(context),
         bottomSheet: BottomBar(
           note: noteInEditing,
           saveNote: saveNote,
@@ -57,7 +57,7 @@ class _EditScreenState extends State<EditScreen> {
     );
   }
 
-  Widget Body(BuildContext context) {
+  Widget body(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
           bottom: kBottomNavigationBarHeight, left: 10, right: 10),
@@ -116,32 +116,13 @@ class _EditScreenState extends State<EditScreen> {
 
   Future<bool> saveNote() async {
     final isEdited = updateNote();
-    final isEmptyNote = isEmpty();
     if (isEdited) {
-      if (isEmptyNote) {
-        await Provider.of<NotesHelper>(context, listen: false)
-            .delete(noteInEditing);
-        Utilities.showSnackbar(
-          context,
-          Language.of(context).emptyNoteDiscarded,
-          duration: const Duration(milliseconds: 100),
-        );
-        return false;
-      }
       await Provider.of<NotesHelper>(context, listen: false).insert(
         noteInEditing,
       );
       return true;
     }
-    if (isEmptyNote) {
-      await Provider.of<NotesHelper>(context, listen: false)
-          .delete(noteInEditing);
-      Utilities.showSnackbar(
-        context,
-        Language.of(context).emptyNoteDiscarded,
-      );
-    }
-    return false;
+    return true;
   }
 
   Future<void> backgroundSaveNote() async {
@@ -160,13 +141,6 @@ class _EditScreenState extends State<EditScreen> {
     if (!(noteInEditing.title == _titleFromInitial &&
         noteInEditing.content == _contentFromInitial)) {
       noteInEditing.lastModify = DateTime.now();
-      return true;
-    }
-    return false;
-  }
-
-  bool isEmpty() {
-    if (noteInEditing.title.isEmpty && noteInEditing.content.isEmpty) {
       return true;
     }
     return false;

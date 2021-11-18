@@ -1,4 +1,5 @@
 import 'package:notes/_app_packages.dart';
+import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class AboutMe extends StatefulWidget {
@@ -25,10 +26,10 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                       Utilities.launchUrl(
                           context, 'https://github.com/ProblematicDude');
                     },
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       backgroundColor: Colors.transparent,
-                      backgroundImage: AssetImage('assets/images/me.png'),
                       radius: 50,
+                      child: SvgPicture.asset('assets/images/me.svg'),
                     ),
                   ),
                 ),

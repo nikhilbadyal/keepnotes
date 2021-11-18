@@ -52,7 +52,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               onPressed: (_) {
                 colorPicker(
-                    'Pick Primary Color', primaryColors, onPrimaryColorChange);
+                    'Pick Primary Color',
+                    Colors.primaries,
+                    Provider.of<AppConfiguration>(context, listen: false)
+                        .primaryColor,
+                    onPrimaryColorChange);
               },
             ),
             SettingsTile(
@@ -63,7 +67,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               onPressed: (_) {
                 colorPicker(
-                    'Pick Accent Color', accentColors, onAccentColorChange);
+                    'Pick Accent Color',
+                    Colors.accents,
+                    Provider.of<AppConfiguration>(context, listen: false)
+                        .accentColor,
+                    onAccentColorChange);
               },
             ),
             SettingsTile.switchTile(
@@ -133,28 +141,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> colorPicker(String title, List<Color> appColors,
-      ValueChanged<Color> onColorChange) async {
+      Color pickerColor, ValueChanged<Color> onColorChange) async {
     final status = await showDialog(
           barrierDismissible: true,
           context: context,
-          builder: (context) => MyAlertDialog(
-            title: Text(title),
-            content: SingleChildScrollView(
-              child: ColorPicker(
-                availableColors: appColors,
-                pickerColor: Colors.deepOrangeAccent,
-                onColorChanged: onColorChange,
+          builder: (context) {
+            return MyAlertDialog(
+              title: Text(title),
+              content: SingleChildScrollView(
+                child: ColorPicker(
+                  availableColors: appColors,
+                  pickerColor: pickerColor,
+                  onColorChanged: onColorChange,
+                ),
               ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                child: const Text('Done'),
-              ),
-            ],
-          ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  child: const Text('Done'),
+                ),
+              ],
+            );
+          },
         ) ??
         false;
     if (status) {}
@@ -303,7 +313,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           .toList(),
     );
   }
-
+/*
   List<Color> primaryColors = <Color>[
     Colors.red,
     Colors.pink,
@@ -315,10 +325,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Colors.teal,
     Colors.orange,
     Colors.deepOrange,
+    Colors.lightBlue,
+    Colors.green,
+    Colors.lightGreen,
     Colors.amber,
-    Colors.brown,
-    Colors.grey,
-    Colors.blueGrey,
+    Colors.lime,
+    Colors.pink,
+    Colors.yellow,
     Colors.black,
   ];
 
@@ -334,7 +347,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Colors.orangeAccent,
     Colors.deepOrangeAccent,
     Colors.lightBlueAccent,
+    Colors.greenAccent,
+    Colors.lightGreenAccent,
     Colors.amberAccent,
-    const Color(0xFFFF7582),
-  ];
+    Colors.limeAccent,
+    Colors.pinkAccent,
+    Colors.yellowAccent,
+  ];*/
 }

@@ -90,6 +90,7 @@ class FirebaseDatabaseHelper {
     final batch = db.batch();
     try {
       await tempNotesReference.get().then((value) => {
+            // ignore: avoid_function_literals_in_foreach_calls
             value.docs.forEach((element) => {
                   batch.delete(element.reference),
                 }),

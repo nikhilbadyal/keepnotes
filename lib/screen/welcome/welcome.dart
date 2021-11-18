@@ -218,6 +218,7 @@ class _WelcomeState extends State<Welcome> {
           context,
         );
       }
+      // ignore: dead_code
     } else {
       Utilities.showSnackbar(context, Language.of(context).insufficientData);
     }

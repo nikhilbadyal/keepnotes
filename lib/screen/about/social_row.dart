@@ -13,12 +13,12 @@ class SocialLinksRow extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () => launch('https://t.me/joinchat/uGAlVliNij1hZTFl'),
-              child: Image.asset('assets/images/telegram.png'),
+              child: SvgPicture.asset('assets/images/telegram.svg'),
             ),
             GestureDetector(
                 onTap: () => launch(
                     'https://github.com/ProblematicDude/keep-safe-notes'),
-                child: Image.asset('assets/images/github.png')),
+                child: SvgPicture.asset('assets/images/github.svg')),
           ],
         ),
       );

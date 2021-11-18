@@ -76,12 +76,14 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
     Provider.of<LockChecker>(context, listen: false).addGenderToSf();
   }
 
-  Widget child(Key key) => CircleAvatar(
-        key: key,
-        radius: 22,
-        backgroundColor: Colors.white,
-        backgroundImage: AssetImage(
-          'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.png',
-        ),
-      );
+  Widget child(Key key) {
+    return CircleAvatar(
+      key: key,
+      radius: 22,
+      backgroundColor: Colors.white,
+      child: SvgPicture.asset(
+        'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.svg',
+      ),
+    );
+  }
 }
