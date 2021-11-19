@@ -1,16 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/util/_util.dart';
-import 'package:notes/widget/_widgets.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({
     required this.primary,
     required this.secondary,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final Function(Note note, BuildContext context) primary;
@@ -26,19 +22,19 @@ class _HomeBodyState extends State<HomeBody> {
 
   @override
   void initState() {
+    super.initState();
     myFuture = Provider.of<NotesHelper>(context, listen: false)
         .getAllNotes(NoteState.unspecified.index);
-    super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return FutureBuilder(
       future: myFuture,
-      builder: (context, projectSnap) {
+      builder: (final context, final projectSnap) {
         if (projectSnap.connectionState == ConnectionState.done) {
           return Consumer<NotesHelper>(
-            builder: (context, notehelper, _) {
+            builder: (final context, final notehelper, final _) {
               if (notehelper.mainNotes.isEmpty) {
                 return const NoNotesUi(noteState: NoteState.unspecified);
               } else {
@@ -51,12 +47,16 @@ class _HomeBodyState extends State<HomeBody> {
             },
           );
         } else {
+          final spinkit = SpinKitCircle(
+            color: Theme.of(context).colorScheme.secondary,
+            size: MediaQuery.of(context).size.height * 0.1,
+          );
           return SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: const Scaffold(
+            child: Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
+                child: spinkit,
               ),
             ),
           );
@@ -73,7 +73,7 @@ class NonEmptyHomeUi extends StatefulWidget {
     required this.noteHelper,
     required this.primary,
     required this.secondary,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final NotesHelper noteHelper;
@@ -94,14 +94,14 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     homeBody = this;
     return Padding(
       padding: EdgeInsets.zero,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         itemCount: widget.noteHelper.mainNotes.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (final context, final index) {
           final item = widget.noteHelper.mainNotes.elementAt(index);
           selectedFlag[index] = selectedFlag[index] ?? false;
           final isSelected = selectedFlag[index] ?? false;
@@ -123,8 +123,8 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
     );
   }
 
-  Future<void> onItemTap(Note item, int index,
-      {bool isSelected = false}) async {
+  Future<void> onItemTap(final Note item, final int index,
+      {final bool isSelected = false}) async {
     if (isSelectionMode) {
       setState(() {
         selectedFlag[index] = !isSelected;
@@ -135,7 +135,7 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
         await showDialog<void>(
           barrierDismissible: true,
           context: context,
-          builder: (context) => MyAlertDialog(
+          builder: (final context) => MyAlertDialog(
             title: Text(Language.of(context).message),
             content: Text(Language.of(context).trashEditingWarning),
           ),
@@ -146,5 +146,5 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
     }
   }
 
-  void onItemLongPress(int index, {bool isSelected = false}) {}
+  void onItemLongPress(final int index, {final bool isSelected = false}) {}
 }

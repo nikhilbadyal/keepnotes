@@ -9,7 +9,7 @@ class NotesUser {
   String email;
   String password;
 
-  static NotesUser fromJson(Map<String, dynamic> json) {
+  static NotesUser fromJson(final Map<String, dynamic> json) {
     return NotesUser(
       name: json['name'],
       email: json['email'],

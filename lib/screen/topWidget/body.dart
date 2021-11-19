@@ -7,7 +7,7 @@ class Body extends StatefulWidget {
     required this.fromWhere,
     required this.primary,
     required this.secondary,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final NoteState fromWhere;
@@ -25,21 +25,21 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
+    super.initState();
     myFuture = Provider.of<NotesHelper>(context, listen: false)
         .getAllNotes(widget.fromWhere.index);
-    super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     assert(widget.fromWhere != NoteState.unspecified,
         'This is only for home body');
     return FutureBuilder(
       future: myFuture,
-      builder: (context, projectSnap) {
+      builder: (final context, final projectSnap) {
         if (projectSnap.connectionState == ConnectionState.done) {
           return Consumer<NotesHelper>(
-            builder: (context, notehelper, _) {
+            builder: (final context, final notehelper, final _) {
               if (notehelper.otherNotes.isEmpty) {
                 return NoNotesUi(noteState: widget.fromWhere);
               } else {
@@ -53,11 +53,17 @@ class _BodyState extends State<Body> {
             },
           );
         } else {
+          final spinkit = SpinKitCircle(
+            color: Theme.of(context).colorScheme.secondary,
+            size: MediaQuery.of(context).size.height * 0.1,
+          );
           return SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: const Center(
-              child: CircularProgressIndicator(),
+            child: Scaffold(
+              body: Center(
+                child: spinkit,
+              ),
             ),
           );
         }
@@ -72,7 +78,7 @@ class NonEmptyUi extends StatefulWidget {
     required this.fromWhere,
     required this.primary,
     required this.secondary,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final NotesHelper notehelper;
@@ -94,13 +100,13 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
   }
 
   @override
-  Widget build(BuildContext context) => Padding(
+  Widget build(final BuildContext context) => Padding(
         padding: EdgeInsets.zero,
         child: ListView.builder(
           cacheExtent: 100000,
           physics: const BouncingScrollPhysics(),
           itemCount: widget.notehelper.otherNotes.length,
-          itemBuilder: (context, index) {
+          itemBuilder: (final context, final index) {
             final item = widget.notehelper.otherNotes.elementAt(index);
             selectedFlag[index] = selectedFlag[index] ?? false;
             final isSelected = selectedFlag[index] ?? false;
@@ -122,8 +128,8 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
         ),
       );
 
-  Future<void> onItemTap(Note item, int index,
-      {bool isSelected = false}) async {
+  Future<void> onItemTap(final Note item, final int index,
+      {final bool isSelected = false}) async {
     if (isSelectionMode) {
       setState(() {
         selectedFlag[index] = !isSelected;
@@ -134,7 +140,7 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
         await showDialog<void>(
           barrierDismissible: true,
           context: context,
-          builder: (context) => MyAlertDialog(
+          builder: (final context) => MyAlertDialog(
             title: Text(Language.of(context).message),
             content: Text(Language.of(context).trashEditingWarning),
           ),
@@ -145,5 +151,5 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
     }
   }
 
-  void onItemLongPress(int index, {bool isSelected = false}) {}
+  void onItemLongPress(final int index, {final bool isSelected = false}) {}
 }

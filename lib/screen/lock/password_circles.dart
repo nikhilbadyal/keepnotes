@@ -6,7 +6,7 @@ class Circle extends StatefulWidget {
   const Circle({
     required this.isFilled,
     required this.size,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final bool isFilled;
@@ -18,7 +18,7 @@ class Circle extends StatefulWidget {
 
 class _CircleState extends State<Circle> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: widget.size),
       width: 20,

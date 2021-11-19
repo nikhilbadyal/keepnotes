@@ -3,7 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class AboutMe extends StatefulWidget {
-  const AboutMe({Key? key}) : super(key: key);
+  const AboutMe({final Key? key}) : super(key: key);
 
   @override
   _AboutMeState createState() => _AboutMeState();
@@ -11,9 +11,9 @@ class AboutMe extends StatefulWidget {
 
 class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
   @override
-  Widget build(BuildContext context) => body(context);
+  Widget build(final BuildContext context) => body(context);
 
-  Widget body(BuildContext context) => Scaffold(
+  Widget body(final BuildContext context) => Scaffold(
         body: Padding(
           padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
           child: SingleChildScrollView(

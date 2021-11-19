@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({final Key? key}) : super(key: key);
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -12,7 +11,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: settingsList(),
@@ -50,7 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(
                 Icons.color_lens_outlined,
               ),
-              onPressed: (_) {
+              onPressed: (final _) {
                 colorPicker(
                     'Pick Primary Color',
                     Colors.primaries,
@@ -65,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(
                 TablerIcons.color_swatch,
               ),
-              onPressed: (_) {
+              onPressed: (final _) {
                 colorPicker(
                     'Pick Accent Color',
                     Colors.accents,
@@ -105,7 +104,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(
                 Icons.phonelink_lock,
               ),
-              onPressed: (context) {
+              onPressed: (final context) {
                 onChangePassword();
               },
             ),
@@ -114,7 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(
                 Icons.face_outlined,
               ),
-              onPressed: (context) {
+              onPressed: (final context) {
                 onRemoveBioMetric(context);
               },
             ),
@@ -124,15 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(
                 TablerIcons.color_swatch,
               ),
-              onPressed: (_) async {
-                await Provider.of<Auth>(
-                  context,
-                  listen: false,
-                ).signOut();
-                unawaited(SqfliteDatabaseHelper.deleteDB());
-                await Navigator.pushNamedAndRemoveUntil(
-                    context, AppRoutes.welcomeScreen, (route) => false);
-              },
+              onPressed: logOut,
             ),
           ],
         ),
@@ -140,12 +131,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Future<void> colorPicker(String title, List<Color> appColors,
-      Color pickerColor, ValueChanged<Color> onColorChange) async {
+  Future<void> colorPicker(final String title, final List<Color> appColors,
+      final Color pickerColor, final ValueChanged<Color> onColorChange) async {
     final status = await showDialog(
           barrierDismissible: true,
           context: context,
-          builder: (context) {
+          builder: (final context) {
             return MyAlertDialog(
               title: Text(title),
               content: SingleChildScrollView(
@@ -170,7 +161,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (status) {}
   }
 
-  void onPrimaryColorChange(Color value) {
+  void onPrimaryColorChange(final Color value) {
     setState(() {
       Provider.of<AppConfiguration>(context, listen: false).primaryColor =
           value;
@@ -179,7 +170,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         .changePrimaryColor(write: true);
   }
 
-  void onAccentColorChange(Color value) {
+  void onAccentColorChange(final Color value) {
     setState(() {
       Provider.of<AppConfiguration>(context, listen: false).accentColor = value;
     });
@@ -188,7 +179,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   // ignore: avoid_positional_boolean_parameters
-  Future<void> toggleTheme(bool value) async {
+  Future<void> toggleTheme(final bool value) async {
     setState(
       () {
         if (value) {
@@ -205,23 +196,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   // ignore: avoid_positional_boolean_parameters
-  Future<void> toggleBiometric(bool value) async {
+  Future<void> toggleBiometric(final bool value) async {
     setState(() {
       Provider.of<LockChecker>(context, listen: false).fpDirectly = value;
     });
     unawaited(
-      Utilities.addBoolToSF('fpDirectly', value: value),
+      addBoolToSF('fpDirectly', value: value),
     );
   }
 
   // ignore: avoid_positional_boolean_parameters
-  Future<void> directDelete(bool deleteDirectly) async {
+  Future<void> directDelete(final bool deleteDirectly) async {
     setState(() {
       Provider.of<LockChecker>(context, listen: false).directlyDelete =
           deleteDirectly;
     });
     unawaited(
-      Utilities.addBoolToSF('directlyDelete', value: deleteDirectly),
+      addBoolToSF('directlyDelete', value: deleteDirectly),
     );
   }
 
@@ -229,14 +220,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await showDialog(
       barrierDismissible: true,
       context: context,
-      builder: (_) => MyAlertDialog(
+      builder: (final _) => MyAlertDialog(
         title: Text(Language.of(context).message),
         content: Text(Language.of(context).notAvailJustification),
       ),
     );
   }
 
-  Future<void> onLocaleChange(LanguageData? value) async {
+  Future<void> onLocaleChange(final LanguageData? value) async {
     // ignore: parameter_assignments
     final locale = await setLocale(value!.languageCode);
     Provider.of<AppConfiguration>(context, listen: false)
@@ -261,11 +252,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-  Future<void> onRemoveBioMetric(BuildContext context) async {
+  Future<void> onRemoveBioMetric(final BuildContext context) async {
     final choice = await showDialog<bool>(
           barrierDismissible: true,
           context: context,
-          builder: (context) => MyAlertDialog(
+          builder: (final context) => MyAlertDialog(
             title: Text(Language.of(context).message),
             content: SingleChildScrollView(
               child: ListBody(
@@ -303,9 +294,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           color: Theme.of(context).colorScheme.secondary),
       iconSize: 30,
       onSelected: onLocaleChange,
-      itemBuilder: (_) => supportedLanguages
+      itemBuilder: (final _) => supportedLanguages
           .map(
-            (e) => PopupMenuItem(
+            (final e) => PopupMenuItem(
               value: e,
               child: Text(e.name),
             ),
@@ -313,45 +304,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
           .toList(),
     );
   }
-/*
-  List<Color> primaryColors = <Color>[
-    Colors.red,
-    Colors.pink,
-    Colors.purple,
-    Colors.deepPurple,
-    Colors.blue,
-    Colors.indigo,
-    Colors.cyan,
-    Colors.teal,
-    Colors.orange,
-    Colors.deepOrange,
-    Colors.lightBlue,
-    Colors.green,
-    Colors.lightGreen,
-    Colors.amber,
-    Colors.lime,
-    Colors.pink,
-    Colors.yellow,
-    Colors.black,
-  ];
 
-  List<Color> accentColors = <Color>[
-    Colors.redAccent,
-    Colors.pinkAccent,
-    Colors.purpleAccent,
-    Colors.deepPurpleAccent,
-    Colors.blueAccent,
-    Colors.indigoAccent,
-    Colors.cyanAccent,
-    Colors.tealAccent,
-    Colors.orangeAccent,
-    Colors.deepOrangeAccent,
-    Colors.lightBlueAccent,
-    Colors.greenAccent,
-    Colors.lightGreenAccent,
-    Colors.amberAccent,
-    Colors.limeAccent,
-    Colors.pinkAccent,
-    Colors.yellowAccent,
-  ];*/
+  Future<void> logOut(final BuildContext context) async {
+    await Provider.of<Auth>(
+      context,
+      listen: false,
+    ).signOut();
+    await removeFromSF('syncedWithFirebase');
+    await Provider.of<LockChecker>(context, listen: false)
+        .resetConfig(shouldResetBio: true);
+    unawaited(SqfliteDatabaseHelper.deleteDB());
+    await Navigator.pushNamedAndRemoveUntil(
+        context, AppRoutes.welcomeScreen, (final route) => false);
+  }
 }

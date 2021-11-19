@@ -1,6 +1,7 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
+
 typedef KeyboardTapCallback = void Function(String text);
 typedef DeleteTapCallback = void Function();
 typedef FingerTapCallback = void Function();
@@ -26,7 +27,7 @@ class Keyboard extends StatelessWidget {
         '0',
         '-1'
       ],
-      Key? key})
+      final Key? key})
       : super(key: key);
 
   final KeyboardTapCallback onKeyboardTap;
@@ -34,7 +35,8 @@ class Keyboard extends StatelessWidget {
   final FingerTapCallback? onFingerTap;
   final List<String>? keyBoardItem;
 
-  Widget buildExtra(Widget widget, DeleteTapCallback? onDelTap) => Container(
+  Widget buildExtra(final Widget widget, final DeleteTapCallback? onDelTap) =>
+      Container(
         margin: const EdgeInsets.all(2),
         child: ClipOval(
           child: Material(
@@ -62,7 +64,7 @@ class Keyboard extends StatelessWidget {
         ),
       );
 
-  Widget buildDigit(String text) => SizedBox(
+  Widget buildDigit(final String text) => SizedBox(
         child: ClipOval(
           child: Material(
             color: Colors.transparent,
@@ -94,35 +96,37 @@ class Keyboard extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => CustomAlign(
-        children: List.generate(
-          12,
-          (index) => index == 9 || index == 11
-              ? index == 9
-                  ? onFingerTap == null ||
-                          !Provider.of<LockChecker>(context, listen: false)
-                              .bioAvailable
-                      ? Container()
-                      : buildExtra(
-                          const Icon(Icons.fingerprint_outlined), onFingerTap)
-                  : buildExtra(const Icon(Icons.backspace_outlined), onDelTap)
-              : buildDigit(
-                  keyBoardItem![index],
-                ),
-        ),
-      );
+  Widget build(final BuildContext context) {
+    return CustomAlign(
+      children: List.generate(
+        12,
+        (final index) => index == 9 || index == 11
+            ? index == 9
+                ? onFingerTap == null ||
+                        Provider.of<LockChecker>(context, listen: false)
+                            .bioNotAvailable
+                    ? Container()
+                    : buildExtra(
+                        const Icon(Icons.fingerprint_outlined), onFingerTap)
+                : buildExtra(const Icon(Icons.backspace_outlined), onDelTap)
+            : buildDigit(
+                keyBoardItem![index],
+              ),
+      ),
+    );
+  }
 }
 
 class CustomAlign extends StatelessWidget {
   const CustomAlign({
     required this.children,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final List<Widget> children;
 
   @override
-  Widget build(BuildContext context) => GridView.count(
+  Widget build(final BuildContext context) => GridView.count(
         shrinkWrap: true,
         crossAxisCount: 3,
         mainAxisSpacing: 10,
@@ -131,7 +135,7 @@ class CustomAlign extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         children: children
             .map(
-              (e) => e,
+              (final e) => e,
             )
             .toList(),
       );

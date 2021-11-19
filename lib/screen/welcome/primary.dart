@@ -1,7 +1,8 @@
 import 'package:notes/_internal_packages.dart';
 
 class PrimaryButton extends StatefulWidget {
-  const PrimaryButton({required this.btnText, required this.onTap, Key? key})
+  const PrimaryButton(
+      {required this.btnText, required this.onTap, final Key? key})
       : super(key: key);
 
   final Function() onTap;
@@ -13,7 +14,7 @@ class PrimaryButton extends StatefulWidget {
 
 class _PrimaryButtonState extends State<PrimaryButton> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return InkWell(
       onTap: widget.onTap,
       child: Padding(

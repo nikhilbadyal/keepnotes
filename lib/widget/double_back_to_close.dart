@@ -4,7 +4,7 @@ import 'package:notes/_internal_packages.dart';
 typedef BackPresAction = Future<bool> Function();
 
 class DoubleBackToCloseWidget extends StatefulWidget {
-  const DoubleBackToCloseWidget({required this.child, Key? key})
+  const DoubleBackToCloseWidget({required this.child, final Key? key})
       : super(key: key);
 
   final Widget child;
@@ -20,7 +20,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
   int _lastTimeBackButtonWasTapped = 0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final _isAndroid = Theme.of(context).platform == TargetPlatform.android;
     if (_isAndroid) {
       return WillPopScope(
@@ -41,8 +41,8 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
       _lastTimeBackButtonWasTapped = DateTime.now().millisecondsSinceEpoch;
       if (ModalRoute.of(context)!.settings.name! == AppRoutes.lockScreen ||
           ModalRoute.of(context)!.settings.name! == AppRoutes.setPassScreen) {
-        Navigator.of(context)
-            .popUntil((route) => route.settings.name == AppRoutes.homeScreen);
+        Navigator.of(context).popUntil(
+            (final route) => route.settings.name == AppRoutes.homeScreen);
         return Future.value(true);
       } else if (ModalRoute.of(context)!.settings.name! ==
           AppRoutes.homeScreen) {

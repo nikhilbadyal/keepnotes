@@ -12,7 +12,7 @@ class ListItem extends StatelessWidget {
     required this.selectedFlag,
     this.onItemTap,
     this.onItemLongPress,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final Note note;
@@ -22,7 +22,7 @@ class ListItem extends StatelessWidget {
   final Map<int, bool> selectedFlag;
 
   @override
-  Widget build(BuildContext context) => SizedBox(
+  Widget build(final BuildContext context) => SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 125,
         child: GestureDetector(
@@ -105,7 +105,7 @@ class ListItem extends StatelessWidget {
         ),
       );
 
-  Widget _selectedIcon(bool isSelected) {
+  Widget _selectedIcon(final bool isSelected) {
     if (isSelected) {
       return Icon(
         isSelected ? Icons.check_box : Icons.check_box_outline_blank,

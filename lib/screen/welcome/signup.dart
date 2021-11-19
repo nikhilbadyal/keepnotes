@@ -3,14 +3,14 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 Widget signup(
-    BuildContext context,
-    double _registerHeight,
-    double _registerYOffset,
-    GlobalKey<FormState> signupKey,
-    NotesUser user,
-    String Function() passwordRegEx,
-    Function() createAccountOnTap,
-    Function() goToLoginOnTap) {
+    final BuildContext context,
+    final double _registerHeight,
+    final double _registerYOffset,
+    final GlobalKey<FormState> signupKey,
+    final NotesUser user,
+    final String Function() passwordRegEx,
+    final Function() createAccountOnTap,
+    final Function() goToLoginOnTap) {
   return AnimatedContainer(
     height: _registerHeight,
     padding: const EdgeInsets.all(32),
@@ -43,7 +43,7 @@ Widget signup(
                   hint: 'Enter Email...',
                   textFormField: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onSaved: (val) {
+                    onSaved: (final val) {
                       user.email = val ?? '';
                     },
                     validator: Validators.compose([
@@ -68,7 +68,7 @@ Widget signup(
                   hint: 'Enter Password...',
                   textFormField: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onSaved: (val) {
+                    onSaved: (final val) {
                       user.password = val ?? '';
                     },
                     validator: Validators.compose([
@@ -104,7 +104,7 @@ Widget signup(
                   child: TextButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) {
+                        (final states) {
                           if (states.contains(MaterialState.disabled)) {
                             return Colors.transparent;
                           }

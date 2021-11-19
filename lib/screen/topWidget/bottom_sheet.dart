@@ -1,7 +1,7 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-void moreOptions(BuildContext context) {
+void moreOptions(final BuildContext context) {
   showModalBottomSheet<dynamic>(
     isScrollControlled: true,
     shape: const RoundedRectangleBorder(
@@ -12,7 +12,7 @@ void moreOptions(BuildContext context) {
     ),
     clipBehavior: Clip.antiAlias,
     context: context,
-    builder: (context) => Wrap(
+    builder: (final context) => Wrap(
       children: [
         Container(
           margin: const EdgeInsets.all(8),

@@ -14,7 +14,7 @@ class ColorPicker extends StatefulWidget {
       required this.availableColors,
       this.layoutBuilder = defaultLayoutBuilder,
       this.itemBuilder = defaultItemBuilder,
-      Key? key})
+      final Key? key})
       : super(key: key);
 
   final Color pickerColor;
@@ -23,8 +23,8 @@ class ColorPicker extends StatefulWidget {
   final PickerLayoutBuilder layoutBuilder;
   final PickerItemBuilder itemBuilder;
 
-  static Widget defaultLayoutBuilder(
-      BuildContext context, List<Color> colors, PickerItem child) {
+  static Widget defaultLayoutBuilder(final BuildContext context,
+      final List<Color> colors, final PickerItem child) {
     final orientation = MediaQuery.of(context).orientation;
 
     return SizedBox(
@@ -34,13 +34,14 @@ class ColorPicker extends StatefulWidget {
         crossAxisCount: orientation == Orientation.portrait ? 4 : 6,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
-        children: colors.map((color) => child(color)).toList(),
+        children: colors.map((final color) => child(color)).toList(),
       ),
     );
   }
 
-  static Widget defaultItemBuilder(Color color, void Function() changeColor,
-          {required bool isCurrentColor}) =>
+  static Widget defaultItemBuilder(
+          final Color color, final void Function() changeColor,
+          {required final bool isCurrentColor}) =>
       Container(
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
@@ -84,16 +85,16 @@ class _ColorPickerState extends State<ColorPicker> {
     super.initState();
   }
 
-  void changeColor(Color color) {
+  void changeColor(final Color color) {
     setState(() => _currentColor = color);
     widget.onColorChanged(color);
   }
 
   @override
-  Widget build(BuildContext context) => widget.layoutBuilder(
+  Widget build(final BuildContext context) => widget.layoutBuilder(
         context,
         widget.availableColors,
-        (color, [_, __]) => widget.itemBuilder(
+        (final color, [final _, final __]) => widget.itemBuilder(
           color,
           () => changeColor(color),
           isCurrentColor: _currentColor.value == color.value,
@@ -101,7 +102,7 @@ class _ColorPickerState extends State<ColorPicker> {
       );
 }
 
-bool useWhiteForeground(Color color, {double bias = 1}) {
+bool useWhiteForeground(final Color color, {final double bias = 1}) {
   final v = sqrt(pow(color.red, 2) * 0.299 +
           pow(color.green, 2) * 0.587 +
           pow(color.blue, 2) * 0.114)

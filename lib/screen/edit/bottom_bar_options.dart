@@ -6,7 +6,7 @@ class BottomBarOptions extends StatefulWidget {
     required this.note,
     required this.autoSaver,
     required this.saveNote,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
   final Note note;
   final Timer autoSaver;
@@ -19,7 +19,7 @@ class BottomBarOptions extends StatefulWidget {
 class _BottomBarOptionsState extends State<BottomBarOptions>
     with TickerProviderStateMixin {
   @override
-  Widget build(BuildContext context) => AnimatedSize(
+  Widget build(final BuildContext context) => AnimatedSize(
         curve: Curves.easeInOut,
         duration: const Duration(milliseconds: 200),
         child: Column(

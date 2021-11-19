@@ -4,7 +4,7 @@ class OutlineBtn extends StatefulWidget {
   const OutlineBtn({
     required this.btnText,
     required this.onTap,
-    Key? key,
+    final Key? key,
   }) : super(
           key: key,
         );
@@ -18,7 +18,7 @@ class OutlineBtn extends StatefulWidget {
 
 class _OutlineBtnState extends State<OutlineBtn> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(

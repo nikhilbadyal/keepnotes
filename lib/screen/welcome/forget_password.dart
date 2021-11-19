@@ -3,7 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class ForgetPassword extends StatefulWidget {
-  const ForgetPassword({Key? key}) : super(key: key);
+  const ForgetPassword({final Key? key}) : super(key: key);
 
   @override
   _ForgetPasswordState createState() => _ForgetPasswordState();
@@ -12,7 +12,8 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   final formKey = GlobalKey<FormState>();
 
-  String? email, password;
+  String? email;
+  String? password;
 
   bool checkFields() {
     final form = formKey.currentState;
@@ -24,7 +25,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Scaffold(
       body: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -90,7 +91,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         const SizedBox(height: 25),
         TextFormField(
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          onSaved: (val) {
+          onSaved: (final val) {
             email = val ?? '';
           },
           textAlign: TextAlign.left,

@@ -2,7 +2,7 @@ import 'package:encrypt/encrypt.dart';
 import 'package:notes/_app_packages.dart';
 
 class Encrypt {
-  Encrypt(String password) {
+  Encrypt(final String password) {
     final myKey = password.padLeft(32, '#');
     key = Key.fromUtf8(myKey);
     iv = IV.fromLength(16);
@@ -17,7 +17,7 @@ class Encrypt {
 
   late Encrypter encrypter;
 
-  void resetDetails(String password) {
+  void resetDetails(final String password) {
     final myKey = password.padLeft(32, '#');
     key = Key.fromUtf8(myKey);
     iv = IV.fromLength(16);
@@ -26,7 +26,7 @@ class Encrypt {
     );
   }
 
-  void encrypt(Note copiedNote) {
+  void encrypt(final Note copiedNote) {
     if (copiedNote.title.isNotEmpty) {
       copiedNote.title = encrypter.encrypt(copiedNote.title, iv: iv).base64;
     }
@@ -35,7 +35,7 @@ class Encrypt {
     }
   }
 
-  void decrypt(Note copiedNote) {
+  void decrypt(final Note copiedNote) {
     if (copiedNote.title.isNotEmpty) {
       copiedNote.title = encrypter.decrypt64(copiedNote.title, iv: iv);
     }
@@ -43,13 +43,15 @@ class Encrypt {
       copiedNote.content = encrypter.decrypt64(copiedNote.content, iv: iv);
     }
   }
-  String? decryptStr(String? str) {
+
+  String? decryptStr(final String? str) {
     if (str == null) {
       return null;
     }
     return encrypter.decrypt64(str, iv: iv);
   }
-  String encryptStr(String str) {
+
+  String encryptStr(final String str) {
     return encrypter.encrypt(str, iv: iv).base64;
   }
 }

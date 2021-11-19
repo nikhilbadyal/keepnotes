@@ -4,15 +4,14 @@ import 'package:notes/_internal_packages.dart';
 
 final RouteObserver<Route> routeObserver = RouteObserver<Route>();
 
-//TODO fix this and remove its status as global variable
 late Encrypt encryption;
 
 class MyNotes extends StatefulWidget {
   const MyNotes({
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
-  static void setLocale(BuildContext context, Locale newLocale) {
+  static void setLocale(final BuildContext context, final Locale newLocale) {
     final state = context.findAncestorStateOfType<_MyNotesState>();
     state!.setLocale(newLocale);
   }
@@ -24,7 +23,7 @@ class MyNotes extends StatefulWidget {
 class _MyNotesState extends State<MyNotes> {
   Locale? _locale;
 
-  void setLocale(Locale locale) {
+  void setLocale(final Locale locale) {
     setState(() {
       _locale = locale;
     });
@@ -32,7 +31,7 @@ class _MyNotesState extends State<MyNotes> {
 
   @override
   Future<void> didChangeDependencies() async {
-    await getLocale().then((locale) {
+    await getLocale().then((final locale) {
       setState(() {
         _locale = locale;
       });
@@ -41,23 +40,23 @@ class _MyNotesState extends State<MyNotes> {
   }
 
   @override
-  Widget build(BuildContext context) => MultiProvider(
+  Widget build(final BuildContext context) => MultiProvider(
         providers: [
           ChangeNotifierProvider<NotesHelper>(
-            create: (_) => NotesHelper(),
+            create: (final _) => NotesHelper(),
           ),
           ChangeNotifierProvider<AppConfiguration>(
-            create: (_) => AppConfiguration(),
+            create: (final _) => AppConfiguration(),
           ),
           ChangeNotifierProvider<LockChecker>(
-            create: (_) => LockChecker(),
+            create: (final _) => LockChecker(),
           ),
           ChangeNotifierProvider<Auth>(
-            create: (_) => Auth(),
+            create: (final _) => Auth(),
           ),
         ],
         child: Builder(
-          builder: (context) {
+          builder: (final context) {
             Provider.of<AppConfiguration>(context);
             final curUser =
                 Provider.of<Auth>(context, listen: false).auth.currentUser;
@@ -69,6 +68,10 @@ class _MyNotesState extends State<MyNotes> {
             for (final element in supportedLanguages) {
               supportedLocales.add(Locale(element.languageCode, ''));
             }
+            final initRoute =
+                Provider.of<Auth>(context, listen: false).isLoggedIn
+                    ? '/'
+                    : 'welcome';
             return MaterialApp(
               locale: _locale,
               restorationScopeId: 'keepnotes',
@@ -79,7 +82,7 @@ class _MyNotesState extends State<MyNotes> {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              localeResolutionCallback: (locale, supportedLocales) {
+              localeResolutionCallback: (final locale, final supportedLocales) {
                 for (final supportedLocale in supportedLocales) {
                   if (supportedLocale.languageCode == locale?.languageCode &&
                       supportedLocale.countryCode == locale?.countryCode) {
@@ -91,9 +94,7 @@ class _MyNotesState extends State<MyNotes> {
               theme: Provider.of<AppConfiguration>(context, listen: false)
                   .currentTheme,
               title: Language.of(context).appTitle,
-              initialRoute: Provider.of<Auth>(context, listen: false).isLoggedIn
-                  ? AppRoutes.homeScreen
-                  : AppRoutes.welcomeScreen,
+              initialRoute: initRoute,
               debugShowCheckedModeBanner: false,
               navigatorObservers: [routeObserver],
               onGenerateRoute: RouteGenerator.generateRoute,
@@ -102,5 +103,3 @@ class _MyNotesState extends State<MyNotes> {
         ),
       );
 }
-
-//TODO fix splash screen android S

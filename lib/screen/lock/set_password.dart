@@ -3,7 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SetPassword extends StatefulWidget {
-  const SetPassword({Key? key}) : super(key: key);
+  const SetPassword({final Key? key}) : super(key: key);
 
   @override
   _SetPasswordState createState() => _SetPasswordState();
@@ -25,7 +25,7 @@ class _SetPasswordState extends State<SetPassword> {
     super.dispose();
   }
 
-  void _onTap(String text) {
+  void _onTap(final String text) {
     HapticFeedback.vibrate();
 
     setState(() {
@@ -57,7 +57,7 @@ class _SetPasswordState extends State<SetPassword> {
     }
   }
 
-  Future<void> _doneEnteringPass(String enteredPassCode) async {
+  Future<void> _doneEnteringPass(final String enteredPassCode) async {
     if (isFirst) {
       await navigate(
         ModalRoute.of(context)!.settings.name!,
@@ -116,13 +116,13 @@ class _SetPasswordState extends State<SetPassword> {
     }
   }
 
-  Widget _titleWidget(String title) => Text(
-        '$title 🙈',
+  Widget _titleWidget(final String title) => Text(
+        '$title ',
         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       );
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments! as DataObj;
     isFirst = args.isFirst;
     firstPass = args.firstPass;
@@ -134,7 +134,7 @@ class _SetPasswordState extends State<SetPassword> {
       onDelTap: _onDelTap,
       enteredPassCode: enteredPassCode,
       stream: _verificationNotifier.stream,
-      doneCallBack: (_) {},
+      doneCallBack: (final _) {},
     );
   }
 }

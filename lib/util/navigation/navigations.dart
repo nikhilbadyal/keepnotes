@@ -1,15 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-Future navigate(String activeRoute, BuildContext context, String newRoute,
-    [Object? arguments]) async {
+Future navigate(
+    final String activeRoute, final BuildContext context, final String newRoute,
+    [final Object? arguments]) async {
   if (activeRoute == newRoute && newRoute != AppRoutes.setPassScreen) {
     return Navigator.pop(context);
   }
   if (newRoute == AppRoutes.homeScreen) {
-    await Navigator.pushNamedAndRemoveUntil(context, newRoute, (route) {
+    await Navigator.pushNamedAndRemoveUntil(context, newRoute, (final route) {
       return false;
     }, arguments: arguments);
   } else {
@@ -23,7 +23,7 @@ Future navigate(String activeRoute, BuildContext context, String newRoute,
   }
 }
 
-void goToBugScreen(BuildContext context) {
+void goToBugScreen(final BuildContext context) {
   Utilities.launchUrl(
     context,
     Utilities.emailLaunchUri.toString(),
@@ -31,15 +31,16 @@ void goToBugScreen(BuildContext context) {
 }
 
 Future<void> goToNoteEditScreen(
-    {required BuildContext context,
-    required Note note,
-    bool shouldAutoFocus = false}) async {
+    {required final BuildContext context,
+    required final Note note,
+    final bool shouldAutoFocus = false}) async {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
   await Navigator.pushNamed(context, AppRoutes.editScreen, arguments: note);
 }
 
-Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
+Future<void> goToHiddenScreen(
+    final BuildContext context, final String activeRoute) async {
   if (ModalRoute.of(context)!.settings.name == AppRoutes.hiddenScreen) {
     Navigator.of(context).pop();
     return;
@@ -49,7 +50,7 @@ Future<void> goToHiddenScreen(BuildContext context, String activeRoute) async {
         !Provider.of<LockChecker>(context, listen: false).firstTimeNeeded &&
         Provider.of<LockChecker>(context, listen: false).fpDirectly) {
       final status = await Provider.of<LockChecker>(context, listen: false)
-          .authenticateUser(context);
+          .authenticate(context);
       if (status) {
         await navigate(ModalRoute.of(context)!.settings.name!, context,
             AppRoutes.hiddenScreen);

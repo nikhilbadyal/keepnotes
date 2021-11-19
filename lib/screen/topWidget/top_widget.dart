@@ -8,17 +8,17 @@ typedef ActionGen = Widget Function(Note note, BuildContext context);
 class ScreenContainer extends TopWidgetBase {
   const ScreenContainer({
     required this.topScreen,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
   final ScreenTypes topScreen;
 
   @override
-  Widget myDrawer(BuildContext context) {
+  Widget myDrawer(final BuildContext context) {
     return const MyDrawer();
   }
 
   @override
-  MyAppBar? appBar(BuildContext context) {
+  MyAppBar? appBar(final BuildContext context) {
     switch (topScreen) {
       case ScreenTypes.hidden:
         return MyAppBar(
@@ -47,7 +47,6 @@ class ScreenContainer extends TopWidgetBase {
       case ScreenTypes.aboutMe:
         return MyAppBar(
           title: Text(Language.of(context).about),
-          // TODO add attribution and contribution
         );
 
       case ScreenTypes.settings:
@@ -60,7 +59,7 @@ class ScreenContainer extends TopWidgetBase {
   }
 
   @override
-  Widget? floatingActionButton(BuildContext context) {
+  Widget? floatingActionButton(final BuildContext context) {
     switch (topScreen) {
       case ScreenTypes.hidden:
         return Fab(
@@ -84,7 +83,8 @@ class ScreenContainer extends TopWidgetBase {
     }
   }
 
-  Future<void> onFabTap(BuildContext context, NoteState noteState) async {
+  Future<void> onFabTap(
+      final BuildContext context, final NoteState noteState) async {
     final emptyNote = Note(
       id: const Uuid().v4(),
       lastModify: DateTime.now(),
@@ -94,12 +94,13 @@ class ScreenContainer extends TopWidgetBase {
         context: context, note: emptyNote, shouldAutoFocus: true);
   }
 
-  Future<void> onTrashFabTap(BuildContext context, NoteState _) async {
+  Future<void> onTrashFabTap(
+      final BuildContext context, final NoteState _) async {
     moreOptions(context);
   }
 
   @override
-  Widget body(BuildContext context) {
+  Widget body(final BuildContext context) {
     switch (topScreen) {
       case ScreenTypes.backup:
         return const BackUpScreenHelper();
@@ -137,7 +138,7 @@ class ScreenContainer extends TopWidgetBase {
     }
   }
 
-  NoteState getNotesType(ScreenTypes topScreen) {
+  NoteState getNotesType(final ScreenTypes topScreen) {
     switch (topScreen) {
       case ScreenTypes.hidden:
         return NoteState.hidden;
@@ -153,9 +154,9 @@ class ScreenContainer extends TopWidgetBase {
     }
   }
 
-  ActionPane homePrimary(Note note, BuildContext context) {
+  ActionPane homePrimary(final Note note, final BuildContext context) {
     return ActionPane(
-      motion: const ScrollMotion(),
+      motion: const StretchMotion(),
       children: [
         Utilities.hideAction(context, note),
         Utilities.archiveAction(context, note),
@@ -163,9 +164,9 @@ class ScreenContainer extends TopWidgetBase {
     );
   }
 
-  ActionPane homeSecondary(Note note, BuildContext context) {
+  ActionPane homeSecondary(final Note note, final BuildContext context) {
     return ActionPane(
-      motion: const ScrollMotion(),
+      motion: const StretchMotion(),
       children: [
         Utilities.copyAction(context, note),
         Utilities.trashAction(context, note)
@@ -173,27 +174,27 @@ class ScreenContainer extends TopWidgetBase {
     );
   }
 
-  ActionPane hiddenPrimary(Note note, BuildContext context) {
+  ActionPane hiddenPrimary(final Note note, final BuildContext context) {
     return ActionPane(
-      motion: const ScrollMotion(),
+      motion: const StretchMotion(),
       children: [
         Utilities.unHideAction(context, note),
       ],
     );
   }
 
-  ActionPane hiddenSecondary(Note note, BuildContext context) {
+  ActionPane hiddenSecondary(final Note note, final BuildContext context) {
     return ActionPane(
-      motion: const ScrollMotion(),
+      motion: const StretchMotion(),
       children: [
         Utilities.trashAction(context, note),
       ],
     );
   }
 
-  ActionPane archivePrimary(Note note, BuildContext context) {
+  ActionPane archivePrimary(final Note note, final BuildContext context) {
     return ActionPane(
-      motion: const ScrollMotion(),
+      motion: const StretchMotion(),
       children: [
         Utilities.hideAction(context, note),
         Utilities.unArchiveAction(context, note),
@@ -201,9 +202,9 @@ class ScreenContainer extends TopWidgetBase {
     );
   }
 
-  ActionPane archiveSecondary(Note note, BuildContext context) {
+  ActionPane archiveSecondary(final Note note, final BuildContext context) {
     return ActionPane(
-      motion: const ScrollMotion(),
+      motion: const StretchMotion(),
       children: [
         Utilities.copyAction(context, note),
         Utilities.trashAction(context, note),
@@ -211,9 +212,9 @@ class ScreenContainer extends TopWidgetBase {
     );
   }
 
-  ActionPane trashSecondary(Note note, BuildContext context) {
+  ActionPane trashSecondary(final Note note, final BuildContext context) {
     return ActionPane(
-      motion: const ScrollMotion(),
+      motion: const StretchMotion(),
       children: [
         Utilities.deleteAction(context, note,
             shouldAsk: Provider.of<LockChecker>(context, listen: false)
@@ -222,16 +223,16 @@ class ScreenContainer extends TopWidgetBase {
     );
   }
 
-  ActionPane trashPrimary(Note note, BuildContext context) {
+  ActionPane trashPrimary(final Note note, final BuildContext context) {
     return ActionPane(
-      motion: const ScrollMotion(),
+      motion: const StretchMotion(),
       children: [
         Utilities.restoreAction(context, note),
       ],
     );
   }
 
-  SlidableActions getPrimary(ScreenTypes topScreen) {
+  SlidableActions getPrimary(final ScreenTypes topScreen) {
     switch (topScreen) {
       case ScreenTypes.hidden:
         return hiddenPrimary;
@@ -247,7 +248,7 @@ class ScreenContainer extends TopWidgetBase {
     }
   }
 
-  SlidableActions getSecondary(ScreenTypes topScreen) {
+  SlidableActions getSecondary(final ScreenTypes topScreen) {
     switch (topScreen) {
       case ScreenTypes.hidden:
         return hiddenSecondary;

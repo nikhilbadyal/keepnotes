@@ -1,8 +1,8 @@
-import 'package:notes/_external_packages.dart';
+import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class BackUpScreenHelper extends StatefulWidget {
-  const BackUpScreenHelper({Key? key}) : super(key: key);
+  const BackUpScreenHelper({final Key? key}) : super(key: key);
 
   @override
   _BackUpScreenHelperState createState() => _BackUpScreenHelperState();
@@ -11,16 +11,12 @@ class BackUpScreenHelper extends StatefulWidget {
 class _BackUpScreenHelperState extends State<BackUpScreenHelper>
     with TickerProviderStateMixin {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Center(
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(
-              child: SvgPicture.asset(
-                'assets/images/no.svg',
-              ),
-            ),
+            const ImageWig(),
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(top: 60),

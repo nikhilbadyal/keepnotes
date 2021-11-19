@@ -6,14 +6,14 @@ ThemeData darkTheme = ThemeData();
 
 Color greyColor = const Color(0xFFEAEAEA);
 
-Color darken(Color c, [int percent = 10]) {
+Color darken(final Color c, [final int percent = 10]) {
   assert(1 <= percent && percent <= 100, 'Percent must be b/w 1&100');
   final f = 1 - percent / 100;
   return Color.fromARGB(c.alpha, (c.red * f).round(), (c.green * f).round(),
       (c.blue * f).round());
 }
 
-Color lighten(Color c, [int percent = 10]) {
+Color lighten(final Color c, [final int percent = 10]) {
   assert(1 <= percent && percent <= 100, 'Percent must be b/w 1&100');
   final p = percent / 100;
   return Color.fromARGB(
@@ -24,7 +24,7 @@ Color lighten(Color c, [int percent = 10]) {
   );
 }
 
-ThemeData blackTheme(Color primaryColor, Color accentColor) {
+ThemeData blackTheme(final Color primaryColor, final Color accentColor) {
   return ThemeData.dark().copyWith(
     appBarTheme: AppBarTheme(
       color: primaryColor,
@@ -76,7 +76,7 @@ ThemeData blackTheme(Color primaryColor, Color accentColor) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
-          (states) {
+          (final states) {
             if (states.contains(MaterialState.disabled)) {
               return greyColor;
             }
@@ -84,7 +84,7 @@ ThemeData blackTheme(Color primaryColor, Color accentColor) {
           },
         ),
         foregroundColor: MaterialStateProperty.resolveWith<Color>(
-          (states) {
+          (final states) {
             if (states.contains(MaterialState.disabled)) {
               return greyColor;
             }
@@ -99,7 +99,7 @@ ThemeData blackTheme(Color primaryColor, Color accentColor) {
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.resolveWith<Color>(
-          (states) {
+          (final states) {
             if (states.contains(MaterialState.disabled)) {
               return greyColor;
             }
@@ -107,7 +107,7 @@ ThemeData blackTheme(Color primaryColor, Color accentColor) {
           },
         ),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
-          (states) {
+          (final states) {
             if (states.contains(MaterialState.disabled)) {
               return greyColor;
             }
@@ -119,7 +119,7 @@ ThemeData blackTheme(Color primaryColor, Color accentColor) {
   );
 }
 
-ThemeData lightTheme(Color primaryColor, Color accentColor) =>
+ThemeData lightTheme(final Color primaryColor, final Color accentColor) =>
     ThemeData.light().copyWith(
       appBarTheme: AppBarTheme(
         color: primaryColor,
@@ -178,7 +178,7 @@ ThemeData lightTheme(Color primaryColor, Color accentColor) =>
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (states) {
+            (final states) {
               if (states.contains(MaterialState.disabled)) {
                 return greyColor;
               }
@@ -186,7 +186,7 @@ ThemeData lightTheme(Color primaryColor, Color accentColor) =>
             },
           ),
           foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            (states) {
+            (final states) {
               if (states.contains(MaterialState.disabled)) {
                 return Colors.black;
               }
@@ -202,7 +202,7 @@ ThemeData lightTheme(Color primaryColor, Color accentColor) =>
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            (states) {
+            (final states) {
               if (states.contains(MaterialState.disabled)) {
                 return greyColor;
               }

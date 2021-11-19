@@ -3,7 +3,7 @@ import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class FirebaseDatabaseHelper {
-  FirebaseDatabaseHelper(String uid) {
+  FirebaseDatabaseHelper(final String uid) {
     notesReference =
         db.collection(userCollection).doc(uid).collection(notesCollection);
   }
@@ -13,7 +13,7 @@ class FirebaseDatabaseHelper {
   static String userCollection = 'user';
   static late CollectionReference<Map<String, dynamic>> notesReference;
 
-  static Future<bool> insert(Note note) async {
+  static Future<bool> insert(final Note note) async {
     try {
       await notesReference.doc(note.id).set(note.toMap());
       return true;
@@ -23,7 +23,7 @@ class FirebaseDatabaseHelper {
     return false;
   }
 
-  static Future<bool> update(Note note) async {
+  static Future<bool> update(final Note note) async {
     try {
       await notesReference.doc(note.id).update(note.toMap());
       return true;
@@ -32,7 +32,8 @@ class FirebaseDatabaseHelper {
     }
   }
 
-  static Future<bool> delete(NoteOperation notesOperation, Note note) async {
+  static Future<bool> delete(
+      final NoteOperation notesOperation, final Note note) async {
     try {
       await notesReference.doc(note.id).delete();
       return true;
@@ -42,24 +43,24 @@ class FirebaseDatabaseHelper {
   }
 
   static Query<Map<String, dynamic>> queryData(
-    Object field, {
-    Object? isEqualTo,
-    Object? isNotEqualTo,
-    Object? isLessThan,
-    Object? isLessThanOrEqualTo,
-    Object? isGreaterThan,
-    Object? isGreaterThanOrEqualTo,
-    Object? arrayContains,
-    List<Object?>? arrayContainsAny,
-    List<Object?>? whereIn,
-    List<Object?>? whereNotIn,
-    bool? isNull,
+    final Object field, {
+    final Object? isEqualTo,
+    final Object? isNotEqualTo,
+    final Object? isLessThan,
+    final Object? isLessThanOrEqualTo,
+    final Object? isGreaterThan,
+    final Object? isGreaterThanOrEqualTo,
+    final Object? arrayContains,
+    final List<Object?>? arrayContainsAny,
+    final List<Object?>? whereIn,
+    final List<Object?>? whereNotIn,
+    final bool? isNull,
   }) {
     return db.collection(userCollection).where(field, isEqualTo: isEqualTo);
   }
 
-  static Future<bool> batchInsert(List<Note> jsonList) async {
-    await db.runTransaction((transaction) async {
+  static Future<bool> batchInsert(final List<Note> jsonList) async {
+    await db.runTransaction((final transaction) async {
       DocumentReference<Map<String, dynamic>> ref;
       for (final element in jsonList) {
         {
@@ -72,26 +73,26 @@ class FirebaseDatabaseHelper {
   }
 
   static Future<bool> batchDelete(
-    Object field, {
-    Object? isEqualTo,
-    Object? isNotEqualTo,
-    Object? isLessThan,
-    Object? isLessThanOrEqualTo,
-    Object? isGreaterThan,
-    Object? isGreaterThanOrEqualTo,
-    Object? arrayContains,
-    List<Object?>? arrayContainsAny,
-    List<Object?>? whereIn,
-    List<Object?>? whereNotIn,
-    bool? isNull,
+    final Object field, {
+    final Object? isEqualTo,
+    final Object? isNotEqualTo,
+    final Object? isLessThan,
+    final Object? isLessThanOrEqualTo,
+    final Object? isGreaterThan,
+    final Object? isGreaterThanOrEqualTo,
+    final Object? arrayContains,
+    final List<Object?>? arrayContainsAny,
+    final List<Object?>? whereIn,
+    final List<Object?>? whereNotIn,
+    final bool? isNull,
   }) async {
     final tempNotesReference =
         notesReference.where(field, isEqualTo: isEqualTo);
     final batch = db.batch();
     try {
-      await tempNotesReference.get().then((value) => {
+      await tempNotesReference.get().then((final value) => {
             // ignore: avoid_function_literals_in_foreach_calls
-            value.docs.forEach((element) => {
+            value.docs.forEach((final element) => {
                   batch.delete(element.reference),
                 }),
           });

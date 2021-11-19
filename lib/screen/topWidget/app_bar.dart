@@ -1,12 +1,12 @@
-import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
+import 'package:notes/util/_util.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MyAppBar({
     required this.title,
     this.appBarWidget = const AppBarAvatar(),
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final Widget title;
@@ -21,18 +21,17 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _MyAppBarState extends State<MyAppBar> {
   @override
-  AppBar build(BuildContext context) {
-    return AppBar(
-      title: widget.title,
-      actions: [
-        widget.appBarWidget,
-      ],
-    );
-  }
+  AppBar build(final BuildContext context) => AppBar(
+        elevation: 0.6,
+        title: widget.title,
+        actions: [
+          widget.appBarWidget,
+        ],
+      );
 }
 
 class AppBarAvatar extends StatefulWidget {
-  const AppBarAvatar({this.onWidgetTap, Key? key}) : super(key: key);
+  const AppBarAvatar({this.onWidgetTap, final Key? key}) : super(key: key);
 
   final Function()? onWidgetTap;
 
@@ -51,14 +50,17 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(final BuildContext context) => GestureDetector(
         onDoubleTap: widget.onWidgetTap ?? defaultDoubleTap,
-        child: CircleAvatar(
-          backgroundColor: Colors.white,
-          radius: 25,
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 500),
-            child: _animatedChild,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 6, top: 4),
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            radius: 22,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: _animatedChild,
+            ),
           ),
         ),
       );
@@ -76,13 +78,13 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
     Provider.of<LockChecker>(context, listen: false).addGenderToSf();
   }
 
-  Widget child(Key key) {
+  Widget child(final Key key) {
     return CircleAvatar(
       key: key,
-      radius: 22,
+      radius: 20,
       backgroundColor: Colors.white,
-      child: SvgPicture.asset(
-        'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.svg',
+      backgroundImage: AssetImage(
+        'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.png',
       ),
     );
   }

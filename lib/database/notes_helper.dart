@@ -18,18 +18,18 @@ class NotesHelper with ChangeNotifier {
   SplayTreeSet<Note> mainNotes = SplayTreeSet();
   SplayTreeSet<Note> otherNotes = SplayTreeSet();
 
-  Future<Note> insert(Note note) async {
+  Future<Note> insert(final Note note) async {
     final copiedNote = note.copyWith(id: note.id);
     if (copiedNote.state == NoteState.hidden) {
       encryption.encrypt(copiedNote);
     }
     // This is because of background insertion
     if (copiedNote.state == NoteState.unspecified) {
-      mainNotes.removeWhere((element) {
+      mainNotes.removeWhere((final element) {
         return element.id == copiedNote.id;
       });
     } else {
-      otherNotes.removeWhere((element) {
+      otherNotes.removeWhere((final element) {
         return element.id == copiedNote.id;
       });
     }
@@ -43,7 +43,7 @@ class NotesHelper with ChangeNotifier {
     return note;
   }
 
-  Future<bool> copy(Note note) async {
+  Future<bool> copy(final Note note) async {
     final copiedNote = note.copyWith(
       id: const Uuid().v4(),
       lastModify: DateTime.now(),
@@ -57,12 +57,12 @@ class NotesHelper with ChangeNotifier {
     return true;
   }
 
-  Future<bool> archive(Note note) async {
+  Future<bool> archive(final Note note) async {
     note.state == NoteState.unspecified
-        ? mainNotes.removeWhere((element) {
+        ? mainNotes.removeWhere((final element) {
             return element.id == note.id;
           })
-        : otherNotes.removeWhere((element) {
+        : otherNotes.removeWhere((final element) {
             return element.id == note.id;
           });
     note.state = NoteState.archived;
@@ -72,14 +72,14 @@ class NotesHelper with ChangeNotifier {
     return true;
   }
 
-  Future<bool> hide(Note note) async {
+  Future<bool> hide(final Note note) async {
     final copiedNote = note.copyWith(id: note.id);
     encryption.encrypt(copiedNote);
     note.state == NoteState.unspecified
-        ? mainNotes.removeWhere((element) {
+        ? mainNotes.removeWhere((final element) {
             return element.id == note.id;
           })
-        : otherNotes.removeWhere((element) {
+        : otherNotes.removeWhere((final element) {
             return element.id == note.id;
           });
     note.state = NoteState.hidden;
@@ -89,9 +89,9 @@ class NotesHelper with ChangeNotifier {
     return true;
   }
 
-  Future<bool> unhide(Note note) async {
+  Future<bool> unhide(final Note note) async {
     mainNotes.add(note);
-    otherNotes.removeWhere((element) {
+    otherNotes.removeWhere((final element) {
       return element.id == note.id;
     });
     note.state = NoteState.unspecified;
@@ -101,9 +101,9 @@ class NotesHelper with ChangeNotifier {
     return true;
   }
 
-  Future<bool> unarchive(Note note) async {
+  Future<bool> unarchive(final Note note) async {
     mainNotes.add(note);
-    otherNotes.removeWhere((element) {
+    otherNotes.removeWhere((final element) {
       return element.id == note.id;
     });
     note.state = NoteState.unspecified;
@@ -113,9 +113,9 @@ class NotesHelper with ChangeNotifier {
     return true;
   }
 
-  Future<bool> undelete(Note note) async {
+  Future<bool> undelete(final Note note) async {
     mainNotes.add(note);
-    otherNotes.removeWhere((element) {
+    otherNotes.removeWhere((final element) {
       return element.id == note.id;
     });
     note.state = NoteState.unspecified;
@@ -125,13 +125,13 @@ class NotesHelper with ChangeNotifier {
     return true;
   }
 
-  Future<bool> delete(Note note) async {
+  Future<bool> delete(final Note note) async {
     try {
       note.state == NoteState.unspecified
-          ? mainNotes.removeWhere((element) {
+          ? mainNotes.removeWhere((final element) {
               return element.id == note.id;
             })
-          : otherNotes.removeWhere((element) {
+          : otherNotes.removeWhere((final element) {
               return element.id == note.id;
             });
       await SqfliteDatabaseHelper.delete('id = ?', [note.id]);
@@ -143,12 +143,12 @@ class NotesHelper with ChangeNotifier {
     return true;
   }
 
-  Future<bool> trash(Note note) async {
+  Future<bool> trash(final Note note) async {
     note.state == NoteState.unspecified
-        ? mainNotes.removeWhere((element) {
+        ? mainNotes.removeWhere((final element) {
             return element.id == note.id;
           })
-        : otherNotes.removeWhere((element) {
+        : otherNotes.removeWhere((final element) {
             return element.id == note.id;
           });
     note.state = NoteState.deleted;
@@ -166,17 +166,19 @@ class NotesHelper with ChangeNotifier {
     return true;
   }
 
-  Future<bool> emptyTrash() async {
+  void emptyTrash() {
     otherNotes.clear();
-    await SqfliteDatabaseHelper.delete('state = ?', [NoteState.deleted.index]);
-    await FirebaseDatabaseHelper.batchDelete('state', isEqualTo: 4);
+    unawaited(
+        SqfliteDatabaseHelper.delete('state = ?', [NoteState.deleted.index])
+            .then((final _) {
+      unawaited(FirebaseDatabaseHelper.batchDelete('state', isEqualTo: 4));
+    }));
     notifyListeners();
-    return true;
   }
 
   Future<List<Map<String, dynamic>>> myGetAll() async {
     final notesList = await FirebaseDatabaseHelper.getAll();
-    final items = notesList.docs.map((e) => e.data()).toList();
+    final items = notesList.docs.map((final e) => e.data()).toList();
     return items;
   }
 
@@ -185,7 +187,7 @@ class NotesHelper with ChangeNotifier {
         whereCond: [NoteState.hidden.index]);
     final notesList = notes
         .map(
-          (itemVar) => Note(
+          (final itemVar) => Note(
             id: itemVar['id'],
             title: itemVar['title'].toString(),
             content: itemVar['content'].toString(),
@@ -203,13 +205,18 @@ class NotesHelper with ChangeNotifier {
     }
   }
 
-  Future getAllNotes(int noteState) async {
+  Future getAllNotes(final int noteState) async {
+    if (!SqfliteDatabaseHelper.syncedWithFirebase) {
+      await SqfliteDatabaseHelper.addAll(await myGetAll());
+      SqfliteDatabaseHelper.syncedWithFirebase = true;
+      unawaited(addBoolToSF('syncedWithFirebase', value: true));
+    }
     final notesList = await SqfliteDatabaseHelper.queryData(
         whereStr: 'state = ?', whereCond: [noteState]);
     noteState == NoteState.unspecified.index
         ? mainNotes = SplayTreeSet.from(notesList
             .map(
-              (itemVar) => Note(
+              (final itemVar) => Note(
                 id: itemVar['id'],
                 title: itemVar['title'].toString(),
                 content: itemVar['content'].toString(),
@@ -222,7 +229,7 @@ class NotesHelper with ChangeNotifier {
             .toList())
         : otherNotes = SplayTreeSet.from(notesList
             .map(
-              (itemVar) => Note(
+              (final itemVar) => Note(
                 id: itemVar['id'],
                 title: itemVar['title'].toString(),
                 content: itemVar['content'].toString(),
@@ -241,13 +248,13 @@ class NotesHelper with ChangeNotifier {
     }
   }
 
-  Future<bool> recryptEverything(String password) async {
+  Future<bool> recryptEverything(final String password) async {
     try {
       final notesList = await SqfliteDatabaseHelper.queryData(
           whereStr: 'state = ?', whereCond: [NoteState.hidden.index]);
       final myList = notesList
           .map(
-            (itemVar) => Note(
+            (final itemVar) => Note(
               id: itemVar['id'],
               title: itemVar['title'].toString(),
               content: itemVar['content'].toString(),

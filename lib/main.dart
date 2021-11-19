@@ -1,16 +1,15 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/sentryDns.dart';
 
-//TODO Add your own link
+// Add your own DSN if you want.
 const dsn = dsnLink;
 
 final sentry = SentryClient(SentryOptions(dsn: dsn));
 
 class SimpleLogPrinter extends LogPrinter {
   @override
-  List<String> log(LogEvent event) {
+  List<String> log(final LogEvent event) {
     final color = PrettyPrinter.levelColors[event.level];
     final emoji = PrettyPrinter.levelEmojis[event.level];
     final str = color!('$emoji - ${event.message}');
@@ -27,11 +26,10 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   Utilities.prefs = await SharedPreferences.getInstance();
-  Utilities.storage = const FlutterSecureStorage();
   if (kDebugMode) {
     timeDilation = 1;
   }
-  FlutterError.onError = (details, {forceReport = false}) {
+  FlutterError.onError = (final details, {final forceReport = false}) {
     if (kDebugMode) {
       FlutterError.dumpErrorToConsole(details);
     } else {
@@ -41,7 +39,8 @@ Future<void> main() async {
       );
     }
   };
-  Future<void> reportError(Object error, StackTrace stackTrace) async {
+  Future<void> reportError(
+      final Object error, final StackTrace stackTrace) async {
     if (kReleaseMode) {
       try {
         await sentry.captureException(
@@ -61,7 +60,7 @@ Future<void> main() async {
     await runZonedGuarded(() async {
       return SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
-      ).then((_) => runApp(const MyNotes()));
+      ).then((final _) => runApp(const MyNotes()));
     }, reportError);
   } else {
     logger.w('reportError DNS NOT FOUND');

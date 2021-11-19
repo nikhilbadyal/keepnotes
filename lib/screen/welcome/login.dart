@@ -3,17 +3,17 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 Widget login(
-    BuildContext context,
-    double _loginWidth,
-    double _loginHeight,
-    double _loginYOffset,
-    double _loginXOffset,
-    double _loginOpacity,
-    GlobalKey<FormState> loginKey,
-    NotesUser user,
-    String Function() passwordRegEx,
-    Function() loginTap,
-    Function() goToSignupTap) {
+    final BuildContext context,
+    final double _loginWidth,
+    final double _loginHeight,
+    final double _loginYOffset,
+    final double _loginXOffset,
+    final double _loginOpacity,
+    final GlobalKey<FormState> loginKey,
+    final NotesUser user,
+    final String Function() passwordRegEx,
+    final Function() loginTap,
+    final Function() goToSignupTap) {
   return AnimatedContainer(
     padding: const EdgeInsets.all(32),
     width: _loginWidth,
@@ -47,7 +47,7 @@ Widget login(
                   hint: 'Enter Email...',
                   textFormField: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onSaved: (val) {
+                    onSaved: (final val) {
                       user.email = val ?? '';
                     },
                     validator: Validators.compose([
@@ -72,7 +72,7 @@ Widget login(
                   hint: 'Enter Password...',
                   textFormField: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onSaved: (val) {
+                    onSaved: (final val) {
                       user.password = val ?? '';
                     },
                     validator: Validators.compose([
@@ -99,7 +99,7 @@ Widget login(
                   child: TextButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) {
+                        (final states) {
                           if (states.contains(MaterialState.disabled)) {
                             return Colors.transparent;
                           }
@@ -108,8 +108,8 @@ Widget login(
                       ),
                     ),
                     onPressed: () async {
-                      await navigate(AppRoutes.welcomeScreen, context,
-                          AppRoutes.forgotPasswordScreen);
+                      await Navigator.of(context)
+                          .pushNamed(AppRoutes.forgotPasswordScreen);
                     },
                     child: Text(
                       'Forgot Password?',

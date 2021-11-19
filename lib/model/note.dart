@@ -24,11 +24,11 @@ class Note implements Comparable<Note> {
   NoteState state;
 
   Note copyWith({
-    required String id,
-    String? title,
-    String? content,
-    DateTime? lastModify,
-    NoteState? state,
+    required final String id,
+    final String? title,
+    final String? content,
+    final DateTime? lastModify,
+    final NoteState? state,
   }) =>
       Note(
           id: id,
@@ -51,7 +51,7 @@ class Note implements Comparable<Note> {
     return data;
   }
 
-  static Note fromMap(Map<String, dynamic> json) {
+  static Note fromMap(final Map<String, dynamic> json) {
     return Note(
       id: const Uuid().v4(),
       title: json['title'].toString(),
@@ -63,7 +63,7 @@ class Note implements Comparable<Note> {
     );
   }
 
-  static Note fromDocumentSnapshot(QueryDocumentSnapshot json) {
+  static Note fromDocumentSnapshot(final QueryDocumentSnapshot json) {
     final int state = json['state'];
     return Note(
       id: json['id'],
@@ -82,7 +82,7 @@ class Note implements Comparable<Note> {
   String get strLastModifiedDate1 => DateFormat('jm').format(lastModify);
 
   @override
-  int compareTo(Note other) {
+  int compareTo(final Note other) {
     final isAfter = lastModify.isAfter(other.lastModify);
     if (isAfter) {
       return -1;

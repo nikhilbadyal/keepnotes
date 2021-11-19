@@ -1,12 +1,12 @@
 import 'package:notes/_internal_packages.dart';
 
 Widget home(
-    BuildContext context,
-    Color _backgroundColor,
-    Function() onScreenTap,
-    Function() onGetStartTap,
-    double _headingTop,
-    Color _headingColor) {
+    final BuildContext context,
+    final Color _backgroundColor,
+    final Function() onScreenTap,
+    final Function() onGetStartTap,
+    final double _headingTop,
+    final Color _headingColor) {
   return AnimatedContainer(
     curve: Curves.fastLinearToSlowEaseIn,
     duration: const Duration(milliseconds: 1000),

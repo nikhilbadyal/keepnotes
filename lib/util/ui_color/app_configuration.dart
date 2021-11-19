@@ -20,62 +20,58 @@ class AppConfiguration with ChangeNotifier {
   }
 
   void readFromSf() {
-    primaryColor =
-        Color(Utilities.getIntFromSF('primaryColor') ?? defaultPrimary.value);
-    accentColor =
-        Color(Utilities.getIntFromSF('accentColor') ?? defaultPrimary.value);
-    appTheme = AppTheme.values[Utilities.getIntFromSF('appTheme') ?? 0];
+    primaryColor = Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
+    accentColor = Color(getIntFromSF('accentColor') ?? defaultPrimary.value);
+    appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
     currentTheme = appTheme == AppTheme.light
         ? lightTheme(primaryColor, accentColor)
         : blackTheme(primaryColor, accentColor);
-    isHiddenDiscovered = Utilities.getBoolFromSF('hiddenDiscovered') ?? false;
+    isHiddenDiscovered = getBoolFromSF('hiddenDiscovered') ?? false;
+    SqfliteDatabaseHelper.syncedWithFirebase =
+        getBoolFromSF('syncedWithFirebase') ?? false;
   }
 
-  void changePrimaryColor({bool write = false}) {
+  void changePrimaryColor({final bool write = false}) {
     currentTheme = appTheme == AppTheme.light
         ? lightTheme(primaryColor, accentColor)
         : blackTheme(primaryColor, accentColor);
     if (write) {
-      Utilities.addIntToSF('primaryColor', primaryColor.value);
+      addIntToSF('primaryColor', primaryColor.value);
     }
     notifyListeners();
   }
 
-  void changeAccentColor({bool write = false}) {
+  void changeAccentColor({final bool write = false}) {
     currentTheme = appTheme == AppTheme.light
         ? lightTheme(primaryColor, accentColor)
         : blackTheme(primaryColor, accentColor);
     if (write) {
-      Utilities.addIntToSF('accentColor', accentColor.value);
+      addIntToSF('accentColor', accentColor.value);
     }
     notifyListeners();
   }
 
-  void changeAppTheme({bool write = false}) {
+  void changeAppTheme({final bool write = false}) {
     currentTheme = appTheme == AppTheme.light
         ? lightTheme(primaryColor, accentColor)
         : blackTheme(primaryColor, accentColor);
 
     if (write) {
-      Utilities.addIntToSF('appTheme', appTheme.index);
+      addIntToSF('appTheme', appTheme.index);
     }
     notifyListeners();
   }
 
   // ignore: avoid_positional_boolean_parameters
-  Future<void> setHiddenDiscovered(bool status) async {
+  Future<void> setHiddenDiscovered(final bool status) async {
     isHiddenDiscovered = status;
-    await Utilities.addBoolToSF('hiddenDiscovered', value: status);
+    await addBoolToSF('hiddenDiscovered', value: status);
   }
 
-  void changeLocale(String langCode, {bool write = false}) {
+  void changeLocale(final String langCode, {final bool write = false}) {
     if (write) {
-      Utilities.addStringToSF('appLocale', langCode);
+      addStringToSF('appLocale', langCode);
     }
-  }
-
-  void changeIconColorStatus(int status) {
-    Utilities.addIntToSF('iconColorStatus', status);
   }
 }
 

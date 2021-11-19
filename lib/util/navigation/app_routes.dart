@@ -1,32 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
-import 'package:notes/_internal_packages.dart';
-import 'package:notes/screen/welcome/forget_password.dart';
 
 class AppRoutes {
-  static const hiddenScreen = '/hidden';
-  static const lockScreen = '/lock';
-  static const setPassScreen = '/setpass';
+  static const hiddenScreen = 'hidden';
+  static const lockScreen = 'lock';
+  static const setPassScreen = 'setpass';
   static const homeScreen = '/';
-  static const archiveScreen = '/archive';
-  static const backupScreen = '/backup';
-  static const trashScreen = '/trash';
-  static const aboutMeScreen = '/about';
-  static const settingsScreen = '/settings';
-  static const suggestScreen = '/suggestion';
-  static const welcomeScreen = '/welcome';
-  static const forgotPasswordScreen = '/forgot';
-  static const editScreen = '/edit';
+  static const archiveScreen = 'archive';
+  static const backupScreen = 'backup';
+  static const trashScreen = 'trash';
+  static const aboutMeScreen = 'about';
+  static const settingsScreen = 'settings';
+  static const suggestScreen = 'suggestion';
+  static const welcomeScreen = 'welcome';
+  static const forgotPasswordScreen = 'forgot';
+  static const editScreen = 'edit';
 }
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic> generateRoute(final RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.hiddenScreen:
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const ScreenContainer(
+            builder: (final _) => const ScreenContainer(
               topScreen: ScreenTypes.hidden,
             ),
           );
@@ -35,21 +33,21 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const LockScreen(),
+            builder: (final _) => const LockScreen(),
           );
         }
       case AppRoutes.setPassScreen:
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const SetPassword(),
+            builder: (final _) => const SetPassword(),
           );
         }
       case AppRoutes.homeScreen:
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const ScreenContainer(
+            builder: (final _) => const ScreenContainer(
               topScreen: ScreenTypes.home,
             ),
           );
@@ -59,7 +57,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const ScreenContainer(
+            builder: (final _) => const ScreenContainer(
               topScreen: ScreenTypes.archive,
             ),
           );
@@ -69,7 +67,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const ScreenContainer(
+            builder: (final _) => const ScreenContainer(
               topScreen: ScreenTypes.backup,
             ),
           );
@@ -79,7 +77,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const ScreenContainer(
+            builder: (final _) => const ScreenContainer(
               topScreen: ScreenTypes.trash,
             ),
           );
@@ -89,7 +87,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const ScreenContainer(
+            builder: (final _) => const ScreenContainer(
               topScreen: ScreenTypes.aboutMe,
             ),
           );
@@ -99,7 +97,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const ScreenContainer(
+            builder: (final _) => const ScreenContainer(
               topScreen: ScreenTypes.settings,
             ),
           );
@@ -109,21 +107,21 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const Welcome(),
+            builder: (final _) => const Welcome(),
           );
         }
       case AppRoutes.forgotPasswordScreen:
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (_) => const ForgetPassword(),
+            builder: (final _) => const ForgetPassword(),
           );
         }
       case AppRoutes.editScreen:
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (context) => const EditScreen(),
+            builder: (final context) => const EditScreen(),
           );
         }
       default:
@@ -133,7 +131,7 @@ class RouteGenerator {
 
   static Route<dynamic> errorRoute() {
     return CupertinoPageRoute(
-      builder: (context) {
+      builder: (final context) {
         return const ErrorScreen();
       },
     );

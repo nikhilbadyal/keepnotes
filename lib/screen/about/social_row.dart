@@ -2,10 +2,10 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SocialLinksRow extends StatelessWidget {
-  const SocialLinksRow({Key? key}) : super(key: key);
+  const SocialLinksRow({final Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(final BuildContext context) => Container(
         margin: const EdgeInsets.only(left: 12, right: 12, top: 16),
         height: 50,
         child: Row(

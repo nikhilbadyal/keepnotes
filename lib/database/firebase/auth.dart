@@ -14,7 +14,7 @@ class Auth with ChangeNotifier {
   bool isLoggedIn;
 
   Future<String> signInWithPassword(
-      {required String email, required String password}) async {
+      {required final String email, required final String password}) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       if (auth.currentUser != null) {
@@ -53,7 +53,7 @@ class Auth with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> forgetPassword({required String email}) async {
+  Future<String> forgetPassword({required final String email}) async {
     try {
       await auth.sendPasswordResetEmail(email: email);
       isLoggedIn = false;
@@ -66,7 +66,7 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<String> singUp({required NotesUser user}) async {
+  Future<String> singUp({required final NotesUser user}) async {
     try {
       await auth.createUserWithEmailAndPassword(
           email: user.email, password: user.password);

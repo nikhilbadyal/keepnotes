@@ -14,7 +14,7 @@ class LanguageData {
   final String languageCode;
 }
 
-Future<Language> _loadLocale(Locale locale) async {
+Future<Language> _loadLocale(final Locale locale) async {
   switch (locale.languageCode) {
     case 'en':
       return LanguageEn();
@@ -29,7 +29,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<Language> {
   const AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) {
+  bool isSupported(final Locale locale) {
     final supportedLanguageCodes = <String>[];
     for (final element in supportedLanguages) {
       supportedLanguageCodes.add(element.languageCode);
@@ -38,24 +38,24 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<Language> {
   }
 
   @override
-  Future<Language> load(Locale locale) => _loadLocale(locale);
+  Future<Language> load(final Locale locale) => _loadLocale(locale);
 
   @override
-  bool shouldReload(LocalizationsDelegate<Language> old) => false;
+  bool shouldReload(final LocalizationsDelegate<Language> old) => false;
 }
 
 class FallbackLocalizationDelegate
     extends LocalizationsDelegate<MaterialLocalizations> {
   @override
-  bool isSupported(Locale locale) => true;
+  bool isSupported(final Locale locale) => true;
 
   @override
-  Future<MaterialLocalizations> load(Locale locale) async =>
+  Future<MaterialLocalizations> load(final Locale locale) async =>
       const DefaultMaterialLocalizations();
 
   @override
   bool shouldReload(
-          covariant LocalizationsDelegate<MaterialLocalizations> old) =>
+          covariant final LocalizationsDelegate<MaterialLocalizations> old) =>
       false;
 }
 
@@ -88,7 +88,9 @@ abstract class Language {
 
   String get insufficientData;
 
-  static Language of(BuildContext context) =>
+  String get localizedReason;
+
+  static Language of(final BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageEn();
 
   String get enterPassword;
@@ -244,26 +246,26 @@ abstract class Language {
 
 const String prefSelectedLanguageCode = 'SelectedLanguageCode';
 
-Future<Locale> setLocale(String languageCode) async {
-  await Utilities.addStringToSF('appLocale', languageCode);
+Future<Locale> setLocale(final String languageCode) async {
+  await addStringToSF('appLocale', languageCode);
   return _locale(languageCode);
 }
 
 Future<Locale> getLocale() async {
   late String languageCode;
   try {
-    languageCode = Utilities.getStringFromSF('appLocale') ?? 'en';
+    languageCode = getStringFromSF('appLocale') ?? 'en';
   } on Exception catch (_) {
     return _locale('en');
   }
   return _locale(languageCode);
 }
 
-Locale _locale(String languageCode) =>
+Locale _locale(final String languageCode) =>
     languageCode.isNotEmpty ? Locale(languageCode, '') : const Locale('en', '');
 
 Future<void> changeLanguage(
-    BuildContext context, String selectedLanguageCode) async {
+    final BuildContext context, final String selectedLanguageCode) async {
   final _locale = await setLocale(selectedLanguageCode);
   MyNotes.setLocale(context, _locale);
 }

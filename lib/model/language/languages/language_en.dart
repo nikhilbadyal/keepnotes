@@ -279,4 +279,7 @@ class LanguageEn extends Language {
 
   @override
   String get insufficientData => 'Fill details properly';
+
+  @override
+  String get localizedReason => 'Authenticate to see hidden notes';
 }

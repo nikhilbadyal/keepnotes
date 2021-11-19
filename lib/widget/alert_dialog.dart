@@ -5,7 +5,7 @@ class MyAlertDialog extends StatelessWidget {
     required this.content,
     required this.title,
     this.actions,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final Widget title;
@@ -13,7 +13,7 @@ class MyAlertDialog extends StatelessWidget {
   final Widget content;
 
   @override
-  Widget build(BuildContext context) => AlertDialog(
+  Widget build(final BuildContext context) => AlertDialog(
         title: Center(child: title),
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(

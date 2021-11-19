@@ -19,15 +19,15 @@ typedef ActionFunction = void Function(
 typedef OnTapCallback = void Function(BuildContext context, Note note);
 
 abstract class TopWidgetBase extends StatefulWidget {
-  const TopWidgetBase({Key? key}) : super(key: key);
+  const TopWidgetBase({final Key? key}) : super(key: key);
 
-  Widget? body(BuildContext context);
+  Widget? body(final BuildContext context);
 
-  Widget? myDrawer(BuildContext context);
+  Widget? myDrawer(final BuildContext context);
 
-  MyAppBar? appBar(BuildContext context);
+  MyAppBar? appBar(final BuildContext context);
 
-  Widget? floatingActionButton(BuildContext context);
+  Widget? floatingActionButton(final BuildContext context);
 
   @override
   _TopWidgetBaseState createState() => _TopWidgetBaseState();
@@ -35,7 +35,7 @@ abstract class TopWidgetBase extends StatefulWidget {
 
 class _TopWidgetBaseState extends State<TopWidgetBase> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return DoubleBackToCloseWidget(
       child: Scaffold(
         appBar: widget.appBar(context),

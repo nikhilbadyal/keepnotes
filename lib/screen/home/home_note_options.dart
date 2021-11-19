@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
@@ -8,7 +7,7 @@ class HomeNoteOptions extends StatefulWidget {
     required this.note,
     required this.autoSaver,
     required this.saveNote,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final Note note;
@@ -21,7 +20,7 @@ class HomeNoteOptions extends StatefulWidget {
 
 class _HomeNoteOptionsState extends State<HomeNoteOptions> {
   @override
-  Widget build(BuildContext context) => Wrap(
+  Widget build(final BuildContext context) => Wrap(
         children: [
           Container(
             margin: const EdgeInsets.all(8),
@@ -61,8 +60,8 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                     ),
                     ModalSheetWidget(
                       icon: TablerIcons.copy,
-                      onTap: () async {
-                        await Utilities.onModalCopyToClipboardTap(context,
+                      onTap: () {
+                        Utilities.onModalCopyToClipboardTap(context,
                             widget.note, widget.autoSaver, widget.saveNote);
                       },
                       label: Language.of(context).clipboard,
@@ -90,7 +89,7 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
       await showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (_) => MyAlertDialog(
+        builder: (final _) => MyAlertDialog(
           title: Text(Language.of(context).message),
           content: Text(Language.of(context).setPasswordFirst),
         ),
@@ -101,7 +100,7 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
       final wantedRoute = getRoute(widget.note.state);
       await Utilities.onHideTap(context, widget.note);
       Navigator.of(context).popUntil(
-        (route) => route.settings.name == wantedRoute,
+        (final route) => route.settings.name == wantedRoute,
       );
     }
   }

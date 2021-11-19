@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar(
-      {Key? key,
+      {final Key? key,
       required this.note,
       required this.saveNote,
       required this.onIconTap,
@@ -20,7 +19,7 @@ class BottomBar extends StatelessWidget {
   final Timer autoSaverTimer;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return BottomAppBar(
       child: Container(
         color: Theme.of(context).canvasColor,
@@ -66,7 +65,7 @@ class BottomBar extends StatelessWidget {
     );
   }
 
-  void moreMenu(BuildContext context) {
+  void moreMenu(final BuildContext context) {
     FocusScope.of(context).requestFocus(
       FocusNode(),
     );
@@ -80,7 +79,7 @@ class BottomBar extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       context: context,
-      builder: (context) => Wrap(
+      builder: (final context) => Wrap(
         children: [
           BottomBarOptions(
             note: note,

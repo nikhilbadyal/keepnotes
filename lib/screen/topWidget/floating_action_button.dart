@@ -11,7 +11,7 @@ class Fab extends StatelessWidget {
         Icons.add,
         size: 30,
       ),
-      Key? key})
+      final Key? key})
       : super(key: key);
 
   final Function(BuildContext context, NoteState noteState) onFabTap;
@@ -21,7 +21,7 @@ class Fab extends StatelessWidget {
   final Icon icon;
 
   @override
-  Widget build(BuildContext context) => Padding(
+  Widget build(final BuildContext context) => Padding(
         padding: const EdgeInsets.only(bottom: 25),
         child: GestureDetector(
           onLongPress: () {
@@ -37,10 +37,10 @@ class Fab extends StatelessWidget {
 }
 
 class SelectDeSelectAllFab extends StatelessWidget {
-  const SelectDeSelectAllFab({Key? key}) : super(key: key);
+  const SelectDeSelectAllFab({final Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final isFalseAvailable = homeBody!.selectedFlag.containsValue(false);
     return Padding(
       padding: const EdgeInsets.only(bottom: 25),
@@ -55,7 +55,8 @@ class SelectDeSelectAllFab extends StatelessWidget {
 
   void _selectAll() {
     final isFalseAvailable = homeBody!.selectedFlag.containsValue(false);
-    homeBody!.selectedFlag.updateAll((key, value) => isFalseAvailable);
+    homeBody!.selectedFlag
+        .updateAll((final key, final value) => isFalseAvailable);
     homeBody!.isSelectionMode = homeBody!.selectedFlag.containsValue(true);
     homeBody!.callSetState();
   }

@@ -7,7 +7,7 @@ class HiddenNoteOptions extends StatefulWidget {
     required this.note,
     required this.autoSaver,
     required this.saveNote,
-    Key? key,
+    final Key? key,
   }) : super(key: key);
 
   final Note note;
@@ -20,7 +20,7 @@ class HiddenNoteOptions extends StatefulWidget {
 
 class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
   @override
-  Widget build(BuildContext context) => Wrap(
+  Widget build(final BuildContext context) => Wrap(
         children: [
           Container(
             margin: const EdgeInsets.all(8),
@@ -60,8 +60,8 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                     ),
                     ModalSheetWidget(
                       icon: TablerIcons.copy,
-                      onTap: () async {
-                        await Utilities.onModalCopyToClipboardTap(context,
+                      onTap: () {
+                        Utilities.onModalCopyToClipboardTap(context,
                             widget.note, widget.autoSaver, widget.saveNote);
                       },
                       label: Language.of(context).clipboard,

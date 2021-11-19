@@ -279,4 +279,7 @@ class LanguageHi extends Language {
 
   @override
   String get insufficientData => 'विवरण ठीक से भरें';
+
+  @override
+  String get localizedReason => 'छिपे हुए नोट देखने के लिए प्रमाणित करें';
 }

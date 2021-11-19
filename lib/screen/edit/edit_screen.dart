@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class EditScreen extends StatefulWidget {
-  const EditScreen({Key? key}) : super(key: key);
+  const EditScreen({final Key? key}) : super(key: key);
 
   @override
   _EditScreenState createState() => _EditScreenState();
@@ -22,19 +21,14 @@ class _EditScreenState extends State<EditScreen> {
   late Note currentNote;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     currentNote = ModalRoute.of(context)!.settings.arguments! as Note;
     noteInEditing = currentNote;
     _titleController.text = noteInEditing.title;
     _contentController.text = noteInEditing.content;
     _titleFromInitial = currentNote.title;
     _contentFromInitial = currentNote.content;
-    autoSaverTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    autoSaverTimer = Timer.periodic(const Duration(seconds: 5), (final timer) {
       backgroundSaveNote();
     });
     return WillPopScope(
@@ -57,7 +51,7 @@ class _EditScreenState extends State<EditScreen> {
     );
   }
 
-  Widget body(BuildContext context) {
+  Widget body(final BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
           bottom: kBottomNavigationBarHeight, left: 10, right: 10),
@@ -79,7 +73,8 @@ class _EditScreenState extends State<EditScreen> {
                   border: InputBorder.none),
             ),
             TextField(
-              autofocus: true,
+              autofocus:
+                  _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
               readOnly: isReadOnly,
               controller: _contentController,
               maxLines: null,
@@ -106,7 +101,7 @@ class _EditScreenState extends State<EditScreen> {
 
   Future<bool> onBackPress() async {
     autoSaverTimer.cancel();
-    unawaited(saveNote().then((value) {
+    unawaited(saveNote().then((final value) {
       if (!value) {
         Utilities.showSnackbar(context, Language.of(context).error);
       }
@@ -146,7 +141,7 @@ class _EditScreenState extends State<EditScreen> {
     return false;
   }
 
-  Future<void> exitWithoutSaving(BuildContext context) async {
+  Future<void> exitWithoutSaving(final BuildContext context) async {
     autoSaverTimer.cancel();
     Navigator.pop(context);
   }

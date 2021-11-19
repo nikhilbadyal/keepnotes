@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class EditAppBar extends StatelessWidget with PreferredSizeWidget {
   const EditAppBar(
-      {Key? key,
+      {final Key? key,
       required this.note,
       required this.saveNote,
       required this.autoSaverTimer})
@@ -16,12 +14,12 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
   final Timer autoSaverTimer;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return AppBar(
       leading: BackButton(
         onPressed: () {
           autoSaverTimer.cancel();
-          unawaited(saveNote().then((value) {
+          unawaited(saveNote().then((final value) {
             if (!value) {
               Utilities.showSnackbar(context, Language.of(context).error);
             }
@@ -37,7 +35,8 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
               Utilities.showSnackbar(context, Language.of(context).emptyNote);
               return;
             }
-            if (await Utilities.requestPermission(Permission.storage)) {
+            // TODO PDF Support
+            /*if (await Utilities.requestPermission(Permission.storage)) {
               await saveNote();
               await HapticFeedback.vibrate();
               await PdfUtils.createPdf(context, note);
@@ -46,7 +45,7 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
               await showDialog<void>(
                 barrierDismissible: true,
                 context: context,
-                builder: (context) => MyAlertDialog(
+                builder: (final context) => MyAlertDialog(
                   title: Text(Language.of(context).error),
                   content: SingleChildScrollView(
                     child: ListBody(
@@ -65,7 +64,7 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
                   ],
                 ),
               );
-            }
+            }*/
           },
           icon: const Icon(Icons.print),
         ),

@@ -4,7 +4,10 @@ import 'package:notes/_internal_packages.dart';
 
 abstract class ModalSheetWidgets extends StatelessWidget {
   const ModalSheetWidgets(
-      {required this.onTap, required this.icon, required this.label, Key? key})
+      {required this.onTap,
+      required this.icon,
+      required this.label,
+      final Key? key})
       : super(key: key);
   final Function()? onTap;
   final IconData icon;
@@ -13,14 +16,14 @@ abstract class ModalSheetWidgets extends StatelessWidget {
 
 class ModalSheetWidget extends ModalSheetWidgets {
   const ModalSheetWidget(
-      {required Function()? onTap,
-      required IconData icon,
-      required String label,
-      Key? key})
+      {required final Function()? onTap,
+      required final IconData icon,
+      required final String label,
+      final Key? key})
       : super(key: key, onTap: onTap, icon: icon, label: label);
 
   @override
-  Widget build(BuildContext context) => Flexible(
+  Widget build(final BuildContext context) => Flexible(
         fit: FlexFit.tight,
         child: GestureDetector(
           onTap: onTap,
@@ -430,17 +433,17 @@ class ModalSheetUnarchiveWidget extends StatelessWidget {
 }*/
 
 class ModalSheetDeleteAllWidget extends StatelessWidget {
-  const ModalSheetDeleteAllWidget({Key? key}) : super(key: key);
+  const ModalSheetDeleteAllWidget({final Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Flexible(
+  Widget build(final BuildContext context) => Flexible(
         fit: FlexFit.tight,
         child: GestureDetector(
           onTap: () async {
             final status = await showDialog<bool>(
                   barrierDismissible: false,
                   context: context,
-                  builder: (_) => MyAlertDialog(
+                  builder: (final _) => MyAlertDialog(
                     title: Text(Language.of(context).message),
                     content: Text(Language.of(context).emptyTrashWarning),
                     actions: [
@@ -464,11 +467,11 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
               if (Provider.of<NotesHelper>(context, listen: false)
                   .otherNotes
                   .isNotEmpty) {
-                await Utilities.onDeleteAllTap(context);
+                Utilities.onDeleteAllTap(context);
               }
             }
             Navigator.of(context).popUntil(
-                (route) => route.settings.name == AppRoutes.trashScreen);
+                (final route) => route.settings.name == AppRoutes.trashScreen);
           },
           child: Container(
             height: 80,
@@ -502,7 +505,7 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
       );
 }
 
-String getRoute(NoteState state) {
+String getRoute(final NoteState state) {
   switch (state) {
     case NoteState.archived:
       return AppRoutes.archiveScreen;

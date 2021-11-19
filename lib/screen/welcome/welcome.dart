@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class Welcome extends StatefulWidget {
-  const Welcome({Key? key}) : super(key: key);
+  const Welcome({final Key? key}) : super(key: key);
 
   @override
   _WelcomeState createState() => _WelcomeState();
@@ -52,7 +51,7 @@ class _WelcomeState extends State<Welcome> {
   @override
   void initState() {
     super.initState();
-    onChangeSub = keyboardVisibilityController.onChange.listen((visible) {
+    onChangeSub = keyboardVisibilityController.onChange.listen((final visible) {
       if (mounted) {
         setState(() {
           _keyboardVisible = visible;
@@ -62,7 +61,7 @@ class _WelcomeState extends State<Welcome> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     _backgroundColor = Theme.of(context).canvasColor;
     windowHeight = MediaQuery.of(context).size.height;
     windowWidth = MediaQuery.of(context).size.width;
@@ -149,7 +148,7 @@ class _WelcomeState extends State<Welcome> {
         showDialog(
           barrierDismissible: false,
           context: context,
-          builder: (_) {
+          builder: (final _) {
             return spinkit;
           },
         ),
@@ -189,7 +188,7 @@ class _WelcomeState extends State<Welcome> {
       unawaited(showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (_) {
+        builder: (final _) {
           return spinkit;
         },
       ));
@@ -208,9 +207,9 @@ class _WelcomeState extends State<Welcome> {
         listen: false,
       ).isLoggedIn) {
         Utilities.initialize(context);
-        await syncNotes(context);
+        // unawaited(syncNotes(context));
         await Navigator.pushNamedAndRemoveUntil(
-            context, AppRoutes.homeScreen, (route) => false);
+            context, AppRoutes.homeScreen, (final route) => false);
       } else {
         Navigator.of(context).pop();
         handleError(
@@ -273,7 +272,7 @@ class InputWithIcon extends StatefulWidget {
     required this.icon,
     required this.hint,
     required this.textFormField,
-    Key? key,
+    final Key? key,
   }) : super(
           key: key,
         );
@@ -287,7 +286,7 @@ class InputWithIcon extends StatefulWidget {
 
 class _InputWithIconState extends State<InputWithIcon> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Container(
       decoration: BoxDecoration(
           border: Border.all(color: Colors.grey, width: 2),
@@ -310,7 +309,7 @@ class _InputWithIconState extends State<InputWithIcon> {
   }
 }
 
-void handleError(String response, BuildContext context) {
+void handleError(final String response, final BuildContext context) {
   logger.wtf(response);
   if (response == 'user-not-found' || response == 'auth/user-not-found') {
     Utilities.showSnackbar(context, 'Please Sign up first');

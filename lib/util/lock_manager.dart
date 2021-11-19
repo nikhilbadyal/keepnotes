@@ -7,83 +7,73 @@ class LockChecker with ChangeNotifier {
     initConfig();
   }
 
-  final int passwordLength = 4;
   late String password;
   late bool bioEnabled;
-  late bool bioAvailable;
+  late bool bioNotAvailable;
   late bool firstTimeNeeded;
-
   late bool fpDirectly;
-  late String exportPath;
-  late String gender;
-  late bool usedOlderVersion;
   late bool directlyDelete;
-  MethodChannel channel = const MethodChannel('externalStorage');
-  final LocalAuthentication _localAuthentication = LocalAuthentication();
-
-  Future<void> updateGender(String gender) async =>
-      Utilities.addStringToSF('gender', gender);
-
-  void addGenderToSf() {
-    Utilities.addStringToSF('gender', gender);
-  }
+  late String gender;
+  final LocalAuthentication localAuthentication = LocalAuthentication();
 
   void initConfig() {
-    unawaited(Utilities.removeValueFromSF('password'));
-    bioEnabled = Utilities.getBoolFromSF('bio') ?? false;
-    firstTimeNeeded = Utilities.getBoolFromSF('firstTimeNeeded') ?? false;
-    bioAvailable = bioEnabled;
-    fpDirectly = Utilities.getBoolFromSF('fpDirectly') ?? false;
-    directlyDelete = Utilities.getBoolFromSF('directlyDelete') ?? true;
-    gender = Utilities.getStringFromSF('gender') ?? 'women';
-    usedOlderVersion = Utilities.getBoolFromSF('usedOlderVersion') ?? true;
-    unawaited(getPath());
-  }
-
-  Future<void> getPath() async {
-    exportPath = await channel.invokeMethod('getExternalStorageDirectory');
-    if (!bioAvailable) {
-      // bioAvailable = false;
-      bioAvailable = await _localAuthentication.canCheckBiometrics;
+    bioEnabled = getBoolFromSF('bio') ?? false;
+    if (bioEnabled) {
+      bioNotAvailable = false;
+    } else {
+      unawaited(localAuthentication.canCheckBiometrics.then((final value) {
+        bioNotAvailable = !value;
+      }));
     }
+    firstTimeNeeded = getBoolFromSF('firstTimeNeeded') ?? false;
+    fpDirectly = getBoolFromSF('fpDirectly') ?? false;
+    directlyDelete = getBoolFromSF('directlyDelete') ?? true;
+    gender = getStringFromSF('gender') ?? 'men';
   }
 
-  Future<void> resetConfig({required bool shouldResetBio}) async {
+  void addGenderToSf() {
+    addStringToSF('gender', gender);
+  }
+
+  Future<void> resetConfig({required final bool shouldResetBio}) async {
     password = '';
     if (shouldResetBio) {
       await resetBio();
     }
-    unawaited(Utilities.storage.delete(key: 'password'));
+    unawaited(removeFromSF('password'));
   }
 
   Future<void> resetBio() async {
     if (bioEnabled) {
       bioEnabled = false;
       firstTimeNeeded = false;
-      await Utilities.removeValueFromSF('bio');
-      await Utilities.removeValueFromSF('biofirstTimeNeeded');
+      await removeFromSF('bio');
+      await removeFromSF('firstTimeNeeded');
+      await removeFromSF('hiddenDiscovered');
+      await removeFromSF('fpDirectly');
+      await removeFromSF('gender');
     }
   }
 
-  Future<void> passwordSetConfig(String enteredPassword) async {
+  Future<void> passwordSetConfig(final String enteredPassword) async {
     password = enteredPassword;
-    await Utilities.storage.write(key: 'password', value: enteredPassword);
+    await addStringToSF('password', encryption.encryptStr(password));
   }
 
   Future<void> bioEnabledConfig() async {
     bioEnabled = true;
-    bioAvailable = true;
+    bioNotAvailable = false;
     firstTimeNeeded = true;
-    await Utilities.addBoolToSF('bio', value: true);
-    await Utilities.addBoolToSF('firstTimeNeeded', value: true);
+    await addBoolToSF('bio', value: true);
+    await addBoolToSF('firstTimeNeeded', value: true);
   }
 
-  Future<bool> authenticateUser(BuildContext context) async {
+  Future<bool> authenticate(final BuildContext context) async {
     var isAuthenticated = false;
-    await _localAuthentication.getAvailableBiometrics();
+    await localAuthentication.getAvailableBiometrics();
     try {
-      isAuthenticated = await _localAuthentication.authenticate(
-        localizedReason: 'Authenticate to see the hidden world',
+      isAuthenticated = await localAuthentication.authenticate(
+        localizedReason: Language.of(context).localizedReason,
         stickyAuth: true,
         biometricOnly: true,
       );
@@ -94,29 +84,13 @@ class LockChecker with ChangeNotifier {
     return isAuthenticated;
   }
 
-  Future<bool> authenticateFirstTimeUser(BuildContext context) async {
-    var isAuthenticated = false;
-    await _localAuthentication.getAvailableBiometrics();
-    try {
-      isAuthenticated = await _localAuthentication.authenticate(
-        localizedReason: 'Please authenticate',
-        useErrorDialogs: false,
-        stickyAuth: true,
-        biometricOnly: true,
-      );
-    } on PlatformException catch (e) {
-      await _handleError(errorCode: e.code, context: context);
-      isAuthenticated = false;
-    }
-    return isAuthenticated;
-  }
-
   Future<void> _handleError(
-          {required String errorCode, required BuildContext context}) async =>
+          {required final String errorCode,
+          required final BuildContext context}) async =>
       showDialog<void>(
         barrierDismissible: true,
         context: context,
-        builder: (context) => MyAlertDialog(
+        builder: (final context) => MyAlertDialog(
           title: Text(Language.of(context).error),
           content: SingleChildScrollView(
             child: ListBody(
@@ -135,8 +109,4 @@ class LockChecker with ChangeNotifier {
           ],
         ),
       );
-
-  Future<void> setUsedOlderVersion() async {
-    await Utilities.addBoolToSF('usedOlderVersion', value: usedOlderVersion);
-  }
 }

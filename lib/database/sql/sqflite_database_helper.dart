@@ -6,6 +6,7 @@ import 'package:path/path.dart' show join;
 class SqfliteDatabaseHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
+  static bool syncedWithFirebase = false;
 
   static final fieldMap = {
     'id': 'text PRIMARY KEY ',
@@ -22,7 +23,7 @@ class SqfliteDatabaseHelper {
     final status = await databaseExists(databasePath);
     if (!status) {
       _database = await openDatabase(join(databasePath, dbName),
-          onCreate: (database, version) => database.execute(
+          onCreate: (final database, final version) => database.execute(
                 query(),
               ),
           version: 1);
@@ -34,7 +35,7 @@ class SqfliteDatabaseHelper {
     var query = 'CREATE TABLE ';
     query += tableName;
     query += '(';
-    fieldMap.forEach((key, value) {
+    fieldMap.forEach((final key, final value) {
       query += '$key $value,';
     });
     query = query.substring(0, query.length - 1);
@@ -42,7 +43,7 @@ class SqfliteDatabaseHelper {
     return query;
   }
 
-  static Future<bool> insert(Note note) async {
+  static Future<bool> insert(final Note note) async {
     final db = await database;
     try {
       await db.insert(
@@ -56,7 +57,7 @@ class SqfliteDatabaseHelper {
     return true;
   }
 
-  static Future<bool> update(Note note) async {
+  static Future<bool> update(final Note note) async {
     final db = await database;
     try {
       await db.update(
@@ -71,7 +72,8 @@ class SqfliteDatabaseHelper {
     return true;
   }
 
-  static Future<bool> delete(String whereCond, List<Object> where) async {
+  static Future<bool> delete(
+      final String whereCond, final List<Object> where) async {
     final db = await database;
     try {
       await db.delete(
@@ -86,7 +88,7 @@ class SqfliteDatabaseHelper {
   }
 
   static Future<List<Map<String, dynamic>>> queryData(
-      {String? whereStr, List<Object>? whereCond}) async {
+      {final String? whereStr, final List<Object>? whereCond}) async {
     final db = await database;
     late Future<List<Map<String, Object?>>> resultSet;
     try {
@@ -102,7 +104,7 @@ class SqfliteDatabaseHelper {
     return resultSet;
   }
 
-  static Future<bool> addAll(List<Map<String, dynamic>> notesList) async {
+  static Future<bool> addAll(final List<Map<String, dynamic>> notesList) async {
     final db = await database;
     final batch = db.batch();
     for (final element in notesList) {
