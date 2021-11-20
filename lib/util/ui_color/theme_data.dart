@@ -7,14 +7,12 @@ ThemeData darkTheme = ThemeData();
 Color greyColor = const Color(0xFFEAEAEA);
 
 Color darken(final Color c, [final int percent = 10]) {
-  assert(1 <= percent && percent <= 100, 'Percent must be b/w 1&100');
   final f = 1 - percent / 100;
   return Color.fromARGB(c.alpha, (c.red * f).round(), (c.green * f).round(),
       (c.blue * f).round());
 }
 
 Color lighten(final Color c, [final int percent = 10]) {
-  assert(1 <= percent && percent <= 100, 'Percent must be b/w 1&100');
   final p = percent / 100;
   return Color.fromARGB(
     c.alpha,

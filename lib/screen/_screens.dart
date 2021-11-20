@@ -10,7 +10,7 @@ export 'package:notes/screen/edit/error_model_sheet.dart';
 export 'package:notes/screen/hidden/hidden_note_options.dart';
 export 'package:notes/screen/home/home_body.dart';
 export 'package:notes/screen/home/home_note_options.dart';
-export 'package:notes/screen/lock/Keyboard.dart';
+export 'package:notes/screen/lock/keyboard.dart';
 export 'package:notes/screen/lock/lock_screen.dart';
 export 'package:notes/screen/lock/password_circles.dart';
 export 'package:notes/screen/lock/set_password.dart';

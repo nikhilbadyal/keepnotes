@@ -270,14 +270,12 @@ class _WelcomeState extends State<Welcome> {
 class InputWithIcon extends StatefulWidget {
   const InputWithIcon({
     required this.icon,
-    required this.hint,
     required this.textFormField,
     final Key? key,
   }) : super(
           key: key,
         );
   final IconData icon;
-  final String hint;
   final TextFormField textFormField;
 
   @override
@@ -312,25 +310,24 @@ class _InputWithIconState extends State<InputWithIcon> {
 void handleError(final String response, final BuildContext context) {
   logger.wtf(response);
   if (response == 'user-not-found' || response == 'auth/user-not-found') {
-    Utilities.showSnackbar(context, 'Please Sign up first');
+    Utilities.showSnackbar(context, Language.of(context).signUp);
   } else if (response == 'invalid-email' || response == 'auth/invalid-email') {
-    Utilities.showSnackbar(context, 'Check your email');
+    Utilities.showSnackbar(context, Language.of(context).checkEmail);
   } else if (response == 'wrong-password') {
-    Utilities.showSnackbar(context, 'Wrong password');
+    Utilities.showSnackbar(context, Language.of(context).wrongPassword);
   } else if (response == 'account-exists-with-different-credential') {
-    Utilities.showSnackbar(context, 'Account already exist ');
+    Utilities.showSnackbar(context, Language.of(context).accountAlreadyExist);
   } else if (response == 'email-already-in-use') {
-    Utilities.showSnackbar(context, 'Email Already in use');
+    Utilities.showSnackbar(context, Language.of(context).emailAlreadyExist);
   } else if (response == 'invalid-email') {
-    Utilities.showSnackbar(context, 'Invalid Email id');
+    Utilities.showSnackbar(context, Language.of(context).invalidEmail);
   } else if (response == 'email-not-verified') {
-    Utilities.showSnackbar(context, 'Verify email first');
+    Utilities.showSnackbar(context, Language.of(context).verifyEmail);
   } else if (response == 'weak-password') {
-    Utilities.showSnackbar(context, 'Please choose a strong password');
+    Utilities.showSnackbar(context, Language.of(context).weakPassword);
   } else if (response == 'too-many-requests') {
-    Utilities.showSnackbar(context, 'Too may requests. Try again later');
+    Utilities.showSnackbar(context, Language.of(context).tryAgainLater);
   } else {
-    Utilities.showSnackbar(
-        context, 'Something bad happened. Please contact us');
+    Utilities.showSnackbar(context, Language.of(context).contactUs);
   }
 }

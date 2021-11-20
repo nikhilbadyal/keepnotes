@@ -5,6 +5,7 @@ import 'package:notes/_internal_packages.dart';
 final RouteObserver<Route> routeObserver = RouteObserver<Route>();
 
 late Encrypt encryption;
+final LocalAuthentication localAuthentication = LocalAuthentication();
 
 class MyNotes extends StatefulWidget {
   const MyNotes({
@@ -72,6 +73,14 @@ class _MyNotesState extends State<MyNotes> {
                 Provider.of<Auth>(context, listen: false).isLoggedIn
                     ? '/'
                     : 'welcome';
+            final primaryColor =
+                Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
+            final accentColor =
+                Color(getIntFromSF('accentColor') ?? defaultAccent.value);
+            final appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
+            final currentTheme = appTheme == AppTheme.light
+                ? lightTheme(primaryColor, accentColor)
+                : blackTheme(primaryColor, accentColor);
             return MaterialApp(
               locale: _locale,
               restorationScopeId: 'keepnotes',
@@ -91,8 +100,7 @@ class _MyNotesState extends State<MyNotes> {
                 }
                 return supportedLocales.first;
               },
-              theme: Provider.of<AppConfiguration>(context, listen: false)
-                  .currentTheme,
+              theme: currentTheme,
               title: Language.of(context).appTitle,
               initialRoute: initRoute,
               debugShowCheckedModeBanner: false,

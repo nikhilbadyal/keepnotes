@@ -1,5 +1,4 @@
 import 'package:notes/_app_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class BottomBar extends StatelessWidget {
@@ -20,6 +19,9 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
+    final primaryColor =
+        Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
+    final appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
     return BottomAppBar(
       child: Container(
         color: Theme.of(context).canvasColor,
@@ -32,11 +34,8 @@ class BottomBar extends StatelessWidget {
               icon: const Icon(Icons.lock_outline),
               onPressed: onIconTap,
               color: isReadOnly
-                  ? Provider.of<AppConfiguration>(context, listen: false)
-                      .primaryColor
-                  : Provider.of<AppConfiguration>(context, listen: false)
-                              .appTheme ==
-                          AppTheme.light
+                  ? primaryColor
+                  : appTheme == AppTheme.light
                       ? Colors.black
                       : Colors.white,
             ),

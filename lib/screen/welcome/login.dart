@@ -37,22 +37,21 @@ Widget login(
               children: <Widget>[
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
-                  child: const Text(
-                    'Login To Continue',
-                    style: TextStyle(fontSize: 20),
+                  child: Text(
+                    Language.of(context).loginToContinue,
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
                 InputWithIcon(
                   icon: Icons.email,
-                  hint: 'Enter Email...',
                   textFormField: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onSaved: (final val) {
                       user.email = val ?? '';
                     },
                     validator: Validators.compose([
-                      Validators.email('Invalid Email'),
-                      Validators.required('* Required'),
+                      Validators.email(Language.of(context).checkEmail),
+                      Validators.required(Language.of(context).required),
                     ]),
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
@@ -69,7 +68,6 @@ Widget login(
                 ),
                 InputWithIcon(
                   icon: Icons.vpn_key,
-                  hint: 'Enter Password...',
                   textFormField: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onSaved: (final val) {
@@ -112,7 +110,7 @@ Widget login(
                           .pushNamed(AppRoutes.forgotPasswordScreen);
                     },
                     child: Text(
-                      'Forgot Password?',
+                      Language.of(context).forgotPassword,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.secondary,
@@ -127,14 +125,14 @@ Widget login(
             Column(
               children: <Widget>[
                 PrimaryButton(
-                  btnText: 'Login',
+                  btnText: Language.of(context).login,
                   onTap: loginTap,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 OutlineBtn(
-                  btnText: 'Create New Account',
+                  btnText: Language.of(context).createNewAccount,
                   onTap: goToSignupTap,
                 )
               ],

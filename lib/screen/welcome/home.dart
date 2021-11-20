@@ -1,3 +1,4 @@
+import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 Widget home(
@@ -49,7 +50,7 @@ Widget home(
                     ),
                   ),
                   Text(
-                    'We keep you safe.',
+                    Language.of(context).appTagLine,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: _headingColor, fontSize: 16),
                   ),
@@ -79,7 +80,7 @@ Widget home(
               ),
               child: Center(
                 child: Text(
-                  'Get Started',
+                  Language.of(context).getStarted,
                   style: TextStyle(
                       color: Theme.of(context).canvasColor, fontSize: 20),
                 ),

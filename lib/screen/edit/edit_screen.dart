@@ -73,8 +73,8 @@ class _EditScreenState extends State<EditScreen> {
                   border: InputBorder.none),
             ),
             TextField(
-              autofocus:
-                  _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
+              autofocus: true,
+              // _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
               readOnly: isReadOnly,
               controller: _contentController,
               maxLines: null,
@@ -101,32 +101,25 @@ class _EditScreenState extends State<EditScreen> {
 
   Future<bool> onBackPress() async {
     autoSaverTimer.cancel();
-    unawaited(saveNote().then((final value) {
-      if (!value) {
-        Utilities.showSnackbar(context, Language.of(context).error);
-      }
-    }));
+    await saveNote();
     return true;
   }
 
   Future<bool> saveNote() async {
+    debugPrint(Provider.of<NotesHelper>(context, listen: false)
+        .mainNotes
+        .length
+        .toString());
     final isEdited = updateNote();
     if (isEdited) {
-      await Provider.of<NotesHelper>(context, listen: false).insert(
-        noteInEditing,
-      );
-      return true;
+      await Provider.of<NotesHelper>(context, listen: false)
+          .insert(noteInEditing);
     }
     return true;
   }
 
   Future<void> backgroundSaveNote() async {
-    final isEdited = updateNote();
-    if (isEdited) {
-      await Provider.of<NotesHelper>(context, listen: false).insert(
-        noteInEditing,
-      );
-    }
+    updateNote();
   }
 
   bool updateNote() {

@@ -33,22 +33,21 @@ Widget signup(
               children: <Widget>[
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
-                  child: const Text(
-                    'Create a New Account',
-                    style: TextStyle(fontSize: 20),
+                  child: Text(
+                    Language.of(context).createNewAccount,
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
                 InputWithIcon(
                   icon: Icons.email,
-                  hint: 'Enter Email...',
                   textFormField: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onSaved: (final val) {
                       user.email = val ?? '';
                     },
                     validator: Validators.compose([
-                      Validators.email('Invalid Email'),
-                      Validators.required('* Required'),
+                      Validators.email(Language.of(context).checkEmail),
+                      Validators.required(Language.of(context).required),
                     ]),
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
@@ -65,14 +64,13 @@ Widget signup(
                 ),
                 InputWithIcon(
                   icon: Icons.vpn_key,
-                  hint: 'Enter Password...',
                   textFormField: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onSaved: (final val) {
                       user.password = val ?? '';
                     },
                     validator: Validators.compose([
-                      Validators.required('* Required'),
+                      Validators.required(Language.of(context).required),
                       Validators.patternRegExp(
                           RegExp(passwordRegEx()),
                           'Please meet the following criteria\n'
@@ -117,7 +115,7 @@ Widget signup(
                           AppRoutes.forgotPasswordScreen);
                     },
                     child: Text(
-                      'Forgot Password?',
+                      Language.of(context).forgotPassword,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.secondary,
@@ -132,14 +130,14 @@ Widget signup(
             Column(
               children: <Widget>[
                 PrimaryButton(
-                  btnText: 'Create Account',
+                  btnText: Language.of(context).createNewAccount,
                   onTap: createAccountOnTap,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 OutlineBtn(
-                  btnText: 'Back To Login',
+                  btnText: Language.of(context).backToLogin,
                   onTap: goToLoginOnTap,
                 ),
               ],

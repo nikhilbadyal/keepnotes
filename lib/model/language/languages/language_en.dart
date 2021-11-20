@@ -161,9 +161,6 @@ class LanguageEn extends Language {
   String get backupScheduled => 'Backup Triggered';
 
   @override
-  String get message => 'Message';
-
-  @override
   String get modified => 'Modified';
 
   @override
@@ -221,10 +218,6 @@ class LanguageEn extends Language {
   String get randomColor => 'Random Color';
 
   @override
-  String get oldVersionWarning => 'If you ever used old version. Please'
-      ' consider unhiding notes and hiding them again';
-
-  @override
   String get notAvailJustification => 'May be in next update?';
 
   @override
@@ -240,18 +233,10 @@ class LanguageEn extends Language {
   String get good => 'Good';
 
   @override
-  // String get king => 'King';
-  String get king => '';
-
-  @override
   String get morning => 'Morning';
 
   @override
   String get night => 'Night';
-
-  @override
-  String get queen => '';
-  // String get queen => 'Queen';
 
   @override
   String get samePasswordError => "You can't use same password twice";
@@ -282,4 +267,73 @@ class LanguageEn extends Language {
 
   @override
   String get localizedReason => 'Authenticate to see hidden notes';
+
+  @override
+  String get accountAlreadyExist => 'Account already exist';
+
+  @override
+  String get appTagLine => 'We Keep you SAFE';
+
+  @override
+  String get backToLogin => 'Back to login';
+
+  @override
+  String get contactUs => 'Something bad happened. Contact us.';
+
+  @override
+  String get createNewAccount => 'Create new account';
+
+  @override
+  String get emailAlreadyExist => 'Email already in use';
+
+  @override
+  String get forgotPassword => 'Forgot password';
+
+  @override
+  String get getStarted => 'Get started';
+
+  @override
+  String get hello => 'Hello';
+
+  @override
+  String get invalidEmail => 'Invalid Email';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get loginToContinue => 'Login to continue';
+
+  @override
+  String get required => 'Required';
+
+  @override
+  String get signUp => 'Sign up';
+
+  @override
+  String get soon => 'Feature will be live soon';
+
+  @override
+  String get there => 'There ';
+
+  @override
+  String get tryAgainLater => 'Try again, later';
+
+  @override
+  String get unableToLaunchEmail => 'Unable to launch email app';
+
+  @override
+  String get verifyEmail => 'Please verify email first';
+
+  @override
+  String get weakPassword => 'Weak password';
+
+  @override
+  String get tapMe => ',Hey!Tap me to see magic';
+
+  @override
+  String get off => 'Off';
+
+  @override
+  String get on => 'On';
 }

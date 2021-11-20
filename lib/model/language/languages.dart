@@ -60,6 +60,44 @@ class FallbackLocalizationDelegate
 }
 
 abstract class Language {
+  String get appTagLine;
+
+  String get loginToContinue;
+
+  String get forgotPassword;
+
+  String get login;
+
+  String get createNewAccount;
+
+  String get backToLogin;
+
+  String get signUp;
+
+  String get accountAlreadyExist;
+
+  String get emailAlreadyExist;
+
+  String get invalidEmail;
+
+  String get verifyEmail;
+
+  String get weakPassword;
+
+  String get tryAgainLater; // We keep you safe
+  String get contactUs;
+
+  String get unableToLaunchEmail;
+
+  String get tapMe;
+
+  String get on; // We keep you safe
+  String get off; // We keep you safe
+
+  String get getStarted;
+
+  String get soon;
+
   String get good;
 
   String get morning;
@@ -67,10 +105,6 @@ abstract class Language {
   String get afternoon;
 
   String get night;
-
-  String get king;
-
-  String get queen;
 
   String get labelLanguage => 'Languages';
 
@@ -90,8 +124,9 @@ abstract class Language {
 
   String get localizedReason;
 
-  static Language of(final BuildContext context) =>
-      Localizations.of<Language>(context, Language) ?? LanguageEn();
+  String get hello;
+
+  String get there;
 
   String get enterPassword;
 
@@ -175,8 +210,6 @@ abstract class Language {
 
   String get appColor;
 
-  String get oldVersionWarning;
-
   String get notAvailJustification;
 
   String get alreadyDone;
@@ -233,8 +266,6 @@ abstract class Language {
 
   String get enterPasswordOnce;
 
-  String get message;
-
   String get setFpFirst;
 
   String get alertDialogOp1;
@@ -242,6 +273,11 @@ abstract class Language {
   String get alertDialogOp2;
 
   String get checkEmail;
+
+  String get required;
+
+  static Language of(final BuildContext context) =>
+      Localizations.of<Language>(context, Language) ?? LanguageEn();
 }
 
 const String prefSelectedLanguageCode = 'SelectedLanguageCode';

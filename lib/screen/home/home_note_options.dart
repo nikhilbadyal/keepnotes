@@ -72,7 +72,7 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                         await Utilities.onModalTrashTap(context, widget.note,
                             widget.autoSaver, widget.saveNote);
                       },
-                      label: Language.of(context).trash,
+                      label: Language.of(context).delete,
                     ),
                   ],
                 ),
@@ -89,10 +89,12 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
       await showDialog(
         barrierDismissible: true,
         context: context,
-        builder: (final _) => MyAlertDialog(
-          title: Text(Language.of(context).message),
-          content: Text(Language.of(context).setPasswordFirst),
-        ),
+        builder: (final _) {
+          return MyAlertDialog(
+            title: Text(Language.of(context).setPasswordFirst),
+            content: Container(),
+          );
+        },
       );
     } else {
       widget.autoSaver.cancel();

@@ -136,7 +136,6 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
           barrierDismissible: true,
           context: context,
           builder: (final context) => MyAlertDialog(
-            title: Text(Language.of(context).message),
             content: Text(Language.of(context).trashEditingWarning),
           ),
         );

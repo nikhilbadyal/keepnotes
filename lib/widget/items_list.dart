@@ -1,5 +1,4 @@
 import 'package:notes/_app_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 typedef OnTap = void Function();
@@ -22,88 +21,83 @@ class ListItem extends StatelessWidget {
   final Map<int, bool> selectedFlag;
 
   @override
-  Widget build(final BuildContext context) => SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: 125,
-        child: GestureDetector(
-          onLongPress: onItemLongPress,
-          onTap: onItemTap,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            decoration: BoxDecoration(
-              color: Provider.of<AppConfiguration>(context, listen: false)
-                          .appTheme ==
-                      AppTheme.light
-                  ? Theme.of(context).floatingActionButtonTheme.foregroundColor
-                  : Colors.black,
-              boxShadow: Provider.of<AppConfiguration>(context, listen: false)
-                          .appTheme ==
-                      AppTheme.light
-                  ? shadow
-                  : null,
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(
-                color: Provider.of<AppConfiguration>(context, listen: false)
-                            .appTheme ==
-                        AppTheme.light
-                    ? greyColor
-                    : Colors.grey[900] ?? Colors.transparent,
-              ),
-            ),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          note.title,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          note.strLastModifiedDate,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 11,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Expanded(
-                          child: Text(
-                            note.content,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                _selectedIcon(isSelected),
-              ],
+  Widget build(final BuildContext context) {
+    final appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 125,
+      child: GestureDetector(
+        onLongPress: onItemLongPress,
+        onTap: onItemTap,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            color: appTheme == AppTheme.light
+                ? Theme.of(context).floatingActionButtonTheme.foregroundColor
+                : Colors.black,
+            boxShadow: appTheme == AppTheme.light ? shadow : null,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(
+              color: appTheme == AppTheme.light
+                  ? greyColor
+                  : Colors.grey[900] ?? Colors.transparent,
             ),
           ),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        note.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        note.strLastModifiedDate,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 11,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Expanded(
+                        child: Text(
+                          note.content,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              _selectedIcon(isSelected),
+            ],
+          ),
         ),
-      );
+      ),
+    );
+  }
 
   Widget _selectedIcon(final bool isSelected) {
     if (isSelected) {

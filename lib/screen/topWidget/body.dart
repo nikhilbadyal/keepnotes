@@ -32,8 +32,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(final BuildContext context) {
-    assert(widget.fromWhere != NoteState.unspecified,
-        'This is only for home body');
     return FutureBuilder(
       future: myFuture,
       builder: (final context, final projectSnap) {
@@ -141,7 +139,6 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
           barrierDismissible: true,
           context: context,
           builder: (final context) => MyAlertDialog(
-            title: Text(Language.of(context).message),
             content: Text(Language.of(context).trashEditingWarning),
           ),
         );

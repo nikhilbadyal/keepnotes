@@ -6,7 +6,7 @@ import 'package:path/path.dart' show join;
 class SqfliteDatabaseHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
-  static bool syncedWithFirebase = false;
+  static bool syncedWithFirebase = getBoolFromSF('syncedWithFirebase') ?? false;
 
   static final fieldMap = {
     'id': 'text PRIMARY KEY ',

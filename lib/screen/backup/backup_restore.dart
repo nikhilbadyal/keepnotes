@@ -21,7 +21,7 @@ class _BackUpScreenHelperState extends State<BackUpScreenHelper>
               child: Padding(
                 padding: const EdgeInsets.only(top: 60),
                 child: Text(
-                  'Feature will be live Soon',
+                  Language.of(context).soon,
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 25,

@@ -1,4 +1,3 @@
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 import 'package:notes/util/_util.dart';
 
@@ -41,11 +40,11 @@ class AppBarAvatar extends StatefulWidget {
 
 class _AppBarAvatarState extends State<AppBarAvatar> {
   late Widget _animatedChild;
+  var gender = getStringFromSF('gender') ?? 'men';
 
   @override
   void initState() {
-    _animatedChild =
-        child(Key(Provider.of<LockChecker>(context, listen: false).gender));
+    _animatedChild = child(Key(gender));
     super.initState();
   }
 
@@ -67,15 +66,14 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
 
   void defaultDoubleTap() {
     setState(() {
-      if (Provider.of<LockChecker>(context, listen: false).gender == 'men') {
-        Provider.of<LockChecker>(context, listen: false).gender = 'women';
+      if (gender == 'men') {
+        gender = 'women';
       } else {
-        Provider.of<LockChecker>(context, listen: false).gender = 'men';
+        gender = 'men';
       }
-      _animatedChild =
-          child(Key(Provider.of<LockChecker>(context, listen: false).gender));
+      _animatedChild = child(Key(gender));
     });
-    Provider.of<LockChecker>(context, listen: false).addGenderToSf();
+    addStringToSF('gender', gender);
   }
 
   Widget child(final Key key) {
@@ -84,7 +82,7 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
       radius: 20,
       backgroundColor: Colors.white,
       backgroundImage: AssetImage(
-        'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.png',
+        'assets/images/$gender.png',
       ),
     );
   }

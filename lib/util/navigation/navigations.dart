@@ -41,14 +41,15 @@ Future<void> goToNoteEditScreen(
 
 Future<void> goToHiddenScreen(
     final BuildContext context, final String activeRoute) async {
+  final bioEnable = getBoolFromSF('bio') ?? false;
+  final firstTime = getBoolFromSF('firstTimeNeeded') ?? false;
+  final fpDirectly = getBoolFromSF('fpDirectly') ?? false;
   if (ModalRoute.of(context)!.settings.name == AppRoutes.hiddenScreen) {
     Navigator.of(context).pop();
     return;
   }
   if (Provider.of<LockChecker>(context, listen: false).password.isNotEmpty) {
-    if (Provider.of<LockChecker>(context, listen: false).bioEnabled &&
-        !Provider.of<LockChecker>(context, listen: false).firstTimeNeeded &&
-        Provider.of<LockChecker>(context, listen: false).fpDirectly) {
+    if (bioEnable && !firstTime && fpDirectly) {
       final status = await Provider.of<LockChecker>(context, listen: false)
           .authenticate(context);
       if (status) {

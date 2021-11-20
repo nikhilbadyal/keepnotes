@@ -83,15 +83,6 @@ class Note implements Comparable<Note> {
 
   @override
   int compareTo(final Note other) {
-    final isAfter = lastModify.isAfter(other.lastModify);
-    if (isAfter) {
-      return -1;
-    } else {
-      final isBefore = lastModify.isBefore(other.lastModify);
-      if (isBefore) {
-        return 1;
-      }
-      return 0;
-    }
+    return other.lastModify.compareTo(lastModify);
   }
 }

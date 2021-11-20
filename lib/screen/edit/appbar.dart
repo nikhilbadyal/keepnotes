@@ -36,35 +36,6 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
               return;
             }
             // TODO PDF Support
-            /*if (await Utilities.requestPermission(Permission.storage)) {
-              await saveNote();
-              await HapticFeedback.vibrate();
-              await PdfUtils.createPdf(context, note);
-              Utilities.showSnackbar(context, Language.of(context).done);
-            } else {
-              await showDialog<void>(
-                barrierDismissible: true,
-                context: context,
-                builder: (final context) => MyAlertDialog(
-                  title: Text(Language.of(context).error),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: <Widget>[
-                        Text(Language.of(context).permissionError),
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () async {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(Language.of(context).alertDialogOp2),
-                    ),
-                  ],
-                ),
-              );
-            }*/
           },
           icon: const Icon(Icons.print),
         ),

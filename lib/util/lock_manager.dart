@@ -1,39 +1,20 @@
 import 'package:notes/_app_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class LockChecker with ChangeNotifier {
   LockChecker() {
-    initConfig();
+    intiConfig();
   }
 
+  void intiConfig() {
+    localAuthentication.canCheckBiometrics.then((final value) {
+      bioNotAvailable = !value;
+    });
+  }
+
+  // TODO Check whether i can remove this password field or not
   late String password;
-  late bool bioEnabled;
   late bool bioNotAvailable;
-  late bool firstTimeNeeded;
-  late bool fpDirectly;
-  late bool directlyDelete;
-  late String gender;
-  final LocalAuthentication localAuthentication = LocalAuthentication();
-
-  void initConfig() {
-    bioEnabled = getBoolFromSF('bio') ?? false;
-    if (bioEnabled) {
-      bioNotAvailable = false;
-    } else {
-      unawaited(localAuthentication.canCheckBiometrics.then((final value) {
-        bioNotAvailable = !value;
-      }));
-    }
-    firstTimeNeeded = getBoolFromSF('firstTimeNeeded') ?? false;
-    fpDirectly = getBoolFromSF('fpDirectly') ?? false;
-    directlyDelete = getBoolFromSF('directlyDelete') ?? true;
-    gender = getStringFromSF('gender') ?? 'men';
-  }
-
-  void addGenderToSf() {
-    addStringToSF('gender', gender);
-  }
 
   Future<void> resetConfig({required final bool shouldResetBio}) async {
     password = '';
@@ -44,15 +25,11 @@ class LockChecker with ChangeNotifier {
   }
 
   Future<void> resetBio() async {
-    if (bioEnabled) {
-      bioEnabled = false;
-      firstTimeNeeded = false;
-      await removeFromSF('bio');
-      await removeFromSF('firstTimeNeeded');
-      await removeFromSF('hiddenDiscovered');
-      await removeFromSF('fpDirectly');
-      await removeFromSF('gender');
-    }
+    await removeFromSF('bio');
+    await removeFromSF('firstTimeNeeded');
+    await removeFromSF('hiddenDiscovered');
+    await removeFromSF('fpDirectly');
+    await removeFromSF('gender');
   }
 
   Future<void> passwordSetConfig(final String enteredPassword) async {
@@ -61,9 +38,6 @@ class LockChecker with ChangeNotifier {
   }
 
   Future<void> bioEnabledConfig() async {
-    bioEnabled = true;
-    bioNotAvailable = false;
-    firstTimeNeeded = true;
     await addBoolToSF('bio', value: true);
     await addBoolToSF('firstTimeNeeded', value: true);
   }

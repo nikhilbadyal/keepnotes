@@ -217,8 +217,7 @@ class ScreenContainer extends TopWidgetBase {
       motion: const StretchMotion(),
       children: [
         Utilities.deleteAction(context, note,
-            shouldAsk: Provider.of<LockChecker>(context, listen: false)
-                .directlyDelete),
+            shouldAsk: getBoolFromSF('directlyDelete') ?? true),
       ],
     );
   }

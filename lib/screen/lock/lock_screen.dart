@@ -68,6 +68,11 @@ class _MyLockScreenState extends State<MyLockScreen>
   }
 
   @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(final BuildContext context) {
     return Scaffold(
       body: SafeArea(

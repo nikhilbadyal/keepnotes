@@ -43,13 +43,12 @@ class _LockScreenState extends State<LockScreen> {
 
   Future<void> onFingerTap() async {
     await HapticFeedback.vibrate();
-    if (Provider.of<LockChecker>(context, listen: false).bioEnabled) {
-      if (Provider.of<LockChecker>(context, listen: false).firstTimeNeeded) {
+    if (getBoolFromSF('bio') ?? false) {
+      if (getBoolFromSF('firstTimeNeeded') ?? false) {
         await showDialog<void>(
           context: context,
           barrierDismissible: false,
           builder: (final context) => MyAlertDialog(
-            title: Text(Language.of(context).message),
             content: Text(Language.of(context).enterPasswordOnce),
           ),
         );
@@ -66,7 +65,6 @@ class _LockScreenState extends State<LockScreen> {
             context: context,
             barrierDismissible: false,
             builder: (final context) => MyAlertDialog(
-              title: Text(Language.of(context).message),
               content: Text(Language.of(context).setFpFirst),
               actions: [
                 TextButton(
@@ -114,11 +112,10 @@ class _LockScreenState extends State<LockScreen> {
   Future<void> doneEnteringPass(final String enteredPassCode) async {
     if (enteredPassCode ==
         Provider.of<LockChecker>(context, listen: false).password) {
-      if (Provider.of<LockChecker>(context, listen: false).bioEnabled &&
-          Provider.of<LockChecker>(context, listen: false).firstTimeNeeded) {
+      final bioEnable = getBoolFromSF('bio') ?? false;
+      final firstTime = getBoolFromSF('firstTimeNeeded') ?? false;
+      if (bioEnable && firstTime) {
         await addBoolToSF('firstTimeNeeded', value: false);
-        Provider.of<LockChecker>(context, listen: false).firstTimeNeeded =
-            false;
       }
       await navigate(ModalRoute.of(context)!.settings.name!, context,
           AppRoutes.hiddenScreen);

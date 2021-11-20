@@ -15,7 +15,6 @@ class Utilities {
         barrierDismissible: true,
         context: context,
         builder: (final _) => MyAlertDialog(
-          title: Text(Language.of(context).message),
           content: Text(Language.of(context).setPasswordFirst),
         ),
       );
@@ -109,7 +108,7 @@ class Utilities {
     if (await canLaunch(url)) {
       return launch(url);
     } else {
-      getSnackBar(context, 'Unable to launch email app;');
+      getSnackBar(context, Language.of(context).unableToLaunchEmail);
       return false;
     }
   }
@@ -117,7 +116,7 @@ class Utilities {
   static final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'nikhildevelops@gmail.com',
-      queryParameters: {'subject': 'Suggestion/Issues for/in the app'});
+      queryParameters: {'subject': 'Suggestion for the app'});
 
   static String navChecker(final NoteState state) {
     if (state == NoteState.archived) {
@@ -131,18 +130,6 @@ class Utilities {
     }
   }
 
-  /*static Future<bool> requestPermission(final Permission permission) async {
-    if (await permission.isGranted) {
-      return true;
-    } else {
-      final result = await permission.request();
-      if (result == PermissionStatus.granted) {
-        return true;
-      }
-    }
-    return false;
-  }*/
-
   static SnackBarAction resetAction(final BuildContext context) =>
       SnackBarAction(
         label: Language.of(context).reset,
@@ -153,7 +140,6 @@ class Utilities {
                 builder: (final context) => Center(
                   child: SingleChildScrollView(
                     child: MyAlertDialog(
-                      title: Text(Language.of(context).message),
                       content: Text(
                           Language.of(context).deleteAllNotesResetPassword),
                       actions: [
@@ -231,7 +217,6 @@ class Utilities {
         barrierDismissible: true,
         context: context,
         builder: (final _) => MyAlertDialog(
-          title: Text(Language.of(context).message),
           content: Text(Language.of(context).setPasswordFirst),
         ),
       );
@@ -266,7 +251,6 @@ class Utilities {
             barrierDismissible: false,
             context: context,
             builder: (final _) => MyAlertDialog(
-              title: Text(Language.of(context).message),
               content: Text(Language.of(context).deleteNotePermanently),
               actions: [
                 TextButton(
@@ -297,7 +281,7 @@ class Utilities {
     return SlidableAction(
       autoClose: false,
       icon: Icons.delete_outline,
-      label: Language.of(context).trash,
+      label: Language.of(context).delete,
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
       onPressed: (final _) => onTrashTap(context, note),

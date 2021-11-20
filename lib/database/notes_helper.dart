@@ -15,32 +15,36 @@ enum NoteOperation {
 }
 
 class NotesHelper with ChangeNotifier {
-  SplayTreeSet<Note> mainNotes = SplayTreeSet();
-  SplayTreeSet<Note> otherNotes = SplayTreeSet();
+  // SplayTreeSet<Note> mainNotes = SplayTreeSet(comp);
+  // SplayTreeSet<Note> otherNotes = SplayTreeSet();
+  List<Note> mainNotes = [];
+  List<Note> otherNotes = [];
 
-  Future<Note> insert(final Note note) async {
+  static int comp(final Note obj1, final Note obj2) {
+    return obj1.id.compareTo(obj2.id);
+  }
+
+  Future<void> insert(final Note note) async {
     final copiedNote = note.copyWith(id: note.id);
     if (copiedNote.state == NoteState.hidden) {
       encryption.encrypt(copiedNote);
     }
-    // This is because of background insertion
-    if (copiedNote.state == NoteState.unspecified) {
-      mainNotes.removeWhere((final element) {
-        return element.id == copiedNote.id;
-      });
+    if (note.state == NoteState.unspecified) {
+      mainNotes
+        ..removeWhere((final element) {
+          return element.id == note.id;
+        })
+        ..insert(0, note);
     } else {
-      otherNotes.removeWhere((final element) {
-        return element.id == copiedNote.id;
-      });
+      otherNotes
+        ..removeWhere((final element) => element.id == note.id)
+        ..insert(0, note);
     }
-    copiedNote.state == NoteState.unspecified
-        ? mainNotes.add(note)
-        : otherNotes.add(note);
+    unawaited(
+        SqfliteDatabaseHelper.insert(copiedNote).then((final value) async {
+      await FirebaseDatabaseHelper.insert(copiedNote);
+    }));
     notifyListeners();
-    await SqfliteDatabaseHelper.insert(copiedNote);
-    await FirebaseDatabaseHelper.insert(copiedNote);
-    note.id = copiedNote.id;
-    return note;
   }
 
   Future<bool> copy(final Note note) async {
@@ -52,8 +56,10 @@ class NotesHelper with ChangeNotifier {
         ? mainNotes.add(copiedNote)
         : otherNotes.add(copiedNote);
     notifyListeners();
-    await SqfliteDatabaseHelper.insert(copiedNote);
-    await FirebaseDatabaseHelper.insert(copiedNote);
+    unawaited(
+        SqfliteDatabaseHelper.insert(copiedNote).then((final value) async {
+      await FirebaseDatabaseHelper.insert(copiedNote);
+    }));
     return true;
   }
 
@@ -66,8 +72,9 @@ class NotesHelper with ChangeNotifier {
             return element.id == note.id;
           });
     note.state = NoteState.archived;
-    await SqfliteDatabaseHelper.update(note);
-    await FirebaseDatabaseHelper.update(note);
+    unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
+      await FirebaseDatabaseHelper.update(note);
+    }));
     notifyListeners();
     return true;
   }
@@ -83,8 +90,9 @@ class NotesHelper with ChangeNotifier {
             return element.id == note.id;
           });
     note.state = NoteState.hidden;
-    await SqfliteDatabaseHelper.update(copiedNote);
-    await FirebaseDatabaseHelper.update(copiedNote);
+    unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
+      await FirebaseDatabaseHelper.update(note);
+    }));
     notifyListeners();
     return true;
   }
@@ -95,8 +103,9 @@ class NotesHelper with ChangeNotifier {
       return element.id == note.id;
     });
     note.state = NoteState.unspecified;
-    await SqfliteDatabaseHelper.update(note);
-    await FirebaseDatabaseHelper.update(note);
+    unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
+      await FirebaseDatabaseHelper.update(note);
+    }));
     notifyListeners();
     return true;
   }
@@ -107,8 +116,9 @@ class NotesHelper with ChangeNotifier {
       return element.id == note.id;
     });
     note.state = NoteState.unspecified;
-    await SqfliteDatabaseHelper.update(note);
-    await FirebaseDatabaseHelper.update(note);
+    unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
+      await FirebaseDatabaseHelper.update(note);
+    }));
     notifyListeners();
     return true;
   }
@@ -119,8 +129,9 @@ class NotesHelper with ChangeNotifier {
       return element.id == note.id;
     });
     note.state = NoteState.unspecified;
-    await SqfliteDatabaseHelper.update(note);
-    await FirebaseDatabaseHelper.update(note);
+    unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
+      await FirebaseDatabaseHelper.update(note);
+    }));
     notifyListeners();
     return true;
   }
@@ -134,8 +145,10 @@ class NotesHelper with ChangeNotifier {
           : otherNotes.removeWhere((final element) {
               return element.id == note.id;
             });
-      await SqfliteDatabaseHelper.delete('id = ?', [note.id]);
-      await FirebaseDatabaseHelper.delete(NoteOperation.delete, note);
+      unawaited(SqfliteDatabaseHelper.delete('id = ?', [note.id])
+          .then((final value) async {
+        await FirebaseDatabaseHelper.delete(NoteOperation.delete, note);
+      }));
     } on Exception catch (_) {
       return false;
     }
@@ -152,17 +165,18 @@ class NotesHelper with ChangeNotifier {
             return element.id == note.id;
           });
     note.state = NoteState.deleted;
-    await SqfliteDatabaseHelper.update(note);
-    await FirebaseDatabaseHelper.update(note);
+    unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
+      await FirebaseDatabaseHelper.update(note);
+    }));
     notifyListeners();
     return true;
   }
 
   Future<bool> deleteAllHidden() async {
-    notifyListeners();
     await SqfliteDatabaseHelper.delete('state = ?', [NoteState.hidden.index]);
     await FirebaseDatabaseHelper.batchDelete('state',
         isEqualTo: [NoteState.hidden.index]);
+    notifyListeners();
     return true;
   }
 
@@ -214,7 +228,7 @@ class NotesHelper with ChangeNotifier {
     final notesList = await SqfliteDatabaseHelper.queryData(
         whereStr: 'state = ?', whereCond: [noteState]);
     noteState == NoteState.unspecified.index
-        ? mainNotes = SplayTreeSet.from(notesList
+        ? mainNotes = List.from(notesList
             .map(
               (final itemVar) => Note(
                 id: itemVar['id'],
@@ -227,7 +241,7 @@ class NotesHelper with ChangeNotifier {
               ),
             )
             .toList())
-        : otherNotes = SplayTreeSet.from(notesList
+        : otherNotes = List.from(notesList
             .map(
               (final itemVar) => Note(
                 id: itemVar['id'],

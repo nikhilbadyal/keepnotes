@@ -11,6 +11,8 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> with RouteAware {
   String _activeRoute = '/';
+  var gender = getStringFromSF('gender') ?? 'men';
+  var isHiddenDiscovered = getBoolFromSF('hiddenDiscovered') ?? false;
 
   @override
   void didChangeDependencies() {
@@ -38,7 +40,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: Image.asset(
-                  'assets/images/${Provider.of<LockChecker>(context, listen: false).gender}.png',
+                  'assets/images/$gender.png',
                 ),
               ),
               accountEmail: Text(
@@ -194,8 +196,8 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
     } else {
       wish = '$startWish ${Language.of(context).night}';
     }
-    if (!Provider.of<AppConfiguration>(context).isHiddenDiscovered) {
-      wish += ' ,Hey! Tap me';
+    if (!isHiddenDiscovered) {
+      wish += Language.of(context).tapMe;
     }
     return wish;
   }

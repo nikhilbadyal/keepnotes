@@ -74,7 +74,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                         await Utilities.onModalTrashTap(context, widget.note,
                             widget.autoSaver, widget.saveNote);
                       },
-                      label: Language.of(context).trash,
+                      label: Language.of(context).delete,
                     ),
                   ],
                 ),

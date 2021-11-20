@@ -47,15 +47,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           width: 200,
           child: Stack(
             children: [
-              const Text(
-                'Hello',
-                style: TextStyle(fontFamily: 'Trueno', fontSize: 60),
+              Text(
+                Language.of(context).hello,
+                style: const TextStyle(fontFamily: 'Trueno', fontSize: 60),
               ),
-              const Positioned(
+              Positioned(
                 top: 50,
                 child: Text(
-                  'There',
-                  style: TextStyle(fontFamily: 'Trueno', fontSize: 60),
+                  Language.of(context).there,
+                  style: const TextStyle(fontFamily: 'Trueno', fontSize: 60),
                 ),
               ),
               Positioned(
@@ -78,7 +78,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           children: <Widget>[
             Expanded(
               child: Text(
-                'EMAIL',
+                Language.of(context).email,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.bold,
@@ -96,7 +96,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           },
           textAlign: TextAlign.left,
           decoration: InputDecoration(
-            labelText: 'EMAIL',
+            labelText: Language.of(context).email,
             labelStyle: TextStyle(
               fontFamily: 'Trueno',
               fontSize: 12,
@@ -109,8 +109,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             ),
           ),
           validator: Validators.compose([
-            Validators.email('Invalid Email'),
-            Validators.required('* Required'),
+            Validators.email(Language.of(context).checkEmail),
+            Validators.required(Language.of(context).required),
           ]),
         ),
         const SizedBox(height: 50),
@@ -139,10 +139,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               shadowColor: lighten(Theme.of(context).colorScheme.secondary, 20),
               color: Theme.of(context).colorScheme.secondary,
               elevation: 7,
-              child: const Center(
+              child: Center(
                 child: Text(
-                  'RESET PASSWORD',
-                  style: TextStyle(color: Colors.white, fontFamily: 'Trueno'),
+                  Language.of(context).resetPassword,
+                  style: const TextStyle(
+                      color: Colors.white, fontFamily: 'Trueno'),
                 ),
               ),
             ),

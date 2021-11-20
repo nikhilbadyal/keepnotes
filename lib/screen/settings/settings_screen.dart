@@ -10,6 +10,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  var directlyDelete = getBoolFromSF('directlyDelete') ?? true;
+  var fpDirectly = getBoolFromSF('fpDirectly') ?? false;
+  var primaryColor =
+      Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
+  var accentColor = Color(getIntFromSF('accentColor') ?? defaultAccent.value);
+  var appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
+
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
@@ -33,9 +40,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsTile.switchTile(
               title: Language.of(context).directDelete,
               leading: const Icon(Icons.delete_forever_outlined),
+              activeText: Language.of(context).on,
+              inactiveText: Language.of(context).off,
               switchActiveColor: Theme.of(context).colorScheme.secondary,
-              switchValue: Provider.of<LockChecker>(context, listen: false)
-                  .directlyDelete,
+              switchValue: directlyDelete,
               onToggle: directDelete,
             ),
           ],
@@ -50,12 +58,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Icons.color_lens_outlined,
               ),
               onPressed: (final _) {
-                colorPicker(
-                    'Pick Primary Color',
-                    Colors.primaries,
-                    Provider.of<AppConfiguration>(context, listen: false)
-                        .primaryColor,
-                    onPrimaryColorChange);
+                colorPicker(Language.of(context).pickColor, Colors.primaries,
+                    primaryColor, onPrimaryColorChange);
               },
             ),
             SettingsTile(
@@ -65,23 +69,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 TablerIcons.color_swatch,
               ),
               onPressed: (final _) {
-                colorPicker(
-                    'Pick Accent Color',
-                    Colors.accents,
-                    Provider.of<AppConfiguration>(context, listen: false)
-                        .accentColor,
-                    onAccentColorChange);
+                colorPicker(Language.of(context).pickColor, Colors.accents,
+                    accentColor, onAccentColorChange);
               },
             ),
             SettingsTile.switchTile(
               switchActiveColor: Theme.of(context).colorScheme.secondary,
               title: Language.of(context).darkMode,
+              activeText: Language.of(context).on,
+              inactiveText: Language.of(context).off,
               leading: const Icon(
                 Icons.dark_mode_outlined,
               ),
-              switchValue: Provider.of<AppConfiguration>(context, listen: false)
-                      .appTheme !=
-                  AppTheme.light,
+              switchValue: appTheme != AppTheme.light,
               onToggle: toggleTheme,
             ),
           ],
@@ -91,12 +91,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           tiles: [
             SettingsTile.switchTile(
               title: Language.of(context).directBio,
+              activeText: Language.of(context).on,
+              inactiveText: Language.of(context).off,
               leading: const Icon(
                 Icons.fingerprint_outlined,
               ),
               switchActiveColor: Theme.of(context).colorScheme.secondary,
-              switchValue:
-                  Provider.of<LockChecker>(context, listen: false).fpDirectly,
+              switchValue: fpDirectly,
               onToggle: toggleBiometric,
             ),
             SettingsTile(
@@ -151,7 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
-                  child: const Text('Done'),
+                  child: Text(Language.of(context).done),
                 ),
               ],
             );
@@ -163,19 +164,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void onPrimaryColorChange(final Color value) {
     setState(() {
-      Provider.of<AppConfiguration>(context, listen: false).primaryColor =
-          value;
+      primaryColor = value;
     });
     Provider.of<AppConfiguration>(context, listen: false)
-        .changePrimaryColor(write: true);
+        .changePrimaryColor(primaryColor);
   }
 
   void onAccentColorChange(final Color value) {
     setState(() {
-      Provider.of<AppConfiguration>(context, listen: false).accentColor = value;
+      accentColor = value;
     });
     Provider.of<AppConfiguration>(context, listen: false)
-        .changeAccentColor(write: true);
+        .changeAccentColor(accentColor);
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -183,22 +183,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(
       () {
         if (value) {
-          Provider.of<AppConfiguration>(context, listen: false).appTheme =
-              AppTheme.black;
+          appTheme = AppTheme.black;
         } else {
-          Provider.of<AppConfiguration>(context, listen: false).appTheme =
-              AppTheme.light;
+          appTheme = AppTheme.light;
         }
       },
     );
     Provider.of<AppConfiguration>(context, listen: false)
-        .changeAppTheme(write: true);
+        .changeAppTheme(appTheme);
   }
 
   // ignore: avoid_positional_boolean_parameters
   Future<void> toggleBiometric(final bool value) async {
     setState(() {
-      Provider.of<LockChecker>(context, listen: false).fpDirectly = value;
+      fpDirectly = value;
     });
     unawaited(
       addBoolToSF('fpDirectly', value: value),
@@ -208,8 +206,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // ignore: avoid_positional_boolean_parameters
   Future<void> directDelete(final bool deleteDirectly) async {
     setState(() {
-      Provider.of<LockChecker>(context, listen: false).directlyDelete =
-          deleteDirectly;
+      directlyDelete = deleteDirectly;
     });
     unawaited(
       addBoolToSF('directlyDelete', value: deleteDirectly),
@@ -221,7 +218,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       barrierDismissible: true,
       context: context,
       builder: (final _) => MyAlertDialog(
-        title: Text(Language.of(context).message),
         content: Text(Language.of(context).notAvailJustification),
       ),
     );
@@ -245,7 +241,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         AppRoutes.setPassScreen,
         DataObj(
           '',
-          'Enter New Password',
+          Language.of(context).enterNewPassword,
           isFirst: true,
         ),
       );
@@ -257,7 +253,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           barrierDismissible: true,
           context: context,
           builder: (final context) => MyAlertDialog(
-            title: Text(Language.of(context).message),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[

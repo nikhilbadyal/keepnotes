@@ -9,26 +9,26 @@ typedef DoneCallBack = void Function(String text);
 typedef DoneEntered = Future<void> Function(String enteredPassCode);
 
 class Keyboard extends StatelessWidget {
-  const Keyboard(
-      {required this.onKeyboardTap,
-      required this.onDelTap,
-      this.onFingerTap,
-      this.keyBoardItem = const [
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '-1',
-        '0',
-        '-1'
-      ],
-      final Key? key})
-      : super(key: key);
+  const Keyboard({
+    required this.onKeyboardTap,
+    required this.onDelTap,
+    this.onFingerTap,
+    this.keyBoardItem = const [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '-1',
+      '0',
+      '-1'
+    ],
+    final Key? key,
+  }) : super(key: key);
 
   final KeyboardTapCallback onKeyboardTap;
   final DeleteTapCallback onDelTap;
@@ -102,9 +102,8 @@ class Keyboard extends StatelessWidget {
         12,
         (final index) => index == 9 || index == 11
             ? index == 9
-                ? onFingerTap == null ||
-                        Provider.of<LockChecker>(context, listen: false)
-                            .bioNotAvailable
+                ? Provider.of<LockChecker>(context).bioNotAvailable ||
+                        onFingerTap == null
                     ? Container()
                     : buildExtra(
                         const Icon(Icons.fingerprint_outlined), onFingerTap)

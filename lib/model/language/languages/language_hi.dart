@@ -160,9 +160,6 @@ class LanguageHi extends Language {
   String get backupScheduled => 'बैकअप ट्रिगर किया गया';
 
   @override
-  String get message => 'संदेश';
-
-  @override
   String get modified => 'संशोधित';
 
   @override
@@ -178,7 +175,7 @@ class LanguageHi extends Language {
   String get permissionError => 'ऐप को काम करने की अनुमति चाहिए';
 
   @override
-  String get pickColor => 'रंग उठाओ!';
+  String get pickColor => 'रंग चुनें';
 
   @override
   String get primaryColor => 'पप्राइमरी रंग';
@@ -220,11 +217,6 @@ class LanguageHi extends Language {
   String get randomColor => 'यादृच्छिक रंग';
 
   @override
-  String get oldVersionWarning => 'अगर आपने'
-      ' कभी पुराना वर्जन इस्तेमाल किया है। कृपया नोटों '
-      'को छिपाने और उन्हें फिर से छिपाएं';
-
-  @override
   String get notAvailJustification => 'अगले अद्यतन में हो सकता है?';
 
   @override
@@ -240,18 +232,10 @@ class LanguageHi extends Language {
   String get good => 'शुभ';
 
   @override
-  String get king => '';
-  // String get king => 'सम्राट';
-
-  @override
   String get morning => 'प्रभात';
 
   @override
   String get night => 'रात्रि';
-
-  @override
-  String get queen => '';
-  // String get queen => 'महारानी';
 
   @override
   String get samePasswordError => 'कृपया अलग पासवर्ड डालें ';
@@ -260,7 +244,7 @@ class LanguageHi extends Language {
   String get removeBiometric => 'बायोमेट्रिक हटाएँ';
 
   @override
-  String get areYouSure => 'पक्का?';
+  String get areYouSure => 'आगे बढ़ें ?';
 
   @override
   String get general => 'जनरल';
@@ -282,4 +266,73 @@ class LanguageHi extends Language {
 
   @override
   String get localizedReason => 'छिपे हुए नोट देखने के लिए प्रमाणित करें';
+
+  @override
+  String get accountAlreadyExist => 'अकाउंट पहले से ही मौजूद है';
+
+  @override
+  String get appTagLine => 'हम आपको सुरक्षित रखते हैं';
+
+  @override
+  String get backToLogin => 'लॉगिन पर वापस जाएं';
+
+  @override
+  String get contactUs => 'कुछ बुरा हो गया। हमें संपर्क करें';
+
+  @override
+  String get createNewAccount => 'नया खाता बनाएँ';
+
+  @override
+  String get emailAlreadyExist => 'ईमेल पहले से ही इस्तेमाल में है';
+
+  @override
+  String get forgotPassword => 'पासवर्ड भूल गए ?';
+
+  @override
+  String get getStarted => 'शुरू करें';
+
+  @override
+  String get hello => 'नमस्ते';
+
+  @override
+  String get invalidEmail => 'अवैध ईमेल';
+
+  @override
+  String get login => 'लॉग इन करें';
+
+  @override
+  String get loginToContinue => 'आगे बढ़ने के लिए लॉगिन करें';
+
+  @override
+  String get required => 'आवश्यक';
+
+  @override
+  String get signUp => 'साइन अप करें';
+
+  @override
+  String get soon => 'फीचर जल्द ही उपलब्ध होगा';
+
+  @override
+  String get there => ' ';
+
+  @override
+  String get tryAgainLater => 'बाद में पुन: प्रयास करें ';
+
+  @override
+  String get unableToLaunchEmail => 'ईमेल ऐप लॉन्च खोलने में असमर्थ';
+
+  @override
+  String get verifyEmail => 'कृपया पहले ईमेल सत्यापित करें';
+
+  @override
+  String get weakPassword => 'कमजोर पासवर्ड';
+
+  @override
+  String get tapMe => ',हेय!मुझे टैप करें';
+
+  @override
+  String get off => 'बंद';
+
+  @override
+  String get on => 'चालू';
 }
