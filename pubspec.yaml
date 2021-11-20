@@ -37,6 +37,8 @@ dependencies:
   url_launcher: ^6.0.13
   uuid: ^3.0.5
   wc_form_validators: ^1.0.0
+  lazy_load_scrollview: 1.3.0
+  pagination_view: ^2.0.0
 
   keepsettings:
     git:

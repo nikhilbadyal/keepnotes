@@ -24,7 +24,7 @@ class _HomeBodyState extends State<HomeBody> {
   void initState() {
     super.initState();
     myFuture = Provider.of<NotesHelper>(context, listen: false)
-        .getAllNotes(NoteState.unspecified.index);
+        .homeGetAllNotes(NoteState.unspecified.index);
   }
 
   @override
@@ -64,6 +64,12 @@ class _HomeBodyState extends State<HomeBody> {
       },
     );
   }
+
+  @override
+  void dispose() {
+    // _scrollController.dispose();
+    super.dispose();
+  }
 }
 
 _NonEmptyHomeUiState? homeBody;
@@ -93,32 +99,48 @@ class _NonEmptyHomeUiState extends State<NonEmptyHomeUi> {
     setState(() {});
   }
 
+  void loadMore() {
+    Provider.of<NotesHelper>(context, listen: false)
+        .homeGetAllNotes(NoteState.unspecified.index)
+        .then((final _) {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(final BuildContext context) {
     homeBody = this;
     return Padding(
       padding: EdgeInsets.zero,
-      child: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        itemCount: widget.noteHelper.mainNotes.length,
-        itemBuilder: (final context, final index) {
-          final item = widget.noteHelper.mainNotes.elementAt(index);
-          selectedFlag[index] = selectedFlag[index] ?? false;
-          final isSelected = selectedFlag[index] ?? false;
-          return Slidable(
-            key: UniqueKey(),
-            startActionPane: widget.primary(item, context),
-            endActionPane: widget.secondary(item, context),
-            child: ListItem(
-              note: item,
-              onItemTap: () => onItemTap(item, index, isSelected: isSelected),
-              onItemLongPress: () =>
-                  onItemLongPress(index, isSelected: isSelected),
-              isSelected: isSelected,
-              selectedFlag: selectedFlag,
-            ),
-          );
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (final ScrollNotification scrollInfo) {
+          if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+            loadMore();
+          }
+          return true;
         },
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: widget.noteHelper.mainNotes.length,
+          itemBuilder: (final context, final index) {
+            final item = widget.noteHelper.mainNotes.elementAt(index);
+            selectedFlag[index] = selectedFlag[index] ?? false;
+            final isSelected = selectedFlag[index] ?? false;
+            return Slidable(
+              key: UniqueKey(),
+              startActionPane: widget.primary(item, context),
+              endActionPane: widget.secondary(item, context),
+              child: ListItem(
+                note: item,
+                onItemTap: () => onItemTap(item, index, isSelected: isSelected),
+                onItemLongPress: () =>
+                    onItemLongPress(index, isSelected: isSelected),
+                isSelected: isSelected,
+                selectedFlag: selectedFlag,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -106,10 +106,6 @@ class _EditScreenState extends State<EditScreen> {
   }
 
   Future<bool> saveNote() async {
-    debugPrint(Provider.of<NotesHelper>(context, listen: false)
-        .mainNotes
-        .length
-        .toString());
     final isEdited = updateNote();
     if (isEdited) {
       await Provider.of<NotesHelper>(context, listen: false)
