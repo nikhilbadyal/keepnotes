@@ -329,7 +329,7 @@ class LanguageEn extends Language {
   String get weakPassword => 'Weak password';
 
   @override
-  String get tapMe => ',Hey!Tap me to see magic';
+  String get tapMe => ',Hey!Tap me';
 
   @override
   String get off => 'Off';
