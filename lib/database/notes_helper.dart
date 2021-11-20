@@ -20,6 +20,11 @@ class NotesHelper with ChangeNotifier {
   List<Note> mainNotes = [];
   List<Note> otherNotes = [];
 
+  void signOut() {
+    mainNotes.clear();
+    otherNotes.clear();
+  }
+
   static int comp(final Note obj1, final Note obj2) {
     return obj1.id.compareTo(obj2.id);
   }

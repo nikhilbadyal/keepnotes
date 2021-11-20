@@ -305,6 +305,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context,
       listen: false,
     ).signOut();
+    Provider.of<NotesHelper>(context, listen: false).signOut();
     await removeFromSF('syncedWithFirebase');
     await Provider.of<LockChecker>(context, listen: false)
         .resetConfig(shouldResetBio: true);
@@ -313,3 +314,5 @@ class _SettingsScreenState extends State<SettingsScreen> {
         context, AppRoutes.welcomeScreen, (final route) => false);
   }
 }
+
+//TODO Future.microTask()
