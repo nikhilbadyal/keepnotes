@@ -23,7 +23,6 @@ class NotesHelper with ChangeNotifier {
 
   void signOut() {
     mainNotes.clear();
-    otherNotes.clear();
   }
 
   static int comp(final Note obj1, final Note obj2) {
