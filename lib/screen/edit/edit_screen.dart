@@ -73,8 +73,8 @@ class _EditScreenState extends State<EditScreen> {
                   border: InputBorder.none),
             ),
             TextField(
-              autofocus: true,
-              // _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
+              autofocus:
+                  _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
               readOnly: isReadOnly,
               controller: _contentController,
               maxLines: null,
@@ -106,10 +106,6 @@ class _EditScreenState extends State<EditScreen> {
   }
 
   Future<bool> saveNote() async {
-    debugPrint(Provider.of<NotesHelper>(context, listen: false)
-        .mainNotes
-        .length
-        .toString());
     final isEdited = updateNote();
     if (isEdited) {
       await Provider.of<NotesHelper>(context, listen: false)

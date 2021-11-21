@@ -5,6 +5,7 @@ import 'package:notes/_internal_packages.dart';
 Future navigate(
     final String activeRoute, final BuildContext context, final String newRoute,
     [final Object? arguments]) async {
+  Provider.of<NotesHelper>(context, listen: false).reset();
   if (activeRoute == newRoute && newRoute != AppRoutes.setPassScreen) {
     return Navigator.pop(context);
   }

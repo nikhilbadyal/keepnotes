@@ -44,14 +44,17 @@ class Encrypt {
     }
   }
 
-  String? decryptStr(final String? str) {
-    if (str == null) {
-      return null;
+  String decryptStr(final String str) {
+    if (str.isEmpty) {
+      return str;
     }
     return encrypter.decrypt64(str, iv: iv);
   }
 
   String encryptStr(final String str) {
+    if (str.isEmpty) {
+      return str;
+    }
     return encrypter.encrypt(str, iv: iv).base64;
   }
 }

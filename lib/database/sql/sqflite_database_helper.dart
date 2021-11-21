@@ -87,8 +87,12 @@ class SqfliteDatabaseHelper {
     }
   }
 
-  static Future<List<Map<String, dynamic>>> queryData(
-      {final String? whereStr, final List<Object>? whereCond}) async {
+  static Future<List<Map<String, dynamic>>> queryData({
+    final String? whereStr,
+    final List<Object>? whereCond,
+    final int? limit,
+    final int? offSet,
+  }) async {
     final db = await database;
     late Future<List<Map<String, Object?>>> resultSet;
     try {
@@ -97,6 +101,8 @@ class SqfliteDatabaseHelper {
         orderBy: 'lastModify desc',
         where: whereStr,
         whereArgs: whereCond,
+        limit: limit,
+        offset: offSet,
       );
     } on Exception catch (_) {
       throw DatabaseExceptions('9');
