@@ -92,7 +92,7 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
                 false;
             if (status) {
               if (Provider.of<NotesHelper>(context, listen: false)
-                  .otherNotes
+                  .mainNotes
                   .isNotEmpty) {
                 Utilities.onDeleteAllTap(context);
               }

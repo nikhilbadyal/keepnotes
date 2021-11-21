@@ -94,8 +94,7 @@ class ScreenContainer extends TopWidgetBase {
         context: context, note: emptyNote, shouldAutoFocus: true);
   }
 
-  Future<void> onTrashFabTap(
-      final BuildContext context, final NoteState _) async {
+  void onTrashFabTap(final BuildContext context, final NoteState _) {
     moreOptions(context);
   }
 
@@ -110,21 +109,12 @@ class ScreenContainer extends TopWidgetBase {
 
       case ScreenTypes.settings:
         return const SettingsScreen();
-      // return const SettingsScreenHelper();
 
       case ScreenTypes.lock:
         return const ErrorScreen();
 
       case ScreenTypes.setpass:
         return const ErrorScreen();
-
-      case ScreenTypes.home:
-        final primary = getPrimary(topScreen);
-        final secondary = getSecondary(topScreen);
-        return HomeBody(
-          primary: primary,
-          secondary: secondary,
-        );
 
       default:
         final notesType = getNotesType(topScreen);

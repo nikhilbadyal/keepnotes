@@ -91,8 +91,9 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                       ? Theme.of(context).colorScheme.secondary
                       : null),
             ),
-            onTap: () =>
-                navigate(_activeRoute, context, AppRoutes.archiveScreen),
+            onTap: () {
+              navigate(_activeRoute, context, AppRoutes.archiveScreen);
+            },
           ),
           const Divider(
             height: 15,
@@ -111,8 +112,9 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                       ? Theme.of(context).colorScheme.secondary
                       : null),
             ),
-            onTap: () =>
-                navigate(_activeRoute, context, AppRoutes.backupScreen),
+            onTap: () {
+              navigate(_activeRoute, context, AppRoutes.backupScreen);
+            },
           ),
           ListTile(
             leading: Icon(Icons.delete_outlined,

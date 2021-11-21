@@ -15,10 +15,7 @@ enum NoteOperation {
 }
 
 class NotesHelper with ChangeNotifier {
-  // SplayTreeSet<Note> mainNotes = SplayTreeSet(comp);
-  // SplayTreeSet<Note> otherNotes = SplayTreeSet();
   List<Note> mainNotes = [];
-  List<Note> otherNotes = [];
 
   int _page = 1;
   bool isLastPage = false;
@@ -33,17 +30,11 @@ class NotesHelper with ChangeNotifier {
     if (copiedNote.state == NoteState.hidden) {
       encryption.encrypt(copiedNote);
     }
-    if (note.state == NoteState.unspecified) {
-      mainNotes
-        ..removeWhere((final element) {
-          return element.id == note.id;
-        })
-        ..insert(0, note);
-    } else {
-      otherNotes
-        ..removeWhere((final element) => element.id == note.id)
-        ..insert(0, note);
-    }
+    mainNotes
+      ..removeWhere((final element) {
+        return element.id == note.id;
+      })
+      ..insert(0, note);
     unawaited(
         SqfliteDatabaseHelper.insert(copiedNote).then((final value) async {
       await FirebaseDatabaseHelper.insert(copiedNote);
@@ -56,9 +47,7 @@ class NotesHelper with ChangeNotifier {
       id: const Uuid().v4(),
       lastModify: DateTime.now(),
     );
-    note.state == NoteState.unspecified
-        ? mainNotes.add(copiedNote)
-        : otherNotes.add(copiedNote);
+    mainNotes.insert(0, copiedNote);
     notifyListeners();
     unawaited(
         SqfliteDatabaseHelper.insert(copiedNote).then((final value) async {
@@ -68,13 +57,9 @@ class NotesHelper with ChangeNotifier {
   }
 
   Future<bool> archive(final Note note) async {
-    note.state == NoteState.unspecified
-        ? mainNotes.removeWhere((final element) {
-            return element.id == note.id;
-          })
-        : otherNotes.removeWhere((final element) {
-            return element.id == note.id;
-          });
+    mainNotes.removeWhere((final element) {
+      return element.id == note.id;
+    });
     note.state = NoteState.archived;
     unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
       await FirebaseDatabaseHelper.update(note);
@@ -84,26 +69,21 @@ class NotesHelper with ChangeNotifier {
   }
 
   Future<bool> hide(final Note note) async {
-    final copiedNote = note.copyWith(id: note.id);
+    final copiedNote = note.copyWith(id: note.id, state: NoteState.hidden);
     encryption.encrypt(copiedNote);
-    note.state == NoteState.unspecified
-        ? mainNotes.removeWhere((final element) {
-            return element.id == note.id;
-          })
-        : otherNotes.removeWhere((final element) {
-            return element.id == note.id;
-          });
-    note.state = NoteState.hidden;
-    unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
-      await FirebaseDatabaseHelper.update(note);
+    mainNotes.removeWhere((final element) {
+      return element.id == note.id;
+    });
+    unawaited(
+        SqfliteDatabaseHelper.update(copiedNote).then((final value) async {
+      await FirebaseDatabaseHelper.update(copiedNote);
     }));
     notifyListeners();
     return true;
   }
 
   Future<bool> unhide(final Note note) async {
-    mainNotes.add(note);
-    otherNotes.removeWhere((final element) {
+    mainNotes.removeWhere((final element) {
       return element.id == note.id;
     });
     note.state = NoteState.unspecified;
@@ -115,8 +95,7 @@ class NotesHelper with ChangeNotifier {
   }
 
   Future<bool> unarchive(final Note note) async {
-    mainNotes.add(note);
-    otherNotes.removeWhere((final element) {
+    mainNotes.removeWhere((final element) {
       return element.id == note.id;
     });
     note.state = NoteState.unspecified;
@@ -128,8 +107,7 @@ class NotesHelper with ChangeNotifier {
   }
 
   Future<bool> undelete(final Note note) async {
-    mainNotes.add(note);
-    otherNotes.removeWhere((final element) {
+    mainNotes.removeWhere((final element) {
       return element.id == note.id;
     });
     note.state = NoteState.unspecified;
@@ -142,13 +120,9 @@ class NotesHelper with ChangeNotifier {
 
   Future<bool> delete(final Note note) async {
     try {
-      note.state == NoteState.unspecified
-          ? mainNotes.removeWhere((final element) {
-              return element.id == note.id;
-            })
-          : otherNotes.removeWhere((final element) {
-              return element.id == note.id;
-            });
+      mainNotes.removeWhere((final element) {
+        return element.id == note.id;
+      });
       unawaited(SqfliteDatabaseHelper.delete('id = ?', [note.id])
           .then((final value) async {
         await FirebaseDatabaseHelper.delete(NoteOperation.delete, note);
@@ -162,17 +136,13 @@ class NotesHelper with ChangeNotifier {
 
   Future<bool> trash(final Note note) async {
     final orig = note.state.index;
-    note.state == NoteState.unspecified
-        ? mainNotes.removeWhere((final element) {
-            return element.id == note.id;
-          })
-        : otherNotes.removeWhere((final element) {
-            return element.id == note.id;
-          });
+    mainNotes.removeWhere((final element) {
+      return element.id == note.id;
+    });
     note.state = NoteState.deleted;
     unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
-      await FirebaseDatabaseHelper.update(note);
       await homeGetAllNotes(orig);
+      await FirebaseDatabaseHelper.update(note);
     }));
     notifyListeners();
     return true;
@@ -187,7 +157,7 @@ class NotesHelper with ChangeNotifier {
   }
 
   void emptyTrash() {
-    otherNotes.clear();
+    mainNotes.clear();
     unawaited(
         SqfliteDatabaseHelper.delete('state = ?', [NoteState.deleted.index])
             .then((final _) {
@@ -233,7 +203,7 @@ class NotesHelper with ChangeNotifier {
         SqfliteDatabaseHelper.syncedWithFirebase = true;
         unawaited(addBoolToSF('syncedWithFirebase', value: true));
       }
-      const limit = 7;
+      const limit = 15;
       final offSet = _page == 1 ? 0 : (_page - 1) * limit;
       final notesList = await SqfliteDatabaseHelper.queryData(
         whereStr: 'state = ?',
@@ -241,96 +211,38 @@ class NotesHelper with ChangeNotifier {
         limit: limit,
         offSet: offSet,
       );
-      debugPrint(
-          '$offSet is the offset ${notesList.length} is result length $_page is page number');
       isLastPage = notesList.isEmpty || notesList.length < limit;
       if (!isLastPage) {
         _page++;
       }
       isLoading = false;
-      noteState == NoteState.unspecified.index
-          ? mainNotes = [
-              ...mainNotes,
-              ...List.from(notesList
-                  .map(
-                    (final itemVar) => Note(
-                      id: itemVar['id'],
-                      title: itemVar['title'].toString(),
-                      content: itemVar['content'].toString(),
-                      lastModify: DateTime.fromMillisecondsSinceEpoch(
-                        itemVar['lastModify'],
-                      ),
-                      state: NoteState.values[itemVar['state']],
-                    ),
-                  )
-                  .toList())
-            ]
-          : otherNotes = [
-              ...otherNotes,
-              ...List.from(notesList
-                  .map(
-                    (final itemVar) => Note(
-                      id: itemVar['id'],
-                      title: itemVar['title'].toString(),
-                      content: itemVar['content'].toString(),
-                      lastModify: DateTime.fromMillisecondsSinceEpoch(
-                        itemVar['lastModify'],
-                      ),
-                      state: NoteState.values[itemVar['state']],
-                    ),
-                  )
-                  .toList())
-            ];
+      mainNotes = [
+        ...mainNotes,
+        ...List.from(notesList.map(
+          (final itemVar) {
+            final item = Note(
+              id: itemVar['id'],
+              title: noteState == NoteState.hidden.index
+                  ? encryption.decryptStr(itemVar['title'])
+                  : itemVar['title'].toString(),
+              content: noteState == NoteState.hidden.index
+                  ? encryption.decryptStr(itemVar['content'])
+                  : itemVar['content'].toString(),
+              lastModify: DateTime.fromMillisecondsSinceEpoch(
+                itemVar['lastModify'],
+              ),
+              state: NoteState.values[itemVar['state']],
+            );
+            return item;
+          },
+        ).toList())
+      ];
+
       if (noteState == NoteState.hidden.index) {
         // ignore: prefer_foreach
-        for (final element in otherNotes) {
+        for (final element in mainNotes) {
           encryption.decrypt(element);
         }
-      }
-    }
-  }
-
-  Future getAllNotes(final int noteState) async {
-    if (!SqfliteDatabaseHelper.syncedWithFirebase) {
-      await SqfliteDatabaseHelper.addAll(await myGetAll());
-      SqfliteDatabaseHelper.syncedWithFirebase = true;
-      unawaited(addBoolToSF('syncedWithFirebase', value: true));
-    }
-    final notesList = await SqfliteDatabaseHelper.queryData(
-      whereStr: 'state = ?',
-      whereCond: [noteState],
-    );
-    noteState == NoteState.unspecified.index
-        ? mainNotes = List.from(notesList
-            .map(
-              (final itemVar) => Note(
-                id: itemVar['id'],
-                title: itemVar['title'].toString(),
-                content: itemVar['content'].toString(),
-                lastModify: DateTime.fromMillisecondsSinceEpoch(
-                  itemVar['lastModify'],
-                ),
-                state: NoteState.values[itemVar['state']],
-              ),
-            )
-            .toList())
-        : otherNotes = List.from(notesList
-            .map(
-              (final itemVar) => Note(
-                id: itemVar['id'],
-                title: itemVar['title'].toString(),
-                content: itemVar['content'].toString(),
-                lastModify: DateTime.fromMillisecondsSinceEpoch(
-                  itemVar['lastModify'],
-                ),
-                state: NoteState.values[itemVar['state']],
-              ),
-            )
-            .toList());
-    if (noteState == NoteState.hidden.index) {
-      // ignore: prefer_foreach
-      for (final element in otherNotes) {
-        encryption.decrypt(element);
       }
     }
   }
@@ -366,5 +278,11 @@ class NotesHelper with ChangeNotifier {
       return false;
     }
     return true;
+  }
+
+  void reset() {
+    mainNotes.clear();
+    _page = 1;
+    isLastPage = isLoading = false;
   }
 }

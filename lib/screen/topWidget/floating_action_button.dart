@@ -1,8 +1,7 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-typedef OnFabTap = Future<void> Function(
-    BuildContext context, NoteState noteState);
+typedef OnFabTap = void Function(BuildContext context, NoteState noteState);
 
 class Fab extends StatelessWidget {
   const Fab(OnFabTap this.onFabTap,

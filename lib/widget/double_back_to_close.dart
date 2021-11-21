@@ -1,13 +1,16 @@
 import 'package:notes/_app_packages.dart';
+import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 typedef BackPresAction = Future<bool> Function();
 
 class DoubleBackToCloseWidget extends StatefulWidget {
-  const DoubleBackToCloseWidget({required this.child, final Key? key})
+  const DoubleBackToCloseWidget(
+      {required this.child, final Key? key, final this.backPresAction})
       : super(key: key);
 
   final Widget child;
+  final BackPresAction? backPresAction;
 
   static const exitTimeInMillis = 1500;
 
@@ -24,7 +27,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
     final _isAndroid = Theme.of(context).platform == TargetPlatform.android;
     if (_isAndroid) {
       return WillPopScope(
-        onWillPop: defaultBackPress,
+        onWillPop: widget.backPresAction ?? defaultBackPress,
         child: widget.child,
       );
     } else {
@@ -32,7 +35,25 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
     }
   }
 
+  int getNotesType(final String appRoutes) {
+    switch (appRoutes) {
+      case AppRoutes.hiddenScreen:
+        return NoteState.hidden.index;
+
+      case AppRoutes.archiveScreen:
+        return NoteState.archived.index;
+
+      case AppRoutes.trashScreen:
+        return NoteState.deleted.index;
+
+      default:
+        return NoteState.unspecified.index;
+    }
+  }
+
   Future<bool> defaultBackPress() async {
+    await Provider.of<NotesHelper>(context, listen: false)
+        .homeGetAllNotes(getNotesType(ModalRoute.of(context)!.settings.name!));
     final _currentTime = DateTime.now().millisecondsSinceEpoch;
     if ((_currentTime - _lastTimeBackButtonWasTapped) <
         DoubleBackToCloseWidget.exitTimeInMillis) {

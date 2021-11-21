@@ -102,7 +102,7 @@ class LanguageHi extends Language {
   String get enterNoteContent => 'अपने ख्याल लिखें';
 
   @override
-  String get enterNoteTitle => 'शीर्षक िखें';
+  String get enterNoteTitle => 'शीर्षक लिखें';
 
   @override
   String get enterNewPassword => 'नया पासवर्ड दर्ज करें';

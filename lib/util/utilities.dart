@@ -221,13 +221,11 @@ class Utilities {
         ),
       );
     } else {
-      unawaited(Provider.of<NotesHelper>(context, listen: false)
-          .hide(note)
-          .then((final value) {
-        if (!value) {
-          handleError(context);
-        }
-      }));
+      final value =
+          await Provider.of<NotesHelper>(context, listen: false).hide(note);
+      if (!value) {
+        handleError(context);
+      }
     }
   }
 
@@ -406,7 +404,7 @@ class Utilities {
     final curUser = Provider.of<Auth>(context, listen: false).auth.currentUser;
     encryption = Encrypt(curUser!.uid);
     Provider.of<LockChecker>(context, listen: false).password =
-        encryption.decryptStr(getStringFromSF('password')) ?? '';
+        encryption.decryptStr(getStringFromSF('password') ?? '');
     FirebaseDatabaseHelper(curUser.uid);
   }
 }

@@ -73,8 +73,8 @@ class _EditScreenState extends State<EditScreen> {
                   border: InputBorder.none),
             ),
             TextField(
-              autofocus: true,
-              // _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
+              autofocus:
+                  _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
               readOnly: isReadOnly,
               controller: _contentController,
               maxLines: null,
