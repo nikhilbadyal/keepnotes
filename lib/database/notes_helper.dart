@@ -25,6 +25,10 @@ class NotesHelper with ChangeNotifier {
     mainNotes.clear();
   }
 
+  void notify() {
+    notifyListeners();
+  }
+
   static int comp(final Note obj1, final Note obj2) {
     return obj1.id.compareTo(obj2.id);
   }
@@ -199,7 +203,7 @@ class NotesHelper with ChangeNotifier {
     }
   }
 
-  Future getAllNotes(final int noteState) async {
+  Future getAllNotes(final int noteState, {final bool clear = false}) async {
     if (!isLastPage && !isLoading) {
       isLoading = true;
       if (!SqfliteDatabaseHelper.syncedWithFirebase) {

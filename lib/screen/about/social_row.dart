@@ -33,7 +33,7 @@ class _SocialLinksRowState extends State<SocialLinksRow> {
         children: [
           GestureDetector(
               onTap: () => launch('https://t.me/joinchat/uGAlVliNij1hZTFl'),
-              child: SvgPicture.asset('assets/images/github.svg')),
+              child: SvgPicture.asset('assets/images/telegram.svg')),
           GestureDetector(
               onTap: () => launch('https://github.com/nikhilbadyal/keep-notes'),
               child: SvgPicture.asset('assets/images/github.svg')),

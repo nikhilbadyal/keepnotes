@@ -177,49 +177,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void onPrimaryColorChange(final Color value) {
-    setState(() {
-      primaryColor = value;
-    });
+    primaryColor = value;
     Provider.of<AppConfiguration>(context, listen: false)
         .changePrimaryColor(primaryColor);
   }
 
   void onAccentColorChange(final Color value) {
-    setState(() {
-      accentColor = value;
-    });
+    accentColor = value;
     Provider.of<AppConfiguration>(context, listen: false)
         .changeAccentColor(accentColor);
   }
 
   // ignore: avoid_positional_boolean_parameters
   Future<void> toggleTheme(final bool value) async {
-    setState(
-      () {
-        if (value) {
-          appTheme = AppTheme.black;
-        } else {
-          appTheme = AppTheme.light;
-        }
-      },
-    );
+    if (value) {
+      appTheme = AppTheme.black;
+    } else {
+      appTheme = AppTheme.light;
+    }
     Provider.of<AppConfiguration>(context, listen: false)
         .changeAppTheme(appTheme);
   }
 
   // ignore: avoid_positional_boolean_parameters
   Future<void> toggleBiometric(final bool value) async {
-    setState(() {
-      fpDirectly = value;
-    });
+    fpDirectly = value;
     unawaited(addBoolToSF('fpDirectly', value: value));
   }
 
   // ignore: avoid_positional_boolean_parameters
   Future<void> directDelete(final bool deleteDirectly) async {
-    setState(() {
-      directlyDelete = deleteDirectly;
-    });
+    directlyDelete = deleteDirectly;
     unawaited(addBoolToSF('directlyDelete', value: deleteDirectly));
   }
 

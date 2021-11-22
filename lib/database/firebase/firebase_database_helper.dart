@@ -17,10 +17,9 @@ class FirebaseDatabaseHelper {
     try {
       await notesReference.doc(note.id).set(note.toMap());
       return true;
-    } on Exception catch (e, s) {
-      logger.e('Unable to save note to firebase $e $s');
+    } on Exception catch (e, _) {
+      return false;
     }
-    return false;
   }
 
   static Future<bool> update(final Note note) async {
@@ -98,10 +97,9 @@ class FirebaseDatabaseHelper {
           });
       await batch.commit();
       return true;
-    } on Exception catch (e, s) {
-      logger.wtf('Failed to restore from backup$e$s');
+    } on Exception catch (e, _) {
+      return false;
     }
-    return false;
   }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getAll() async {

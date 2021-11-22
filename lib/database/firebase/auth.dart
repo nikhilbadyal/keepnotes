@@ -4,15 +4,11 @@ import 'package:notes/_internal_packages.dart';
 
 class Auth with ChangeNotifier {
   Auth() : isLoggedIn = false {
-    logger.i('Auth Const');
-
     isLoggedIn = auth.currentUser != null;
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final _googleSignIn = GoogleSignIn();
   bool isLoggedIn;
-
   Future<String> signInWithPassword(
       {required final String email, required final String password}) async {
     try {
@@ -24,22 +20,6 @@ class Auth with ChangeNotifier {
         unawaited(auth.currentUser!.delete());
       }
       return isLoggedIn ? 'success' : 'user-not-found';
-    } on FirebaseAuthException catch (e) {
-      return e.code;
-    } finally {
-      notifyListeners();
-    }
-  }
-
-  Future<String> signInWithGoogle() async {
-    try {
-      final googleUser = await _googleSignIn.signIn();
-      final googleAuth = await googleUser!.authentication;
-      final credential = GoogleAuthProvider.credential(
-          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-      await auth.signInWithCredential(credential);
-      isLoggedIn = true;
-      return 'success';
     } on FirebaseAuthException catch (e) {
       return e.code;
     } finally {

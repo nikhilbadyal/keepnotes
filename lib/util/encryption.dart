@@ -12,9 +12,7 @@ class Encrypt {
   }
 
   late Key key;
-
   late IV iv;
-
   late Encrypter encrypter;
 
   void resetDetails(final String password) {

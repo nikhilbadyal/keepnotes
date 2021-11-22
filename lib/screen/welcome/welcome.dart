@@ -312,7 +312,6 @@ class _InputWithIconState extends State<InputWithIcon> {
 }
 
 void handleError(final String response, final BuildContext context) {
-  logger.wtf(response);
   if (response == 'user-not-found' || response == 'auth/user-not-found') {
     Utilities.showSnackbar(context, Language.of(context).signUp);
   } else if (response == 'invalid-email' || response == 'auth/invalid-email') {

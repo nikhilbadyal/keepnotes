@@ -7,24 +7,6 @@ Color defaultAccent = Colors.deepOrangeAccent;
 class AppConfiguration with ChangeNotifier {
   AppConfiguration();
 
-  // late Color primaryColor;
-  // late Color accentColor;
-  // late AppTheme appTheme;
-  // late ThemeData currentTheme;
-  // late bool isHiddenDiscovered;
-
-  /*void readFromSf() {
-    primaryColor = Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
-    accentColor = Color(getIntFromSF('accentColor') ?? defaultAccent.value);
-    appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
-    currentTheme = appTheme == AppTheme.light
-        ? lightTheme(primaryColor, accentColor)
-        : blackTheme(primaryColor, accentColor);
-    isHiddenDiscovered = getBoolFromSF('hiddenDiscovered') ?? false;
-    SqfliteDatabaseHelper.syncedWithFirebase =
-        getBoolFromSF('syncedWithFirebase') ?? false;
-  }*/
-
   void changePrimaryColor(final Color primaryColor) {
     addIntToSF('primaryColor', primaryColor.value);
     notifyListeners();

@@ -62,7 +62,6 @@ class _MyNotesState extends State<MyNotes> {
             final curUser =
                 Provider.of<Auth>(context, listen: false).auth.currentUser;
             if (curUser != null) {
-              logger.i('Initialising firebase');
               Utilities.initialize(context);
             }
             final supportedLocales = <Locale>[];

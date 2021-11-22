@@ -52,14 +52,10 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
   }
 
   Future<bool> defaultBackPress() async {
-    var count = 1;
-    debugPrint(
-        '${Provider.of<NotesHelper>(context, listen: false).mainNotes.length}$count');
-    count++;
+    Provider.of<NotesHelper>(context, listen: false).reset();
     await Provider.of<NotesHelper>(context, listen: false)
-        .getAllNotes(getNotesType(ModalRoute.of(context)!.settings.name!));
-    debugPrint(
-        '${Provider.of<NotesHelper>(context, listen: false).mainNotes.length}$count');
+        .getAllNotes(NoteState.unspecified.index, clear: true);
+    Provider.of<NotesHelper>(context, listen: false).notify();
     final _currentTime = DateTime.now().millisecondsSinceEpoch;
     if ((_currentTime - _lastTimeBackButtonWasTapped) <
         DoubleBackToCloseWidget.exitTimeInMillis) {

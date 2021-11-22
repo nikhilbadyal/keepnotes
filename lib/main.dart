@@ -3,6 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 // Add your own DSN if you want.
+// Read here https://docs.sentry.io/platforms/flutter/
 const dsn = dsnLink;
 
 final sentry = SentryClient(SentryOptions(dsn: dsn));
@@ -27,7 +28,7 @@ Future<void> main() async {
 
   Utilities.prefs = await SharedPreferences.getInstance();
   if (kDebugMode) {
-    timeDilation = 1;
+    timeDilation = 1.5;
   }
   FlutterError.onError = (final details, {final forceReport = false}) {
     if (kDebugMode) {
