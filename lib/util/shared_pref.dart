@@ -10,9 +10,21 @@ Future<void> addBoolToSF(final String key, {required final bool value}) async =>
 Future<void> addIntToSF(final String key, final int value) async =>
     Utilities.prefs.setInt(key, value);
 
-String? getStringFromSF(final String key) => Utilities.prefs.getString(key);
+String? getStringFromSF(final String key) {
+  try {
+    return Utilities.prefs.getString(key);
+  } on Error catch (_) {
+    return null;
+  }
+}
 
-bool? getBoolFromSF(final String key) => Utilities.prefs.getBool(key);
+bool? getBoolFromSF(final String key) {
+  try {
+    return Utilities.prefs.getBool(key);
+  } on Error catch (_) {
+    return null;
+  }
+}
 
 int? getIntFromSF(final String key) => Utilities.prefs.getInt(key);
 

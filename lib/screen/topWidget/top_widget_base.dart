@@ -18,8 +18,8 @@ typedef ActionFunction = void Function(
     BuildContext context, Note note, OnTapCallback);
 typedef OnTapCallback = void Function(BuildContext context, Note note);
 
-abstract class TopWidgetBase extends StatefulWidget {
-  const TopWidgetBase({final Key? key}) : super(key: key);
+abstract class ScreenContainerBase extends StatefulWidget {
+  const ScreenContainerBase({final Key? key}) : super(key: key);
 
   Widget? body(final BuildContext context);
 
@@ -30,10 +30,10 @@ abstract class TopWidgetBase extends StatefulWidget {
   Widget? floatingActionButton(final BuildContext context);
 
   @override
-  _TopWidgetBaseState createState() => _TopWidgetBaseState();
+  _ScreenContainerBaseState createState() => _ScreenContainerBaseState();
 }
 
-class _TopWidgetBaseState extends State<TopWidgetBase> {
+class _ScreenContainerBaseState extends State<ScreenContainerBase> {
   @override
   Widget build(final BuildContext context) {
     return DoubleBackToCloseWidget(

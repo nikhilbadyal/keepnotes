@@ -29,23 +29,10 @@ class LanguageEn extends Language {
   String get reportSuggest => 'Report/Suggest';
 
   @override
-  String get alertDialogOp1 => 'Sure';
+  String get alertDialogOp1 => 'Okay';
 
   @override
   String get alertDialogOp2 => 'Cancel';
-
-  @override
-  String get backupWarning => 'The app was developed with privacy and security'
-      ' as the main focus. Personal details should remain '
-      'personal.\n\n'
-      'Many users start being skeptical when '
-      'an app requests for an internet permission. So '
-      'I decided to keep this app privacy friendly and '
-      "hence it doesn't have internet. \n\nEverything sounds "
-      'sweet sweet until you realize that this is an '
-      'offline app and you need to take care of your '
-      'notes by yourself.\n\nRemember - If you forget your password. '
-      'No one can help you.Not even me.';
 
   @override
   String get clipboard => 'Clipboard';

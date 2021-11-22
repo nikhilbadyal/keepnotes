@@ -145,7 +145,7 @@ class NotesHelper with ChangeNotifier {
     });
     note.state = NoteState.deleted;
     unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
-      await homeGetAllNotes(orig);
+      await getAllNotes(orig);
       await FirebaseDatabaseHelper.update(note);
     }));
     notifyListeners();
@@ -199,7 +199,7 @@ class NotesHelper with ChangeNotifier {
     }
   }
 
-  Future homeGetAllNotes(final int noteState) async {
+  Future getAllNotes(final int noteState) async {
     if (!isLastPage && !isLoading) {
       isLoading = true;
       if (!SqfliteDatabaseHelper.syncedWithFirebase) {

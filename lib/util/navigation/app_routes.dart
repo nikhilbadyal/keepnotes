@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
+import 'package:notes/_internal_packages.dart';
 
 class AppRoutes {
   static const hiddenScreen = 'hidden';
@@ -119,7 +120,7 @@ class RouteGenerator {
         }
       case AppRoutes.editScreen:
         {
-          return CupertinoPageRoute(
+          return MaterialPageRoute(
             settings: settings,
             builder: (final context) => const EditScreen(),
           );

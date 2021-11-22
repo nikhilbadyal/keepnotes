@@ -118,18 +118,6 @@ class Utilities {
       path: 'nikhildevelops@gmail.com',
       queryParameters: {'subject': 'Suggestion for the app'});
 
-  static String navChecker(final NoteState state) {
-    if (state == NoteState.archived) {
-      return AppRoutes.archiveScreen;
-    } else if (state == NoteState.hidden) {
-      return AppRoutes.hiddenScreen;
-    } else if (state == NoteState.deleted) {
-      return AppRoutes.trashScreen;
-    } else {
-      return AppRoutes.homeScreen;
-    }
-  }
-
   static SnackBarAction resetAction(final BuildContext context) =>
       SnackBarAction(
         label: Language.of(context).reset,

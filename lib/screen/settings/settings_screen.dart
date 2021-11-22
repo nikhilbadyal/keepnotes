@@ -10,12 +10,26 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var directlyDelete = getBoolFromSF('directlyDelete') ?? true;
-  var fpDirectly = getBoolFromSF('fpDirectly') ?? false;
-  var primaryColor =
-      Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
-  var accentColor = Color(getIntFromSF('accentColor') ?? defaultAccent.value);
-  var appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
+  var directlyDelete = true;
+  var fpDirectly = false;
+  var primaryColor = defaultPrimary;
+  var accentColor = defaultAccent;
+  var appTheme = AppTheme.black;
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  void loadData() {
+    directlyDelete = getBoolFromSF('directlyDelete') ?? true;
+    fpDirectly = getBoolFromSF('fpDirectly') ?? false;
+    primaryColor = Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
+    accentColor = Color(getIntFromSF('accentColor') ?? defaultAccent.value);
+    appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
+    setState(() {});
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -198,9 +212,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       fpDirectly = value;
     });
-    unawaited(
-      addBoolToSF('fpDirectly', value: value),
-    );
+    unawaited(addBoolToSF('fpDirectly', value: value));
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -208,9 +220,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       directlyDelete = deleteDirectly;
     });
-    unawaited(
-      addBoolToSF('directlyDelete', value: deleteDirectly),
-    );
+    unawaited(addBoolToSF('directlyDelete', value: deleteDirectly));
   }
 
   Future<void> resetPassword() async {

@@ -52,7 +52,6 @@ android {
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        resValue "string", "app_name", "KeepNotes"
     }
 
 
@@ -94,14 +93,15 @@ android {
 
         debug {
             applicationIdSuffix ".dev"
+            debuggable true
+            versionNameSuffix "-dev"
             signingConfig signingConfigs.release
-            resValue "string", "app_name", "KeepDebug"
         }
 
         profile {
             applicationIdSuffix ".profile"
+            versionNameSuffix "-profile"
             signingConfig signingConfigs.release
-            resValue "string", "app_name", "KeepProfile"
         }
     }
 }

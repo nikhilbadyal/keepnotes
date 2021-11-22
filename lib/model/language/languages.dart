@@ -6,6 +6,8 @@ final supportedLanguages = <LanguageData>[
   LanguageData('in', 'Hindi', 'hi'),
 ];
 
+String defaultLocale = 'en';
+
 class LanguageData {
   LanguageData(this.flag, this.name, this.languageCode);
 
@@ -170,8 +172,6 @@ abstract class Language {
 
   String get done;
 
-  String get backupWarning;
-
   String get viewMore;
 
   String get delete;
@@ -277,7 +277,7 @@ abstract class Language {
   String get required;
 
   static Language of(final BuildContext context) =>
-      Localizations.of<Language>(context, Language) ?? LanguageEn();
+      Localizations.of<Language>(context, Language) ?? LanguageHi();
 }
 
 const String prefSelectedLanguageCode = 'SelectedLanguageCode';
@@ -290,15 +290,16 @@ Future<Locale> setLocale(final String languageCode) async {
 Future<Locale> getLocale() async {
   late String languageCode;
   try {
-    languageCode = getStringFromSF('appLocale') ?? 'en';
+    languageCode = getStringFromSF('appLocale') ?? defaultLocale;
   } on Exception catch (_) {
-    return _locale('en');
+    return _locale(defaultLocale);
   }
   return _locale(languageCode);
 }
 
-Locale _locale(final String languageCode) =>
-    languageCode.isNotEmpty ? Locale(languageCode, '') : const Locale('en', '');
+Locale _locale(final String languageCode) => languageCode.isNotEmpty
+    ? Locale(languageCode, '')
+    : Locale(defaultLocale, '');
 
 Future<void> changeLanguage(
     final BuildContext context, final String selectedLanguageCode) async {

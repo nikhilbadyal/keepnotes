@@ -14,10 +14,16 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  cloud_firestore: ^3.1.0
-  encrypt: ^5.0.1
+
   firebase_auth: ^3.2.0
   firebase_core: ^1.10.0
+  firebase_storage: ^10.1.0
+  cloud_firestore: ^3.1.0
+
+
+
+
+  encrypt: ^5.0.1
   flutter_keyboard_visibility: ^5.1.0
   flutter_secure_storage: ^5.0.2
   flutter_slidable: ^1.1.0
@@ -31,10 +37,10 @@ dependencies:
   path: ^1.8.0
   provider: ^6.0.1
   sentry_flutter: ^6.1.2
-  shared_preferences: ^2.0.8
+  shared_preferences: ^2.0.9
   sqflite: ^2.0.0+4
   syncfusion_flutter_pdf: ^19.3.54-beta
-  url_launcher: ^6.0.13
+  url_launcher: ^6.0.15
   uuid: ^3.0.5
   wc_form_validators: ^1.0.0
 
@@ -46,6 +52,7 @@ dev_dependencies:
     sdk: flutter
   lints: ^1.0.1
   flutter_lints: ^1.0.4
+  mockito: ^5.0.16
 
 flutter:
   uses-material-design: true

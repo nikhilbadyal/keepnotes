@@ -27,7 +27,7 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     myFuture = Provider.of<NotesHelper>(context, listen: false)
-        .homeGetAllNotes(widget.fromWhere.index);
+        .getAllNotes(widget.fromWhere.index);
   }
 
   @override
@@ -101,7 +101,7 @@ class _NonEmptyUiState extends State<NonEmptyUi> {
 
   void loadMore() {
     Provider.of<NotesHelper>(context, listen: false)
-        .homeGetAllNotes(NoteState.unspecified.index)
+        .getAllNotes(NoteState.unspecified.index)
         .then((final _) {
       setState(() {});
     });

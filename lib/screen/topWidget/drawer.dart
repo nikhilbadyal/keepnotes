@@ -2,6 +2,8 @@ import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
+var isOpened = false;
+
 class MyDrawer extends StatefulWidget {
   const MyDrawer({final Key? key}) : super(key: key);
 
@@ -13,6 +15,18 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
   String _activeRoute = '/';
   var gender = getStringFromSF('gender') ?? 'men';
   var isHiddenDiscovered = getBoolFromSF('hiddenDiscovered') ?? false;
+
+  @override
+  void initState() {
+    super.initState();
+    isOpened = true;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isOpened = false;
+  }
 
   @override
   void didChangeDependencies() {
@@ -187,7 +201,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
     );
   }
 
-  String getWish(final BuildContext context) {
+  String getWish(final BuildContext context, [final bool? undiscovered]) {
     final hour = DateTime.now().hour;
     String wish;
     final startWish = Language.of(context).good;
@@ -198,7 +212,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
     } else {
       wish = '$startWish ${Language.of(context).night}';
     }
-    if (!isHiddenDiscovered) {
+    if (undiscovered ?? !isHiddenDiscovered) {
       wish += Language.of(context).tapMe;
     }
     return wish;

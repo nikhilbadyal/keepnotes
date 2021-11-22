@@ -11,8 +11,8 @@ class Welcome extends StatefulWidget {
 
 class _WelcomeState extends State<Welcome> {
   int _pageState = 0;
-  final loginKey = GlobalKey<FormState>();
-  final signupKey = GlobalKey<FormState>();
+  var loginKey = GlobalKey<FormState>();
+  var signupKey = GlobalKey<FormState>();
   final user = NotesUser(
     name: '',
     email: '',
@@ -82,10 +82,9 @@ class _WelcomeState extends State<Welcome> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          home(context, _backgroundColor, onScreenTap, onGetStartTap,
-              _headingTop, _headingColor),
-          login(
-              context,
+          Home(_backgroundColor, onHomeTap, onGetStartTap, _headingTop,
+              _headingColor),
+          Login(
               _loginWidth,
               _loginHeight,
               _loginYOffset,
@@ -96,15 +95,17 @@ class _WelcomeState extends State<Welcome> {
               passwordRegEx,
               loginOnTap,
               goToSignupTap),
-          signup(context, _registerHeight, _registerYOffset, signupKey, user,
+          SignUp(_registerHeight, _registerYOffset, signupKey, user,
               passwordRegEx, createAccountOnTap, goToLoginOnTap),
         ],
       ),
     );
   }
 
-  void onScreenTap() {
+  void onHomeTap() {
     setState(() {
+      signupKey = GlobalKey<FormState>();
+      loginKey = GlobalKey<FormState>();
       if (_pageState != 0) {
         _pageState = 0;
       }
@@ -113,18 +114,24 @@ class _WelcomeState extends State<Welcome> {
 
   void goToSignupTap() {
     setState(() {
+      signupKey = GlobalKey<FormState>();
+      loginKey = GlobalKey<FormState>();
       _pageState = 2;
     });
   }
 
   void goToLoginOnTap() {
     setState(() {
+      signupKey = GlobalKey<FormState>();
+      loginKey = GlobalKey<FormState>();
       _pageState = 1;
     });
   }
 
   void onGetStartTap() {
     setState(() {
+      signupKey = GlobalKey<FormState>();
+      loginKey = GlobalKey<FormState>();
       if (_pageState != 0) {
         _pageState = 0;
       } else {
@@ -134,8 +141,7 @@ class _WelcomeState extends State<Welcome> {
   }
 
   String passwordRegEx() {
-    return '^(?=.*[A-Z].*[A-Z])(?=.'
-        r'*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$';
+    return r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])\S{8,}$';
   }
 
   Future<void> createAccountOnTap() async {
@@ -197,10 +203,8 @@ class _WelcomeState extends State<Welcome> {
         context,
         listen: false,
       ).signInWithPassword(
-        // email: user.email,
-        email: 'nikhill773384@gmail.com',
-        // password: user.password,
-        password: 'Softwareng@645',
+        email: user.email,
+        password: user.password,
       );
       if (Provider.of<Auth>(
         context,

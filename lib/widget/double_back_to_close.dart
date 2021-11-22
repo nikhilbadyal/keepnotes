@@ -52,8 +52,14 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
   }
 
   Future<bool> defaultBackPress() async {
+    var count = 1;
+    debugPrint(
+        '${Provider.of<NotesHelper>(context, listen: false).mainNotes.length}$count');
+    count++;
     await Provider.of<NotesHelper>(context, listen: false)
-        .homeGetAllNotes(getNotesType(ModalRoute.of(context)!.settings.name!));
+        .getAllNotes(getNotesType(ModalRoute.of(context)!.settings.name!));
+    debugPrint(
+        '${Provider.of<NotesHelper>(context, listen: false).mainNotes.length}$count');
     final _currentTime = DateTime.now().millisecondsSinceEpoch;
     if ((_currentTime - _lastTimeBackButtonWasTapped) <
         DoubleBackToCloseWidget.exitTimeInMillis) {
@@ -66,7 +72,8 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
             (final route) => route.settings.name == AppRoutes.homeScreen);
         return Future.value(true);
       } else if (ModalRoute.of(context)!.settings.name! ==
-          AppRoutes.homeScreen) {
+              AppRoutes.homeScreen &&
+          !isOpened) {
         Utilities.showSnackbar(context, Language.of(context).doubleBackToExit,
             duration: const Duration(
                 milliseconds: DoubleBackToCloseWidget.exitTimeInMillis - 10));

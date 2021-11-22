@@ -5,7 +5,7 @@ import 'package:notes/_internal_packages.dart';
 typedef SlidableActions = Function(Note note, BuildContext context);
 typedef ActionGen = Widget Function(Note note, BuildContext context);
 
-class ScreenContainer extends TopWidgetBase {
+class ScreenContainer extends ScreenContainerBase {
   const ScreenContainer({
     required this.topScreen,
     final Key? key,
