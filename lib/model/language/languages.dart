@@ -62,7 +62,11 @@ class FallbackLocalizationDelegate
 }
 
 abstract class Language {
-  String get appTagLine;
+  String get splashDes1;
+
+  String get splashDes2;
+
+  String get splashDes3;
 
   String get loginToContinue;
 
@@ -275,6 +279,26 @@ abstract class Language {
   String get checkEmail;
 
   String get required;
+
+  String get someError;
+
+  String get loginExplaination;
+
+  String get noAccount;
+
+  String get registerAccount;
+
+  String get signUpJustification;
+
+  String get totalPrivacy;
+
+  String get enterEmail;
+
+  String get shortPassword;
+
+  String get password;
+
+  String get confirmPassword;
 
   static Language of(final BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageHi();

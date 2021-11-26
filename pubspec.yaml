@@ -35,10 +35,11 @@ dependencies:
   sentry_flutter: ^6.1.2
   shared_preferences: ^2.0.9
   sqflite: ^2.0.0+4
-  syncfusion_flutter_pdf: ^19.3.54-beta
+  syncfusion_flutter_pdf: ^19.3.55-beta
   url_launcher: ^6.0.15
   uuid: ^3.0.5
   wc_form_validators: ^1.0.0
+  pinput: ^1.2.2
 
   keepsettings:
     git:
@@ -54,3 +55,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/icons/

@@ -38,7 +38,7 @@ List<BoxShadow> shadow = [
   BoxShadow(
     color: Colors.grey[200]!,
     blurRadius: 30,
-    offset: const Offset(0, 10),
+    offset: const Offset(0, 15),
   )
 ];
 

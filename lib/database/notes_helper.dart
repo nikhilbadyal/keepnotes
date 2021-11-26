@@ -21,8 +21,14 @@ class NotesHelper with ChangeNotifier {
   bool isLastPage = false;
   bool isLoading = false;
 
-  void signOut() {
-    mainNotes.clear();
+  Future<void> signOut() async {
+    try {
+      reset();
+      await SqfliteDatabaseHelper.deleteDB();
+      await FirebaseDatabaseHelper.db.terminate();
+      await FirebaseDatabaseHelper.db.clearPersistence();
+      await removeFromSF('syncedWithFirebase');
+    } finally {}
   }
 
   void notify() {
@@ -174,41 +180,17 @@ class NotesHelper with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Map<String, dynamic>>> myGetAll() async {
+  Future<List<Map<String, dynamic>>> getFromFirebase() async {
     final notesList = await FirebaseDatabaseHelper.getAll();
     final items = notesList.docs.map((final e) => e.data()).toList();
     return items;
   }
 
-  Future<void> encryptAllHidden() async {
-    final notes = await SqfliteDatabaseHelper.queryData(
-        whereCond: [NoteState.hidden.index]);
-    final notesList = notes
-        .map(
-          (final itemVar) => Note(
-            id: itemVar['id'],
-            title: itemVar['title'].toString(),
-            content: itemVar['content'].toString(),
-            lastModify: DateTime.fromMillisecondsSinceEpoch(
-              itemVar['lastModify'],
-            ),
-            state: NoteState.values[itemVar['state']],
-          ),
-        )
-        .toList();
-    for (final notes in notesList) {
-      encryption.encrypt(notes);
-      await SqfliteDatabaseHelper.insert(notes);
-      await FirebaseDatabaseHelper.insert(notes);
-    }
-  }
-
   Future getAllNotes(final int noteState, {final bool clear = false}) async {
     if (!isLastPage && !isLoading) {
       isLoading = true;
-      if (!SqfliteDatabaseHelper.syncedWithFirebase) {
-        await SqfliteDatabaseHelper.addAll(await myGetAll());
-        SqfliteDatabaseHelper.syncedWithFirebase = true;
+      if (!(getBoolFromSF('syncedWithFirebase') ?? false)) {
+        await SqfliteDatabaseHelper.batchInsert(await getFromFirebase());
         unawaited(addBoolToSF('syncedWithFirebase', value: true));
       }
       const limit = 15;
@@ -255,37 +237,10 @@ class NotesHelper with ChangeNotifier {
     }
   }
 
-  Future<bool> recryptEverything(final String password) async {
-    try {
-      final notesList = await SqfliteDatabaseHelper.queryData(
-          whereStr: 'state = ?', whereCond: [NoteState.hidden.index]);
-      final myList = notesList
-          .map(
-            (final itemVar) => Note(
-              id: itemVar['id'],
-              title: itemVar['title'].toString(),
-              content: itemVar['content'].toString(),
-              lastModify: DateTime.fromMillisecondsSinceEpoch(
-                itemVar['lastModify'],
-              ),
-              state: NoteState.values[itemVar['state']],
-            ),
-          )
-          .toList();
-      // ignore: cascade_invocations
-      for (var i = 0; i < myList.length; i++) {
-        final element = myList[i];
-        encryption.decrypt(element);
-      }
-      encryption.resetDetails(password);
-      for (final note in myList) {
-        encryption.encrypt(note);
-        await SqfliteDatabaseHelper.update(note);
-      }
-    } on Exception catch (_) {
-      return false;
-    }
-    return true;
+  List<Map<String, dynamic>> makeModifiableResults(
+      final List<Map<String, dynamic>> results) {
+    return List<Map<String, dynamic>>.generate(results.length,
+        (final index) => Map<String, dynamic>.from(results[index]));
   }
 
   void reset() {

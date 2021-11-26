@@ -15,15 +15,6 @@ class Encrypt {
   late IV iv;
   late Encrypter encrypter;
 
-  void resetDetails(final String password) {
-    final myKey = password.padLeft(32, '#');
-    key = Key.fromUtf8(myKey);
-    iv = IV.fromLength(16);
-    encrypter = Encrypter(
-      AES(key),
-    );
-  }
-
   void encrypt(final Note copiedNote) {
     if (copiedNote.title.isNotEmpty) {
       copiedNote.title = encrypter.encrypt(copiedNote.title, iv: iv).base64;
@@ -47,6 +38,11 @@ class Encrypt {
       return str;
     }
     return encrypter.decrypt64(str, iv: iv);
+  }
+
+  void recrpyt(final String data, final String oldPass, final String newPass) {
+    decryptStr(data);
+    encryptStr(data);
   }
 
   String encryptStr(final String str) {

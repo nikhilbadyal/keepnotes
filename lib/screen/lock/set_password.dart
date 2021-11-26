@@ -11,54 +11,10 @@ class SetPassword extends StatefulWidget {
 
 class _SetPasswordState extends State<SetPassword> {
   String enteredPassCode = '';
-  late bool isFirst;
-  late String firstPass;
-  late String title;
   late DataObj args;
 
-  final StreamController<bool> _verificationNotifier =
-      StreamController<bool>.broadcast();
-
-  @override
-  void dispose() {
-    _verificationNotifier.close();
-    super.dispose();
-  }
-
-  void _onTap(final String text) {
-    HapticFeedback.vibrate();
-
-    setState(() {
-      if (isFirst) {
-        if (enteredPassCode.length < 4) {
-          enteredPassCode += text;
-          if (enteredPassCode.length == 4) {
-            _doneEnteringPass(enteredPassCode);
-          }
-        }
-      } else {
-        if (enteredPassCode.length < firstPass.length) {
-          enteredPassCode += text;
-          if (enteredPassCode.length == firstPass.length) {
-            _doneEnteringPass(enteredPassCode);
-          }
-        }
-      }
-    });
-  }
-
-  void _onDelTap() {
-    HapticFeedback.vibrate();
-    if (enteredPassCode.isNotEmpty) {
-      setState(() {
-        enteredPassCode =
-            enteredPassCode.substring(0, enteredPassCode.length - 1);
-      });
-    }
-  }
-
-  Future<void> _doneEnteringPass(final String enteredPassCode) async {
-    if (isFirst) {
+  Future<void> doneEnteringPass(final String enteredPassCode) async {
+    if (args.isFirst) {
       await navigate(
         ModalRoute.of(context)!.settings.name!,
         context,
@@ -67,7 +23,7 @@ class _SetPasswordState extends State<SetPassword> {
             resetPass: args.resetPass, isFirst: false),
       );
     } else {
-      if (enteredPassCode == firstPass) {
+      if (enteredPassCode == args.firstPass) {
         if (args.resetPass) {
           if (Provider.of<LockChecker>(context, listen: false).password ==
               enteredPassCode) {
@@ -77,12 +33,20 @@ class _SetPasswordState extends State<SetPassword> {
               duration: const Duration(milliseconds: 1500),
             );
           } else {
+            final spinkit = SpinKitCubeGrid(
+              color: Theme.of(context).colorScheme.secondary,
+              size: MediaQuery.of(context).size.height * 0.1,
+            );
+
+            unawaited(showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (final _) {
+                return spinkit;
+              },
+            ));
             await Provider.of<LockChecker>(context, listen: false)
-                .resetConfig(shouldResetBio: false);
-            await Provider.of<NotesHelper>(context, listen: false)
-                .recryptEverything(enteredPassCode);
-            unawaited(Provider.of<LockChecker>(context, listen: false)
-                .passwordSetConfig(enteredPassCode));
+                .passwordSetConfig(enteredPassCode);
           }
           await Navigator.of(context)
               .pushReplacementNamed(AppRoutes.settingsScreen);
@@ -116,25 +80,12 @@ class _SetPasswordState extends State<SetPassword> {
     }
   }
 
-  Widget _titleWidget(final String title) => Text(
-        '$title ',
-        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      );
-
   @override
   Widget build(final BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments! as DataObj;
-    isFirst = args.isFirst;
-    firstPass = args.firstPass;
-    title = args.heading;
-    final titleWidget = _titleWidget(title);
-    return MyLockScreen(
-      title: titleWidget,
-      onTap: _onTap,
-      onDelTap: _onDelTap,
-      enteredPassCode: enteredPassCode,
-      stream: _verificationNotifier.stream,
-      doneCallBack: (final _) {},
+    return LockBody(
+      title: args.heading,
+      doneCallBack: doneEnteringPass,
     );
   }
 }
@@ -143,8 +94,8 @@ class DataObj {
   DataObj(this.firstPass, this.heading,
       {required this.isFirst, this.resetPass = false});
 
-  final bool isFirst;
   final String firstPass;
   final String heading;
+  final bool isFirst;
   final bool resetPass;
 }

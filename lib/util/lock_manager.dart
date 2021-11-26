@@ -16,12 +16,10 @@ class LockChecker with ChangeNotifier {
   late String password;
   late bool bioNotAvailable;
 
-  Future<void> resetConfig({required final bool shouldResetBio}) async {
+  Future<void> resetConfig() async {
     password = '';
-    if (shouldResetBio) {
-      await resetBio();
-    }
-    unawaited(removeFromSF('password'));
+    await resetBio();
+    await removeFromSF('password');
   }
 
   Future<void> resetBio() async {

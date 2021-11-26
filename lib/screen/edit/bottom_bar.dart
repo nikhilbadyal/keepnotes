@@ -3,12 +3,12 @@ import 'package:notes/_internal_packages.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar(
-      {final Key? key,
-      required this.note,
+      {required this.note,
       required this.saveNote,
       required this.onIconTap,
       required this.isReadOnly,
-      required this.autoSaverTimer})
+      required this.autoSaverTimer,
+      final Key? key})
       : super(key: key);
 
   final Note note;

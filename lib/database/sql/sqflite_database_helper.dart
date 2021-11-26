@@ -1,12 +1,10 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:path/path.dart' show join;
 
 class SqfliteDatabaseHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
-  static bool syncedWithFirebase = getBoolFromSF('syncedWithFirebase') ?? false;
 
   static final fieldMap = {
     'id': 'text PRIMARY KEY ',
@@ -110,11 +108,12 @@ class SqfliteDatabaseHelper {
     return resultSet;
   }
 
-  static Future<bool> addAll(final List<Map<String, dynamic>> notesList) async {
+  static Future<bool> batchInsert(final List<Map<String, dynamic>> notesList,
+      {final ConflictAlgorithm? conflictAlgorithm}) async {
     final db = await database;
     final batch = db.batch();
     for (final element in notesList) {
-      batch.insert(tableName, element);
+      batch.insert(tableName, element, conflictAlgorithm: conflictAlgorithm);
     }
     await batch.commit(noResult: true);
     return true;

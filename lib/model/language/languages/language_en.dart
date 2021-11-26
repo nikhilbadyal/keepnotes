@@ -259,7 +259,7 @@ class LanguageEn extends Language {
   String get accountAlreadyExist => 'Account already exist';
 
   @override
-  String get appTagLine => 'We Keep you SAFE';
+  String get splashDes1 => 'We keep you SAFE';
 
   @override
   String get backToLogin => 'Back to login';
@@ -323,4 +323,43 @@ class LanguageEn extends Language {
 
   @override
   String get on => 'On';
+
+  @override
+  String get splashDes2 => 'You are in loop';
+
+  @override
+  String get splashDes3 => 'Think & Write';
+
+  @override
+  String get someError => 'Some error occurred';
+
+  @override
+  String get loginExplaination =>
+      'Sign in with your email and password  \nor continue with social media';
+
+  @override
+  String get noAccount => 'Don’t have an account?';
+
+  @override
+  String get registerAccount => 'Register Account';
+
+  @override
+  String get signUpJustification =>
+      'Complete your details or continue \nwith social media';
+
+  @override
+  String get totalPrivacy =>
+      'By continuing your confirm that you agree \nwith NOTHING';
+
+  @override
+  String get confirmPassword => 'Please confirm password';
+
+  @override
+  String get enterEmail => 'Please enter your email';
+
+  @override
+  String get password => 'Please enter your password';
+
+  @override
+  String get shortPassword => 'Password is too short';
 }

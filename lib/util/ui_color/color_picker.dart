@@ -1,20 +1,13 @@
+import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-typedef PickerLayoutBuilder = Widget Function(
-    BuildContext context, List<Color> colors, PickerItem child);
-typedef PickerItem = Widget Function(Color color);
-typedef PickerItemBuilder = Widget Function(
-    Color color, void Function() changeColor,
-    {required bool isCurrentColor});
-
 class ColorPicker extends StatefulWidget {
-  const ColorPicker(
-      {required this.pickerColor,
-      required this.onColorChanged,
-      required this.availableColors,
-      this.layoutBuilder = defaultLayoutBuilder,
-      this.itemBuilder = defaultItemBuilder,
-      final Key? key})
+  const ColorPicker({required this.pickerColor,
+    required this.onColorChanged,
+    required this.availableColors,
+    this.layoutBuilder = defaultLayoutBuilder,
+    this.itemBuilder = defaultItemBuilder,
+    final Key? key})
       : super(key: key);
 
   final Color pickerColor;
@@ -39,9 +32,8 @@ class ColorPicker extends StatefulWidget {
     );
   }
 
-  static Widget defaultItemBuilder(
-          final Color color, final void Function() changeColor,
-          {required final bool isCurrentColor}) =>
+  static Widget defaultItemBuilder(final Color color, final void Function() changeColor,
+      {required final bool isCurrentColor}) =>
       Container(
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
@@ -92,20 +84,20 @@ class _ColorPickerState extends State<ColorPicker> {
 
   @override
   Widget build(final BuildContext context) => widget.layoutBuilder(
-        context,
-        widget.availableColors,
+    context,
+    widget.availableColors,
         (final color, [final _, final __]) => widget.itemBuilder(
-          color,
+      color,
           () => changeColor(color),
-          isCurrentColor: _currentColor.value == color.value,
-        ),
-      );
+      isCurrentColor: _currentColor.value == color.value,
+    ),
+  );
 }
 
 bool useWhiteForeground(final Color color, {final double bias = 1}) {
   final v = sqrt(pow(color.red, 2) * 0.299 +
-          pow(color.green, 2) * 0.587 +
-          pow(color.blue, 2) * 0.114)
+      pow(color.green, 2) * 0.587 +
+      pow(color.blue, 2) * 0.114)
       .round();
   if (v < 130 * bias) {
     return true;

@@ -78,28 +78,13 @@ class Utilities {
     }));
   }
 
-  static Future<void> resetPassword(final BuildContext context,
-      {final bool deleteAllNotes = false}) async {
-    if (deleteAllNotes) {
-      await Provider.of<NotesHelper>(context, listen: false).deleteAllHidden();
-    } else {
-      Utilities.showSnackbar(context, Language.of(context).done);
-      unawaited(Provider.of<NotesHelper>(context, listen: false)
-          .recryptEverything(
-              Provider.of<LockChecker>(context, listen: false).password)
-          .then((final value) {
-        if (value) {
-          Utilities.showSnackbar(
-              context, Language.of(context).setPassAndHideAgain);
-        }
-      }));
-    }
+  static Future<void> resetPassword(final BuildContext context) async {
+    await Provider.of<NotesHelper>(context, listen: false).deleteAllHidden();
     Utilities.showSnackbar(
       context,
       Language.of(context).passwordReset,
     );
-    await Provider.of<LockChecker>(context, listen: false)
-        .resetConfig(shouldResetBio: true);
+    await Provider.of<LockChecker>(context, listen: false).resetConfig();
     await navigate('', context, AppRoutes.homeScreen);
   }
 
@@ -150,7 +135,7 @@ class Utilities {
               ) ??
               false;
           if (status) {
-            await resetPassword(context, deleteAllNotes: true);
+            await resetPassword(context);
           }
         },
       );

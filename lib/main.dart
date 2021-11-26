@@ -48,7 +48,6 @@ Future<void> main() async {
           error,
           stackTrace: stackTrace,
         );
-        // ignore: avoid_catching_errors
       } on Error catch (e, s) {
         logger.w('reportError $e $s');
       }
@@ -59,9 +58,7 @@ Future<void> main() async {
 
   if (dsn.isNotEmpty || kDebugMode) {
     await runZonedGuarded(() async {
-      return SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
-      ).then((final _) => runApp(const MyNotes()));
+      runApp(const MyNotes());
     }, reportError);
   } else {
     logger.w('reportError DNS NOT FOUND');

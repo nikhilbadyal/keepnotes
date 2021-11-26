@@ -259,7 +259,7 @@ class LanguageHi extends Language {
   String get accountAlreadyExist => 'अकाउंट पहले से ही मौजूद है';
 
   @override
-  String get appTagLine => 'हम आपको सुरक्षित रखते हैं';
+  String get splashDes1 => 'हम आपको सुरक्षित रखते हैं';
 
   @override
   String get backToLogin => 'लॉगिन पर वापस जाएं';
@@ -323,4 +323,42 @@ class LanguageHi extends Language {
 
   @override
   String get on => 'चालू';
+
+  @override
+  String get splashDes2 => 'आप लूप में हैं';
+
+  @override
+  String get splashDes3 => 'सोचे और लिखें ';
+
+  @override
+  String get someError => 'कुछ त्रुटि हुई';
+
+  @override
+  String get loginExplaination =>
+      'अपने ईमेल और पासवर्ड से साइन इन करें \nया सोशल मीडिया के साथ जारी रखें';
+
+  @override
+  String get noAccount => 'खाता नहीं है? ';
+
+  @override
+  String get registerAccount => 'खाता पंजीकृत करें';
+
+  @override
+  String get signUpJustification =>
+      'अपना विवरण पूरा करें या \nया सोशल मीडिया के साथ जारी रखें';
+
+  @override
+  String get totalPrivacy => 'आप किसी भी शर्त के साथ सहमत नहीं';
+
+  @override
+  String get confirmPassword => 'कृपया पासवर्ड की पुष्टि करें';
+
+  @override
+  String get enterEmail => 'अपना ईमेल दर्ज करें';
+
+  @override
+  String get password => 'अपना पासवर्ड दर्ज करें';
+
+  @override
+  String get shortPassword => 'पासवर्ड बहुत छोटा है';
 }

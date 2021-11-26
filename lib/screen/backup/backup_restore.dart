@@ -1,14 +1,14 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-class BackUpScreenHelper extends StatefulWidget {
-  const BackUpScreenHelper({final Key? key}) : super(key: key);
+class BackUpScreen extends StatefulWidget {
+  const BackUpScreen({final Key? key}) : super(key: key);
 
   @override
-  _BackUpScreenHelperState createState() => _BackUpScreenHelperState();
+  _BackUpScreenState createState() => _BackUpScreenState();
 }
 
-class _BackUpScreenHelperState extends State<BackUpScreenHelper>
+class _BackUpScreenState extends State<BackUpScreen>
     with TickerProviderStateMixin {
   @override
   Widget build(final BuildContext context) {

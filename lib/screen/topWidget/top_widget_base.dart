@@ -2,6 +2,7 @@ import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 enum ScreenTypes {
+  suggestions,
   hidden,
   lock,
   setpass,
@@ -11,32 +12,35 @@ enum ScreenTypes {
   trash,
   aboutMe,
   settings,
-  suggestions,
+  welcome,
+  login,
+  forgotPassword,
+  edit,
+  signup
 }
 
-typedef ActionFunction = void Function(
-    BuildContext context, Note note, OnTapCallback);
-typedef OnTapCallback = void Function(BuildContext context, Note note);
+abstract class TopWidgetBase extends StatefulWidget {
+  const TopWidgetBase({final Key? key}) : super(key: key);
 
-abstract class ScreenContainerBase extends StatefulWidget {
-  const ScreenContainerBase({final Key? key}) : super(key: key);
+  BackPresAction? backPressAction();
 
   Widget? body(final BuildContext context);
 
   Widget? myDrawer(final BuildContext context);
 
-  MyAppBar? appBar(final BuildContext context);
+  AppBar? appBar(final BuildContext context);
 
   Widget? floatingActionButton(final BuildContext context);
 
   @override
-  _ScreenContainerBaseState createState() => _ScreenContainerBaseState();
+  _TopWidgetBaseState createState() => _TopWidgetBaseState();
 }
 
-class _ScreenContainerBaseState extends State<ScreenContainerBase> {
+class _TopWidgetBaseState extends State<TopWidgetBase> {
   @override
   Widget build(final BuildContext context) {
     return DoubleBackToCloseWidget(
+      backPresAction: widget.backPressAction(),
       child: Scaffold(
         appBar: widget.appBar(context),
         drawer: widget.myDrawer(context),

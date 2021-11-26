@@ -1,3 +1,4 @@
+import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
@@ -33,10 +34,10 @@ class _SocialLinksRowState extends State<SocialLinksRow> {
         children: [
           GestureDetector(
               onTap: () => launch('https://t.me/joinchat/uGAlVliNij1hZTFl'),
-              child: SvgPicture.asset('assets/images/telegram.svg')),
+              child: SvgPicture.asset(telegram)),
           GestureDetector(
               onTap: () => launch('https://github.com/nikhilbadyal/keep-notes'),
-              child: SvgPicture.asset('assets/images/github.svg')),
+              child: SvgPicture.asset(github)),
         ],
       ),
     );

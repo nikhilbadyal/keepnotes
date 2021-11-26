@@ -2,8 +2,6 @@ import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-typedef BackPresAction = Future<bool> Function();
-
 class DoubleBackToCloseWidget extends StatefulWidget {
   const DoubleBackToCloseWidget(
       {required this.child, final Key? key, final this.backPresAction})
@@ -71,6 +69,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
               AppRoutes.homeScreen &&
           !isOpened) {
         Utilities.showSnackbar(context, Language.of(context).doubleBackToExit,
+            snackBarBehavior: SnackBarBehavior.fixed,
             duration: const Duration(
                 milliseconds: DoubleBackToCloseWidget.exitTimeInMillis - 10));
         return Future.value(false);

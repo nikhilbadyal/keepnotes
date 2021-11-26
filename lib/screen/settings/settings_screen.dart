@@ -11,7 +11,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   var directlyDelete = true;
-  var fpDirectly = false;
+  var fpDirectly = true;
   var primaryColor = defaultPrimary;
   var accentColor = defaultAccent;
   var appTheme = AppTheme.black;
@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void loadData() {
     directlyDelete = getBoolFromSF('directlyDelete') ?? true;
-    fpDirectly = getBoolFromSF('fpDirectly') ?? false;
+    fpDirectly = getBoolFromSF('fpDirectly') ?? true;
     primaryColor = Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
     accentColor = Color(getIntFromSF('accentColor') ?? defaultAccent.value);
     appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
@@ -33,116 +33,115 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(final BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: settingsList(),
-      ),
-    );
+    return settingsList();
   }
 
   Widget settingsList() {
-    return SettingsList(
-      sections: [
-        TilesSection(
-          title: Language.of(context).general,
-          tiles: [
-            SettingsTile(
-              title: Language.of(context).labelLanguage,
-              leading: const Icon(Icons.language),
-              trailing: languageTrailing(),
-            ),
-            SettingsTile.switchTile(
-              title: Language.of(context).directDelete,
-              leading: const Icon(Icons.delete_forever_outlined),
-              activeText: Language.of(context).on,
-              inactiveText: Language.of(context).off,
-              switchActiveColor: Theme.of(context).colorScheme.secondary,
-              switchValue: directlyDelete,
-              onToggle: directDelete,
-            ),
-          ],
-        ),
-        TilesSection(
-          title: Language.of(context).ui,
-          tiles: [
-            SettingsTile(
-              trailing: const Icon(Icons.arrow_forward_ios),
-              title: Language.of(context).appColor,
-              leading: const Icon(
-                Icons.color_lens_outlined,
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: SettingsList(
+        sections: [
+          TilesSection(
+            title: Language.of(context).general,
+            tiles: [
+              SettingsTile(
+                title: Language.of(context).labelLanguage,
+                leading: const Icon(Icons.language),
+                trailing: languageTrailing(),
               ),
-              onPressed: (final _) {
-                colorPicker(Language.of(context).pickColor, Colors.primaries,
-                    primaryColor, onPrimaryColorChange);
-              },
-            ),
-            SettingsTile(
-              trailing: const Icon(Icons.arrow_forward_ios),
-              title: Language.of(context).accentColor,
-              leading: const Icon(
-                TablerIcons.color_swatch,
+              SettingsTile.switchTile(
+                title: Language.of(context).directDelete,
+                leading: const Icon(Icons.delete_forever_outlined),
+                activeText: Language.of(context).on,
+                inactiveText: Language.of(context).off,
+                switchActiveColor: Theme.of(context).colorScheme.secondary,
+                switchValue: directlyDelete,
+                onToggle: directDelete,
               ),
-              onPressed: (final _) {
-                colorPicker(Language.of(context).pickColor, Colors.accents,
-                    accentColor, onAccentColorChange);
-              },
-            ),
-            SettingsTile.switchTile(
-              switchActiveColor: Theme.of(context).colorScheme.secondary,
-              title: Language.of(context).darkMode,
-              activeText: Language.of(context).on,
-              inactiveText: Language.of(context).off,
-              leading: const Icon(
-                Icons.dark_mode_outlined,
+            ],
+          ),
+          TilesSection(
+            title: Language.of(context).ui,
+            tiles: [
+              SettingsTile(
+                trailing: const Icon(Icons.arrow_forward_ios),
+                title: Language.of(context).appColor,
+                leading: const Icon(
+                  Icons.color_lens_outlined,
+                ),
+                onPressed: (final _) {
+                  colorPicker(Language.of(context).pickColor, primaryColors,
+                      primaryColor, onPrimaryColorChange);
+                },
               ),
-              switchValue: appTheme != AppTheme.light,
-              onToggle: toggleTheme,
-            ),
-          ],
-        ),
-        TilesSection(
-          title: Language.of(context).security,
-          tiles: [
-            SettingsTile.switchTile(
-              title: Language.of(context).directBio,
-              activeText: Language.of(context).on,
-              inactiveText: Language.of(context).off,
-              leading: const Icon(
-                Icons.fingerprint_outlined,
+              SettingsTile(
+                trailing: const Icon(Icons.arrow_forward_ios),
+                title: Language.of(context).accentColor,
+                leading: const Icon(
+                  TablerIcons.color_swatch,
+                ),
+                onPressed: (final _) {
+                  colorPicker(Language.of(context).pickColor, secondaryColors,
+                      accentColor, onAccentColorChange);
+                },
               ),
-              switchActiveColor: Theme.of(context).colorScheme.secondary,
-              switchValue: fpDirectly,
-              onToggle: toggleBiometric,
-            ),
-            SettingsTile(
-              title: Language.of(context).changePassword,
-              leading: const Icon(
-                Icons.phonelink_lock,
+              SettingsTile.switchTile(
+                switchActiveColor: Theme.of(context).colorScheme.secondary,
+                title: Language.of(context).darkMode,
+                activeText: Language.of(context).on,
+                inactiveText: Language.of(context).off,
+                leading: const Icon(
+                  Icons.dark_mode_outlined,
+                ),
+                switchValue: appTheme != AppTheme.light,
+                onToggle: toggleTheme,
               ),
-              onPressed: (final context) {
-                onChangePassword();
-              },
-            ),
-            SettingsTile(
-              title: Language.of(context).removeBiometric,
-              leading: const Icon(
-                Icons.face_outlined,
+            ],
+          ),
+          TilesSection(
+            title: Language.of(context).security,
+            tiles: [
+              SettingsTile.switchTile(
+                title: Language.of(context).directBio,
+                activeText: Language.of(context).on,
+                inactiveText: Language.of(context).off,
+                leading: const Icon(
+                  Icons.fingerprint_outlined,
+                ),
+                switchActiveColor: Theme.of(context).colorScheme.secondary,
+                switchValue: fpDirectly,
+                onToggle: toggleBiometric,
               ),
-              onPressed: (final context) {
-                onRemoveBioMetric(context);
-              },
-            ),
-            SettingsTile(
-              trailing: const Icon(Icons.logout_outlined),
-              title: Language.of(context).logOut,
-              leading: const Icon(
-                TablerIcons.color_swatch,
+              SettingsTile(
+                title: Language.of(context).changePassword,
+                leading: const Icon(
+                  Icons.phonelink_lock,
+                ),
+                onPressed: (final context) {
+                  onChangePassword();
+                },
               ),
-              onPressed: logOut,
-            ),
-          ],
-        ),
-      ],
+              SettingsTile(
+                title: Language.of(context).removeBiometric,
+                leading: const Icon(
+                  Icons.face_outlined,
+                ),
+                onPressed: (final context) {
+                  onRemoveBioMetric(context);
+                },
+              ),
+              SettingsTile(
+                // trailing: const Icon(Icons.logout_outlined),
+                title: Language.of(context).logOut,
+                leading: const Icon(
+                  TablerIcons.logout,
+                ),
+                onPressed: logOut,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -233,16 +232,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (Provider.of<LockChecker>(context, listen: false).password.isNotEmpty) {
       await Navigator.pushNamed(context, AppRoutes.lockScreen, arguments: true);
     } else {
-      await navigate(
-        AppRoutes.settingsScreen,
-        context,
-        AppRoutes.setPassScreen,
-        DataObj(
-          '',
-          Language.of(context).enterNewPassword,
-          isFirst: true,
-        ),
-      );
+      Utilities.showSnackbar(context, Language.of(context).setPasswordFirst);
     }
   }
 
@@ -303,14 +293,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context,
       listen: false,
     ).signOut();
-    Provider.of<NotesHelper>(context, listen: false).signOut();
-    await removeFromSF('syncedWithFirebase');
-    await Provider.of<LockChecker>(context, listen: false)
-        .resetConfig(shouldResetBio: true);
-    unawaited(SqfliteDatabaseHelper.deleteDB());
+    await Provider.of<NotesHelper>(context, listen: false).signOut();
+    await Provider.of<LockChecker>(context, listen: false).resetConfig();
     await Navigator.pushNamedAndRemoveUntil(
         context, AppRoutes.welcomeScreen, (final route) => false);
   }
 }
-
-//TODO Future.microTask()

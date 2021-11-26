@@ -23,6 +23,22 @@ class MyNotes extends StatefulWidget {
 
 class _MyNotesState extends State<MyNotes> {
   Locale? _locale;
+  final supportedLocales = <Locale>[];
+
+  Iterable<LocalizationsDelegate<dynamic>>? localizationDelegates = [
+    const AppLocalizationsDelegate(),
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    for (final element in supportedLanguages) {
+      supportedLocales.add(Locale(element.languageCode, ''));
+    }
+  }
 
   void setLocale(final Locale locale) {
     setState(() {
@@ -41,72 +57,59 @@ class _MyNotesState extends State<MyNotes> {
   }
 
   @override
-  Widget build(final BuildContext context) => MultiProvider(
-        providers: [
-          ChangeNotifierProvider<NotesHelper>(
-            create: (final _) => NotesHelper(),
-          ),
-          ChangeNotifierProvider<AppConfiguration>(
-            create: (final _) => AppConfiguration(),
-          ),
-          ChangeNotifierProvider<LockChecker>(
-            create: (final _) => LockChecker(),
-          ),
-          ChangeNotifierProvider<Auth>(
-            create: (final _) => Auth(),
-          ),
-        ],
-        child: Builder(
-          builder: (final context) {
-            Provider.of<AppConfiguration>(context);
-            final curUser =
-                Provider.of<Auth>(context, listen: false).auth.currentUser;
-            if (curUser != null) {
-              Utilities.initialize(context);
-            }
-            final supportedLocales = <Locale>[];
-            for (final element in supportedLanguages) {
-              supportedLocales.add(Locale(element.languageCode, ''));
-            }
-            final initRoute =
-                Provider.of<Auth>(context, listen: false).isLoggedIn
-                    ? '/'
-                    : 'welcome';
-            final primaryColor =
-                Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
-            final accentColor =
-                Color(getIntFromSF('accentColor') ?? defaultAccent.value);
-            final appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
-            final currentTheme = appTheme == AppTheme.light
-                ? lightTheme(primaryColor, accentColor)
-                : blackTheme(primaryColor, accentColor);
-            return MaterialApp(
-              locale: _locale,
-              restorationScopeId: 'keepnotes',
-              supportedLocales: supportedLocales,
-              localizationsDelegates: const [
-                AppLocalizationsDelegate(),
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              localeResolutionCallback: (final locale, final supportedLocales) {
-                for (final supportedLocale in supportedLocales) {
-                  if (supportedLocale.languageCode == locale?.languageCode &&
-                      supportedLocale.countryCode == locale?.countryCode) {
-                    return supportedLocale;
-                  }
-                }
-                return supportedLocales.first;
-              },
-              theme: currentTheme,
-              title: Language.of(context).appTitle,
-              initialRoute: initRoute,
-              debugShowCheckedModeBanner: false,
-              navigatorObservers: [routeObserver],
-              onGenerateRoute: RouteGenerator.generateRoute,
-            );
-          },
+  Widget build(final BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<NotesHelper>(
+          create: (final _) => NotesHelper(),
         ),
-      );
+        ChangeNotifierProvider<AppConfiguration>(
+          create: (final _) => AppConfiguration(),
+        ),
+        ChangeNotifierProvider<LockChecker>(
+          create: (final _) => LockChecker(),
+        ),
+        ChangeNotifierProvider<Auth>(
+          create: (final _) => Auth(),
+        ),
+      ],
+      child: Builder(
+        builder: (final context) {
+          Provider.of<AppConfiguration>(context);
+          final curUser =
+              Provider.of<Auth>(context, listen: false).auth.currentUser;
+          if (curUser != null) {
+            Utilities.initialize(context);
+          }
+          final initRoute = Provider.of<Auth>(context, listen: false).isLoggedIn
+              ? '/'
+              : 'welcome';
+          return MaterialApp(
+            locale: _locale,
+            restorationScopeId: 'keepnotes',
+            supportedLocales: supportedLocales,
+            localizationsDelegates: localizationDelegates,
+            localeResolutionCallback: localeResolutionCallback,
+            theme: getThemeData(),
+            title: Language.of(context).appTitle,
+            initialRoute: initRoute,
+            debugShowCheckedModeBanner: false,
+            navigatorObservers: [routeObserver],
+            onGenerateRoute: RouteGenerator.generateRoute,
+          );
+        },
+      ),
+    );
+  }
+
+  Locale? localeResolutionCallback(
+      final Locale? locale, final Iterable<Locale> supportedLocales) {
+    for (final supportedLocale in supportedLocales) {
+      if (supportedLocale.languageCode == locale?.languageCode &&
+          supportedLocale.countryCode == locale?.countryCode) {
+        return supportedLocale;
+      }
+    }
+    return supportedLocales.first;
+  }
 }

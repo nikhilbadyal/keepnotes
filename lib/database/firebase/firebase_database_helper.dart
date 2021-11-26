@@ -58,19 +58,6 @@ class FirebaseDatabaseHelper {
     return db.collection(userCollection).where(field, isEqualTo: isEqualTo);
   }
 
-  static Future<bool> batchInsert(final List<Note> jsonList) async {
-    await db.runTransaction((final transaction) async {
-      DocumentReference<Map<String, dynamic>> ref;
-      for (final element in jsonList) {
-        {
-          ref = notesReference.doc(element.id);
-          transaction.set(ref, element.toMap());
-        }
-      }
-    });
-    return true;
-  }
-
   static Future<bool> batchDelete(
     final Object field, {
     final Object? isEqualTo,
@@ -104,5 +91,18 @@ class FirebaseDatabaseHelper {
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getAll() async {
     return notesReference.get();
+  }
+
+  static Future<void> batchInsert(
+      final List<Map<String, dynamic>> notesList) async {
+    await db.runTransaction((final transaction) async {
+      DocumentReference<Map<String, dynamic>> ref;
+      for (final element in notesList) {
+        {
+          ref = notesReference.doc(element['id']);
+          transaction.set(ref, element);
+        }
+      }
+    });
   }
 }

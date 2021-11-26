@@ -5,12 +5,14 @@ class ErrorScreen extends StatelessWidget {
   const ErrorScreen({final Key? key}) : super(key: key);
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(Language.of(context).error),
-        ),
-        body: const Center(
-          child: Text('Are you lost baby girl ?'),
-        ),
-      );
+  Widget build(final BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(Language.of(context).error),
+      ),
+      body: const Center(
+        child: Text('Are you lost baby girl ?'),
+      ),
+    );
+  }
 }

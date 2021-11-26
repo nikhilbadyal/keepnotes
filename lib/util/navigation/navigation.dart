@@ -4,6 +4,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class AppRoutes {
+  static const suggestScreen = 'suggestion';
   static const hiddenScreen = 'hidden';
   static const lockScreen = 'lock';
   static const setPassScreen = 'setpass';
@@ -13,10 +14,11 @@ class AppRoutes {
   static const trashScreen = 'trash';
   static const aboutMeScreen = 'about';
   static const settingsScreen = 'settings';
-  static const suggestScreen = 'suggestion';
   static const welcomeScreen = 'welcome';
+  static const loginScreen = 'login';
   static const forgotPasswordScreen = 'forgot';
   static const editScreen = 'edit';
+  static const signUpScreen = 'signup';
 }
 
 class RouteGenerator {
@@ -26,7 +28,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const ScreenContainer(
+            builder: (final _) => const TopWidget(
               topScreen: ScreenTypes.hidden,
             ),
           );
@@ -35,21 +37,25 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const LockScreen(),
+            builder: (final _) => const TopWidget(
+              topScreen: ScreenTypes.lock,
+            ),
           );
         }
       case AppRoutes.setPassScreen:
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const SetPassword(),
+            builder: (final _) => const TopWidget(
+              topScreen: ScreenTypes.setpass,
+            ),
           );
         }
       case AppRoutes.homeScreen:
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const ScreenContainer(
+            builder: (final _) => const TopWidget(
               topScreen: ScreenTypes.home,
             ),
           );
@@ -59,7 +65,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const ScreenContainer(
+            builder: (final _) => const TopWidget(
               topScreen: ScreenTypes.archive,
             ),
           );
@@ -69,7 +75,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const ScreenContainer(
+            builder: (final _) => const TopWidget(
               topScreen: ScreenTypes.backup,
             ),
           );
@@ -79,7 +85,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const ScreenContainer(
+            builder: (final _) => const TopWidget(
               topScreen: ScreenTypes.trash,
             ),
           );
@@ -89,7 +95,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const ScreenContainer(
+            builder: (final _) => const TopWidget(
               topScreen: ScreenTypes.aboutMe,
             ),
           );
@@ -99,7 +105,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const ScreenContainer(
+            builder: (final _) => const TopWidget(
               topScreen: ScreenTypes.settings,
             ),
           );
@@ -109,14 +115,27 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const Welcome(),
+            builder: (final _) => const TopWidget(
+              topScreen: ScreenTypes.welcome,
+            ),
+          );
+        }
+      case AppRoutes.loginScreen:
+        {
+          return MaterialPageRoute(
+            settings: settings,
+            builder: (final _) => const TopWidget(
+              topScreen: ScreenTypes.login,
+            ),
           );
         }
       case AppRoutes.forgotPasswordScreen:
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const ForgetPassword(),
+            builder: (final _) => const TopWidget(
+              topScreen: ScreenTypes.forgotPassword,
+            ),
           );
         }
       case AppRoutes.editScreen:
@@ -124,6 +143,15 @@ class RouteGenerator {
           return MaterialPageRoute(
             settings: settings,
             builder: (final context) => const EditScreen(),
+          );
+        }
+      case AppRoutes.signUpScreen:
+        {
+          return CupertinoPageRoute(
+            settings: settings,
+            builder: (final _) => const TopWidget(
+              topScreen: ScreenTypes.signup,
+            ),
           );
         }
       default:
@@ -162,8 +190,8 @@ Future navigate(
   }
 }
 
-void goToBugScreen(final BuildContext context) {
-  Utilities.launchUrl(
+Future<void> goToBugScreen(final BuildContext context) async {
+  await Utilities.launchUrl(
     context,
     Utilities.emailLaunchUri.toString(),
   );
@@ -182,7 +210,7 @@ Future<void> goToHiddenScreen(
     final BuildContext context, final String activeRoute) async {
   final bioEnable = getBoolFromSF('bio') ?? false;
   final firstTime = getBoolFromSF('firstTimeNeeded') ?? false;
-  final fpDirectly = getBoolFromSF('fpDirectly') ?? false;
+  final fpDirectly = getBoolFromSF('fpDirectly') ?? true;
   if (ModalRoute.of(context)!.settings.name == AppRoutes.hiddenScreen) {
     Navigator.of(context).pop();
     return;
