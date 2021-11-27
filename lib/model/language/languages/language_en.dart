@@ -348,8 +348,7 @@ class LanguageEn extends Language {
       'Complete your details or continue \nwith social media';
 
   @override
-  String get totalPrivacy =>
-      'By continuing your confirm that you agree \nwith NOTHING';
+  String get totalPrivacy => "By continuing you doesn't agree with ANYTHING";
 
   @override
   String get confirmPassword => 'Please confirm password';

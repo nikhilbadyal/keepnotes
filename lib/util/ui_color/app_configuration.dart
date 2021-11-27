@@ -1,8 +1,8 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-Color defaultPrimary = Colors.deepOrange;
-Color defaultAccent = Colors.deepOrangeAccent;
+Color defaultPrimary = const Color(0xffb31818);
+Color defaultAccent = const Color(0xffC70404);
 
 class AppConfiguration with ChangeNotifier {
   AppConfiguration();

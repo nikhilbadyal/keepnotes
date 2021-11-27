@@ -15,6 +15,7 @@ class _SetPasswordState extends State<SetPassword> {
 
   Future<void> doneEnteringPass(final String enteredPassCode) async {
     if (args.isFirst) {
+      await Future.delayed(const Duration(milliseconds: 500));
       await navigate(
         ModalRoute.of(context)!.settings.name!,
         context,
@@ -33,21 +34,10 @@ class _SetPasswordState extends State<SetPassword> {
               duration: const Duration(milliseconds: 1500),
             );
           } else {
-            final spinkit = SpinKitCubeGrid(
-              color: Theme.of(context).colorScheme.secondary,
-              size: MediaQuery.of(context).size.height * 0.1,
-            );
-
-            unawaited(showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (final _) {
-                return spinkit;
-              },
-            ));
             await Provider.of<LockChecker>(context, listen: false)
                 .passwordSetConfig(enteredPassCode);
           }
+          await Future.delayed(const Duration(milliseconds: 500));
           await Navigator.of(context)
               .pushReplacementNamed(AppRoutes.settingsScreen);
           return;
@@ -58,6 +48,7 @@ class _SetPasswordState extends State<SetPassword> {
             context,
             Language.of(context).done,
           );
+          await Future.delayed(const Duration(milliseconds: 500));
           await navigate(ModalRoute.of(context)!.settings.name!, context,
               AppRoutes.hiddenScreen);
         }
@@ -66,6 +57,7 @@ class _SetPasswordState extends State<SetPassword> {
           context,
           Language.of(context).passwordNotMatch,
         );
+        await Future.delayed(const Duration(milliseconds: 500));
         await navigate(
           ModalRoute.of(context)!.settings.name!,
           context,

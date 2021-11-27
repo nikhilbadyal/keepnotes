@@ -119,6 +119,18 @@ class SqfliteDatabaseHelper {
     return true;
   }
 
+  static Future<bool> batchInsert1(final List<dynamic> notesList,
+      {final ConflictAlgorithm? conflictAlgorithm}) async {
+    final db = await database;
+    final batch = db.batch();
+    for (final element in notesList) {
+      batch.insert(tableName, element as Map<String, dynamic>,
+          conflictAlgorithm: conflictAlgorithm);
+    }
+    await batch.commit(noResult: true);
+    return true;
+  }
+
   static Future<void> deleteDB() async {
     final databasePath = await getDatabasesPath();
     return deleteDatabase(join(databasePath, dbName));

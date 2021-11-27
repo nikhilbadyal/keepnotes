@@ -141,11 +141,12 @@ class Utilities {
       );
 
   static void showSnackbar(final BuildContext context, final String data,
-      {final Duration duration = const Duration(seconds: 1),
+      {final Duration duration = const Duration(seconds: 2),
       final SnackBarBehavior? snackBarBehavior}) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
-      getSnackBar(context, data, snackBarBehavior: snackBarBehavior),
+      getSnackBar(context, data,
+          duration: duration, snackBarBehavior: snackBarBehavior),
     );
   }
 
@@ -160,7 +161,7 @@ class Utilities {
         ),
         action: action,
         duration: duration,
-        behavior: snackBarBehavior ?? Theme.of(context).snackBarTheme.behavior,
+        behavior: snackBarBehavior,
       );
 
   static Widget hideAction(final BuildContext context, final Note note) {
@@ -379,5 +380,17 @@ class Utilities {
     Provider.of<LockChecker>(context, listen: false).password =
         encryption.decryptStr(getStringFromSF('password') ?? '');
     FirebaseDatabaseHelper(curUser.uid);
+  }
+
+  static Future<bool> requestPermission(final Permission permission) async {
+    if (await permission.isGranted) {
+      return true;
+    } else {
+      final result = await permission.request();
+      if (result == PermissionStatus.granted) {
+        return true;
+      }
+    }
+    return false;
   }
 }

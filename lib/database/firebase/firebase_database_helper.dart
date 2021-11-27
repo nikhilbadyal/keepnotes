@@ -105,4 +105,16 @@ class FirebaseDatabaseHelper {
       }
     });
   }
+
+  static Future<void> batchInsert1(final List<dynamic> notesList) async {
+    await db.runTransaction((final transaction) async {
+      DocumentReference<Map<String, dynamic>> ref;
+      for (final element in notesList) {
+        {
+          ref = notesReference.doc(element['id']);
+          transaction.set(ref, element);
+        }
+      }
+    });
+  }
 }

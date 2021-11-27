@@ -1,4 +1,5 @@
 import 'package:notes/_app_packages.dart';
+import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class BackUpScreen extends StatefulWidget {
@@ -30,9 +31,54 @@ class _BackUpScreenState extends State<BackUpScreen>
                 ),
               ),
             ),
+            TextButton(
+                onPressed: () => importFromFile(),
+                child: const Text('Pick me')),
           ],
         ),
       ),
     );
+  }
+}
+
+Future<bool> exportToFile() async {
+  if (await Utilities.requestPermission(Permission.storage)) {
+    final str = DateFormat('yyyyMMdd_HHmmss').format(
+      DateTime.now(),
+    );
+    final fileName = 'KEEP_$str.json';
+    final generalDownloadDir = Directory('/storage/emulated/0/Download');
+    try {
+      final file = await File('${generalDownloadDir.path}/$fileName').create();
+      final data = await FirebaseDatabaseHelper.getAll();
+      final items = data.docs.map((final e) => e.data()).toList();
+
+      await file.writeAsString(json.encode(items));
+    } on Exception catch (_) {
+      return false;
+    }
+    return true;
+  } else {
+    return false;
+  }
+}
+
+Future<void> importFromFile() async {
+  try {
+    final result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      final file = File(result.files.single.path ?? '');
+      final stringContent = file.readAsStringSync();
+      final List<dynamic> jsonList = json.decode(stringContent);
+      for (final element in jsonList) {
+        element['id'] = const Uuid().v4();
+      }
+      await SqfliteDatabaseHelper.batchInsert1(jsonList);
+      await FirebaseDatabaseHelper.batchInsert1(jsonList);
+    } else {
+      // User canceled the picker
+    }
+  } catch (e) {
+    logger.wtf('Failed to import $e');
   }
 }
