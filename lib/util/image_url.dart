@@ -34,3 +34,12 @@ typedef PickerItem = Widget Function(Color color);
 typedef PickerItemBuilder = Widget Function(Color color, OnTap changeColor,
     {required bool isCurrentColor});
 typedef BackPresAction = Future<bool> Function();
+
+/*
+
+const String languageSettingSVG = '${imageAssets}language-translation.svg';
+const String deleteSettingSVG = '${imageAssets}trash.svg';
+const String removeBioSettingSVG = '${imageAssets}removeBio.svg';
+const String changePasswordSettingSVG = '${imageAssets}password.svg';
+const String directBioSettingSVG = '${imageAssets}hidden.svg';
+*/

@@ -23,19 +23,19 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
 
   @override
   Widget build(final BuildContext context) => GestureDetector(
-    onDoubleTap: widget.onWidgetTap ?? defaultDoubleTap,
-    child: Padding(
-      padding: const EdgeInsets.only(right: 6, top: 4),
-      child: CircleAvatar(
-        backgroundColor: Colors.white,
-        radius: 22,
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
-          child: _animatedChild,
+        onDoubleTap: widget.onWidgetTap ?? defaultDoubleTap,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 6, top: 4),
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            radius: 22,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: _animatedChild,
+            ),
+          ),
         ),
-      ),
-    ),
-  );
+      );
 
   void defaultDoubleTap() {
     setState(() {

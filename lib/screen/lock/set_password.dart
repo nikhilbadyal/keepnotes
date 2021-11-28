@@ -16,6 +16,9 @@ class _SetPasswordState extends State<SetPassword> {
   Future<void> doneEnteringPass(final String enteredPassCode) async {
     if (args.isFirst) {
       await Future.delayed(const Duration(milliseconds: 500));
+      if (!mounted) {
+        return;
+      }
       await navigate(
         ModalRoute.of(context)!.settings.name!,
         context,
@@ -38,6 +41,10 @@ class _SetPasswordState extends State<SetPassword> {
                 .passwordSetConfig(enteredPassCode);
           }
           await Future.delayed(const Duration(milliseconds: 500));
+          if (!mounted) {
+            return;
+          }
+
           await Navigator.of(context)
               .pushReplacementNamed(AppRoutes.settingsScreen);
           return;
@@ -49,6 +56,10 @@ class _SetPasswordState extends State<SetPassword> {
             Language.of(context).done,
           );
           await Future.delayed(const Duration(milliseconds: 500));
+          if (!mounted) {
+            return;
+          }
+
           await navigate(ModalRoute.of(context)!.settings.name!, context,
               AppRoutes.hiddenScreen);
         }
@@ -58,6 +69,10 @@ class _SetPasswordState extends State<SetPassword> {
           Language.of(context).passwordNotMatch,
         );
         await Future.delayed(const Duration(milliseconds: 500));
+        if (!mounted) {
+          return;
+        }
+
         await navigate(
           ModalRoute.of(context)!.settings.name!,
           context,

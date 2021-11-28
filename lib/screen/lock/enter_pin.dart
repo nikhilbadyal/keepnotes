@@ -24,9 +24,17 @@ class _LockScreenState extends State<LockScreen> {
           ),
         );
       } else {
+        if (!mounted) {
+          return;
+        }
+
         final status = await Provider.of<LockChecker>(context, listen: false)
-            .authenticate(context);
+            .authenticate(Language.of(context).localizedReason);
         if (status) {
+          if (!mounted) {
+            return;
+          }
+
           await navigate(ModalRoute.of(context)!.settings.name!, context,
               AppRoutes.hiddenScreen);
         }
@@ -42,7 +50,11 @@ class _LockScreenState extends State<LockScreen> {
                   onPressed: () async {
                     final status =
                         await Provider.of<LockChecker>(context, listen: false)
-                            .authenticate(context);
+                            .authenticate(Language.of(context).localizedReason);
+                    if (!mounted) {
+                      return;
+                    }
+
                     Navigator.of(context).pop(status);
                   },
                   child: Text(
@@ -64,6 +76,9 @@ class _LockScreenState extends State<LockScreen> {
           ) ??
           false;
       if (isAuthenticated) {
+        if (!mounted) {
+          return;
+        }
         await Provider.of<LockChecker>(context, listen: false)
             .bioEnabledConfig();
       }
@@ -79,6 +94,9 @@ class _LockScreenState extends State<LockScreen> {
         await addBoolToSF('firstTimeNeeded', value: false);
       }
       await Future.delayed(const Duration(milliseconds: 500));
+      if (!mounted) {
+        return;
+      }
       await navigate(ModalRoute.of(context)!.settings.name!, context,
           AppRoutes.hiddenScreen);
     } else {

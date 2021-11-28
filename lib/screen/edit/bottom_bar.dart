@@ -1,7 +1,7 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-class BottomBar extends StatelessWidget {
+class BottomBar extends StatefulWidget {
   const BottomBar(
       {required this.note,
       required this.saveNote,
@@ -18,6 +18,11 @@ class BottomBar extends StatelessWidget {
   final Timer autoSaverTimer;
 
   @override
+  State<BottomBar> createState() => _BottomBarState();
+}
+
+class _BottomBarState extends State<BottomBar> {
+  @override
   Widget build(final BuildContext context) {
     final primaryColor =
         Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
@@ -32,8 +37,8 @@ class BottomBar extends StatelessWidget {
           children: <Widget>[
             IconButton(
               icon: const Icon(Icons.lock_outline),
-              onPressed: onIconTap,
-              color: isReadOnly
+              onPressed: widget.onIconTap,
+              color: widget.isReadOnly
                   ? primaryColor
                   : appTheme == AppTheme.light
                       ? Colors.black
@@ -42,13 +47,17 @@ class BottomBar extends StatelessWidget {
             Center(
               child: Text(
                 '${Language.of(context).modified} '
-                '${note.strLastModifiedDate1}',
+                '${widget.note.strLastModifiedDate1}',
               ),
             ),
             IconButton(
               onPressed: () async {
-                await saveNote();
-                if (note.content.isEmpty && note.title.isEmpty) {
+                await widget.saveNote();
+                if (!mounted) {
+                  return;
+                }
+
+                if (widget.note.content.isEmpty && widget.note.title.isEmpty) {
                   Utilities.showSnackbar(
                       context, Language.of(context).emptyNote);
                 } else {
@@ -81,9 +90,9 @@ class BottomBar extends StatelessWidget {
       builder: (final context) => Wrap(
         children: [
           BottomBarOptions(
-            note: note,
-            saveNote: saveNote,
-            autoSaver: autoSaverTimer,
+            note: widget.note,
+            saveNote: widget.saveNote,
+            autoSaver: widget.autoSaverTimer,
           ),
         ],
       ),

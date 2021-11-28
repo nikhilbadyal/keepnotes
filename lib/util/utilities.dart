@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
@@ -24,7 +26,7 @@ class Utilities {
       final wantedRoute = getRoute(note.state);
       await Utilities.onHideTap(context, note);
       Navigator.of(context).popUntil(
-        (final route) => route.settings.name == wantedRoute,
+            (final route) => route.settings.name == wantedRoute,
       );
     }
   }
@@ -45,7 +47,7 @@ class Utilities {
     final wantedRoute = getRoute(note.state);
     Utilities.onUnArchiveTap(context, note);
     Navigator.of(context).popUntil(
-      (final route) => route.settings.name == wantedRoute,
+          (final route) => route.settings.name == wantedRoute,
     );
   }
 
@@ -56,7 +58,7 @@ class Utilities {
     final wantedRoute = getRoute(note.state);
     Utilities.onTrashTap(context, note);
     Navigator.of(context).popUntil(
-      (final route) => route.settings.name == wantedRoute,
+          (final route) => route.settings.name == wantedRoute,
     );
   }
 
@@ -71,7 +73,7 @@ class Utilities {
       Clipboard.setData(
         ClipboardData(text: note.content),
       ).then(
-        (final value) => Utilities.showSnackbar(
+            (final value) => Utilities.showSnackbar(
             context, Language.of(context).done,
             snackBarBehavior: SnackBarBehavior.floating),
       );
@@ -88,8 +90,7 @@ class Utilities {
     await navigate('', context, AppRoutes.homeScreen);
   }
 
-  static Future<bool> launchUrl(
-      final BuildContext context, final String url) async {
+  static Future<bool> launchUrl(final BuildContext context, final String url) async {
     if (await canLaunch(url)) {
       return launch(url);
     } else {
@@ -108,31 +109,31 @@ class Utilities {
         label: Language.of(context).reset,
         onPressed: () async {
           final status = await showDialog<bool>(
-                barrierDismissible: false,
-                context: context,
-                builder: (final context) => Center(
-                  child: SingleChildScrollView(
-                    child: MyAlertDialog(
-                      content: Text(
-                          Language.of(context).deleteAllNotesResetPassword),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(true);
-                          },
-                          child: Text(Language.of(context).alertDialogOp1),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            Navigator.of(context).pop(false);
-                          },
-                          child: Text(Language.of(context).alertDialogOp2),
-                        ),
-                      ],
+            barrierDismissible: false,
+            context: context,
+            builder: (final context) => Center(
+              child: SingleChildScrollView(
+                child: MyAlertDialog(
+                  content: Text(
+                      Language.of(context).deleteAllNotesResetPassword),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                      },
+                      child: Text(Language.of(context).alertDialogOp1),
                     ),
-                  ),
+                    TextButton(
+                      onPressed: () async {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: Text(Language.of(context).alertDialogOp2),
+                    ),
+                  ],
                 ),
-              ) ??
+              ),
+            ),
+          ) ??
               false;
           if (status) {
             await resetPassword(context);
@@ -142,7 +143,7 @@ class Utilities {
 
   static void showSnackbar(final BuildContext context, final String data,
       {final Duration duration = const Duration(seconds: 2),
-      final SnackBarBehavior? snackBarBehavior}) {
+        final SnackBarBehavior? snackBarBehavior}) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       getSnackBar(context, data,
@@ -151,9 +152,9 @@ class Utilities {
   }
 
   static SnackBar getSnackBar(final BuildContext context, final String data,
-          {final Duration duration = const Duration(seconds: 1),
-          final SnackBarAction? action,
-          final SnackBarBehavior? snackBarBehavior}) =>
+      {final Duration duration = const Duration(seconds: 1),
+        final SnackBarAction? action,
+        final SnackBarBehavior? snackBarBehavior}) =>
       SnackBar(
         key: UniqueKey(),
         content: Text(
@@ -171,7 +172,7 @@ class Utilities {
       label: Language.of(context).hide,
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-      onPressed: (final _) => onHideTap(context, note),
+      onPressed: (final context) => onHideTap(context, note),
     );
   }
 
@@ -182,8 +183,7 @@ class Utilities {
     );
   }
 
-  static Future<void> onHideTap(
-      final BuildContext context, final Note note) async {
+  static Future<void> onHideTap(final BuildContext context, final Note note) async {
     final status =
         Provider.of<LockChecker>(context, listen: false).password.isNotEmpty;
     if (!status) {
@@ -196,7 +196,7 @@ class Utilities {
       );
     } else {
       final value =
-          await Provider.of<NotesHelper>(context, listen: false).hide(note);
+      await Provider.of<NotesHelper>(context, listen: false).hide(note);
       if (!value) {
         handleError(context);
       }
@@ -204,7 +204,7 @@ class Utilities {
   }
 
   static Widget deleteAction(final BuildContext context, final Note note,
-          {final bool shouldAsk = true}) =>
+      {final bool shouldAsk = true}) =>
       SlidableAction(
         autoClose: false,
         icon: Icons.delete_forever_outlined,
@@ -220,22 +220,22 @@ class Utilities {
     var choice = true;
     if (!deleteDirectly) {
       choice = await showDialog<bool>(
-            barrierDismissible: false,
-            context: context,
-            builder: (final _) => MyAlertDialog(
-              content: Text(Language.of(context).deleteNotePermanently),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: Text(Language.of(context).alertDialogOp1),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: Text(Language.of(context).alertDialogOp2),
-                )
-              ],
+        barrierDismissible: false,
+        context: context,
+        builder: (final _) => MyAlertDialog(
+          content: Text(Language.of(context).deleteNotePermanently),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(Language.of(context).alertDialogOp1),
             ),
-          ) ??
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(Language.of(context).alertDialogOp2),
+            )
+          ],
+        ),
+      ) ??
           false;
     }
     if (choice) {

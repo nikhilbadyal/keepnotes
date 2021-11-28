@@ -3,9 +3,14 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 import 'package:notes/screen/sign_up/components/sign_up_form.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({final Key? key}) : super(key: key);
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(final BuildContext context) {
     return SafeArea(
@@ -53,6 +58,10 @@ class SignUp extends StatelessWidget {
                           context,
                           listen: false,
                         ).signInWithGoogle();
+                        if (!mounted) {
+                          return;
+                        }
+
                         if (Provider.of<Auth>(
                           context,
                           listen: false,

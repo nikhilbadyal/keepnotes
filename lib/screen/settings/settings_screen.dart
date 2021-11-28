@@ -223,6 +223,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> onLocaleChange(final LanguageData? value) async {
     // ignore: parameter_assignments
     final locale = await setLocale(value!.languageCode);
+    if (!mounted) {
+      return;
+    }
+
     Provider.of<AppConfiguration>(context, listen: false)
         .changeLocale(value.languageCode);
     MyNotes.setLocale(context, locale);
@@ -265,8 +269,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ) ??
         false;
+    if (!mounted) {
+      return;
+    }
+
     if (choice) {
       await Provider.of<LockChecker>(context, listen: false).resetBio();
+      if (!mounted) {
+        return;
+      }
+
       Utilities.showSnackbar(context, Language.of(context).done);
     }
   }
@@ -293,8 +305,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context,
       listen: false,
     ).signOut();
+    if (!mounted) {
+      return;
+    }
+
     await Provider.of<NotesHelper>(context, listen: false).signOut();
+    if (!mounted) {
+      return;
+    }
+
     await Provider.of<LockChecker>(context, listen: false).resetConfig();
+    if (!mounted) {
+      return;
+    }
+
     await Navigator.pushNamedAndRemoveUntil(
         context, AppRoutes.welcomeScreen, (final route) => false);
   }

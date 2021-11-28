@@ -54,6 +54,7 @@ dev_dependencies:
   mockito: ^5.0.16
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/images/

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+// TODO fix this ignore
 import 'package:flutter/cupertino.dart';
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
@@ -168,8 +170,7 @@ class RouteGenerator {
   }
 }
 
-Future navigate(
-    final String activeRoute, final BuildContext context, final String newRoute,
+Future navigate(final String activeRoute, final BuildContext context, final String newRoute,
     [final Object? arguments]) async {
   Provider.of<NotesHelper>(context, listen: false).reset();
   if (activeRoute == newRoute && newRoute != AppRoutes.setPassScreen) {
@@ -197,17 +198,15 @@ Future<void> goToBugScreen(final BuildContext context) async {
   );
 }
 
-Future<void> goToNoteEditScreen(
-    {required final BuildContext context,
-    required final Note note,
-    final bool shouldAutoFocus = false}) async {
+Future<void> goToNoteEditScreen({required final BuildContext context,
+  required final Note note,
+  final bool shouldAutoFocus = false}) async {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
   await Navigator.pushNamed(context, AppRoutes.editScreen, arguments: note);
 }
 
-Future<void> goToHiddenScreen(
-    final BuildContext context, final String activeRoute) async {
+Future<void> goToHiddenScreen(final BuildContext context, final String activeRoute) async {
   final bioEnable = getBoolFromSF('bio') ?? false;
   final firstTime = getBoolFromSF('firstTimeNeeded') ?? false;
   final fpDirectly = getBoolFromSF('fpDirectly') ?? true;
@@ -218,7 +217,7 @@ Future<void> goToHiddenScreen(
   if (Provider.of<LockChecker>(context, listen: false).password.isNotEmpty) {
     if (bioEnable && !firstTime && fpDirectly) {
       final status = await Provider.of<LockChecker>(context, listen: false)
-          .authenticate(context);
+          .authenticate(Language.of(context).localizedReason);
       if (status) {
         await navigate(ModalRoute.of(context)!.settings.name!, context,
             AppRoutes.hiddenScreen);

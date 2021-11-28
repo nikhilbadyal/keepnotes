@@ -60,7 +60,7 @@ class LanguageEn extends Language {
   String get devName => 'Nikhil';
 
   @override
-  String get directBio => 'Directly Ask for Biometric';
+  String get directBio => 'Use Biometric to view hidden';
 
   @override
   String get directDelete => 'Directly Delete';

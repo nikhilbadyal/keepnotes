@@ -60,9 +60,15 @@ class ModalSheetWidget extends ModalSheetWidgets {
       );
 }
 
-class ModalSheetDeleteAllWidget extends StatelessWidget {
+class ModalSheetDeleteAllWidget extends StatefulWidget {
   const ModalSheetDeleteAllWidget({final Key? key}) : super(key: key);
 
+  @override
+  State<ModalSheetDeleteAllWidget> createState() =>
+      _ModalSheetDeleteAllWidgetState();
+}
+
+class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
   @override
   Widget build(final BuildContext context) => Flexible(
         fit: FlexFit.tight,
@@ -88,14 +94,20 @@ class ModalSheetDeleteAllWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                ) ??
+            ) ??
                 false;
             if (status) {
+              if (!mounted) {
+                return;
+              }
               if (Provider.of<NotesHelper>(context, listen: false)
                   .mainNotes
                   .isNotEmpty) {
                 Utilities.onDeleteAllTap(context);
               }
+            }
+            if (!mounted) {
+              return;
             }
             Navigator.of(context).popUntil(
                 (final route) => route.settings.name == AppRoutes.trashScreen);

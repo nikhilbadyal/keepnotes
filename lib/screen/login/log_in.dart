@@ -60,6 +60,10 @@ class _LoginState extends State<Login> {
                         context,
                         listen: false,
                       ).signInWithGoogle();
+                      if (!mounted) {
+                        return;
+                      }
+
                       if (Provider.of<Auth>(
                         context,
                         listen: false,

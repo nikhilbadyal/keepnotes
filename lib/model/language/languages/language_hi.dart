@@ -60,7 +60,7 @@ class LanguageHi extends Language {
   String get devName => 'निखिल';
 
   @override
-  String get directBio => 'सीधे बायोमेट्रिक के लिए पूछें';
+  String get directBio => 'छिपे हुए देखने के लिए सीधे बायोमेट्रिक';
 
   @override
   String get directDelete => 'ट्रैश से डायरेक्टली हटाएं';

@@ -53,6 +53,10 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
     Provider.of<NotesHelper>(context, listen: false).reset();
     await Provider.of<NotesHelper>(context, listen: false)
         .getAllNotes(NoteState.unspecified.index, clear: true);
+
+    if (!mounted) {
+      return true;
+    }
     Provider.of<NotesHelper>(context, listen: false).notify();
     final _currentTime = DateTime.now().millisecondsSinceEpoch;
     if ((_currentTime - _lastTimeBackButtonWasTapped) <

@@ -324,9 +324,3 @@ Future<Locale> getLocale() async {
 Locale _locale(final String languageCode) => languageCode.isNotEmpty
     ? Locale(languageCode, '')
     : Locale(defaultLocale, '');
-
-Future<void> changeLanguage(
-    final BuildContext context, final String selectedLanguageCode) async {
-  final _locale = await setLocale(selectedLanguageCode);
-  MyNotes.setLocale(context, _locale);
-}

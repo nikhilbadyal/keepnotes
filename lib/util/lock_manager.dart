@@ -40,23 +40,21 @@ class LockChecker with ChangeNotifier {
     await addBoolToSF('firstTimeNeeded', value: true);
   }
 
-  Future<bool> authenticate(final BuildContext context) async {
-    var isAuthenticated = false;
+  Future<bool> authenticate(final String reason) async {
     await localAuthentication.getAvailableBiometrics();
     try {
-      isAuthenticated = await localAuthentication.authenticate(
-        localizedReason: Language.of(context).localizedReason,
+      return localAuthentication.authenticate(
+        localizedReason: reason,
         stickyAuth: true,
         biometricOnly: true,
       );
-    } on PlatformException catch (errorCode) {
-      isAuthenticated = false;
-      await _handleError(errorCode: errorCode.code, context: context);
+    } catch (errorCode) {
+      return false;
     }
-    return isAuthenticated;
   }
 
-  Future<void> _handleError(
+// TODO handle auth error
+/*Future<void> _handleError(
           {required final String errorCode,
           required final BuildContext context}) async =>
       showDialog<void>(
@@ -80,5 +78,5 @@ class LockChecker with ChangeNotifier {
             ),
           ],
         ),
-      );
+      );*/
 }

@@ -9,6 +9,7 @@ ThemeData lightTheme(final Color primary, final Color secondary) {
     floatingActionButtonTheme:
         const FloatingActionButtonThemeData(foregroundColor: Colors.white),
     colorScheme: ColorScheme.light(primary: primary, secondary: secondary),
+    iconTheme: const IconThemeData().copyWith(color: Colors.black),
     canvasColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
     snackBarTheme: SnackBarThemeData(

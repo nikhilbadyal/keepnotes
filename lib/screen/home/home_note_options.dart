@@ -101,6 +101,9 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
       widget.saveNote();
       final wantedRoute = getRoute(widget.note.state);
       await Utilities.onHideTap(context, widget.note);
+      if (!mounted) {
+        return;
+      }
       Navigator.of(context).popUntil(
         (final route) => route.settings.name == wantedRoute,
       );

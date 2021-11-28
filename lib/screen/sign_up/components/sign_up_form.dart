@@ -68,6 +68,10 @@ class _SignUpFormState extends State<SignUpForm> {
                   context,
                   listen: false,
                 ).singUp(email: email, password: password);
+                if (!mounted) {
+                  return;
+                }
+
                 Navigator.of(context).pop();
 
                 if (response == 'success') {

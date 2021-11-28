@@ -84,6 +84,10 @@ class _SignFormState extends State<SignForm> {
                   email: email,
                   password: password,
                 );
+                if (!mounted) {
+                  return;
+                }
+
                 if (Provider.of<Auth>(
                   context,
                   listen: false,
