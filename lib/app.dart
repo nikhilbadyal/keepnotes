@@ -66,9 +66,6 @@ class _MyNotesState extends State<MyNotes> {
         ChangeNotifierProvider<AppConfiguration>(
           create: (final _) => AppConfiguration(),
         ),
-        ChangeNotifierProvider<LockChecker>(
-          create: (final _) => LockChecker(),
-        ),
         ChangeNotifierProvider<Auth>(
           create: (final _) => Auth(),
         ),

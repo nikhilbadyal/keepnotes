@@ -233,7 +233,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> onChangePassword() async {
-    if (Provider.of<LockChecker>(context, listen: false).password.isNotEmpty) {
+    if (Provider.of<AppConfiguration>(context, listen: false)
+        .password
+        .isNotEmpty) {
       await Navigator.pushNamed(context, AppRoutes.lockScreen, arguments: true);
     } else {
       showSnackbar(context, Language.of(context).setPasswordFirst);
@@ -274,7 +276,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
 
     if (choice) {
-      await Provider.of<LockChecker>(context, listen: false).resetBio();
+      await Provider.of<AppConfiguration>(context, listen: false).resetBio();
       if (!mounted) {
         return;
       }
@@ -314,7 +316,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       return;
     }
 
-    await Provider.of<LockChecker>(context, listen: false).resetConfig();
+    await Provider.of<AppConfiguration>(context, listen: false).resetConfig();
     if (!mounted) {
       return;
     }

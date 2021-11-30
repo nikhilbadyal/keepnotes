@@ -11,7 +11,7 @@ class Utilities {
 Future<void> onModalHideTap(final BuildContext context, final Note note,
     final Timer autoSaver, final Function() saveNote) async {
   final status =
-      Provider.of<LockChecker>(context, listen: false).password.isNotEmpty;
+      Provider.of<AppConfiguration>(context, listen: false).password.isNotEmpty;
   if (!status) {
     await showDialog(
       barrierDismissible: true,
@@ -85,7 +85,7 @@ Future<void> resetPassword(final BuildContext context) async {
     context,
     Language.of(context).passwordReset,
   );
-  await Provider.of<LockChecker>(context, listen: false).resetConfig();
+  await Provider.of<AppConfiguration>(context, listen: false).resetConfig();
   await navigate('', context, AppRoutes.homeScreen);
 }
 
@@ -183,7 +183,7 @@ void handleError(final BuildContext context) {
 
 Future<void> onHideTap(final BuildContext context, final Note note) async {
   final status =
-      Provider.of<LockChecker>(context, listen: false).password.isNotEmpty;
+      Provider.of<AppConfiguration>(context, listen: false).password.isNotEmpty;
   if (!status) {
     await showDialog(
       barrierDismissible: true,
@@ -375,7 +375,7 @@ void onDeleteAllTap(final BuildContext context) {
 void initialize(final BuildContext context) {
   final curUser = Provider.of<Auth>(context, listen: false).auth.currentUser;
   encryption = Encrypt(curUser!.uid);
-  Provider.of<LockChecker>(context, listen: false).password =
+  Provider.of<AppConfiguration>(context, listen: false).password =
       encryption.decryptStr(getStringFromSF('password') ?? '');
   FirebaseDatabaseHelper(curUser.uid);
 }
