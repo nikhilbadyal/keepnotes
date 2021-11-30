@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-// TODO fix this ignore
 import 'package:flutter/cupertino.dart';
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';

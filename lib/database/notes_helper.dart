@@ -153,7 +153,7 @@ class NotesHelper with ChangeNotifier {
     mainNotes.removeWhere((final element) {
       return element.id == note.id;
     });
-    note.state = NoteState.deleted;
+    note.state = NoteState.trashed;
     unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
       await getAllNotes(orig);
       await FirebaseDatabaseHelper.update(note);
@@ -173,7 +173,7 @@ class NotesHelper with ChangeNotifier {
   void emptyTrash() {
     mainNotes.clear();
     unawaited(
-        SqfliteDatabaseHelper.delete('state = ?', [NoteState.deleted.index])
+        SqfliteDatabaseHelper.delete('state = ?', [NoteState.trashed.index])
             .then((final _) {
       unawaited(FirebaseDatabaseHelper.batchDelete('state', isEqualTo: 4));
     }));

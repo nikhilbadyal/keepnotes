@@ -76,7 +76,7 @@ class _MyNotesState extends State<MyNotes> {
           final curUser =
               Provider.of<Auth>(context, listen: false).auth.currentUser;
           if (curUser != null) {
-            initialize(context);
+            Provider.of<AppConfiguration>(context, listen: false).password = initialize(curUser);
           }
           final initRoute = Provider.of<Auth>(context, listen: false).isLoggedIn
               ? '/'

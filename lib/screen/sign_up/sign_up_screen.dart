@@ -64,7 +64,12 @@ class _SignUpState extends State<SignUp> {
                           context,
                           listen: false,
                         ).isLoggedIn) {
-                          initialize(context);
+                          Provider.of<AppConfiguration>(context, listen: false)
+                                  .password =
+                              initialize(
+                                  Provider.of<Auth>(context, listen: false)
+                                      .auth
+                                      .currentUser);
                           await Navigator.pushNamedAndRemoveUntil(context,
                               AppRoutes.homeScreen, (final route) => false);
                         } else {

@@ -2,17 +2,17 @@
 import 'package:notes/_aap_packages.dart';
 
 Future<void> addStringToSF(final String key, final String value) async =>
-    Utilities.prefs.setString(key, value);
+    prefs.setString(key, value);
 
 Future<void> addBoolToSF(final String key, {required final bool value}) async =>
-    Utilities.prefs.setBool(key, value);
+    prefs.setBool(key, value);
 
 Future<void> addIntToSF(final String key, final int value) async =>
-    Utilities.prefs.setInt(key, value);
+    prefs.setInt(key, value);
 
 String? getStringFromSF(final String key) {
   try {
-    return Utilities.prefs.getString(key);
+    return prefs.getString(key);
   } on Error catch (_) {
     return null;
   }
@@ -20,13 +20,12 @@ String? getStringFromSF(final String key) {
 
 bool? getBoolFromSF(final String key) {
   try {
-    return Utilities.prefs.getBool(key);
+    return prefs.getBool(key);
   } on Error catch (_) {
     return null;
   }
 }
 
-int? getIntFromSF(final String key) => Utilities.prefs.getInt(key);
+int? getIntFromSF(final String key) => prefs.getInt(key);
 
-Future<void> removeFromSF(final String key) async =>
-    Utilities.prefs.remove(key);
+Future<void> removeFromSF(final String key) async => prefs.remove(key);

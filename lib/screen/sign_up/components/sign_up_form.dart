@@ -59,7 +59,6 @@ class _SignUpFormState extends State<SignUpForm> {
                         color: Theme.of(context).colorScheme.secondary,
                         size: MediaQuery.of(context).size.height * 0.1,
                       );
-                      ;
                     },
                   ),
                 );

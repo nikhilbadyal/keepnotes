@@ -101,14 +101,11 @@ class _LockScreenState extends State<LockScreen> {
       await navigate(ModalRoute.of(context)!.settings.name!, context,
           AppRoutes.hiddenScreen);
     } else {
-      ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        getSnackBar(
+      showSnackbar(
           context,
           Language.of(context).wrongPassword,
           action: resetAction(context),
-        ),
-      );
+        );
     }
   }
 
@@ -127,13 +124,10 @@ class _LockScreenState extends State<LockScreen> {
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        getSnackBar(
+        showSnackbar(
           context,
           Language.of(context).wrongPassword,
           action: resetAction(context),
-        ),
       );
     }
   }

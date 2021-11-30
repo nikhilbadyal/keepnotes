@@ -103,7 +103,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
               if (Provider.of<NotesHelper>(context, listen: false)
                   .mainNotes
                   .isNotEmpty) {
-                onDeleteAllTap(context);
+                Provider.of<NotesHelper>(context, listen: false).emptyTrash();
               }
             }
             if (!mounted) {
@@ -142,17 +142,4 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
           ),
         ),
       );
-}
-
-String getRoute(final NoteState state) {
-  switch (state) {
-    case NoteState.archived:
-      return AppRoutes.archiveScreen;
-
-    case NoteState.hidden:
-      return AppRoutes.hiddenScreen;
-
-    default:
-      return AppRoutes.homeScreen;
-  }
 }

@@ -23,7 +23,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  launchUrl(context, githubProfile);
+                  launchUrl(githubProfile);
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.transparent,
@@ -69,7 +69,6 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 ),
                 GestureDetector(
                   onTap: () async => launchUrl(
-                    context,
                     emailLaunchUri.toString(),
                   ),
                   child: Text(

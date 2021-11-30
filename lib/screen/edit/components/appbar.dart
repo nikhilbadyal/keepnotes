@@ -35,7 +35,6 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
               showSnackbar(context, Language.of(context).emptyNote);
               return;
             }
-            // TODO PDF Support
           },
           icon: const Icon(Icons.print),
         ),

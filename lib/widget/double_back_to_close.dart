@@ -42,7 +42,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
         return NoteState.archived.index;
 
       case AppRoutes.trashScreen:
-        return NoteState.deleted.index;
+        return NoteState.trashed.index;
 
       default:
         return NoteState.unspecified.index;

@@ -26,7 +26,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  Utilities.prefs = await SharedPreferences.getInstance();
+  prefs = await SharedPreferences.getInstance();
   if (kDebugMode) {
     timeDilation = 1.5;
   }

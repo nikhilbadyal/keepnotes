@@ -41,6 +41,19 @@ class _BackUpScreenState extends State<BackUpScreen>
   }
 }
 
+
+Future<bool> requestPermission(final Permission permission) async {
+  if (await permission.isGranted) {
+    return true;
+  } else {
+    final result = await permission.request();
+    if (result == PermissionStatus.granted) {
+      return true;
+    }
+  }
+  return false;
+}
+
 Future<bool> exportToFile() async {
   if (await requestPermission(Permission.storage)) {
     final str = DateFormat('yyyyMMdd_HHmmss').format(

@@ -16,7 +16,7 @@ class NoNotesBody extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const ImageWig(),
-            if (noteState == NoteState.deleted)
+            if (noteState == NoteState.trashed)
               Center(
                 child: RichText(
                   text: TextSpan(

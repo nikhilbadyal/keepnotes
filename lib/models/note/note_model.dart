@@ -1,12 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
+import 'package:notes/util/navigation/app_routes.dart';
 
 enum NoteState {
   unspecified,
-  pinned,
   archived,
   hidden,
-  deleted,
+  trashed,
+}
+
+extension NotePath on Note {
+  static const _values = [
+    AppRoutes.homeScreen,
+    AppRoutes.archiveScreen,
+    AppRoutes.hiddenScreen,
+    AppRoutes.trashScreen
+  ];
+
+  String get path => _values[state.index];
 }
 
 class Note implements Comparable<Note> {

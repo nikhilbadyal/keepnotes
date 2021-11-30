@@ -41,6 +41,11 @@ const String lockSvg = '${iconAssets}lock.svg';
 const String mailSvg = '${iconAssets}mail.svg';
 const String telegramUrl = 'https://t.me/joinchat/uGAlVliNij1hZTFl';
 
+final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'nikhildevelops@gmail.com',
+    queryParameters: {'subject': 'Suggestion for the app'});
+
 //Function Const
 typedef DoneCallBack = void Function(String text);
 typedef OnTap = void Function();

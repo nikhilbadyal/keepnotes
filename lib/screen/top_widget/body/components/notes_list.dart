@@ -86,7 +86,7 @@ class _NotesListState extends State<NotesList> {
         isSelectionMode = selectedFlag.containsValue(true);
       });
     } else {
-      if (item.state == NoteState.deleted) {
+      if (item.state == NoteState.trashed) {
         await showDialog<void>(
           barrierDismissible: true,
           context: context,

@@ -81,7 +81,7 @@ NoteState getNotesType(final ScreenTypes topScreen) {
       return NoteState.archived;
 
     case ScreenTypes.trash:
-      return NoteState.deleted;
+      return NoteState.trashed;
 
     default:
       return NoteState.unspecified;
@@ -92,8 +92,14 @@ ActionPane homePrimary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      hideAction(context, note),
-      archiveAction(context, note),
+      hideAction(
+          Language.of(context).hide,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
+      archiveAction(
+          Language.of(context).archive,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
     ],
   );
 }
@@ -101,7 +107,16 @@ ActionPane homePrimary(final Note note, final BuildContext context) {
 ActionPane homeSecondary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
-    children: [copyAction(context, note), trashAction(context, note)],
+    children: [
+      copyAction(
+          Language.of(context).copy,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
+      trashAction(
+          Language.of(context).trash,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
+    ],
   );
 }
 
@@ -109,7 +124,10 @@ ActionPane hiddenPrimary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      unHideAction(context, note),
+      unHideAction(
+          Language.of(context).unhide,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
     ],
   );
 }
@@ -118,7 +136,10 @@ ActionPane hiddenSecondary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      trashAction(context, note),
+      trashAction(
+          Language.of(context).trash,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
     ],
   );
 }
@@ -127,8 +148,14 @@ ActionPane archivePrimary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      hideAction(context, note),
-      unArchiveAction(context, note),
+      hideAction(
+          Language.of(context).hide,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
+      unArchiveAction(
+          Language.of(context).unarchive,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
     ],
   );
 }
@@ -137,8 +164,14 @@ ActionPane archiveSecondary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      copyAction(context, note),
-      trashAction(context, note),
+      copyAction(
+          Language.of(context).copy,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
+      trashAction(
+          Language.of(context).trash,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
     ],
   );
 }
@@ -147,7 +180,10 @@ ActionPane trashSecondary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      deleteAction(context, note,
+      deleteAction(
+          Language.of(context).delete,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note,
           shouldAsk: getBoolFromSF('directlyDelete') ?? true),
     ],
   );
@@ -157,7 +193,10 @@ ActionPane trashPrimary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      restoreAction(context, note),
+      restoreAction(
+          Language.of(context).restore,
+          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          note),
     ],
   );
 }

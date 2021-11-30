@@ -239,7 +239,6 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                       : null),
             ),
             onTap: () async => launchUrl(
-              context,
               emailLaunchUri.toString(),
             ),
           ),
