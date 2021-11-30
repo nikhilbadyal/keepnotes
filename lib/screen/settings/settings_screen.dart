@@ -1,6 +1,6 @@
+import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/_aap_packages.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({final Key? key}) : super(key: key);
@@ -69,7 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(
                   Icons.color_lens_outlined,
                 ),
-                onPressed: (final _) {
+                onPressed: (final context) {
                   colorPicker(Language.of(context).pickColor, primaryColors,
                       primaryColor, onPrimaryColorChange);
                 },
@@ -80,7 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(
                   TablerIcons.color_swatch,
                 ),
-                onPressed: (final _) {
+                onPressed: (final context) {
                   colorPicker(Language.of(context).pickColor, secondaryColors,
                       accentColor, onAccentColorChange);
                 },
@@ -148,29 +148,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> colorPicker(final String title, final List<Color> appColors,
       final Color pickerColor, final ValueChanged<Color> onColorChange) async {
     final status = await showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (final context) {
-            return MyAlertDialog(
-              title: Text(title),
-              content: SingleChildScrollView(
-                child: ColorPicker(
-                  availableColors: appColors,
-                  pickerColor: pickerColor,
-                  onColorChanged: onColorChange,
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: Text(Language.of(context).done),
-                ),
-              ],
-            );
-          },
-        ) ??
+      barrierDismissible: true,
+      context: context,
+      builder: (final context) {
+        return MyAlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              availableColors: appColors,
+              pickerColor: pickerColor,
+              onColorChanged: onColorChange,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: Text(Language.of(context).done),
+            ),
+          ],
+        );
+      },
+    ) ??
         false;
     if (status) {}
   }
@@ -214,7 +214,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await showDialog(
       barrierDismissible: true,
       context: context,
-      builder: (final _) => MyAlertDialog(
+      builder: (final context) => MyAlertDialog(
         content: Text(Language.of(context).notAvailJustification),
       ),
     );
@@ -244,32 +244,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> onRemoveBioMetric(final BuildContext context) async {
     final choice = await showDialog<bool>(
-          barrierDismissible: true,
-          context: context,
-          builder: (final context) => MyAlertDialog(
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text(Language.of(context).areYouSure),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () async {
-                  Navigator.of(context).pop(true);
-                },
-                child: Text(Language.of(context).alertDialogOp1),
-              ),
-              TextButton(
-                onPressed: () async {
-                  Navigator.of(context).pop(false);
-                },
-                child: Text(Language.of(context).alertDialogOp2),
-              ),
+      barrierDismissible: true,
+      context: context,
+      builder: (final context) => MyAlertDialog(
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(Language.of(context).areYouSure),
             ],
           ),
-        ) ??
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop(true);
+            },
+            child: Text(Language.of(context).alertDialogOp1),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop(false);
+            },
+            child: Text(Language.of(context).alertDialogOp2),
+          ),
+        ],
+      ),
+    ) ??
         false;
     if (!mounted) {
       return;
@@ -291,7 +291,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           color: Theme.of(context).colorScheme.secondary),
       iconSize: 30,
       onSelected: onLocaleChange,
-      itemBuilder: (final _) => supportedLanguages
+      itemBuilder: (final context) => supportedLanguages
           .map(
             (final e) => PopupMenuItem(
               value: e,

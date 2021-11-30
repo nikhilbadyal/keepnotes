@@ -63,16 +63,14 @@ class _SignFormState extends State<SignForm> {
             text: Language.of(context).login,
             press: () async {
               if (_formKey.currentState!.validate()) {
-                final spinkit = SpinKitCubeGrid(
-                  color: Theme.of(context).colorScheme.secondary,
-                  size: MediaQuery.of(context).size.height * 0.1,
-                );
-
                 unawaited(showDialog(
                   barrierDismissible: false,
                   context: context,
-                  builder: (final _) {
-                    return spinkit;
+                  builder: (final context) {
+                    return SpinKitCubeGrid(
+                      color: Theme.of(context).colorScheme.secondary,
+                      size: MediaQuery.of(context).size.height * 0.1,
+                    );
                   },
                 ));
                 _formKey.currentState!.save();

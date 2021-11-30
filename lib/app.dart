@@ -61,13 +61,13 @@ class _MyNotesState extends State<MyNotes> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<NotesHelper>(
-          create: (final _) => NotesHelper(),
+          create: (final context) => NotesHelper(),
         ),
         ChangeNotifierProvider<AppConfiguration>(
-          create: (final _) => AppConfiguration(),
+          create: (final context) => AppConfiguration(),
         ),
         ChangeNotifierProvider<Auth>(
-          create: (final _) => Auth(),
+          create: (final context) => Auth(),
         ),
       ],
       child: Builder(

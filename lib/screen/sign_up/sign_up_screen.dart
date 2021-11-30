@@ -42,15 +42,14 @@ class _SignUpState extends State<SignUp> {
                     SocialCard(
                       icon: googleIcon,
                       press: () async {
-                        final spinkit = SpinKitCubeGrid(
-                          color: Theme.of(context).colorScheme.secondary,
-                          size: MediaQuery.of(context).size.height * 0.1,
-                        );
                         unawaited(showDialog(
                           barrierDismissible: false,
                           context: context,
-                          builder: (final _) {
-                            return spinkit;
+                          builder: (final context) {
+                            return SpinKitCubeGrid(
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: MediaQuery.of(context).size.height * 0.1,
+                            );
                           },
                         ));
                         final response = await Provider.of<Auth>(

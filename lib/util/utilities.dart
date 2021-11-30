@@ -16,7 +16,7 @@ Future<void> onModalHideTap(final BuildContext context, final Note note,
     await showDialog(
       barrierDismissible: true,
       context: context,
-      builder: (final _) => MyAlertDialog(
+      builder: (final context) => MyAlertDialog(
         content: Text(Language.of(context).setPasswordFirst),
       ),
     );
@@ -188,7 +188,7 @@ Future<void> onHideTap(final BuildContext context, final Note note) async {
     await showDialog(
       barrierDismissible: true,
       context: context,
-      builder: (final _) => MyAlertDialog(
+      builder: (final context) => MyAlertDialog(
         content: Text(Language.of(context).setPasswordFirst),
       ),
     );
@@ -209,7 +209,7 @@ Widget deleteAction(final BuildContext context, final Note note,
       label: Language.of(context).delete,
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-      onPressed: (final _) =>
+      onPressed: (final context) =>
           onDeleteTap(context, note, deleteDirectly: shouldAsk),
     );
 
@@ -220,7 +220,7 @@ Future<void> onDeleteTap(final BuildContext context, final Note note,
     choice = await showDialog<bool>(
           barrierDismissible: false,
           context: context,
-          builder: (final _) => MyAlertDialog(
+      builder: (final context) => MyAlertDialog(
             content: Text(Language.of(context).deleteNotePermanently),
             actions: [
               TextButton(
@@ -254,7 +254,7 @@ Widget trashAction(final BuildContext context, final Note note) {
     label: Language.of(context).delete,
     backgroundColor: Colors.transparent,
     foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-    onPressed: (final _) => onTrashTap(context, note),
+    onPressed: (final context) => onTrashTap(context, note),
   );
 }
 
@@ -275,7 +275,7 @@ Widget copyAction(final BuildContext context, final Note note) =>
       label: Language.of(context).copy,
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-      onPressed: (final _) => onCopyTap(context, note),
+      onPressed: (final context) => onCopyTap(context, note),
     );
 
 void onCopyTap(final BuildContext context, final Note note) {
@@ -295,7 +295,7 @@ Widget archiveAction(final BuildContext context, final Note note) =>
       label: Language.of(context).archive,
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-      onPressed: (final _) => onArchiveTap(context, note),
+      onPressed: (final context) => onArchiveTap(context, note),
     );
 
 void onArchiveTap(final BuildContext context, final Note note) {
@@ -315,7 +315,7 @@ Widget unHideAction(final BuildContext context, final Note note) =>
       label: Language.of(context).unhide,
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-      onPressed: (final _) => onUnHideTap(context, note),
+      onPressed: (final context) => onUnHideTap(context, note),
     );
 
 void onUnHideTap(final BuildContext context, final Note note) {
@@ -335,7 +335,7 @@ Widget unArchiveAction(final BuildContext context, final Note note) =>
       label: Language.of(context).unarchive,
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-      onPressed: (final _) => onUnArchiveTap(context, note),
+      onPressed: (final context) => onUnArchiveTap(context, note),
     );
 
 void onUnArchiveTap(final BuildContext context, final Note note) {
@@ -355,7 +355,7 @@ Widget restoreAction(final BuildContext context, final Note note) =>
       label: Language.of(context).restore,
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).textTheme.bodyText1!.color,
-      onPressed: (final _) => onRestoreTap(context, note),
+      onPressed: (final context) => onRestoreTap(context, note),
     );
 
 void onRestoreTap(final BuildContext context, final Note note) {

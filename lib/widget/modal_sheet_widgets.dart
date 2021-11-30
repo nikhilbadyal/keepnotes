@@ -77,7 +77,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
             final status = await showDialog<bool>(
                   barrierDismissible: false,
                   context: context,
-                  builder: (final _) => MyAlertDialog(
+                  builder: (final context) => MyAlertDialog(
                     content: Text(Language.of(context).emptyTrashWarning),
                     actions: [
                       TextButton(

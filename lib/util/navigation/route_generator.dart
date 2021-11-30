@@ -12,7 +12,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.hidden,
             ),
           );
@@ -21,7 +21,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.lock,
             ),
           );
@@ -30,7 +30,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.setpass,
             ),
           );
@@ -39,7 +39,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.home,
             ),
           );
@@ -49,7 +49,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.archive,
             ),
           );
@@ -59,7 +59,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.backup,
             ),
           );
@@ -69,7 +69,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.trash,
             ),
           );
@@ -79,7 +79,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.aboutMe,
             ),
           );
@@ -89,7 +89,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.settings,
             ),
           );
@@ -99,7 +99,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.welcome,
             ),
           );
@@ -108,7 +108,7 @@ class RouteGenerator {
         {
           return MaterialPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.login,
             ),
           );
@@ -117,7 +117,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.forgotPassword,
             ),
           );
@@ -133,7 +133,7 @@ class RouteGenerator {
         {
           return CupertinoPageRoute(
             settings: settings,
-            builder: (final _) => const TopWidget(
+            builder: (final context) => const TopWidget(
               topScreen: ScreenTypes.signup,
             ),
           );
