@@ -3,7 +3,6 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/screen/sign_up/sign_up_screen.dart';
 
 Widget getBody(final ScreenTypes topScreen, final BuildContext context) {
   switch (topScreen) {

@@ -21,6 +21,8 @@ export 'package:notes/screen/login/components/login_form.dart';
 export 'package:notes/screen/login/components/sign_up_text.dart';
 export 'package:notes/screen/login/log_in_screen.dart';
 export 'package:notes/screen/settings/settings_screen.dart';
+export 'package:notes/screen/sign_up/components/sign_up_form.dart';
+export 'package:notes/screen/sign_up/sign_up_screen.dart';
 export 'package:notes/screen/top_widget/app_bar/components/app_bar_avatar.dart';
 export 'package:notes/screen/top_widget/app_bar/top_widget_app_bar.dart';
 export 'package:notes/screen/top_widget/body/components/body.dart';

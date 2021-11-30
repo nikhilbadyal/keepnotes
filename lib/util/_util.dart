@@ -1,4 +1,4 @@
-export 'package:notes/screen/error_screen/error_screen.dart';
+export 'package:notes/screen/error/error_screen.dart';
 export 'package:notes/util/app_configuration.dart';
 export 'package:notes/util/constants.dart';
 export 'package:notes/util/encryption.dart';

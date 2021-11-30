@@ -1,7 +1,6 @@
 import 'package:notes/_app_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/screen/sign_up/components/sign_up_form.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({final Key? key}) : super(key: key);
