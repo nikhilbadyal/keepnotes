@@ -236,7 +236,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (Provider.of<LockChecker>(context, listen: false).password.isNotEmpty) {
       await Navigator.pushNamed(context, AppRoutes.lockScreen, arguments: true);
     } else {
-      Utilities.showSnackbar(context, Language.of(context).setPasswordFirst);
+      showSnackbar(context, Language.of(context).setPasswordFirst);
     }
   }
 
@@ -279,7 +279,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return;
       }
 
-      Utilities.showSnackbar(context, Language.of(context).done);
+      showSnackbar(context, Language.of(context).done);
     }
   }
 

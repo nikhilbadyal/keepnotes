@@ -31,7 +31,7 @@ class _SetPasswordState extends State<SetPassword> {
         if (args.resetPass) {
           if (Provider.of<LockChecker>(context, listen: false).password ==
               enteredPassCode) {
-            Utilities.showSnackbar(
+            showSnackbar(
               context,
               Language.of(context).samePasswordError,
               duration: const Duration(milliseconds: 1500),
@@ -51,7 +51,7 @@ class _SetPasswordState extends State<SetPassword> {
         } else {
           unawaited(Provider.of<LockChecker>(context, listen: false)
               .passwordSetConfig(enteredPassCode));
-          Utilities.showSnackbar(
+          showSnackbar(
             context,
             Language.of(context).done,
           );
@@ -64,7 +64,7 @@ class _SetPasswordState extends State<SetPassword> {
               AppRoutes.hiddenScreen);
         }
       } else {
-        Utilities.showSnackbar(
+        showSnackbar(
           context,
           Language.of(context).passwordNotMatch,
         );

@@ -42,7 +42,7 @@ class _BackUpScreenState extends State<BackUpScreen>
 }
 
 Future<bool> exportToFile() async {
-  if (await Utilities.requestPermission(Permission.storage)) {
+  if (await requestPermission(Permission.storage)) {
     final str = DateFormat('yyyyMMdd_HHmmss').format(
       DateTime.now(),
     );

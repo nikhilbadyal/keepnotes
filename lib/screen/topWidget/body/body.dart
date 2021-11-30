@@ -93,8 +93,8 @@ ActionPane homePrimary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      Utilities.hideAction(context, note),
-      Utilities.archiveAction(context, note),
+      hideAction(context, note),
+      archiveAction(context, note),
     ],
   );
 }
@@ -102,10 +102,7 @@ ActionPane homePrimary(final Note note, final BuildContext context) {
 ActionPane homeSecondary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
-    children: [
-      Utilities.copyAction(context, note),
-      Utilities.trashAction(context, note)
-    ],
+    children: [copyAction(context, note), trashAction(context, note)],
   );
 }
 
@@ -113,7 +110,7 @@ ActionPane hiddenPrimary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      Utilities.unHideAction(context, note),
+      unHideAction(context, note),
     ],
   );
 }
@@ -122,7 +119,7 @@ ActionPane hiddenSecondary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      Utilities.trashAction(context, note),
+      trashAction(context, note),
     ],
   );
 }
@@ -131,8 +128,8 @@ ActionPane archivePrimary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      Utilities.hideAction(context, note),
-      Utilities.unArchiveAction(context, note),
+      hideAction(context, note),
+      unArchiveAction(context, note),
     ],
   );
 }
@@ -141,8 +138,8 @@ ActionPane archiveSecondary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      Utilities.copyAction(context, note),
-      Utilities.trashAction(context, note),
+      copyAction(context, note),
+      trashAction(context, note),
     ],
   );
 }
@@ -151,7 +148,7 @@ ActionPane trashSecondary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      Utilities.deleteAction(context, note,
+      deleteAction(context, note,
           shouldAsk: getBoolFromSF('directlyDelete') ?? true),
     ],
   );
@@ -161,7 +158,7 @@ ActionPane trashPrimary(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      Utilities.restoreAction(context, note),
+      restoreAction(context, note),
     ],
   );
 }

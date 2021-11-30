@@ -44,7 +44,7 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                   children: [
                     ModalSheetWidget(
                       onTap: () async {
-                        await Utilities.onModalTrashTap(context, widget.note,
+                        await onModalTrashTap(context, widget.note,
                             widget.autoSaver, widget.saveNote);
                       },
                       icon: Icons.drive_file_move_outline,
@@ -52,7 +52,7 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                     ),
                     ModalSheetWidget(
                       onTap: () {
-                        Utilities.onModalArchiveTap(context, widget.note,
+                        onModalArchiveTap(context, widget.note,
                             widget.autoSaver, widget.saveNote);
                       },
                       label: Language.of(context).archive,
@@ -61,15 +61,15 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                     ModalSheetWidget(
                       icon: TablerIcons.copy,
                       onTap: () {
-                        Utilities.onModalCopyToClipboardTap(context,
-                            widget.note, widget.autoSaver, widget.saveNote);
+                        onModalCopyToClipboardTap(context, widget.note,
+                            widget.autoSaver, widget.saveNote);
                       },
                       label: Language.of(context).clipboard,
                     ),
                     ModalSheetWidget(
                       icon: Icons.delete_outlined,
                       onTap: () async {
-                        await Utilities.onModalTrashTap(context, widget.note,
+                        await onModalTrashTap(context, widget.note,
                             widget.autoSaver, widget.saveNote);
                       },
                       label: Language.of(context).delete,

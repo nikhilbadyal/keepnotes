@@ -58,8 +58,7 @@ class _BottomBarState extends State<BottomBar> {
                 }
 
                 if (widget.note.content.isEmpty && widget.note.title.isEmpty) {
-                  Utilities.showSnackbar(
-                      context, Language.of(context).emptyNote);
+                  showSnackbar(context, Language.of(context).emptyNote);
                 } else {
                   moreMenu(context);
                 }

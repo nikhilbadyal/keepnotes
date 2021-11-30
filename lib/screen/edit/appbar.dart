@@ -21,7 +21,7 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
           autoSaverTimer.cancel();
           unawaited(saveNote().then((final value) {
             if (!value) {
-              Utilities.showSnackbar(context, Language.of(context).error);
+              showSnackbar(context, Language.of(context).error);
             }
           }));
           Navigator.of(context).pop();
@@ -32,7 +32,7 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
         IconButton(
           onPressed: () async {
             if (note.title.isEmpty && note.content.isEmpty) {
-              Utilities.showSnackbar(context, Language.of(context).emptyNote);
+              showSnackbar(context, Language.of(context).emptyNote);
               return;
             }
             // TODO PDF Support

@@ -79,7 +79,7 @@ class _MyNotesState extends State<MyNotes> {
           final curUser =
               Provider.of<Auth>(context, listen: false).auth.currentUser;
           if (curUser != null) {
-            Utilities.initialize(context);
+            initialize(context);
           }
           final initRoute = Provider.of<Auth>(context, listen: false).isLoggedIn
               ? '/'

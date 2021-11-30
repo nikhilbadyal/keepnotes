@@ -103,7 +103,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
               if (Provider.of<NotesHelper>(context, listen: false)
                   .mainNotes
                   .isNotEmpty) {
-                Utilities.onDeleteAllTap(context);
+                onDeleteAllTap(context);
               }
             }
             if (!mounted) {

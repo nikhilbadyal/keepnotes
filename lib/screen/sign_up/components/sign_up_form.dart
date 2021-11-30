@@ -75,10 +75,9 @@ class _SignUpFormState extends State<SignUpForm> {
                 Navigator.of(context).pop();
 
                 if (response == 'success') {
-                  Utilities.showSnackbar(
-                      context, Language.of(context).checkEmail);
+                  showSnackbar(context, Language.of(context).checkEmail);
                 } else {
-                  handleError(
+                  handleFirebaseError(
                     response,
                     context,
                   );

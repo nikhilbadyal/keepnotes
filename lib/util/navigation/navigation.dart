@@ -192,9 +192,9 @@ Future navigate(final String activeRoute, final BuildContext context, final Stri
 }
 
 Future<void> goToBugScreen(final BuildContext context) async {
-  await Utilities.launchUrl(
+  await launchUrl(
     context,
-    Utilities.emailLaunchUri.toString(),
+    emailLaunchUri.toString(),
   );
 }
 

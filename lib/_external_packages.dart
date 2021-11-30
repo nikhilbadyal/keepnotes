@@ -20,7 +20,6 @@ export 'package:provider/provider.dart';
 export 'package:sentry_flutter/sentry_flutter.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:sqflite/sqflite.dart';
-export 'package:syncfusion_flutter_pdf/pdf.dart';
 export 'package:url_launcher/url_launcher.dart';
 export 'package:uuid/uuid.dart';
 export 'package:wc_form_validators/wc_form_validators.dart';

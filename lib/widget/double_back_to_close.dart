@@ -72,7 +72,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
       } else if (ModalRoute.of(context)!.settings.name! ==
               AppRoutes.homeScreen &&
           !isOpened) {
-        Utilities.showSnackbar(context, Language.of(context).doubleBackToExit,
+        showSnackbar(context, Language.of(context).doubleBackToExit,
             snackBarBehavior: SnackBarBehavior.fixed,
             duration: const Duration(
                 milliseconds: DoubleBackToCloseWidget.exitTimeInMillis - 10));

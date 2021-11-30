@@ -49,14 +49,14 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                     label: Language.of(context).hide,
                     icon: TablerIcons.ghost,
                     onTap: () {
-                      Utilities.onModalHideTap(context, widget.note,
-                          widget.autoSaver, widget.saveNote);
+                      onModalHideTap(context, widget.note, widget.autoSaver,
+                          widget.saveNote);
                     },
                   ),
                   ModalSheetWidget(
                     label: Language.of(context).unarchive,
                     onTap: () {
-                      Utilities.onModalUnArchiveTap(context, widget.note,
+                      onModalUnArchiveTap(context, widget.note,
                           widget.autoSaver, widget.saveNote);
                     },
                     icon: Icons.unarchive_outlined,
@@ -64,7 +64,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                   ModalSheetWidget(
                     icon: TablerIcons.copy,
                     onTap: () {
-                      Utilities.onModalCopyToClipboardTap(context, widget.note,
+                      onModalCopyToClipboardTap(context, widget.note,
                           widget.autoSaver, widget.saveNote);
                     },
                     label: Language.of(context).clipboard,
@@ -72,7 +72,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                   ModalSheetWidget(
                     icon: Icons.delete_outlined,
                     onTap: () async {
-                      await Utilities.onModalTrashTap(context, widget.note,
+                      await onModalTrashTap(context, widget.note,
                           widget.autoSaver, widget.saveNote);
                     },
                     label: Language.of(context).delete,

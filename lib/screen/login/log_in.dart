@@ -68,12 +68,12 @@ class _LoginState extends State<Login> {
                         context,
                         listen: false,
                       ).isLoggedIn) {
-                        Utilities.initialize(context);
+                        initialize(context);
                         await Navigator.pushNamedAndRemoveUntil(context,
                             AppRoutes.homeScreen, (final route) => false);
                       } else {
                         Navigator.of(context).pop();
-                        handleError(
+                        handleFirebaseError(
                           response,
                           context,
                         );

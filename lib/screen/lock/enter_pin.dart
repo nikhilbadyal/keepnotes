@@ -102,10 +102,10 @@ class _LockScreenState extends State<LockScreen> {
     } else {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
-        Utilities.getSnackBar(
+        getSnackBar(
           context,
           Language.of(context).wrongPassword,
-          action: Utilities.resetAction(context),
+          action: resetAction(context),
         ),
       );
     }
@@ -128,10 +128,10 @@ class _LockScreenState extends State<LockScreen> {
     } else {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
-        Utilities.getSnackBar(
+        getSnackBar(
           context,
           Language.of(context).wrongPassword,
-          action: Utilities.resetAction(context),
+          action: resetAction(context),
         ),
       );
     }

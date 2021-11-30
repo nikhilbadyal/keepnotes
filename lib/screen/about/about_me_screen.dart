@@ -23,7 +23,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  Utilities.launchUrl(context, githubProfile);
+                  launchUrl(context, githubProfile);
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.transparent,

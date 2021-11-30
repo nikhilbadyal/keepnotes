@@ -120,10 +120,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     }
 
                     if (response != 'success') {
-                      handleError(response, context);
+                      handleFirebaseError(response, context);
                     } else {
-                      Utilities.showSnackbar(
-                          context, Language.of(context).checkEmail);
+                      showSnackbar(context, Language.of(context).checkEmail);
                     }
                     await navigate(
                       AppRoutes.forgotPasswordScreen,
@@ -157,27 +156,27 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   }
 }
 
-void handleError(final String response, final BuildContext context) {
+void handleFirebaseError(final String response, final BuildContext context) {
   debugPrint(response);
   if (response == 'user-not-found' || response == 'auth/user-not-found') {
-    Utilities.showSnackbar(context, Language.of(context).signUp);
+    showSnackbar(context, Language.of(context).signUp);
   } else if (response == 'invalid-email' || response == 'auth/invalid-email') {
-    Utilities.showSnackbar(context, Language.of(context).checkEmail);
+    showSnackbar(context, Language.of(context).checkEmail);
   } else if (response == 'wrong-password') {
-    Utilities.showSnackbar(context, Language.of(context).wrongPassword);
+    showSnackbar(context, Language.of(context).wrongPassword);
   } else if (response == 'account-exists-with-different-credential') {
-    Utilities.showSnackbar(context, Language.of(context).accountAlreadyExist);
+    showSnackbar(context, Language.of(context).accountAlreadyExist);
   } else if (response == 'email-already-in-use') {
-    Utilities.showSnackbar(context, Language.of(context).emailAlreadyExist);
+    showSnackbar(context, Language.of(context).emailAlreadyExist);
   } else if (response == 'invalid-email') {
-    Utilities.showSnackbar(context, Language.of(context).invalidEmail);
+    showSnackbar(context, Language.of(context).invalidEmail);
   } else if (response == 'email-not-verified') {
-    Utilities.showSnackbar(context, Language.of(context).verifyEmail);
+    showSnackbar(context, Language.of(context).verifyEmail);
   } else if (response == 'weak-password') {
-    Utilities.showSnackbar(context, Language.of(context).weakPassword);
+    showSnackbar(context, Language.of(context).weakPassword);
   } else if (response == 'too-many-requests') {
-    Utilities.showSnackbar(context, Language.of(context).tryAgainLater);
+    showSnackbar(context, Language.of(context).tryAgainLater);
   } else {
-    Utilities.showSnackbar(context, Language.of(context).contactUs);
+    showSnackbar(context, Language.of(context).contactUs);
   }
 }
