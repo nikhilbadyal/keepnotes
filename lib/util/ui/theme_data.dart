@@ -1,9 +1,8 @@
-import 'package:notes/_app_packages.dart';
+import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 // opp - iconThemeData
 // same color as app white/black canvas
-
 
 Color darken(final Color c, [final int percent = 10]) {
   final f = 1 - percent / 100;

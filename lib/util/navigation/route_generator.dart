@@ -1,10 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 // TODO fix this ignore
 import 'package:flutter/cupertino.dart';
-import 'package:notes/_app_packages.dart';
+import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(final RouteSettings settings) {
@@ -153,7 +152,8 @@ class RouteGenerator {
   }
 }
 
-Future navigate(final String activeRoute, final BuildContext context, final String newRoute,
+Future navigate(
+    final String activeRoute, final BuildContext context, final String newRoute,
     [final Object? arguments]) async {
   Provider.of<NotesHelper>(context, listen: false).reset();
   if (activeRoute == newRoute && newRoute != AppRoutes.setPassScreen) {
