@@ -23,7 +23,6 @@ class KeyPad extends StatelessWidget {
       ),
     );
     final currentDecoration = BoxDecoration(
-      // color: Colors.black,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
         color: Theme.of(context).colorScheme.primary,

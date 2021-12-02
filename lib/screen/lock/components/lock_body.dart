@@ -27,43 +27,44 @@ class _LockBodyState extends State<LockBody> {
     return SafeArea(
       bottom: false,
       child: Padding(
-        padding: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 10),
         child: Column(
           children: [
             Expanded(
-              flex: 5,
-              child: SvgPicture.asset(otp, fit: BoxFit.cover),
-              // child: Image.asset(otp),
+              child: SvgPicture.asset(
+                otp,
+              ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text(
-                  widget.title,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Text(
+                widget.title,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            Expanded(
-                child: KeyPad(
+            KeyPad(
               pinPutController: _pinPutController,
               pinPutFocusNode: _pinPutFocusNode,
               doneCallBack: widget.doneCallBack,
-            ),),
+            ),
             Expanded(
-              flex: 8,
+              flex: 2,
               child: GridView.count(
                 crossAxisCount: 3,
                 shrinkWrap: true,
-                padding: const EdgeInsets.only(left: 50, right: 50, top: 30),
+                padding: const EdgeInsets.only(left: 55, right: 55),
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((final e) {
                     return RoundedButton(
-                      title: Text('$e', style: const TextStyle(fontSize: 20),),
+                      pad: shouldPad(e.toString()),
+                      title: Text(
+                        '$e',
+                        style: const TextStyle(fontSize: 40),
+                      ),
                       onTap: () {
                         if (_pinPutController.text.length >= (pinCodeLen + 1)) {
                           return;
@@ -84,7 +85,7 @@ class _LockBodyState extends State<LockBody> {
                   RoundedButton(
                     title: const Text(
                       '0',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 40),
                     ),
                     onTap: () {
                       if (_pinPutController.text.length >= (pinCodeLen + 1)) {
@@ -97,7 +98,7 @@ class _LockBodyState extends State<LockBody> {
                   RoundedButton(
                     title: const Text(
                       '⌫',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 40),
                     ),
                     onTap: () {
                       if (_pinPutController.text.isNotEmpty) {
@@ -113,5 +114,12 @@ class _LockBodyState extends State<LockBody> {
         ),
       ),
     );
+  }
+
+  bool shouldPad(final String string) {
+    if (string == '1' || string == '2' || string == '3') {
+      return false;
+    }
+    return true;
   }
 }
