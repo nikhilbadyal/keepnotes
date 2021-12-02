@@ -9,7 +9,7 @@ class Fab extends StatelessWidget {
         Icons.add,
         size: 30,
       ),
-      final Key? key})
+      final Key? key,})
       : super(key: key);
 
   final Function(BuildContext context, NoteState noteState) onFabTap;
@@ -41,7 +41,7 @@ void onTrashFabTap(final BuildContext context, final NoteState _) {
 }
 
 Future<void> onFabTap(
-    final BuildContext context, final NoteState noteState) async {
+    final BuildContext context, final NoteState noteState,) async {
   final emptyNote = Note(
     id: const Uuid().v4(),
     lastModify: DateTime.now(),
@@ -50,5 +50,5 @@ Future<void> onFabTap(
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
   await Navigator.pushNamed(context, AppRoutes.editScreen,
-      arguments: emptyNote);
+      arguments: emptyNote,);
 }

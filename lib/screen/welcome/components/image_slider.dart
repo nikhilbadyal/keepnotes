@@ -20,6 +20,6 @@ class ImageSlider extends StatelessWidget {
     return Padding(
         padding:
             const EdgeInsets.only(left: 10, right: 10, top: 40, bottom: 40),
-        child: Image.asset(imageLink));
+        child: Image.asset(imageLink),);
   }
 }

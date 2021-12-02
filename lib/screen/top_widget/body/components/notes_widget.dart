@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
@@ -19,10 +20,11 @@ class NoteWidget extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
+    final appTheme =
+        AppTheme.values[getIntFromSF('appTheme') ?? AppTheme.black.index];
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: 125,
+      height: getHeight(note.content.length),
       child: GestureDetector(
         onLongPress: onItemLongPress,
         onTap: onItemTap,
@@ -52,24 +54,33 @@ class NoteWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        note.title,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      if (note.title.isNotEmpty)
+                        Text(
+                          note.title,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: GoogleFonts.merriweather(
+                              textStyle: const TextStyle(
+                                  fontSize: 18,
+                                  height: 1,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FontStyle.italic,),),
+                        )
+                      else
+                        Container(),
                       const SizedBox(
-                        height: 4,
+                        height: 10,
                       ),
                       Text(
                         note.strLastModifiedDate,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 11,
-                        ),
+                        style: GoogleFonts.openSans(
+                            textStyle: const TextStyle(
+                          wordSpacing: 1.3,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          height: 1.3,
+                        ),),
                       ),
                       const SizedBox(
                         height: 8,
@@ -77,11 +88,15 @@ class NoteWidget extends StatelessWidget {
                       Expanded(
                         child: Text(
                           note.content,
-                          maxLines: 2,
+                          maxLines: 4,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: GoogleFonts.openSans(
+                              textStyle: const TextStyle(
+                            wordSpacing: 1,
                             fontSize: 15,
-                          ),
+                            fontWeight: FontWeight.w400,
+                            height: 1.5,
+                          ),),
                         ),
                       ),
                     ],
@@ -104,5 +119,14 @@ class NoteWidget extends StatelessWidget {
     } else {
       return const SizedBox();
     }
+  }
+
+  double getHeight(final int length) {
+    if (length < 50) {
+      return 120;
+    } else if (length >= 50 && length < 150) {
+      return 150;
+    }
+    return 180;
   }
 }

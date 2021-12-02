@@ -3,7 +3,7 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SelectDeSelectAllFab extends StatelessWidget {
-  const SelectDeSelectAllFab({final Key? key}) : super(key: key);
+  const SelectDeSelectAllFab({final Key? key,}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {

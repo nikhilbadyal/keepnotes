@@ -3,7 +3,5 @@ export 'database/database.dart';
 export 'main.dart';
 export 'models/models.dart';
 export 'screen/screen.dart';
-export 'sentryDns.dart';
-export 'todos.dart';
 export 'util/util.dart';
 export 'widget/widget.dart';

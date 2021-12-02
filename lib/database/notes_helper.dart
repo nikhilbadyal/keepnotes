@@ -52,7 +52,7 @@ class NotesHelper with ChangeNotifier {
     unawaited(
         SqfliteDatabaseHelper.insert(copiedNote).then((final value) async {
       await FirebaseDatabaseHelper.insert(copiedNote);
-    }));
+    }),);
     notifyListeners();
   }
 
@@ -66,7 +66,7 @@ class NotesHelper with ChangeNotifier {
     unawaited(
         SqfliteDatabaseHelper.insert(copiedNote).then((final value) async {
       await FirebaseDatabaseHelper.insert(copiedNote);
-    }));
+    }),);
     return true;
   }
 
@@ -77,7 +77,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.archived;
     unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
       await FirebaseDatabaseHelper.update(note);
-    }));
+    }),);
     notifyListeners();
     return true;
   }
@@ -91,7 +91,7 @@ class NotesHelper with ChangeNotifier {
     unawaited(
         SqfliteDatabaseHelper.update(copiedNote).then((final value) async {
       await FirebaseDatabaseHelper.update(copiedNote);
-    }));
+    }),);
     notifyListeners();
     return true;
   }
@@ -103,7 +103,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.unspecified;
     unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
       await FirebaseDatabaseHelper.update(note);
-    }));
+    }),);
     notifyListeners();
     return true;
   }
@@ -115,7 +115,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.unspecified;
     unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
       await FirebaseDatabaseHelper.update(note);
-    }));
+    }),);
     notifyListeners();
     return true;
   }
@@ -127,7 +127,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.unspecified;
     unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
       await FirebaseDatabaseHelper.update(note);
-    }));
+    }),);
     notifyListeners();
     return true;
   }
@@ -140,7 +140,7 @@ class NotesHelper with ChangeNotifier {
       unawaited(SqfliteDatabaseHelper.delete('id = ?', [note.id])
           .then((final value) async {
         await FirebaseDatabaseHelper.delete(NoteOperation.delete, note);
-      }));
+      }),);
     } on Exception catch (_) {
       return false;
     }
@@ -157,7 +157,7 @@ class NotesHelper with ChangeNotifier {
     unawaited(SqfliteDatabaseHelper.update(note).then((final value) async {
       await getAllNotes(orig);
       await FirebaseDatabaseHelper.update(note);
-    }));
+    }),);
     notifyListeners();
     return true;
   }
@@ -165,7 +165,7 @@ class NotesHelper with ChangeNotifier {
   Future<bool> deleteAllHidden() async {
     await SqfliteDatabaseHelper.delete('state = ?', [NoteState.hidden.index]);
     await FirebaseDatabaseHelper.batchDelete('state',
-        isEqualTo: [NoteState.hidden.index]);
+        isEqualTo: [NoteState.hidden.index],);
     notifyListeners();
     return true;
   }
@@ -175,33 +175,37 @@ class NotesHelper with ChangeNotifier {
     unawaited(
         SqfliteDatabaseHelper.delete('state = ?', [NoteState.trashed.index])
             .then((final _) {
-      unawaited(FirebaseDatabaseHelper.batchDelete('state', isEqualTo: 4));
-    }));
+      unawaited(FirebaseDatabaseHelper.batchDelete('state',
+          isEqualTo: NoteState.trashed.index,),);
+    }),);
     notifyListeners();
   }
 
   Future<List<Map<String, dynamic>>> getFromFirebase() async {
-    final notesList = await FirebaseDatabaseHelper.getAll();
-    final items = notesList.docs.map((final e) => e.data()).toList();
-    return items;
+    try {
+      final notesList = await FirebaseDatabaseHelper.getAll();
+      final items = notesList.docs.map((final e) => e.data(),).toList();
+      unawaited(addBoolToSF('syncedWithFirebase', value: true),);
+      return items;
+    } catch (_) {
+      return [];
+    }
   }
 
-  Future getAllNotes(final int noteState, {final bool clear = false}) async {
+  Future getAllNotes(final int noteState) async {
     if (!isLastPage && !isLoading) {
       isLoading = true;
       if (!(getBoolFromSF('syncedWithFirebase') ?? false)) {
-        await SqfliteDatabaseHelper.batchInsert(await getFromFirebase());
-        unawaited(addBoolToSF('syncedWithFirebase', value: true));
+        await SqfliteDatabaseHelper.batchInsert(await getFromFirebase(),);
       }
-      const limit = 15;
-      final offSet = _page == 1 ? 0 : (_page - 1) * limit;
+      final offSet = _page == 1 ? 0 : (_page - 1) * pageLimit;
       final notesList = await SqfliteDatabaseHelper.queryData(
         whereStr: 'state = ?',
         whereCond: [noteState],
-        limit: limit,
+        limit: pageLimit,
         offSet: offSet,
       );
-      isLastPage = notesList.isEmpty || notesList.length < limit;
+      isLastPage = notesList.isEmpty || notesList.length < pageLimit;
       if (!isLastPage) {
         _page++;
       }
@@ -225,22 +229,15 @@ class NotesHelper with ChangeNotifier {
             );
             return item;
           },
-        ).toList())
+        ).toList(),)
       ];
-
-      if (noteState == NoteState.hidden.index) {
-        // ignore: prefer_foreach
-        for (final element in mainNotes) {
-          encryption.decrypt(element);
-        }
-      }
     }
   }
 
   List<Map<String, dynamic>> makeModifiableResults(
-      final List<Map<String, dynamic>> results) {
+      final List<Map<String, dynamic>> results,) {
     return List<Map<String, dynamic>>.generate(results.length,
-        (final index) => Map<String, dynamic>.from(results[index]));
+        (final index) => Map<String, dynamic>.from(results[index]),);
   }
 
   void reset() {

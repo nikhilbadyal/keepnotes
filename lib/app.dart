@@ -36,7 +36,7 @@ class _MyNotesState extends State<MyNotes> {
   void initState() {
     super.initState();
     for (final element in supportedLanguages) {
-      supportedLocales.add(Locale(element.languageCode, ''));
+      supportedLocales.add(Locale(element.languageCode, ''),);
     }
   }
 
@@ -76,7 +76,8 @@ class _MyNotesState extends State<MyNotes> {
           final curUser =
               Provider.of<Auth>(context, listen: false).auth.currentUser;
           if (curUser != null) {
-            Provider.of<AppConfiguration>(context, listen: false).password = initialize(curUser);
+            Provider.of<AppConfiguration>(context, listen: false).password =
+                initialize(curUser);
           }
           final initRoute = Provider.of<Auth>(context, listen: false).isLoggedIn
               ? '/'
@@ -92,7 +93,7 @@ class _MyNotesState extends State<MyNotes> {
             initialRoute: initRoute,
             debugShowCheckedModeBanner: false,
             navigatorObservers: [routeObserver],
-            onGenerateRoute: RouteGenerator.generateRoute,
+            onGenerateRoute: generateRoute,
           );
         },
       ),
@@ -100,7 +101,7 @@ class _MyNotesState extends State<MyNotes> {
   }
 
   Locale? localeResolutionCallback(
-      final Locale? locale, final Iterable<Locale> supportedLocales) {
+      final Locale? locale, final Iterable<Locale> supportedLocales,) {
     for (final supportedLocale in supportedLocales) {
       if (supportedLocale.languageCode == locale?.languageCode &&
           supportedLocale.countryCode == locale?.countryCode) {

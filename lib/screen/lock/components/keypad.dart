@@ -17,14 +17,14 @@ class KeyPad extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final submitted = BoxDecoration(
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: BorderRadius.circular(10),
       border: Border.all(
         color: Colors.grey,
       ),
     );
     final currentDecoration = BoxDecoration(
       // color: Colors.black,
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: BorderRadius.circular(10),
       border: Border.all(
         color: Theme.of(context).colorScheme.primary,
       ),
@@ -33,14 +33,14 @@ class KeyPad extends StatelessWidget {
         padding: const EdgeInsets.only(left: 65, right: 65),
         child: PinPut(
           useNativeKeyboard: false,
-          fieldsCount: 4,
+          fieldsCount: pinCodeLen,
           withCursor: true,
-          textStyle: const TextStyle(fontSize: 20.0),
-          eachFieldWidth: 55.0,
-          eachFieldHeight: 35.0,
+          textStyle: const TextStyle(fontSize: 20),
+          eachFieldWidth: 55,
+          eachFieldHeight: 35,
           onSubmit: (final pass) async {
             doneCallBack.call(pass);
-            await Future.delayed(const Duration(milliseconds: 500));
+            await Future.delayed(const Duration(milliseconds: pinEnterReset),);
             pinPutController.clear();
           },
           focusNode: pinPutFocusNode,
@@ -49,6 +49,6 @@ class KeyPad extends StatelessWidget {
           selectedFieldDecoration: currentDecoration,
           followingFieldDecoration: submitted,
           pinAnimationType: PinAnimationType.fade,
-        ));
+        ),);
   }
 }

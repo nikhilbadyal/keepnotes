@@ -14,7 +14,7 @@ class NoAccountText extends StatelessWidget {
       children: [
         Text(
           Language.of(context).noAccount,
-          style: TextStyle(fontSize: getProportionateScreenWidth(16)),
+          style: TextStyle(fontSize: getProportionateScreenWidth(16),),
         ),
         GestureDetector(
           onTap: () => Navigator.of(context).pushNamed(AppRoutes.signUpScreen),
@@ -22,7 +22,7 @@ class NoAccountText extends StatelessWidget {
             Language.of(context).signUp,
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(16),
-                color: Theme.of(context).colorScheme.secondary),
+                color: Theme.of(context).colorScheme.secondary,),
           ),
         ),
       ],

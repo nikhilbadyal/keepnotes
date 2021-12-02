@@ -5,7 +5,7 @@ import 'package:notes/_internal_packages.dart';
 var isOpened = false;
 
 class MyDrawer extends StatefulWidget {
-  const MyDrawer({final Key? key}) : super(key: key);
+  const MyDrawer({final Key? key,}) : super(key: key);
 
   @override
   _MyDrawerState createState() => _MyDrawerState();
@@ -62,12 +62,12 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).iconTheme.color),
+                    color: Theme.of(context).iconTheme.color,),
               ),
               accountName: null,
               onDetailsPressed: () async {
                 unawaited(Provider.of<AppConfiguration>(context, listen: false)
-                    .setHiddenDiscovered(true));
+                    .setHiddenDiscovered(),);
                 final bioEnable = getBoolFromSF('bio') ?? false;
                 final firstTime = getBoolFromSF('firstTimeNeeded') ?? false;
                 final fpDirectly = getBoolFromSF('fpDirectly') ?? true;
@@ -81,20 +81,21 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                     .isNotEmpty) {
                   if (bioEnable && !firstTime && fpDirectly) {
                     final status = await Provider.of<AppConfiguration>(context,
-                            listen: false)
+                            listen: false,)
                         .authenticate(Language.of(context).localizedReason);
                     if (!mounted) {
                       return;
                     }
                     if (status) {
                       await navigate(ModalRoute.of(context)!.settings.name!,
-                          context, AppRoutes.hiddenScreen);
+                          context, AppRoutes.hiddenScreen,);
                       return;
                     }
                   }
                   if (!mounted) {
                     return;
                   }
+
                   await navigate(
                     _activeRoute,
                     context,
@@ -124,30 +125,30 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               leading: Icon(Icons.notes,
                   color: _activeRoute == AppRoutes.homeScreen
                       ? Theme.of(context).colorScheme.secondary
-                      : null),
+                      : null,),
               title: Text(
                 Language.of(context).home,
                 style: TextStyle(
                     fontWeight: FontWeight.normal,
                     color: _activeRoute == AppRoutes.homeScreen
                         ? Theme.of(context).colorScheme.secondary
-                        : null),
+                        : null,),
               ),
               onTap: () {
                 navigate(_activeRoute, context, AppRoutes.homeScreen);
-              }),
+              },),
           ListTile(
             leading: Icon(Icons.archive_outlined,
                 color: _activeRoute == AppRoutes.archiveScreen
                     ? Theme.of(context).colorScheme.secondary
-                    : null),
+                    : null,),
             title: Text(
               Language.of(context).archive,
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.archiveScreen
                       ? Theme.of(context).colorScheme.secondary
-                      : null),
+                      : null,),
             ),
             onTap: () {
               navigate(_activeRoute, context, AppRoutes.archiveScreen);
@@ -161,14 +162,14 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(Icons.settings_backup_restore,
                 color: _activeRoute == AppRoutes.backupScreen
                     ? Theme.of(context).colorScheme.secondary
-                    : null),
+                    : null,),
             title: Text(
               Language.of(context).backup,
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.backupScreen
                       ? Theme.of(context).colorScheme.secondary
-                      : null),
+                      : null,),
             ),
             onTap: () {
               navigate(_activeRoute, context, AppRoutes.backupScreen);
@@ -178,14 +179,14 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(Icons.delete_outlined,
                 color: _activeRoute == AppRoutes.trashScreen
                     ? Theme.of(context).colorScheme.secondary
-                    : null),
+                    : null,),
             title: Text(
               Language.of(context).trash,
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.trashScreen
                       ? Theme.of(context).colorScheme.secondary
-                      : null),
+                      : null,),
             ),
             onTap: () => navigate(_activeRoute, context, AppRoutes.trashScreen),
           ),
@@ -197,14 +198,14 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(Icons.settings,
                 color: _activeRoute == AppRoutes.settingsScreen
                     ? Theme.of(context).colorScheme.secondary
-                    : null),
+                    : null,),
             title: Text(
               Language.of(context).settings,
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.settingsScreen
                       ? Theme.of(context).colorScheme.secondary
-                      : null),
+                      : null,),
             ),
             onTap: () =>
                 navigate(_activeRoute, context, AppRoutes.settingsScreen),
@@ -213,14 +214,14 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(Icons.person_outline,
                 color: _activeRoute == AppRoutes.aboutMeScreen
                     ? Theme.of(context).colorScheme.secondary
-                    : null),
+                    : null,),
             title: Text(
               Language.of(context).about,
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.aboutMeScreen
                       ? Theme.of(context).colorScheme.secondary
-                      : null),
+                      : null,),
             ),
             onTap: () =>
                 navigate(_activeRoute, context, AppRoutes.aboutMeScreen),
@@ -229,14 +230,14 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(Icons.bug_report_outlined,
                 color: _activeRoute == AppRoutes.suggestScreen
                     ? Theme.of(context).colorScheme.secondary
-                    : null),
+                    : null,),
             title: Text(
               Language.of(context).reportSuggest,
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: _activeRoute == AppRoutes.suggestScreen
                       ? Theme.of(context).colorScheme.secondary
-                      : null),
+                      : null,),
             ),
             onTap: () async => launchUrl(
               emailLaunchUri.toString(),
@@ -247,7 +248,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
     );
   }
 
-  String getWish(final BuildContext context, [final bool? undiscovered]) {
+  String getWish(final BuildContext context, {final bool? undiscovered,}) {
     final hour = DateTime.now().hour;
     String wish;
     final startWish = Language.of(context).good;

@@ -2,7 +2,7 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class Welcome extends StatefulWidget {
-  const Welcome({final Key? key}) : super(key: key);
+  const Welcome({final Key? key,}) : super(key: key);
 
   @override
   _WelcomeState createState() => _WelcomeState();
@@ -51,7 +51,7 @@ class _WelcomeState extends State<Welcome> {
                                     Orientation.landscape
                                 ? 20
                                 : 40,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold,),
                       ),
                     ),
                   ],
@@ -59,7 +59,7 @@ class _WelcomeState extends State<Welcome> {
               ),
               Expanded(
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: welcomeSliderTimer),
                   child: Text(
                     splashData[currentPage]['text'] ??
                         Language.of(context).someError,
@@ -69,7 +69,7 @@ class _WelcomeState extends State<Welcome> {
                         fontSize: MediaQuery.of(context).orientation ==
                                 Orientation.landscape
                             ? 10
-                            : 17),
+                            : 17,),
                   ),
                 ),
               ),
@@ -90,7 +90,7 @@ class _WelcomeState extends State<Welcome> {
                     description: splashData[index]['text'] ??
                         Language.of(context).someError,
                     imageLink: splashData[index]['image'] ?? splashImage1,
-                  )),
+                  ),),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +121,7 @@ class _WelcomeState extends State<Welcome> {
                 child: Text(
                   Language.of(context).getStarted,
                   style: TextStyle(
-                      color: Theme.of(context).canvasColor, fontSize: 20),
+                      color: Theme.of(context).canvasColor, fontSize: 20,),
                 ),
               ),
             ),

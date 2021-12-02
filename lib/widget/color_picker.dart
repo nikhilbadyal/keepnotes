@@ -8,7 +8,7 @@ class ColorPicker extends StatefulWidget {
       required this.availableColors,
       this.layoutBuilder = defaultLayoutBuilder,
       this.itemBuilder = defaultItemBuilder,
-      final Key? key})
+      final Key? key,})
       : super(key: key);
 
   final Color pickerColor;
@@ -18,7 +18,7 @@ class ColorPicker extends StatefulWidget {
   final PickerItemBuilder itemBuilder;
 
   static Widget defaultLayoutBuilder(final BuildContext context,
-      final List<Color> colors, final PickerItem child) {
+      final List<Color> colors, final PickerItem child,) {
     final orientation = MediaQuery.of(context).orientation;
 
     return SizedBox(
@@ -28,14 +28,14 @@ class ColorPicker extends StatefulWidget {
         crossAxisCount: orientation == Orientation.portrait ? 4 : 6,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
-        children: colors.map((final color) => child(color)).toList(),
+        children: colors.map((final color) => child(color),).toList(),
       ),
     );
   }
 
   static Widget defaultItemBuilder(
           final Color color, final void Function() changeColor,
-          {required final bool isCurrentColor}) =>
+          {required final bool isCurrentColor,}) =>
       Container(
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
@@ -96,10 +96,10 @@ class _ColorPickerState extends State<ColorPicker> {
       );
 }
 
-bool useWhiteForeground(final Color color, {final double bias = 1}) {
+bool useWhiteForeground(final Color color, {final double bias = 1,}) {
   final v = sqrt(pow(color.red, 2) * 0.299 +
           pow(color.green, 2) * 0.587 +
-          pow(color.blue, 2) * 0.114)
+          pow(color.blue, 2) * 0.114,)
       .round();
   if (v < 130 * bias) {
     return true;

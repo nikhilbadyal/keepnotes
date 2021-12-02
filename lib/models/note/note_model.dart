@@ -27,7 +27,7 @@ class Note implements Comparable<Note> {
       required this.id,
       this.title = '',
       this.content = '',
-      this.state = NoteState.unspecified});
+      this.state = NoteState.unspecified,});
 
   String id;
   String title;
@@ -47,7 +47,7 @@ class Note implements Comparable<Note> {
           title: title ?? this.title,
           state: state ?? this.state,
           lastModify: lastModify ?? this.lastModify,
-          content: content ?? this.content);
+          content: content ?? this.content,);
 
   @override
   String toString() => 'Object is $id $title $content $lastModify $state';

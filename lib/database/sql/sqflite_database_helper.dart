@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_classes_with_only_static_members
+
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
@@ -24,7 +26,7 @@ class SqfliteDatabaseHelper {
           onCreate: (final database, final version) => database.execute(
                 query(),
               ),
-          version: 1);
+          version: dbVersion,);
     }
     return _database;
   }
@@ -71,7 +73,7 @@ class SqfliteDatabaseHelper {
   }
 
   static Future<bool> delete(
-      final String whereCond, final List<Object> where) async {
+      final String whereCond, final List<Object> where,) async {
     final db = await database;
     try {
       await db.delete(
@@ -109,7 +111,7 @@ class SqfliteDatabaseHelper {
   }
 
   static Future<bool> batchInsert(final List<Map<String, dynamic>> notesList,
-      {final ConflictAlgorithm? conflictAlgorithm}) async {
+      {final ConflictAlgorithm? conflictAlgorithm,}) async {
     final db = await database;
     final batch = db.batch();
     for (final element in notesList) {
@@ -120,12 +122,12 @@ class SqfliteDatabaseHelper {
   }
 
   static Future<bool> batchInsert1(final List<dynamic> notesList,
-      {final ConflictAlgorithm? conflictAlgorithm}) async {
+      {final ConflictAlgorithm? conflictAlgorithm,}) async {
     final db = await database;
     final batch = db.batch();
     for (final element in notesList) {
       batch.insert(tableName, element as Map<String, dynamic>,
-          conflictAlgorithm: conflictAlgorithm);
+          conflictAlgorithm: conflictAlgorithm,);
     }
     await batch.commit(noResult: true);
     return true;
@@ -133,6 +135,6 @@ class SqfliteDatabaseHelper {
 
   static Future<void> deleteDB() async {
     final databasePath = await getDatabasesPath();
-    return deleteDatabase(join(databasePath, dbName));
+    return deleteDatabase(join(databasePath, dbName),);
   }
 }

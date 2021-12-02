@@ -7,7 +7,7 @@ abstract class ModalSheetWidgets extends StatelessWidget {
       {required this.onTap,
       required this.icon,
       required this.label,
-      final Key? key})
+      final Key? key,})
       : super(key: key);
   final Function()? onTap;
   final IconData icon;
@@ -19,7 +19,7 @@ class ModalSheetWidget extends ModalSheetWidgets {
       {required final Function()? onTap,
       required final IconData icon,
       required final String label,
-      final Key? key})
+      final Key? key,})
       : super(key: key, onTap: onTap, icon: icon, label: label);
 
   @override
@@ -61,7 +61,7 @@ class ModalSheetWidget extends ModalSheetWidgets {
 }
 
 class ModalSheetDeleteAllWidget extends StatefulWidget {
-  const ModalSheetDeleteAllWidget({final Key? key}) : super(key: key);
+  const ModalSheetDeleteAllWidget({final Key? key,}) : super(key: key);
 
   @override
   State<ModalSheetDeleteAllWidget> createState() =>
@@ -110,7 +110,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
               return;
             }
             Navigator.of(context).popUntil(
-                (final route) => route.settings.name == AppRoutes.trashScreen);
+                (final route) => route.settings.name == AppRoutes.trashScreen,);
           },
           child: Container(
             height: 80,

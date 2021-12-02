@@ -8,7 +8,7 @@ class BottomBar extends StatefulWidget {
       required this.onIconTap,
       required this.isReadOnly,
       required this.autoSaverTimer,
-      final Key? key})
+      final Key? key,})
       : super(key: key);
 
   final Note note;
@@ -26,7 +26,8 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(final BuildContext context) {
     final primaryColor =
         Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
-    final appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
+    final appTheme =
+        AppTheme.values[getIntFromSF('appTheme') ?? AppTheme.black.index];
     return BottomAppBar(
       child: Container(
         color: Theme.of(context).canvasColor,

@@ -3,7 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({final Key? key}) : super(key: key);
+  const SettingsScreen({final Key? key,}) : super(key: key);
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -27,7 +27,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     fpDirectly = getBoolFromSF('fpDirectly') ?? true;
     primaryColor = Color(getIntFromSF('primaryColor') ?? defaultPrimary.value);
     accentColor = Color(getIntFromSF('accentColor') ?? defaultAccent.value);
-    appTheme = AppTheme.values[getIntFromSF('appTheme') ?? 0];
+    appTheme =
+        AppTheme.values[getIntFromSF('appTheme') ?? AppTheme.black.index];
     setState(() {});
   }
 
@@ -71,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 onPressed: (final context) {
                   colorPicker(Language.of(context).pickColor, primaryColors,
-                      primaryColor, onPrimaryColorChange);
+                      primaryColor, onPrimaryColorChange,);
                 },
               ),
               SettingsTile(
@@ -82,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 onPressed: (final context) {
                   colorPicker(Language.of(context).pickColor, secondaryColors,
-                      accentColor, onAccentColorChange);
+                      accentColor, onAccentColorChange,);
                 },
               ),
               SettingsTile.switchTile(
@@ -146,31 +147,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> colorPicker(final String title, final List<Color> appColors,
-      final Color pickerColor, final ValueChanged<Color> onColorChange) async {
+      final Color pickerColor, final ValueChanged<Color> onColorChange,) async {
     final status = await showDialog(
-      barrierDismissible: true,
-      context: context,
-      builder: (final context) {
-        return MyAlertDialog(
-          title: Text(title),
-          content: SingleChildScrollView(
-            child: ColorPicker(
-              availableColors: appColors,
-              pickerColor: pickerColor,
-              onColorChanged: onColorChange,
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              child: Text(Language.of(context).done),
-            ),
-          ],
-        );
-      },
-    ) ??
+          barrierDismissible: true,
+          context: context,
+          builder: (final context) {
+            return MyAlertDialog(
+              title: Text(title),
+              content: SingleChildScrollView(
+                child: ColorPicker(
+                  availableColors: appColors,
+                  pickerColor: pickerColor,
+                  onColorChanged: onColorChange,
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  child: Text(Language.of(context).done),
+                ),
+              ],
+            );
+          },
+        ) ??
         false;
     if (status) {}
   }
@@ -201,13 +202,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // ignore: avoid_positional_boolean_parameters
   Future<void> toggleBiometric(final bool value) async {
     fpDirectly = value;
-    unawaited(addBoolToSF('fpDirectly', value: value));
+    unawaited(addBoolToSF('fpDirectly', value: value),);
   }
 
   // ignore: avoid_positional_boolean_parameters
   Future<void> directDelete(final bool deleteDirectly) async {
     directlyDelete = deleteDirectly;
-    unawaited(addBoolToSF('directlyDelete', value: deleteDirectly));
+    unawaited(addBoolToSF('directlyDelete', value: deleteDirectly),);
   }
 
   Future<void> resetPassword() async {
@@ -244,32 +245,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> onRemoveBioMetric(final BuildContext context) async {
     final choice = await showDialog<bool>(
-      barrierDismissible: true,
-      context: context,
-      builder: (final context) => MyAlertDialog(
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text(Language.of(context).areYouSure),
+          barrierDismissible: true,
+          context: context,
+          builder: (final context) => MyAlertDialog(
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(Language.of(context).areYouSure),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop(true);
+                },
+                child: Text(Language.of(context).alertDialogOp1),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop(false);
+                },
+                child: Text(Language.of(context).alertDialogOp2),
+              ),
             ],
           ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () async {
-              Navigator.of(context).pop(true);
-            },
-            child: Text(Language.of(context).alertDialogOp1),
-          ),
-          TextButton(
-            onPressed: () async {
-              Navigator.of(context).pop(false);
-            },
-            child: Text(Language.of(context).alertDialogOp2),
-          ),
-        ],
-      ),
-    ) ??
+        ) ??
         false;
     if (!mounted) {
       return;
@@ -288,7 +289,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget languageTrailing() {
     return PopupMenuButton(
       icon: Icon(Icons.arrow_drop_down,
-          color: Theme.of(context).colorScheme.secondary),
+          color: Theme.of(context).colorScheme.secondary,),
       iconSize: 30,
       onSelected: onLocaleChange,
       itemBuilder: (final context) => supportedLanguages
@@ -322,6 +323,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
 
     await Navigator.pushNamedAndRemoveUntil(
-        context, AppRoutes.welcomeScreen, (final route) => false);
+        context, AppRoutes.welcomeScreen, (final route) => false,);
   }
 }

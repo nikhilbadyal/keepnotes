@@ -8,7 +8,7 @@ final RegExp emailValidatorRegExp =
     RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
 
 class SignForm extends StatefulWidget {
-  const SignForm({final Key? key}) : super(key: key);
+  const SignForm({final Key? key,}) : super(key: key);
 
   @override
   _SignFormState createState() => _SignFormState();
@@ -20,7 +20,7 @@ class _SignFormState extends State<SignForm> {
   String password = '';
   final List<String?> errors = [];
 
-  void addError({final String? error}) {
+  void addError({final String? error,}) {
     if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
@@ -28,7 +28,7 @@ class _SignFormState extends State<SignForm> {
     }
   }
 
-  void removeError({final String? error}) {
+  void removeError({final String? error,}) {
     if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
@@ -43,9 +43,9 @@ class _SignFormState extends State<SignForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionateScreenHeight(30),),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionateScreenHeight(30),),
           GestureDetector(
             onTap: () =>
                 Navigator.of(context).pushNamed(AppRoutes.forgotPasswordScreen),
@@ -58,7 +58,7 @@ class _SignFormState extends State<SignForm> {
             ),
           ),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(height: getProportionateScreenHeight(20),),
           DefaultButton(
             text: Language.of(context).login,
             press: () async {
@@ -72,7 +72,7 @@ class _SignFormState extends State<SignForm> {
                       size: MediaQuery.of(context).size.height * 0.1,
                     );
                   },
-                ));
+                ),);
                 _formKey.currentState!.save();
                 hideKeyboard(context);
                 final response = await Provider.of<Auth>(
@@ -94,9 +94,9 @@ class _SignFormState extends State<SignForm> {
                           .password =
                       initialize(Provider.of<Auth>(context, listen: false)
                           .auth
-                          .currentUser);
+                          .currentUser,);
                   await Navigator.pushNamedAndRemoveUntil(
-                      context, AppRoutes.homeScreen, (final route) => false);
+                      context, AppRoutes.homeScreen, (final route) => false,);
                 } else {
                   Navigator.of(context).pop();
                   handleFirebaseError(
@@ -126,7 +126,7 @@ class _SignFormState extends State<SignForm> {
       onChanged: (final value) {
         if (value.isNotEmpty) {
           removeError(error: Language.of(context).enterPassword);
-        } else if (value.length >= 8) {
+        } else if (value.length >= minPassword) {
           removeError(error: Language.of(context).shortPassword);
         }
         return;
@@ -135,7 +135,7 @@ class _SignFormState extends State<SignForm> {
         if (value!.isEmpty) {
           addError(error: Language.of(context).enterPassword);
           return '';
-        } else if (value.length < 8) {
+        } else if (value.length < minPassword) {
           addError(error: Language.of(context).shortPassword);
           return '';
         }

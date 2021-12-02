@@ -3,7 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class EditScreen extends StatefulWidget {
-  const EditScreen({final Key? key}) : super(key: key);
+  const EditScreen({final Key? key,}) : super(key: key);
 
   @override
   _EditScreenState createState() => _EditScreenState();
@@ -28,65 +28,33 @@ class _EditScreenState extends State<EditScreen> {
     _contentController.text = noteInEditing.content;
     _titleFromInitial = currentNote.title;
     _contentFromInitial = currentNote.content;
-    autoSaverTimer = Timer.periodic(const Duration(seconds: 5), (final timer) {
+    autoSaverTimer =
+        Timer.periodic(const Duration(seconds: backGroundTimer), (final timer) {
       backgroundSaveNote();
     });
-    return WillPopScope(
-      onWillPop: onBackPress,
-      child: Scaffold(
-        appBar: EditAppBar(
-          note: noteInEditing,
-          saveNote: saveNote,
-          autoSaverTimer: autoSaverTimer,
-        ),
-        body: body(context),
-        bottomSheet: BottomBar(
-          note: noteInEditing,
-          saveNote: saveNote,
-          onIconTap: onPressed,
-          isReadOnly: isReadOnly,
-          autoSaverTimer: autoSaverTimer,
-        ),
-      ),
-    );
-  }
-
-  Widget body(final BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(
-          bottom: kBottomNavigationBarHeight, left: 10, right: 10),
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              readOnly: isReadOnly,
-              controller: _titleController,
-              maxLines: null,
-              textCapitalization: TextCapitalization.sentences,
-              style: const TextStyle(
-                fontWeight: FontWeight.normal,
-                fontSize: 15,
-              ),
-              decoration: InputDecoration(
-                  hintText: Language.of(context).enterNoteTitle,
-                  border: InputBorder.none),
-            ),
-            TextField(
-              autofocus:
-                  _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
-              readOnly: isReadOnly,
-              controller: _contentController,
-              maxLines: null,
-              showCursor: true,
-              style: const TextStyle(
-                fontSize: 15,
-              ),
-              decoration: InputDecoration(
-                  hintText: Language.of(context).enterNoteContent,
-                  border: InputBorder.none),
-            ),
-          ],
+    return ChangeNotifierProvider<CharCount>(
+      create: (final _) => CharCount(_contentFromInitial.length),
+      child: WillPopScope(
+        onWillPop: onBackPress,
+        child: Scaffold(
+          appBar: EditAppBar(
+            note: noteInEditing,
+            saveNote: saveNote,
+            autoSaverTimer: autoSaverTimer,
+          ),
+          body: EditBody(
+            isReadOnly: isReadOnly,
+            contentController: _contentController,
+            titleController: _titleController,
+            autofocus: _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
+          ),
+          bottomSheet: BottomBar(
+            note: noteInEditing,
+            saveNote: saveNote,
+            onIconTap: onPressed,
+            isReadOnly: isReadOnly,
+            autoSaverTimer: autoSaverTimer,
+          ),
         ),
       ),
     );

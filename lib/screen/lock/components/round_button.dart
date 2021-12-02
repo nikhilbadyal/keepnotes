@@ -3,7 +3,7 @@ import 'package:notes/_internal_packages.dart';
 
 class RoundedButton extends StatelessWidget {
   const RoundedButton(
-      {required this.title, required this.onTap, final Key? key})
+      {required this.title, required this.onTap, final Key? key,})
       : super(key: key);
   final Widget title;
 

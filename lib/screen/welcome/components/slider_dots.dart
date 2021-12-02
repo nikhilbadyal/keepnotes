@@ -1,9 +1,10 @@
 //24-11-2021 10:59 PM
+import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 AnimatedContainer buildDot(final int currentPage, final BuildContext context,
-    {final int? index}) {
-  const kAnimationDuration = Duration(milliseconds: 200);
+    {final int? index,}) {
+  const kAnimationDuration = Duration(milliseconds: welcomeSliderTimer);
 
   return AnimatedContainer(
     duration: kAnimationDuration,

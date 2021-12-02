@@ -21,13 +21,13 @@ class _BottomBarOptionsState extends State<BottomBarOptions>
   @override
   Widget build(final BuildContext context) => AnimatedSize(
         curve: Curves.easeInOut,
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: bottomSheetTimer),
         child: Column(
           children: [
             _currentOptionWidget(),
             Container(
                 height: MediaQuery.of(context).padding.bottom,
-                color: Theme.of(context).cardColor)
+                color: Theme.of(context).cardColor,)
           ],
         ),
       );

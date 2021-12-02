@@ -1,12 +1,13 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
+import 'package:notes/sentryDns.dart';
 
 // Add your own DSN if you want.
 // Read here https://docs.sentry.io/platforms/flutter/
 const dsn = dsnLink;
 
-final sentry = SentryClient(SentryOptions(dsn: dsn));
+final sentry = SentryClient(SentryOptions(dsn: dsn),);
 
 class SimpleLogPrinter extends LogPrinter {
   @override
@@ -28,9 +29,9 @@ Future<void> main() async {
 
   prefs = await SharedPreferences.getInstance();
   if (kDebugMode) {
-    timeDilation = 1.5;
+    timeDilation = debugTimeDilation;
   }
-  FlutterError.onError = (final details, {final forceReport = false}) {
+  FlutterError.onError = (final details, {final forceReport = false,}) {
     if (kDebugMode) {
       FlutterError.dumpErrorToConsole(details);
     } else {
@@ -41,7 +42,7 @@ Future<void> main() async {
     }
   };
   Future<void> reportError(
-      final Object error, final StackTrace stackTrace) async {
+      final Object error, final StackTrace stackTrace,) async {
     if (kReleaseMode) {
       try {
         await sentry.captureException(
@@ -58,8 +59,10 @@ Future<void> main() async {
 
   if (dsn.isNotEmpty || kDebugMode) {
     await runZonedGuarded(() async {
-      runApp(const MyNotes());
-    }, reportError);
+      return SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+      ).then((final _) => runApp(const MyNotes(),));
+    }, reportError,);
   } else {
     logger.w('reportError DNS NOT FOUND');
     exit(1);

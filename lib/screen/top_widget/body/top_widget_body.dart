@@ -23,13 +23,13 @@ Widget getBody(final ScreenTypes topScreen, final BuildContext context) {
       return const SignUp();
     case ScreenTypes.welcome:
       return const Welcome();
-    case ScreenTypes.lock:
+    case ScreenTypes.enterPin:
       return const LockScreen();
     case ScreenTypes.setpass:
       return const SetPassword();
 
     default:
-      final notesType = getNotesType(topScreen);
+      final notesType = topScreen.getNoteSate;
       final primary = getPrimary(topScreen);
       final secondary = getSecondary(topScreen);
       return Body(
@@ -43,160 +43,250 @@ Widget getBody(final ScreenTypes topScreen, final BuildContext context) {
 SlidableActions getPrimary(final ScreenTypes topScreen) {
   switch (topScreen) {
     case ScreenTypes.hidden:
-      return hiddenPrimary;
+      return hiddenLeft;
 
     case ScreenTypes.archive:
-      return archivePrimary;
+      return archiveLeft;
 
     case ScreenTypes.trash:
-      return trashPrimary;
+      return trashLeft;
 
     default:
-      return homePrimary;
+      return homeLeft;
   }
 }
 
 SlidableActions getSecondary(final ScreenTypes topScreen) {
   switch (topScreen) {
     case ScreenTypes.hidden:
-      return hiddenSecondary;
+      return hiddenRight;
 
     case ScreenTypes.archive:
-      return archiveSecondary;
+      return archiveRight;
 
     case ScreenTypes.trash:
-      return trashSecondary;
+      return trashRight;
 
     default:
-      return homeSecondary;
+      return homeRight;
   }
 }
 
-NoteState getNotesType(final ScreenTypes topScreen) {
-  switch (topScreen) {
-    case ScreenTypes.hidden:
-      return NoteState.hidden;
-
-    case ScreenTypes.archive:
-      return NoteState.archived;
-
-    case ScreenTypes.trash:
-      return NoteState.trashed;
-
-    default:
-      return NoteState.unspecified;
-  }
-}
-
-ActionPane homePrimary(final Note note, final BuildContext context) {
+ActionPane homeLeft(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      hideAction(
+      slidableAction(
           Language.of(context).hide,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
-      archiveAction(
+          note,
+          TablerIcons.ghost, (final context) async {
+        final status = Provider.of<AppConfiguration>(context, listen: false)
+            .password
+            .isNotEmpty;
+        if (!status) {
+          await showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (final context) => MyAlertDialog(
+              content: Text(Language.of(context).setPasswordFirst),
+            ),
+          );
+        } else {
+          await Provider.of<NotesHelper>(context, listen: false).hide(note);
+        }
+      }),
+      slidableAction(
           Language.of(context).archive,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
+          note,
+          Icons.archive_outlined,
+          (final context) => unawaited(
+              Provider.of<NotesHelper>(context, listen: false).archive(note),),),
     ],
   );
 }
 
-ActionPane homeSecondary(final Note note, final BuildContext context) {
+ActionPane homeRight(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      copyAction(
+      slidableAction(
           Language.of(context).copy,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
-      trashAction(
+          note,
+          Icons.copy_outlined,
+          (final context) => unawaited(
+              Provider.of<NotesHelper>(context, listen: false).copy(note),),),
+      slidableAction(
           Language.of(context).trash,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
+          note,
+          Icons.delete_outlined,
+          (final context) => unawaited(
+              Provider.of<NotesHelper>(context, listen: false).trash(note),),
+          onLongPressed: (final context) async {
+        await showDialog<bool>(
+          barrierDismissible: false,
+          context: context,
+          builder: (final context) => MyAlertDialog(
+            content: Text(Language.of(context).deleteNotePermanently),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  unawaited(Provider.of<NotesHelper>(context, listen: false)
+                      .delete(note),);
+                },
+                child: Text(Language.of(context).alertDialogOp1),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(Language.of(context).alertDialogOp2),
+              )
+            ],
+          ),
+        );
+      },)
     ],
   );
 }
 
-ActionPane hiddenPrimary(final Note note, final BuildContext context) {
+ActionPane hiddenLeft(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      unHideAction(
-          Language.of(context).unhide,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
+      slidableAction(
+        Language.of(context).unhide,
+        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        note,
+        Icons.remove_red_eye_outlined,
+        (final context) => unawaited(
+            Provider.of<NotesHelper>(context, listen: false).unhide(note),),
+      )
     ],
   );
 }
 
-ActionPane hiddenSecondary(final Note note, final BuildContext context) {
+ActionPane hiddenRight(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      trashAction(
-          Language.of(context).trash,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
+      slidableAction(
+        Language.of(context).trash,
+        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        note,
+        Icons.delete_outlined,
+        (final context) => unawaited(
+            Provider.of<NotesHelper>(context, listen: false).trash(note),),
+      )
     ],
   );
 }
 
-ActionPane archivePrimary(final Note note, final BuildContext context) {
+ActionPane archiveLeft(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      hideAction(
+      slidableAction(
           Language.of(context).hide,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
-      unArchiveAction(
+          note,
+          TablerIcons.ghost, (final context) async {
+        final status = Provider.of<AppConfiguration>(context, listen: false)
+            .password
+            .isNotEmpty;
+        if (!status) {
+          await showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (final context) => MyAlertDialog(
+              content: Text(Language.of(context).setPasswordFirst),
+            ),
+          );
+        } else {
+          await Provider.of<NotesHelper>(context, listen: false).hide(note);
+        }
+      }),
+      slidableAction(
           Language.of(context).unarchive,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
+          note,
+          Icons.unarchive_outlined,
+          (final context) => unawaited(
+              Provider.of<NotesHelper>(context, listen: false)
+                  .unarchive(note),),),
     ],
   );
 }
 
-ActionPane archiveSecondary(final Note note, final BuildContext context) {
+ActionPane archiveRight(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      copyAction(
+      slidableAction(
           Language.of(context).copy,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
-      trashAction(
-          Language.of(context).trash,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
+          note,
+          Icons.copy_outlined,
+          (final context) => unawaited(
+              Provider.of<NotesHelper>(context, listen: false).copy(note),),),
+      slidableAction(
+        Language.of(context).trash,
+        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        note,
+        Icons.delete_outlined,
+        (final context) => unawaited(
+            Provider.of<NotesHelper>(context, listen: false).trash(note),),
+      ),
     ],
   );
 }
 
-ActionPane trashSecondary(final Note note, final BuildContext context) {
+ActionPane trashRight(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      deleteAction(
+      slidableAction(
           Language.of(context).delete,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
-          shouldAsk: getBoolFromSF('directlyDelete') ?? true),
+          Icons.delete_forever_outlined, (final context) async {
+        await showDialog<bool>(
+          barrierDismissible: false,
+          context: context,
+          builder: (final context) => MyAlertDialog(
+            content: Text(Language.of(context).deleteNotePermanently),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Provider.of<NotesHelper>(context, listen: false).delete(note);
+                  Navigator.of(context).pop();
+                },
+                child: Text(Language.of(context).alertDialogOp1),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text(Language.of(context).alertDialogOp2),
+              )
+            ],
+          ),
+        );
+      }),
     ],
   );
 }
 
-ActionPane trashPrimary(final Note note, final BuildContext context) {
+ActionPane trashLeft(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      restoreAction(
+      slidableAction(
           Language.of(context).restore,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note),
+          note,
+          Icons.restore_outlined,
+          (final context) => unawaited(
+              Provider.of<NotesHelper>(context, listen: false).undelete(note),),),
     ],
   );
 }

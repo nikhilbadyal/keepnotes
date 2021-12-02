@@ -1,0 +1,9 @@
+flutter_native_splash:
+
+  # flutter pub run flutter_native_splash:create
+  # flutter pub run flutter_native_splash:remove
+
+  color: "#000000"
+  image: assets/images/icon.png
+  android: true
+  android_gravity: center

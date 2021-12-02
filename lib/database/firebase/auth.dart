@@ -12,14 +12,14 @@ class Auth with ChangeNotifier {
   bool isLoggedIn;
 
   Future<String> signInWithPassword(
-      {required final String email, required final String password}) async {
+      {required final String email, required final String password,}) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       if (auth.currentUser != null) {
         isLoggedIn = auth.currentUser!.emailVerified;
       }
       if (!isLoggedIn) {
-        unawaited(auth.currentUser!.delete());
+        unawaited(auth.currentUser!.delete(),);
       }
       return isLoggedIn ? 'success' : 'user-not-found';
     } on FirebaseAuthException catch (e) {
@@ -37,7 +37,7 @@ class Auth with ChangeNotifier {
       }
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
-          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken,);
       await auth.signInWithCredential(credential);
       isLoggedIn = true;
       return 'success';
@@ -68,10 +68,10 @@ class Auth with ChangeNotifier {
   }
 
   Future<String> singUp(
-      {required final String email, required final String password}) async {
+      {required final String email, required final String password,}) async {
     try {
       await auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+          email: email, password: password,);
       await auth.currentUser!.sendEmailVerification();
       return 'success';
     } on FirebaseAuthException catch (e) {

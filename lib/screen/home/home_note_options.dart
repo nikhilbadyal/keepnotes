@@ -48,12 +48,29 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                       onTap: () async {
                         widget.autoSaver.cancel();
                         widget.saveNote();
-                        await onHideTap(context, widget.note);
-                        if(!mounted) {
-                          return ;
+                        final status = Provider.of<AppConfiguration>(context,
+                                listen: false,)
+                            .password
+                            .isNotEmpty;
+                        if (!status) {
+                          await showDialog(
+                            barrierDismissible: true,
+                            context: context,
+                            builder: (final context) => MyAlertDialog(
+                              content:
+                                  Text(Language.of(context).setPasswordFirst),
+                            ),
+                          );
+                        } else {
+                          await Provider.of<NotesHelper>(context, listen: false)
+                              .hide(widget.note);
+                        }
+                        if (!mounted) {
+                          return;
                         }
                         Navigator.of(context).popUntil(
-                              (final route) => route.settings.name == widget.note.path,
+                          (final route) =>
+                              route.settings.name == widget.note.path,
                         );
                       },
                     ),
@@ -61,9 +78,11 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                       onTap: () {
                         widget.autoSaver.cancel();
                         widget.saveNote();
-                        unawaited(Provider.of<NotesHelper>(context, listen: false)
-                            .archive(widget.note));
-                        Navigator.of(context).popUntil(ModalRoute.withName(widget.note.path));
+                        unawaited(
+                            Provider.of<NotesHelper>(context, listen: false)
+                                .archive(widget.note),);
+                        Navigator.of(context)
+                            .popUntil(ModalRoute.withName(widget.note.path),);
                       },
                       icon: Icons.archive_outlined,
                       label: Language.of(context).archive,
@@ -80,10 +99,11 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                           Clipboard.setData(
                             ClipboardData(text: widget.note.content),
                           ).then(
-                                (final value) => showSnackbar(context, Language.of(context).done,
-                                snackBarBehavior: SnackBarBehavior.floating),
+                            (final value) => showSnackbar(
+                                context, Language.of(context).done,
+                                snackBarBehavior: SnackBarBehavior.floating,),
                           );
-                        }));
+                        }),);
                       },
                       label: Language.of(context).clipboard,
                     ),
@@ -92,10 +112,12 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                       onTap: () async {
                         widget.autoSaver.cancel();
                         widget.saveNote();
-                        unawaited(Provider.of<NotesHelper>(context, listen: false)
-                            .trash(widget.note));
+                        unawaited(
+                            Provider.of<NotesHelper>(context, listen: false)
+                                .trash(widget.note),);
                         Navigator.of(context).popUntil(
-                              (final route) => route.settings.name == widget.note.path,
+                          (final route) =>
+                              route.settings.name == widget.note.path,
                         );
                       },
                       label: Language.of(context).delete,

@@ -3,7 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SetPassword extends StatefulWidget {
-  const SetPassword({final Key? key}) : super(key: key);
+  const SetPassword({final Key? key,}) : super(key: key);
 
   @override
   _SetPasswordState createState() => _SetPasswordState();
@@ -15,7 +15,7 @@ class _SetPasswordState extends State<SetPassword> {
 
   Future<void> doneEnteringPass(final String enteredPassCode) async {
     if (args.isFirst) {
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: pinEnterReset),);
       if (!mounted) {
         return;
       }
@@ -24,7 +24,7 @@ class _SetPasswordState extends State<SetPassword> {
         context,
         AppRoutes.setPassScreen,
         DataObj(enteredPassCode, Language.of(context).reEnterPassword,
-            resetPass: args.resetPass, isFirst: false),
+            resetPass: args.resetPass, isFirst: false,),
       );
     } else {
       if (enteredPassCode == args.firstPass) {
@@ -34,13 +34,12 @@ class _SetPasswordState extends State<SetPassword> {
             showSnackbar(
               context,
               Language.of(context).samePasswordError,
-              duration: const Duration(milliseconds: 1500),
             );
           } else {
             await Provider.of<AppConfiguration>(context, listen: false)
                 .passwordSetConfig(enteredPassCode);
           }
-          await Future.delayed(const Duration(milliseconds: 500));
+          await Future.delayed(const Duration(milliseconds: pinEnterReset),);
           if (!mounted) {
             return;
           }
@@ -50,25 +49,28 @@ class _SetPasswordState extends State<SetPassword> {
           return;
         } else {
           unawaited(Provider.of<AppConfiguration>(context, listen: false)
-              .passwordSetConfig(enteredPassCode));
+              .passwordSetConfig(enteredPassCode),);
           showSnackbar(
             context,
             Language.of(context).done,
           );
-          await Future.delayed(const Duration(milliseconds: 500));
+          await Future.delayed(const Duration(milliseconds: pinEnterReset),);
           if (!mounted) {
             return;
           }
 
-          await navigate(ModalRoute.of(context)!.settings.name!, context,
-              AppRoutes.hiddenScreen);
+          await navigate(
+            ModalRoute.of(context)!.settings.name!,
+            context,
+            AppRoutes.hiddenScreen,
+          );
         }
       } else {
         showSnackbar(
           context,
           Language.of(context).passwordNotMatch,
         );
-        await Future.delayed(const Duration(milliseconds: 500));
+        await Future.delayed(const Duration(milliseconds: pinEnterReset),);
         if (!mounted) {
           return;
         }
@@ -99,7 +101,7 @@ class _SetPasswordState extends State<SetPassword> {
 
 class DataObj {
   DataObj(this.firstPass, this.heading,
-      {required this.isFirst, this.resetPass = false});
+      {required this.isFirst, this.resetPass = false,});
 
   final String firstPass;
   final String heading;

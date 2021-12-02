@@ -3,7 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({final Key? key}) : super(key: key);
+  const SignUpForm({final Key? key,}) : super(key: key);
 
   @override
   _SignUpFormState createState() => _SignUpFormState();
@@ -17,7 +17,7 @@ class _SignUpFormState extends State<SignUpForm> {
   bool remember = false;
   final List<String?> errors = [];
 
-  void addError({final String? error}) {
+  void addError({final String? error,}) {
     if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
@@ -25,7 +25,7 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
-  void removeError({final String? error}) {
+  void removeError({final String? error,}) {
     if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
@@ -40,12 +40,12 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionateScreenHeight(30),),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionateScreenHeight(30),),
           buildConformPassFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: getProportionateScreenHeight(40),),
           DefaultButton(
             text: 'Continue',
             press: () async {
@@ -127,7 +127,7 @@ class _SignUpFormState extends State<SignUpForm> {
       onChanged: (final value) {
         if (value.isNotEmpty) {
           removeError(error: Language.of(context).enterPassword);
-        } else if (value.length >= 8) {
+        } else if (value.length >= minPassword) {
           removeError(error: Language.of(context).shortPassword);
         }
         password = value;
@@ -136,7 +136,7 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value!.isEmpty) {
           addError(error: Language.of(context).enterPassword);
           return '';
-        } else if (value.length < 8) {
+        } else if (value.length < minPassword) {
           addError(error: Language.of(context).shortPassword);
           return '';
         }

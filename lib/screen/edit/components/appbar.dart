@@ -1,4 +1,5 @@
 import 'package:notes/_aap_packages.dart';
+import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class EditAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -6,7 +7,7 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
       {required this.note,
       required this.saveNote,
       required this.autoSaverTimer,
-      final Key? key})
+      final Key? key,})
       : super(key: key);
 
   final Note note;
@@ -23,21 +24,31 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
             if (!value) {
               showSnackbar(context, Language.of(context).error);
             }
-          }));
+          }),);
           Navigator.of(context).pop();
         },
         color: Colors.white,
       ),
       actions: [
-        IconButton(
-          onPressed: () async {
-            if (note.title.isEmpty && note.content.isEmpty) {
-              showSnackbar(context, Language.of(context).emptyNote);
-              return;
-            }
+        Consumer<CharCount>(
+          builder: (final _, final counter, final __) {
+            return Center(
+                child: Padding(
+              padding: const EdgeInsets.only(
+                right: 20,
+              ),
+              child: Text(
+                counter.count.toString(),
+                style: GoogleFonts.merriweather(
+                    textStyle: const TextStyle(
+                        fontSize: 20,
+                        height: 1.7,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.italic,),),
+              ),
+            ),);
           },
-          icon: const Icon(Icons.print),
-        ),
+        )
       ],
       elevation: 1,
     );
@@ -45,4 +56,15 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(60);
+}
+
+class CharCount extends ChangeNotifier {
+  CharCount(this.count);
+
+  int count;
+
+  void setCount(final int length) {
+    count = length;
+    notifyListeners();
+  }
 }

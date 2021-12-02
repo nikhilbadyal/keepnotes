@@ -4,7 +4,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class Login extends StatefulWidget {
-  const Login({final Key? key}) : super(key: key);
+  const Login({final Key? key,}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -14,12 +14,11 @@ class _LoginState extends State<Login> {
   @override
   Widget build(final BuildContext context) {
     SizeConfig().init(context);
-
     return SizedBox(
       width: double.infinity,
       child: Padding(
         padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20),),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -54,7 +53,7 @@ class _LoginState extends State<Login> {
                             size: MediaQuery.of(context).size.height * 0.1,
                           );
                         },
-                      ));
+                      ),);
                       final response = await Provider.of<Auth>(
                         context,
                         listen: false,
@@ -71,9 +70,9 @@ class _LoginState extends State<Login> {
                                 .password =
                             initialize(Provider.of<Auth>(context, listen: false)
                                 .auth
-                                .currentUser);
+                                .currentUser,);
                         await Navigator.pushNamedAndRemoveUntil(context,
-                            AppRoutes.homeScreen, (final route) => false);
+                            AppRoutes.homeScreen, (final route) => false,);
                       } else {
                         Navigator.of(context).pop();
                         handleFirebaseError(
@@ -85,7 +84,7 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              SizedBox(height: getProportionateScreenHeight(20)),
+              SizedBox(height: getProportionateScreenHeight(20),),
               const NoAccountText(),
             ],
           ),

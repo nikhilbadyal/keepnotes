@@ -15,7 +15,9 @@ class FirebaseDatabaseHelper {
 
   static Future<bool> insert(final Note note) async {
     try {
-      await notesReference.doc(note.id).set(note.toMap());
+      await notesReference.doc(note.id).set(
+            note.toMap(),
+          );
       return true;
     } on Exception catch (e, _) {
       return false;
@@ -24,7 +26,9 @@ class FirebaseDatabaseHelper {
 
   static Future<bool> update(final Note note) async {
     try {
-      await notesReference.doc(note.id).update(note.toMap());
+      await notesReference.doc(note.id).update(
+            note.toMap(),
+          );
       return true;
     } on Exception catch (_, __) {
       return false;
@@ -32,7 +36,9 @@ class FirebaseDatabaseHelper {
   }
 
   static Future<bool> delete(
-      final NoteOperation notesOperation, final Note note) async {
+    final NoteOperation notesOperation,
+    final Note note,
+  ) async {
     try {
       await notesReference.doc(note.id).delete();
       return true;
@@ -76,12 +82,16 @@ class FirebaseDatabaseHelper {
         notesReference.where(field, isEqualTo: isEqualTo);
     final batch = db.batch();
     try {
-      await tempNotesReference.get().then((final value) => {
-            // ignore: avoid_function_literals_in_foreach_calls
-            value.docs.forEach((final element) => {
+      await tempNotesReference.get().then(
+            (final value) => {
+              // ignore: avoid_function_literals_in_foreach_calls
+              value.docs.forEach(
+                (final element) => {
                   batch.delete(element.reference),
-                }),
-          });
+                },
+              ),
+            },
+          );
       await batch.commit();
       return true;
     } on Exception catch (e, _) {
@@ -94,7 +104,8 @@ class FirebaseDatabaseHelper {
   }
 
   static Future<void> batchInsert(
-      final List<Map<String, dynamic>> notesList) async {
+    final List<Map<String, dynamic>> notesList,
+  ) async {
     await db.runTransaction((final transaction) async {
       DocumentReference<Map<String, dynamic>> ref;
       for (final element in notesList) {

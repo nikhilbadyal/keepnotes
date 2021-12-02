@@ -9,7 +9,7 @@ Widget? getDrawer(final ScreenTypes topScreen, final BuildContext context) {
     case ScreenTypes.login:
     case ScreenTypes.forgotPassword:
     case ScreenTypes.signup:
-    case ScreenTypes.lock:
+    case ScreenTypes.enterPin:
     case ScreenTypes.setpass:
       return null;
     default:

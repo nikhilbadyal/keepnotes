@@ -175,7 +175,7 @@ class LanguageEn extends Language {
   String get social => 'Social';
 
   @override
-  String get nothingHere => 'Nothing here';
+  String get nothingHere => '\t\t\t\t\t\t\t\tNothing here';
 
   @override
   String get tapOn => 'Tap ';
@@ -361,4 +361,10 @@ class LanguageEn extends Language {
 
   @override
   String get shortPassword => 'Password is too short';
+
+  @override
+  String get waitWhileBackingup => 'Hold on,Backing up';
+
+  @override
+  String get waitWhileRestoring => 'Hold on,Restoring';
 }

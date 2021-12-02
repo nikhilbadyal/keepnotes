@@ -4,13 +4,11 @@ import 'package:notes/_internal_packages.dart';
 
 class DoubleBackToCloseWidget extends StatefulWidget {
   const DoubleBackToCloseWidget(
-      {required this.child, final Key? key, final this.backPresAction})
+      {required this.child, final Key? key, final this.backPresAction,})
       : super(key: key);
 
   final Widget child;
   final BackPresAction? backPresAction;
-
-  static const exitTimeInMillis = 1500;
 
   @override
   _DoubleBackToCloseWidgetState createState() =>
@@ -52,30 +50,28 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
   Future<bool> defaultBackPress() async {
     Provider.of<NotesHelper>(context, listen: false).reset();
     await Provider.of<NotesHelper>(context, listen: false)
-        .getAllNotes(NoteState.unspecified.index, clear: true);
+        .getAllNotes(NoteState.unspecified.index);
 
     if (!mounted) {
       return true;
     }
     Provider.of<NotesHelper>(context, listen: false).notify();
     final _currentTime = DateTime.now().millisecondsSinceEpoch;
-    if ((_currentTime - _lastTimeBackButtonWasTapped) <
-        DoubleBackToCloseWidget.exitTimeInMillis) {
+    if ((_currentTime - _lastTimeBackButtonWasTapped) < exitTimeInMillis) {
       return Future.value(true);
     } else {
       _lastTimeBackButtonWasTapped = DateTime.now().millisecondsSinceEpoch;
       if (ModalRoute.of(context)!.settings.name! == AppRoutes.lockScreen ||
           ModalRoute.of(context)!.settings.name! == AppRoutes.setPassScreen) {
         Navigator.of(context).popUntil(
-            (final route) => route.settings.name == AppRoutes.homeScreen);
+            (final route) => route.settings.name == AppRoutes.homeScreen,);
         return Future.value(true);
       } else if (ModalRoute.of(context)!.settings.name! ==
               AppRoutes.homeScreen &&
           !isOpened) {
         showSnackbar(context, Language.of(context).doubleBackToExit,
             snackBarBehavior: SnackBarBehavior.fixed,
-            duration: const Duration(
-                milliseconds: DoubleBackToCloseWidget.exitTimeInMillis - 10));
+            duration: const Duration(milliseconds: exitTimeInMillis - 10),);
         return Future.value(false);
       } else {
         return Future.value(true);

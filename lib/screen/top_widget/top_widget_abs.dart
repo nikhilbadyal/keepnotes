@@ -4,7 +4,7 @@ import 'package:notes/_internal_packages.dart';
 enum ScreenTypes {
   suggestions,
   hidden,
-  lock,
+  enterPin,
   setpass,
   home,
   archive,
@@ -19,8 +19,26 @@ enum ScreenTypes {
   signup
 }
 
+extension NoteInScreen on ScreenTypes {
+  NoteState get getNoteSate {
+    switch (this) {
+      case ScreenTypes.hidden:
+        return NoteState.hidden;
+
+      case ScreenTypes.archive:
+        return NoteState.archived;
+
+      case ScreenTypes.trash:
+        return NoteState.trashed;
+
+      default:
+        return NoteState.unspecified;
+    }
+  }
+}
+
 abstract class TopWidgetBase extends StatefulWidget {
-  const TopWidgetBase({final Key? key}) : super(key: key);
+  const TopWidgetBase({final Key? key,}) : super(key: key);
 
   BackPresAction? backPressAction();
 

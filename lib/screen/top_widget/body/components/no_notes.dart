@@ -29,7 +29,7 @@ class NoNotesBody extends StatelessWidget {
                         text: Language.of(context).nothingHere,
                         style: TextStyle(
                             color:
-                                Theme.of(context).textTheme.bodyText1!.color),
+                                Theme.of(context).textTheme.bodyText1!.color,),
                       ),
                     ],
                   ),
@@ -46,12 +46,12 @@ class NoNotesBody extends StatelessWidget {
                     TextSpan(
                       text: '${Language.of(context).nothingHere}\n',
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1!.color),
+                          color: Theme.of(context).textTheme.bodyText1!.color,),
                     ),
                     TextSpan(
                       text: Language.of(context).tapOn,
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1!.color),
+                          color: Theme.of(context).textTheme.bodyText1!.color,),
                     ),
                     TextSpan(
                       text: '+',
@@ -74,13 +74,13 @@ class NoNotesBody extends StatelessWidget {
 
                           await Navigator.pushNamed(
                               context, AppRoutes.editScreen,
-                              arguments: emptyNote);
+                              arguments: emptyNote,);
                         },
                     ),
                     TextSpan(
                       text: Language.of(context).toAddNewNote,
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1!.color),
+                          color: Theme.of(context).textTheme.bodyText1!.color,),
                     ),
                   ],
                 ),
@@ -93,7 +93,7 @@ class NoNotesBody extends StatelessWidget {
 }
 
 class ImageWig extends StatelessWidget {
-  const ImageWig({final Key? key}) : super(key: key);
+  const ImageWig({final Key? key,}) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {

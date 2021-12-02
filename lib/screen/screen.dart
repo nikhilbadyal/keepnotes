@@ -9,6 +9,6 @@ export 'home/home.dart';
 export 'lock/lock.dart';
 export 'login/login.dart';
 export 'settings/settings.dart';
-export 'sign_up/sign_up.dart';
+export 'signup/sign_up.dart';
 export 'top_widget/top_widget.dart';
 export 'welcome/welcome.dart';

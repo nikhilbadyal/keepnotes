@@ -3,7 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class ForgetPassword extends StatefulWidget {
-  const ForgetPassword({final Key? key}) : super(key: key);
+  const ForgetPassword({final Key? key,}) : super(key: key);
 
   @override
   _ForgetPasswordState createState() => _ForgetPasswordState();
@@ -143,16 +143,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       child: Text(
                         Language.of(context).resetPassword,
                         style: const TextStyle(
-                            color: Colors.white, fontFamily: 'Trueno'),
+                            color: Colors.white, fontFamily: 'Trueno',),
                       ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 25),
-            ]),
+            ],),
           ),
-        ));
+        ),);
   }
 }
 

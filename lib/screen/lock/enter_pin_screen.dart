@@ -3,7 +3,7 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class LockScreen extends StatefulWidget {
-  const LockScreen({final Key? key}) : super(key: key);
+  const LockScreen({final Key? key,}) : super(key: key);
 
   @override
   _LockScreenState createState() => _LockScreenState();
@@ -37,7 +37,7 @@ class _LockScreenState extends State<LockScreen> {
           }
 
           await navigate(ModalRoute.of(context)!.settings.name!, context,
-              AppRoutes.hiddenScreen);
+              AppRoutes.hiddenScreen,);
         }
       }
     } else {
@@ -50,7 +50,7 @@ class _LockScreenState extends State<LockScreen> {
                 TextButton(
                   onPressed: () async {
                     final status = await Provider.of<AppConfiguration>(context,
-                            listen: false)
+                            listen: false,)
                         .authenticate(Language.of(context).localizedReason);
                     if (!mounted) {
                       return;
@@ -94,18 +94,17 @@ class _LockScreenState extends State<LockScreen> {
       if (bioEnable && firstTime) {
         await addBoolToSF('firstTimeNeeded', value: false);
       }
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: pinEnterReset),);
       if (!mounted) {
         return;
       }
       await navigate(ModalRoute.of(context)!.settings.name!, context,
-          AppRoutes.hiddenScreen);
+          AppRoutes.hiddenScreen,);
     } else {
       showSnackbar(
-          context,
-          Language.of(context).wrongPassword,
-          action: resetAction(context),
-        );
+        context,
+        Language.of(context).wrongPassword,
+      );
     }
   }
 
@@ -124,10 +123,9 @@ class _LockScreenState extends State<LockScreen> {
         ),
       );
     } else {
-        showSnackbar(
-          context,
-          Language.of(context).wrongPassword,
-          action: resetAction(context),
+      showSnackbar(
+        context,
+        Language.of(context).wrongPassword,
       );
     }
   }

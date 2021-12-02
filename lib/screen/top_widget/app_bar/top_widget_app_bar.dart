@@ -45,20 +45,18 @@ AppBar? getAppBar(final ScreenTypes topScreen, final BuildContext context) {
         actions: const [AppBarAvatar()],
       );
     case ScreenTypes.welcome:
+    case ScreenTypes.signup:
     case ScreenTypes.login:
     case ScreenTypes.forgotPassword:
-    case ScreenTypes.signup:
-    case ScreenTypes.setpass:
-    case ScreenTypes.lock:
       return AppBar(
         actionsIconTheme: const IconThemeData().copyWith(
-            color: (getIntFromSF('appTheme') ?? 0) == 2
+            color: (getIntFromSF('appTheme') ?? 0) == AppTheme.light.index
                 ? Colors.black
-                : Colors.white),
+                : Colors.white,),
         iconTheme: const IconThemeData().copyWith(
-            color: (getIntFromSF('appTheme') ?? 0) == 2
+            color: (getIntFromSF('appTheme') ?? 0) == AppTheme.light.index
                 ? Colors.black
-                : Colors.white),
+                : Colors.white,),
         elevation: 0,
         backgroundColor: Theme.of(context).canvasColor,
       );

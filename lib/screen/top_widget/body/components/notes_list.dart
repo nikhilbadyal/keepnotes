@@ -46,8 +46,8 @@ class _NotesListState extends State<NotesList> {
     return Padding(
       padding: EdgeInsets.zero,
       child: NotificationListener<ScrollNotification>(
-        onNotification: (final ScrollNotification scrollInfo) {
-          if (scrollInfo.metrics.pixels < 500) {
+        onNotification: (final scrollInfo) {
+          if (scrollInfo.metrics.pixels < lazyLoadPixelFactor) {
             loadMore();
           }
           return false;
@@ -79,7 +79,7 @@ class _NotesListState extends State<NotesList> {
   }
 
   Future<void> onItemTap(final Note item, final int index,
-      {final bool isSelected = false}) async {
+      {final bool isSelected = false,}) async {
     if (isSelectionMode) {
       setState(() {
         selectedFlag[index] = !isSelected;
@@ -97,10 +97,10 @@ class _NotesListState extends State<NotesList> {
       } else {
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         await Navigator.pushNamed(context, AppRoutes.editScreen,
-            arguments: item);
+            arguments: item,);
       }
     }
   }
 
-  void onItemLongPress(final int index, {final bool isSelected = false}) {}
+  void onItemLongPress(final int index, {final bool isSelected = false,}) {}
 }

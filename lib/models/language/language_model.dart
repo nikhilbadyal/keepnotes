@@ -57,7 +57,7 @@ class FallbackLocalizationDelegate
 
   @override
   bool shouldReload(
-          covariant final LocalizationsDelegate<MaterialLocalizations> old) =>
+          covariant final LocalizationsDelegate<MaterialLocalizations> old,) =>
       false;
 }
 
@@ -299,6 +299,10 @@ abstract class Language {
   String get password;
 
   String get confirmPassword;
+
+  String get waitWhileRestoring;
+
+  String get waitWhileBackingup;
 
   static Language of(final BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageHi();
