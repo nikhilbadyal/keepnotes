@@ -25,7 +25,7 @@ class _LockBodyState extends State<LockBody> {
   @override
   Widget build(final BuildContext context) {
     return SafeArea(
-      bottom: false,
+      // bottom: false,
       child: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: Column(
@@ -55,7 +55,7 @@ class _LockBodyState extends State<LockBody> {
               child: GridView.count(
                 crossAxisCount: 3,
                 shrinkWrap: true,
-                padding: const EdgeInsets.only(left: 55, right: 55),
+                padding: const EdgeInsets.only(left: 55, right: 55, top: 35),
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((final e) {
@@ -63,7 +63,7 @@ class _LockBodyState extends State<LockBody> {
                       pad: shouldPad(e.toString()),
                       title: Text(
                         '$e',
-                        style: const TextStyle(fontSize: 40),
+                        style: const TextStyle(fontSize: keyPadNumberSize),
                       ),
                       onTap: () {
                         if (_pinPutController.text.length >= (pinCodeLen + 1)) {
@@ -85,7 +85,7 @@ class _LockBodyState extends State<LockBody> {
                   RoundedButton(
                     title: const Text(
                       '0',
-                      style: TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: keyPadNumberSize),
                     ),
                     onTap: () {
                       if (_pinPutController.text.length >= (pinCodeLen + 1)) {
@@ -98,7 +98,7 @@ class _LockBodyState extends State<LockBody> {
                   RoundedButton(
                     title: const Text(
                       '⌫',
-                      style: TextStyle(fontSize: 40),
+                      style: TextStyle(fontSize: keyPadNumberSize),
                     ),
                     onTap: () {
                       if (_pinPutController.text.isNotEmpty) {
