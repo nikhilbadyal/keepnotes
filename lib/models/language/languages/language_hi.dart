@@ -363,10 +363,8 @@ class LanguageHi extends Language {
   String get shortPassword => 'पासवर्ड बहुत छोटा है';
 
   @override
-  // TODO: implement waitWhileBackingup
   String get waitWhileBackingup => 'प्रतीक्षा करें, बैकअप हो रहा है';
 
   @override
-  // TODO: implement waitWhileRestoring
   String get waitWhileRestoring => 'प्रतीक्षा करें, रिस्टोर हो रहा है';
 }
