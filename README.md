@@ -1,6 +1,8 @@
 Keep Notes is a privacy oriented, secure , beautiful and fast application made in flutter. It supports various features like adding and saving notes. Hiding notes with password, archiving them. To make UI look beautiful it has various UI colors with the support of light and black theme.
 
-<img src="https://i.imgur.com/KIKrEUL.jpg" height="600">
+<img src="https://i.imgur.com/53hpGkk.png" width="35%" height="700"></img> 
+<img src="https://i.imgur.com/FGnDtPk.png" width="35%" height="700"></img> 
+
 
 ---
 
@@ -19,31 +21,43 @@ Keep Notes is a privacy oriented, secure , beautiful and fast application made i
 ---
 
 ## Screenshots
-<img src="https://user-images.githubusercontent.com/59223300/143018627-ed422fae-e59b-42e4-98a0-fe0d0ec83b36.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018636-59dd506b-13a7-4810-8c9e-34a2cabeae5b.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018640-75acd498-da31-40e9-a179-7a8019adc4b2.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018663-499f52df-3858-43e0-8158-bbc372720c36.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018669-bb7ba2ce-dc2d-42db-a724-550c0f9e3693.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018670-88f0de2f-e703-49ed-a28e-2487eeb937dd.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018676-6aa4baed-f5a2-4d3e-8769-e228a1c5d40a.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018679-21df2995-31ca-43ab-bc2a-e89a68b4475f.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018681-2db877ce-a4aa-41d1-9d7e-2716ee423164.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018686-0d4bd50b-0928-4ac8-9839-7b9b264a53b4.jpg" width="30%"></img> 
-<img src="https://user-images.githubusercontent.com/59223300/143018617-af555978-8abc-4239-bd90-9e9808d632ed.jpg" width="30%"></img> 
+<img src="https://i.imgur.com/s7LxdiB.png" width="30%"></img> 
+<img src="https://i.imgur.com/XbbFYLm.png" width="30%"></img> 
+<img src="https://i.imgur.com/0eirKsA.png" width="30%"></img> 
+<img src="https://i.imgur.com/HC7ccDg.png" width="30%"></img> 
+<img src="https://i.imgur.com/IV3H8vj.png" width="30%"></img> 
+<img src="https://i.imgur.com/pqarCPZ.png" width="30%"></img> 
+<img src="https://i.imgur.com/qQSV0G5.png" width="30%"></img> 
+<img src="https://i.imgur.com/cWnlC4x.png" width="30%"></img> 
+<img src="https://i.imgur.com/lpLYJ9y.png" width="30%"></img> 
+<img src="https://i.imgur.com/BAXJwmj.png" width="30%"></img> 
+<img src="https://i.imgur.com/sfC4BFE.png" width="30%"></img> 
+<img src="https://i.imgur.com/oVx2u1H.png" width="30%"></img> 
+<img src="https://i.imgur.com/M0gnrY3.png" width="30%"></img> 
+<img src="https://i.imgur.com/phwvjjK.png" width="30%"></img> 
+<img src="https://i.imgur.com/cZYa4AQ.png" width="30%"></img>
+
 
 
 ---
 
 ## Thnaks for images & Icons
 <div>
+    <a href="https://storyset.com/illustration/hidden/pana" title="Backup">Backup</a><br>
+    <a href="https://icons8.com/icons/set/github" title="GitHub">GitHub</a><br>
+    <a href="https://icons8.com/icon/V5cGWnc9R4xj/google" title="Google">Google</a><br>
+    <a href="https://icons8.com/icon/82747/lock" title="Lock">Lock</a><br>
+    <a href="https://icons8.com/icon/47996/mailbox-closed-flag-down" title="Mail">Email</a><br>
+    <a href="https://www.freepik.com/premium-vector/business-character-concept-beside-angle-cool-character-male-female-korean-style-colored-pictures-cartoon-style_9129007.htm" title="Aboutme">AboutMe</a><br>
+    <a href="https://www.freepik.com/premium-vector/business-character-concept-beside-angle-cool-character-male-female-korean-style-colored-pictures-cartoon-style_9129007.htm" title="Men">Men</a><br>
+    <a href="https://www.flaticon.com/free-icon/ghost_477104" title="Ghost">Ghost</a><br>
+    <a href="https://storyset.com/illustration/key/pana" title="PinCode">Pin Code</a><br>
+    <a href="https://www.freepik.com/free-vector/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection_12953631.htm" title="Splash1">Splash1</a><br>
+    <a href="https://storyset.com/illustration/cloud-sync/cuate" title="Splash2">Splash2</a><br>
+    <a href="https://storyset.com/illustration/design-thinking/pana" title="Splash3">Splash3</a><br>
+    <a href="https://www.freepik.com/free-vector/social-media-icons-vector-set-with-facebook-instagram-twitter-tiktok-youtube-logos_17221195.htm" title="Telegram">Telegram</a><br>
+    <a href="https://www.freepik.com/premium-vector/business-character-concept-beside-angle-cool-character-male-female-korean-style-colored-pictures-cartoon-style_9129007.htm" title="Women">Women</a><br>
     <a href="https://www.flaticon.com/free-icon/notes_752326" title="AppIcon">App Icon</a><br>
-    <a href="https://icons8.com/icons/set/github" title="Github">Github Icon</a><br>
-    <a href="https://www.freepik.com/premium-vector/business-character-concept-beside-angle-cool-character-male-female-korean-style-colored-pictures-cartoon-style_9129007.htm" title="Aboutme">AboutMe Avatar</a><br>
-    <a href="https://www.freepik.com/premium-vector/business-character-concept-beside-angle-cool-character-male-female-korean-style-colored-pictures-cartoon-style_9129007.htm" title="AppIcon">Men Avatar</a><br>
-    <a href="https://www.freepik.com/premium-vector/business-character-concept-beside-angle-cool-character-male-female-korean-style-colored-pictures-cartoon-style_9129007.htm" title="AppIcon">Women Avatar</a><br>
-    <a href="https://www.flaticon.com/free-icon/ghost_477104" title="Ghost">Ghost Image</a><br>
-    <a href="https://www.freepik.com/free-vector/social-media-icons-vector-set-with-facebook-instagram-twitter-tiktok-youtube-logos_17221195.htm" title="Telegram">Telegram Icon</a><br>
-    <a href="https://www.freepik.com/free-vector/flat-design-world-book-day-concept_7411784.htm" title="Book Reading">Welcome Image</a><br>
     
 </div>
 
