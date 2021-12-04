@@ -367,4 +367,10 @@ class LanguageHi extends Language {
 
   @override
   String get waitWhileRestoring => 'प्रतीक्षा करें, रिस्टोर हो रहा है';
+
+  @override
+  String get backupWarning => 'बैकअप से पहले छिपे हुए बहार निकल लेंँ';
+
+  @override
+  String get backupIn => 'बैकअप';
 }

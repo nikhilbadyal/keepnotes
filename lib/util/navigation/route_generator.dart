@@ -103,7 +103,7 @@ Route<dynamic> generateRoute(final RouteSettings settings) {
       }
     case AppRoutes.loginScreen:
       {
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (final context) => const TopWidget(
             topScreen: ScreenTypes.login,
@@ -121,7 +121,7 @@ Route<dynamic> generateRoute(final RouteSettings settings) {
       }
     case AppRoutes.editScreen:
       {
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (final context) => const EditScreen(),
         );

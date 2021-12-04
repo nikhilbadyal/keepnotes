@@ -28,8 +28,8 @@ class NoNotesBody extends StatelessWidget {
                       TextSpan(
                         text: Language.of(context).nothingHere,
                         style: TextStyle(
-                            color:
-                                Theme.of(context).textTheme.bodyText1!.color,),
+                          color: Theme.of(context).textTheme.bodyText1!.color,
+                        ),
                       ),
                     ],
                   ),
@@ -46,15 +46,18 @@ class NoNotesBody extends StatelessWidget {
                     TextSpan(
                       text: '${Language.of(context).nothingHere}\n',
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1!.color,),
+                        color: Theme.of(context).textTheme.bodyText1!.color,
+                      ),
                     ),
                     TextSpan(
                       text: Language.of(context).tapOn,
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1!.color,),
+                        color: Theme.of(context).textTheme.bodyText1!.color,
+                      ),
                     ),
                     TextSpan(
-                      text: '+',
+                      // TODO fix this
+                      text: '✏',
                       style: TextStyle(
                         fontSize: 30,
                         color: Theme.of(context).colorScheme.primary ==
@@ -73,14 +76,17 @@ class NoNotesBody extends StatelessWidget {
                           ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
                           await Navigator.pushNamed(
-                              context, AppRoutes.editScreen,
-                              arguments: emptyNote,);
+                            context,
+                            AppRoutes.editScreen,
+                            arguments: emptyNote,
+                          );
                         },
                     ),
                     TextSpan(
                       text: Language.of(context).toAddNewNote,
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1!.color,),
+                        color: Theme.of(context).textTheme.bodyText1!.color,
+                      ),
                     ),
                   ],
                 ),
@@ -93,7 +99,9 @@ class NoNotesBody extends StatelessWidget {
 }
 
 class ImageWig extends StatelessWidget {
-  const ImageWig({final Key? key,}) : super(key: key);
+  const ImageWig({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {

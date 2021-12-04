@@ -24,8 +24,8 @@ class _LockBodyState extends State<LockBody> {
 
   @override
   Widget build(final BuildContext context) {
+    debugPrint(MediaQuery.of(context).size.height.toString());
     return SafeArea(
-      // bottom: false,
       child: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: Column(
@@ -55,7 +55,7 @@ class _LockBodyState extends State<LockBody> {
               child: GridView.count(
                 crossAxisCount: 3,
                 shrinkWrap: true,
-                padding: const EdgeInsets.only(left: 55, right: 55, top: 35),
+                padding: const EdgeInsets.only(left: 50, right: 50),
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((final e) {

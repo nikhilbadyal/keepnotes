@@ -31,7 +31,10 @@ class AppConfiguration with ChangeNotifier {
 
   Future<void> passwordSetConfig(final String enteredPassword) async {
     password = enteredPassword;
-    await addStringToSF('password', encryption.encryptStr(password),);
+    await addStringToSF(
+      'password',
+      encryption.encryptStr(password),
+    );
   }
 
   Future<void> bioEnabledConfig() async {
@@ -71,9 +74,7 @@ class AppConfiguration with ChangeNotifier {
     await addBoolToSF('hiddenDiscovered', value: true);
   }
 
-  void changeLocale(
-    final String langCode,
-  ) {
+  void changeLocale(final String langCode) {
     addStringToSF('appLocale', langCode);
   }
 }

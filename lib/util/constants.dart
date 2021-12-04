@@ -62,6 +62,12 @@ final Uri emailLaunchUri = Uri(
   queryParameters: {'subject': 'Suggestion for the app'},
 );
 
+//Widget const
+const addIcon = Icon(
+  Icons.edit_outlined,
+  size: 30,
+);
+
 //Function Const
 typedef DoneCallBack = void Function(String text);
 typedef OnTap = void Function();

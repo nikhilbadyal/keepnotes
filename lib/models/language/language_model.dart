@@ -304,6 +304,10 @@ abstract class Language {
 
   String get waitWhileBackingup;
 
+  String get backupWarning;
+
+  String get backupIn;
+
   static Language of(final BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageHi();
 }

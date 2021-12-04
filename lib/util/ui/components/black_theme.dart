@@ -7,7 +7,10 @@ ThemeData blackTheme(final Color primary, final Color accent) {
   return ThemeData.dark().copyWith(
     scaffoldBackgroundColor: Colors.black,
     canvasColor: Colors.black,
-    appBarTheme: AppBarTheme(color: primary, elevation: 0),
+    appBarTheme: const AppBarTheme(
+      color: Colors.black,
+      elevation: 0,
+    ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       foregroundColor: Colors.white,
       backgroundColor: accent,

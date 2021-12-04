@@ -6,6 +6,8 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+def appcompat_version = "1.4.0"
+
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     throw new FileNotFoundException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
@@ -93,7 +95,6 @@ android {
 
         debug {
             applicationIdSuffix ".dev"
-            debuggable true
             versionNameSuffix "-dev"
             signingConfig signingConfigs.release
         }
@@ -112,4 +113,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
 }

@@ -17,17 +17,13 @@ class RoundedButton extends StatelessWidget {
   Widget build(final BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Center(
-        child: Container(
-          constraints: BoxConstraints.tight(const Size(80, 80)),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            // color: Colors.redAccent,
-            color: Theme.of(context).canvasColor,
-          ),
-          alignment: Alignment.center,
-          child: title,
+      child: Container(
+        decoration: BoxDecoration(
+          // color: Colors.redAccent,
+          color: Theme.of(context).canvasColor,
         ),
+        alignment: Alignment.center,
+        child: title,
       ),
     );
   }

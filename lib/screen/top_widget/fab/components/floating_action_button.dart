@@ -3,14 +3,12 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class Fab extends StatelessWidget {
-  const Fab(OnFabTap this.onFabTap,
-      {this.noteState = NoteState.unspecified,
-      this.icon = const Icon(
-        Icons.add,
-        size: 30,
-      ),
-      final Key? key,})
-      : super(key: key);
+  const Fab({
+    required OnFabTap this.onFabTap,
+    this.noteState = NoteState.unspecified,
+    this.icon = addIcon,
+    final Key? key,
+  }) : super(key: key);
 
   final Function(BuildContext context, NoteState noteState) onFabTap;
 
@@ -36,12 +34,10 @@ class Fab extends StatelessWidget {
   }
 }
 
-void onTrashFabTap(final BuildContext context, final NoteState _) {
-  moreOptions(context);
-}
-
 Future<void> onFabTap(
-    final BuildContext context, final NoteState noteState,) async {
+  final BuildContext context,
+  final NoteState noteState,
+) async {
   final emptyNote = Note(
     id: const Uuid().v4(),
     lastModify: DateTime.now(),
@@ -49,6 +45,9 @@ Future<void> onFabTap(
   );
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
 
-  await Navigator.pushNamed(context, AppRoutes.editScreen,
-      arguments: emptyNote,);
+  await Navigator.pushNamed(
+    context,
+    AppRoutes.editScreen,
+    arguments: emptyNote,
+  );
 }

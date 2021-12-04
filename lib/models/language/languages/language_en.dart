@@ -367,4 +367,10 @@ class LanguageEn extends Language {
 
   @override
   String get waitWhileRestoring => 'Hold on,Restoring';
+
+  @override
+  String get backupWarning => 'Unhide everything before backup';
+
+  @override
+  String get backupIn => 'Backup';
 }

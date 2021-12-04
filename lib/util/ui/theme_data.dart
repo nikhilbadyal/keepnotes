@@ -6,8 +6,12 @@ import 'package:notes/_internal_packages.dart';
 
 Color darken(final Color c, [final int percent = 10]) {
   final f = 1 - percent / 100;
-  return Color.fromARGB(c.alpha, (c.red * f).round(), (c.green * f).round(),
-      (c.blue * f).round(),);
+  return Color.fromARGB(
+    c.alpha,
+    (c.red * f).round(),
+    (c.green * f).round(),
+    (c.blue * f).round(),
+  );
 }
 
 Color lighten(final Color c, [final int percent = 10]) {
