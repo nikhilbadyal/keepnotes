@@ -1,4 +1,4 @@
-Keep Notes is a privacy oriented, secure , beautiful and fast application made in flutter. It supports various features like adding and saving notes. Hiding notes with password, archiving them. To make UI look beautiful it has various UI colors with the support of light and black theme.
+Keep Notes is a privacy oriented, secure , beautiful and fast note (s) taking application made in flutter. It supports various features like adding and saving notes. Hiding notes with password, archiving them. To make UI look beautiful it has various UI colors with the support of light and black theme.
 
 <img src="https://i.imgur.com/53hpGkk.png" width="35%" height="700"></img> 
 <img src="https://i.imgur.com/FGnDtPk.png" width="35%" height="700"></img> 
