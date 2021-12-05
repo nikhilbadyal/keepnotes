@@ -121,7 +121,7 @@ Route<dynamic> generateRoute(final RouteSettings settings) {
       }
     case AppRoutes.editScreen:
       {
-        return CupertinoPageRoute(
+        return MaterialPageRoute(
           settings: settings,
           builder: (final context) => const EditScreen(),
         );
@@ -149,23 +149,34 @@ Route<dynamic> errorRoute() {
 }
 
 Future navigate(
-    final String activeRoute, final BuildContext context, final String newRoute,
-    [final Object? arguments,]) async {
+  final String activeRoute,
+  final BuildContext context,
+  final String newRoute, [
+  final Object? arguments,
+]) async {
   Provider.of<NotesHelper>(context, listen: false).reset();
   if (activeRoute == newRoute && newRoute != AppRoutes.setPassScreen) {
     return Navigator.pop(context);
   }
   if (newRoute == AppRoutes.homeScreen) {
-    await Navigator.pushNamedAndRemoveUntil(context, newRoute, (final route) {
-      return false;
-    }, arguments: arguments,);
+    await Navigator.pushNamedAndRemoveUntil(
+      context,
+      newRoute,
+      (final route) {
+        return false;
+      },
+      arguments: arguments,
+    );
   } else {
     if (activeRoute == '/') {
       Navigator.pop(context);
       await Navigator.pushNamed(context, newRoute, arguments: arguments);
     } else {
-      await Navigator.pushReplacementNamed(context, newRoute,
-          arguments: arguments,);
+      await Navigator.pushReplacementNamed(
+        context,
+        newRoute,
+        arguments: arguments,
+      );
     }
   }
 }

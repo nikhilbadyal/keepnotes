@@ -33,14 +33,18 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               ),
             ),
             const Divider(
-                height: 60, color: Colors.black, indent: 12, endIndent: 12,),
+              height: 60,
+              indent: 12,
+              endIndent: 12,
+            ),
             Text(
               Language.of(context).name,
               textAlign: TextAlign.start,
               style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'Product Sans',
-                  color: Theme.of(context).textTheme.bodyText1!.color,),
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Product Sans',
+                color: Theme.of(context).textTheme.bodyText1!.color,
+              ),
             ),
             const SizedBox(height: 30),
             Text(
@@ -83,7 +87,10 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               ],
             ),
             const Divider(
-                height: 60, color: Colors.black, indent: 12, endIndent: 12,),
+              height: 60,
+              indent: 12,
+              endIndent: 12,
+            ),
             Container(
               margin: const EdgeInsets.only(left: 16, top: 8),
               child: Center(
@@ -91,16 +98,20 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                   Language.of(context).social,
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Product Sans',
-                      color: Theme.of(context).textTheme.bodyText1!.color,),
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Product Sans',
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                  ),
                 ),
               ),
             ),
             const SocialLinksRow(),
             const SizedBox(height: 16),
             const Divider(
-                height: 60, color: Colors.black, indent: 12, endIndent: 12,),
+              height: 60,
+              indent: 12,
+              endIndent: 12,
+            ),
           ],
         ),
       ),

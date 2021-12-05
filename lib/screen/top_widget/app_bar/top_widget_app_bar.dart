@@ -8,41 +8,41 @@ AppBar? getAppBar(final ScreenTypes topScreen, final BuildContext context) {
     case ScreenTypes.hidden:
       return AppBar(
         title: Text(Language.of(context).hidden),
-        actions: const [AppBarAvatar()],
+        //actions: const [AppBarAvatar()],
       );
     case ScreenTypes.home:
       return AppBar(
         title: Text(Language.of(context).home),
-        actions: const [AppBarAvatar()],
+        //actions: const [AppBarAvatar()],
       );
 
     case ScreenTypes.archive:
       return AppBar(
         title: Text(Language.of(context).archive),
-        actions: const [AppBarAvatar()],
+        //actions: const [AppBarAvatar()],
       );
 
     case ScreenTypes.backup:
       return AppBar(
         title: Text(Language.of(context).backup),
-        actions: const [AppBarAvatar()],
+        //actions: const [AppBarAvatar()],
       );
 
     case ScreenTypes.trash:
       return AppBar(
         title: Text(Language.of(context).trash),
-        actions: const [AppBarAvatar()],
+        //actions: const [AppBarAvatar()],
       );
 
     case ScreenTypes.aboutMe:
       return AppBar(
         title: Text(Language.of(context).about),
-        actions: const [AppBarAvatar()],
+        //actions: const [AppBarAvatar()],
       );
     case ScreenTypes.settings:
       return AppBar(
         title: Text(Language.of(context).settings),
-        actions: const [AppBarAvatar()],
+        //actions: const [AppBarAvatar()],
       );
     case ScreenTypes.welcome:
     case ScreenTypes.signup:

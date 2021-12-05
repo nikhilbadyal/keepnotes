@@ -59,13 +59,13 @@ typedef OnTap = void Function();
 typedef OnBuildContextTap = void Function(BuildContext context);
 typedef OnFabTap = void Function(BuildContext context, NoteState noteState);
 typedef SlidableActions = Function(Note note, BuildContext context);
-typedef PickerLayoutBuilder = Widget Function(
+typedef MyPickerLayoutBuilder = Widget Function(
   BuildContext context,
   List<Color> colors,
-  PickerItem child,
+  MyPickerItem child,
 );
-typedef PickerItem = Widget Function(Color color);
-typedef PickerItemBuilder = Widget Function(
+typedef MyPickerItem = Widget Function(Color color);
+typedef MyPickerItemBuilder = Widget Function(
   Color color,
   OnTap changeColor, {
   required bool isCurrentColor,
@@ -116,7 +116,7 @@ List<Color> primaryColors = [
   Colors.deepOrange,
   Colors.brown,
   Colors.blueGrey,
-  Colors.black
+  Colors.black,
 ];
 List<Color> secondaryColors = [
   const Color(0xff0370FF),

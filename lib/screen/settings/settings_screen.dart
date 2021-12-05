@@ -3,7 +3,9 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({final Key? key,}) : super(key: key);
+  const SettingsScreen({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -71,8 +73,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Icons.color_lens_outlined,
                 ),
                 onPressed: (final context) {
-                  colorPicker(Language.of(context).pickColor, primaryColors,
-                      primaryColor, onPrimaryColorChange,);
+                  colorPicker(
+                    Language.of(context).pickColor,
+                    primaryColors,
+                    primaryColor,
+                    onPrimaryColorChange,
+                  );
                 },
               ),
               SettingsTile(
@@ -82,8 +88,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   TablerIcons.color_swatch,
                 ),
                 onPressed: (final context) {
-                  colorPicker(Language.of(context).pickColor, secondaryColors,
-                      accentColor, onAccentColorChange,);
+                  colorPicker(
+                    Language.of(context).pickColor,
+                    secondaryColors,
+                    accentColor,
+                    onAccentColorChange,
+                  );
                 },
               ),
               SettingsTile.switchTile(
@@ -146,34 +156,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Future<void> colorPicker(final String title, final List<Color> appColors,
-      final Color pickerColor, final ValueChanged<Color> onColorChange,) async {
-    final status = await showDialog(
-          barrierDismissible: true,
-          context: context,
-          builder: (final context) {
-            return MyAlertDialog(
-              title: Text(title),
-              content: SingleChildScrollView(
-                child: ColorPicker(
-                  availableColors: appColors,
-                  pickerColor: pickerColor,
-                  onColorChanged: onColorChange,
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: Text(Language.of(context).done),
-                ),
-              ],
-            );
-          },
-        ) ??
-        false;
-    if (status) {}
+  Future<void> colorPicker(
+    final String title,
+    final List<Color> appColors,
+    final Color pickerColor,
+    final ValueChanged<Color> onColorChange,
+  ) async {
+    await showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (final context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: BlockPicker(
+              availableColors: appColors,
+              pickerColor: pickerColor,
+              onColorChanged: onColorChange,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void onPrimaryColorChange(final Color value) {
@@ -202,13 +206,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // ignore: avoid_positional_boolean_parameters
   Future<void> toggleBiometric(final bool value) async {
     fpDirectly = value;
-    unawaited(addBoolToSF('fpDirectly', value: value),);
+    unawaited(
+      addBoolToSF('fpDirectly', value: value),
+    );
   }
 
   // ignore: avoid_positional_boolean_parameters
   Future<void> directDelete(final bool deleteDirectly) async {
     directlyDelete = deleteDirectly;
-    unawaited(addBoolToSF('directlyDelete', value: deleteDirectly),);
+    unawaited(
+      addBoolToSF('directlyDelete', value: deleteDirectly),
+    );
   }
 
   Future<void> resetPassword() async {
@@ -288,8 +296,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget languageTrailing() {
     return PopupMenuButton(
-      icon: Icon(Icons.arrow_drop_down,
-          color: Theme.of(context).colorScheme.secondary,),
+      icon: Icon(
+        Icons.arrow_drop_down,
+        color: Theme.of(context).colorScheme.secondary,
+      ),
       iconSize: 30,
       onSelected: onLocaleChange,
       itemBuilder: (final context) => supportedLanguages
@@ -323,6 +333,129 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
 
     await Navigator.pushNamedAndRemoveUntil(
-        context, AppRoutes.welcomeScreen, (final route) => false,);
+      context,
+      AppRoutes.welcomeScreen,
+      (final route) => false,
+    );
+  }
+}
+
+class ColorPicker extends StatefulWidget {
+  const ColorPicker({
+    required this.pickerColor,
+    required this.onColorChanged,
+    required this.availableColors,
+    this.layoutBuilder = defaultLayoutBuilder,
+    this.itemBuilder = defaultItemBuilder,
+    final Key? key,
+  }) : super(key: key);
+
+  final Color pickerColor;
+  final ValueChanged<Color> onColorChanged;
+  final List<Color> availableColors;
+  final MyPickerLayoutBuilder layoutBuilder;
+  final MyPickerItemBuilder itemBuilder;
+
+  static Widget defaultLayoutBuilder(
+    final BuildContext context,
+    final List<Color> colors,
+    final MyPickerItem child,
+  ) {
+    final orientation = MediaQuery.of(context).orientation;
+
+    return SizedBox(
+      width: orientation == Orientation.portrait ? 300 : 300,
+      height: orientation == Orientation.portrait ? 360 : 200,
+      child: GridView.count(
+        crossAxisCount: orientation == Orientation.portrait ? 4 : 6,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
+        children: colors
+            .map(
+              (final color) => child(color),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  static Widget defaultItemBuilder(
+    final Color color,
+    final void Function() changeColor, {
+    required final bool isCurrentColor,
+  }) =>
+      Container(
+        margin: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          color: color,
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.8),
+              offset: const Offset(1, 2),
+              blurRadius: 3,
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: changeColor,
+            borderRadius: BorderRadius.circular(50),
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 210),
+              opacity: isCurrentColor ? 1 : 0,
+              child: Icon(
+                Icons.done,
+                color: useWhiteForeground(color) ? Colors.white : Colors.black,
+              ),
+            ),
+          ),
+        ),
+      );
+
+  @override
+  State<StatefulWidget> createState() => _ColorPickerState();
+}
+
+class _ColorPickerState extends State<ColorPicker> {
+  late Color _currentColor;
+
+  @override
+  void initState() {
+    _currentColor = widget.pickerColor;
+    super.initState();
+  }
+
+  void changeColor(final Color color) {
+    setState(() => _currentColor = color);
+    widget.onColorChanged(color);
+  }
+
+  @override
+  Widget build(final BuildContext context) => widget.layoutBuilder(
+        context,
+        widget.availableColors,
+        (final color, [final _, final __]) => widget.itemBuilder(
+          color,
+          () => changeColor(color),
+          isCurrentColor: _currentColor.value == color.value,
+        ),
+      );
+}
+
+bool useWhiteForeground(
+  final Color color, {
+  final double bias = 1,
+}) {
+  final v = sqrt(
+    pow(color.red, 2) * 0.299 +
+        pow(color.green, 2) * 0.587 +
+        pow(color.blue, 2) * 0.114,
+  ).round();
+  if (v < 130 * bias) {
+    return true;
+  } else {
+    return false;
   }
 }

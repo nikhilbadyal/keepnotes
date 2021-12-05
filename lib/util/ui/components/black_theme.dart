@@ -7,9 +7,13 @@ ThemeData blackTheme(final Color primary, final Color accent) {
   return ThemeData.dark().copyWith(
     scaffoldBackgroundColor: Colors.black,
     canvasColor: Colors.black,
-    appBarTheme: const AppBarTheme(
-      // color: Colors.black,
+    appBarTheme: AppBarTheme(
+      color: primary,
       elevation: 0,
+      /*systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: primary == Colors.white ? primary : null,
+        statusBarIconBrightness: Brightness.light,
+      ),*/
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       foregroundColor: Colors.white,
@@ -18,7 +22,7 @@ ThemeData blackTheme(final Color primary, final Color accent) {
     iconTheme: const IconThemeData().copyWith(color: Colors.white),
     colorScheme: ColorScheme.dark(primary: primary, secondary: accent),
     snackBarTheme: SnackBarThemeData(
-      backgroundColor: primary,
+      backgroundColor: accent,
       actionTextColor: greyColor,
       contentTextStyle: TextStyle(color: greyColor),
       behavior: SnackBarBehavior.fixed,
@@ -28,5 +32,10 @@ ThemeData blackTheme(final Color primary, final Color accent) {
     ),
     cardColor: Colors.black,
     dialogBackgroundColor: Colors.black,
+    dividerColor: Colors.black,
+    dialogTheme: DialogTheme(
+      backgroundColor: Colors.black,
+      titleTextStyle: const TextStyle().copyWith(color: Colors.white),
+    ),
   );
 }

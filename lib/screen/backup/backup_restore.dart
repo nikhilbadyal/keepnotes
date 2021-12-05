@@ -19,8 +19,11 @@ class _BackUpScreenState extends State<BackUpScreen>
       padding: const EdgeInsets.only(top: 40),
       child: Column(
         children: [
-          SvgPicture.asset(
+          /* SvgPicture.asset(
             backupSVG,
+            height: 180,
+          ),*/
+          const SizedBox(
             height: 180,
           ),
           Padding(

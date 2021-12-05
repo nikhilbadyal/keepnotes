@@ -1,6 +1,7 @@
 export 'package:file_picker/file_picker.dart';
 export 'package:firebase_auth/firebase_auth.dart';
 export 'package:firebase_core/firebase_core.dart';
+export 'package:flutter_colorpicker/flutter_colorpicker.dart';
 export 'package:flutter_localizations/flutter_localizations.dart';
 export 'package:flutter_slidable/flutter_slidable.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
