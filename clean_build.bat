@@ -1,0 +1,1 @@
+fclean.bat && fbuild.bat
