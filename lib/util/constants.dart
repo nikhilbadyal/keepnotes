@@ -3,21 +3,6 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-// UI Const
-Color defaultPrimary = Colors.deepPurple;
-Color defaultAccent = Colors.deepPurpleAccent;
-
-List<BoxShadow> shadow = [
-  BoxShadow(
-    color: Colors.grey[200]!,
-    blurRadius: 30,
-    offset: const Offset(0, 15),
-  )
-];
-Color greyColor = const Color(0xFFEAEAEA);
-
-enum AppTheme { dark, black, light }
-
 //Image Const
 const String backupSVG = '${imageAssets}backup.svg';
 const String errorSvg = '${imageAssets}error.svg';
@@ -88,6 +73,21 @@ typedef PickerItemBuilder = Widget Function(
 typedef BackPresAction = Future<bool> Function();
 
 //UI Colors
+
+// UI Const
+Color defaultPrimary = Colors.deepPurple;
+Color defaultAccent = Colors.deepPurpleAccent;
+
+List<BoxShadow> shadow = [
+  BoxShadow(
+    color: Colors.grey[200]!,
+    blurRadius: 30,
+    offset: const Offset(0, 15),
+  )
+];
+Color greyColor = const Color(0xFFEAEAEA);
+
+enum AppTheme { dark, black, light }
 
 List<Color> primaryColors = [
   const Color(0xff1a73e8),

@@ -1,7 +1,7 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/sentryDsn.dart';
+import 'package:notes/sentry_dsn.dart';
 
 // Add your own DSN if you want.
 // Read here https://docs.sentry.io/platforms/flutter/
@@ -69,9 +69,11 @@ Future<void> main() async {
       () async {
         return SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
-        ).then((final _) => runApp(
-              const MyNotes(),
-            ));
+        ).then(
+          (final _) => runApp(
+            const MyNotes(),
+          ),
+        );
       },
       reportError,
     );

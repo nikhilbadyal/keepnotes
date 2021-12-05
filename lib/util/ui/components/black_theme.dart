@@ -8,7 +8,7 @@ ThemeData blackTheme(final Color primary, final Color accent) {
     scaffoldBackgroundColor: Colors.black,
     canvasColor: Colors.black,
     appBarTheme: const AppBarTheme(
-      color: Colors.black,
+      // color: Colors.black,
       elevation: 0,
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
