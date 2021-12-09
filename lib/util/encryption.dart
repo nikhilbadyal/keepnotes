@@ -40,11 +40,6 @@ class Encrypt {
     return encrypter.decrypt64(str, iv: iv);
   }
 
-  void recrpyt(final String data, final String oldPass, final String newPass) {
-    decryptStr(data);
-    encryptStr(data);
-  }
-
   String encryptStr(final String str) {
     if (str.isEmpty) {
       return str;

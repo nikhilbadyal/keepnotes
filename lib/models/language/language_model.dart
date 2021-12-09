@@ -3,7 +3,7 @@ import 'package:notes/_internal_packages.dart';
 
 final supportedLanguages = <LanguageData>[
   LanguageData('🇺🇸', 'English', 'en'),
-  LanguageData('in', 'Hindi', 'hi'),
+  LanguageData('in', 'हिंदी', 'hi'),
 ];
 
 String defaultLocale = 'en';
@@ -90,15 +90,17 @@ abstract class Language {
 
   String get weakPassword;
 
-  String get tryAgainLater; // We keep you safe
+  String get tryAgainLater;
+
   String get contactUs;
 
   String get unableToLaunchEmail;
 
   String get tapMe;
 
-  String get on; // We keep you safe
-  String get off; // We keep you safe
+  String get on;
+
+  String get off;
 
   String get getStarted;
 
@@ -308,14 +310,44 @@ abstract class Language {
 
   String get backupIn;
 
+  String get appName;
+
+  String get welcomeTo;
+
+  String get skip;
+
+  String get storageJustify;
+
+  String get next;
+
+  String get access;
+
+  String get grant;
+
+  String get app;
+
+  String get dark;
+
+  String get light;
+
+  String get theme;
+
+  String get selectTheme;
+
+  String get over;
+
+  String get enjoy;
+
+  String get ready;
+
   static Language of(final BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageHi();
 }
 
 const String prefSelectedLanguageCode = 'SelectedLanguageCode';
 
-Future<Locale> setLocale(final String languageCode) async {
-  await addStringToSF('appLocale', languageCode);
+Locale setLocale(final String languageCode) {
+  addStringToSF('appLocale', languageCode);
   return _locale(languageCode);
 }
 

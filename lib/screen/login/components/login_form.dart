@@ -2,8 +2,6 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-
-// Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
 

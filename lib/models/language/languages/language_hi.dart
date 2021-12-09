@@ -373,4 +373,50 @@ class LanguageHi extends Language {
 
   @override
   String get backupIn => 'बैकअप';
+
+  @override
+  String get appName => 'कीप नोट्स';
+
+  @override
+  String get welcomeTo => 'स्वागत मे आपके';
+
+  @override
+  String get skip => 'छोड़ें';
+
+  @override
+  String get storageJustify =>
+      'को  डेटा आयात और निर्यात करने के लिए आपके स्टोरेज की परमिशन की आवश्यकता है';
+
+  @override
+  String get next => 'अगला';
+
+  @override
+  String get access => 'एक्सेस';
+
+  @override
+  String get grant => 'ग्रांट';
+
+  @override
+  String get app => 'ऐप्प';
+
+  @override
+  String get dark => 'डार्क ';
+
+  @override
+  String get light => 'लाइट';
+
+  @override
+  String get selectTheme => 'अपना पसंदीदा चुनें';
+
+  @override
+  String get theme => 'थीम';
+
+  @override
+  String get enjoy => 'आनंद से चलाएं';
+
+  @override
+  String get over => 'समाप्त ';
+
+  @override
+  String get ready => 'तैयार';
 }

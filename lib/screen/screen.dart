@@ -6,6 +6,7 @@ export 'error/error.dart';
 export 'forgot_password/forgot_password.dart';
 export 'hidden/hidden.dart';
 export 'home/home.dart';
+export 'intro/intro.dart';
 export 'lock/lock.dart';
 export 'login/login.dart';
 export 'settings/settings.dart';

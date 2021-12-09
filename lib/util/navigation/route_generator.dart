@@ -96,9 +96,10 @@ Route<dynamic> generateRoute(final RouteSettings settings) {
       {
         return CupertinoPageRoute(
           settings: settings,
-          builder: (final context) => const TopWidget(
+          builder: (final context) => const IntroScreen(),
+          /*builder: (final context) => const TopWidget(
             topScreen: ScreenTypes.welcome,
-          ),
+          ),*/
         );
       }
     case AppRoutes.loginScreen:

@@ -36,7 +36,6 @@ class NoteWidget extends StatelessWidget {
             color: appTheme == AppTheme.light
                 ? Theme.of(context).floatingActionButtonTheme.foregroundColor
                 : Colors.black,
-            // boxShadow: appTheme == AppTheme.light ? shadow : null,
             borderRadius: BorderRadius.circular(15),
             border: Border.all(
               color: appTheme == AppTheme.light

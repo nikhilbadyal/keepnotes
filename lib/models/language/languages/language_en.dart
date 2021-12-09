@@ -277,7 +277,7 @@ class LanguageEn extends Language {
   String get forgotPassword => 'Forgot password';
 
   @override
-  String get getStarted => 'Get started';
+  String get getStarted => 'Start';
 
   @override
   String get hello => 'Hello';
@@ -373,4 +373,51 @@ class LanguageEn extends Language {
 
   @override
   String get backupIn => 'Backup';
+
+  @override
+  String get appName => 'Keep Notes';
+
+  @override
+  String get welcomeTo => 'Welcome to';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get storageJustify =>
+      'needs Access to your External Storage to import and export data';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get access => 'Access';
+
+  @override
+  String get grant => 'Grant';
+
+  @override
+  String get app => 'App';
+
+  @override
+  String get dark => 'Theme';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get selectTheme => 'Select your Preferred';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get enjoy => 'Enjoy';
+
+  @override
+  String get over => 'Over';
+
+  @override
+  // TODO: implement ready
+  String get ready => 'Ready';
 }

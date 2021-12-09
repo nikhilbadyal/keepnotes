@@ -3,7 +3,9 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class EditScreen extends StatefulWidget {
-  const EditScreen({final Key? key,}) : super(key: key);
+  const EditScreen({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   _EditScreenState createState() => _EditScreenState();
@@ -87,9 +89,9 @@ class _EditScreenState extends State<EditScreen> {
   }
 
   bool updateNote() {
-    noteInEditing.title = _titleController.text.trim();
-    // ignore: cascade_invocations
-    noteInEditing.content = _contentController.text.trim();
+    noteInEditing
+      ..title = _titleController.text.trim()
+      ..content = _contentController.text.trim();
     if (!(noteInEditing.title == _titleFromInitial &&
         noteInEditing.content == _contentFromInitial)) {
       noteInEditing.lastModify = DateTime.now();

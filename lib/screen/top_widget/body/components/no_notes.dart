@@ -56,8 +56,7 @@ class NoNotesBody extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      // TODO fix this
-                      text: '✏',
+                      text: '+',
                       style: TextStyle(
                         fontSize: 30,
                         color: Theme.of(context).colorScheme.primary ==

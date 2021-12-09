@@ -21,14 +21,16 @@ class _SignUpState extends State<SignUp> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text(Language.of(context).registerAccount,
-                    style: TextStyle(
-                      fontSize: getProportionateScreenWidth(28),
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).textTheme.bodyText1!.color,
-                      height: 1.5,
-                    ),),
+                SizedBox(height: SizeConfig.screenHeight * 0.04),
+                Text(
+                  Language.of(context).registerAccount,
+                  style: TextStyle(
+                    fontSize: getProportionateScreenWidth(28),
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    height: 1.5,
+                  ),
+                ),
                 Text(
                   Language.of(context).signUpJustification,
                   textAlign: TextAlign.center,
