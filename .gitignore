@@ -120,3 +120,5 @@ app.*.symbols
 /imp
 /android/app/google-services.json
 **aab
+/bfg.jar
+..bfg-report
