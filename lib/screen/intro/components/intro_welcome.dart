@@ -1,7 +1,6 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/screen/animations/show_up.dart';
 
 class IntroWelcome extends StatelessWidget {
   const IntroWelcome({required this.onNext, final Key? key}) : super(key: key);
@@ -24,63 +23,67 @@ class IntroWelcome extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AvatarGlow(
-                      endRadius: 120,
-                      showTwoGlows: false,
-                      glowColor: Theme.of(context)
-                          .colorScheme
-                          .secondary
-                          .withOpacity(0.1),
-                      repeatPauseDuration: const Duration(milliseconds: 400),
-                      child: Container(
-                        height: 160,
-                        width: 160,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(200),
-                          color: Theme.of(context)
-                              .colorScheme
-                              .secondary
-                              .withOpacity(0.1),
-                        ),
-                        child: Center(
-                          child: SizedBox(
-                            height: 120,
-                            width: 120,
-                            child: SvgPicture.asset(
-                              'assets/images/icon.svg',
+                    Flexible(
+                      child: AvatarGlow(
+                        endRadius: 120,
+                        showTwoGlows: false,
+                        glowColor: Theme.of(context)
+                            .colorScheme
+                            .secondary
+                            .withOpacity(0.1),
+                        repeatPauseDuration: const Duration(milliseconds: 400),
+                        child: Container(
+                          height: 160,
+                          width: 160,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(200),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondary
+                                .withOpacity(0.1),
+                          ),
+                          child: Center(
+                            child: SizedBox(
+                              height: 120,
+                              width: 120,
+                              child: SvgPicture.asset(
+                                'assets/images/icon.svg',
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'YTSans',
-                          fontWeight: FontWeight.w400,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '${Language.of(context).welcomeTo}\n',
-                            style: const TextStyle(
-                              fontFamily: 'Product Sans',
-                              fontWeight: FontWeight.w600,
-                            ),
+                    Flexible(
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'YTSans',
+                            fontWeight: FontWeight.w400,
+                            color: Theme.of(context).textTheme.bodyText1!.color,
                           ),
-                          TextSpan(
-                            text: Language.of(context).appName,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 1,
-                              fontSize: 32,
-                              fontFamily: 'Product Sans',
+                          children: [
+                            TextSpan(
+                              text: '${Language.of(context).welcomeTo}\n',
+                              style: const TextStyle(
+                                fontFamily: 'Product Sans',
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          )
-                        ],
+                            TextSpan(
+                              text: Language.of(context).appName,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 1,
+                                fontSize: 32,
+                                fontFamily: 'Product Sans',
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -100,50 +103,56 @@ class IntroWelcome extends StatelessWidget {
                   margin: const EdgeInsets.all(16),
                   child: Row(
                     children: [
-                      Container(
-                        margin: const EdgeInsets.only(right: 8),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              height: 15,
-                              width: 15,
-                              color: Colors.white,
-                            ),
-                            Icon(
-                              MdiIcons.youtube,
-                              size: 40,
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          ],
+                      Flexible(
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 8),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                height: 15,
+                                width: 15,
+                                color: Colors.white,
+                              ),
+                              Icon(
+                                MdiIcons.youtube,
+                                size: 40,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'YTSans',
-                            fontWeight: FontWeight.w400,
-                            color: Theme.of(context).textTheme.bodyText1!.color,
-                          ),
-                          children: [
-                            const TextSpan(
-                              text: 'Powered by\n',
-                              style: TextStyle(
-                                fontFamily: 'Product Sans',
-                                fontWeight: FontWeight.w600,
-                              ),
+                      Flexible(
+                        child: RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'YTSans',
+                              fontWeight: FontWeight.w400,
+                              color:
+                                  Theme.of(context).textTheme.bodyText1!.color,
                             ),
-                            TextSpan(
-                              text: 'Firebase',
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontFamily: 'Product Sans',
-                                fontWeight: FontWeight.w600,
+                            children: [
+                              const TextSpan(
+                                text: 'Powered by\n',
+                                style: TextStyle(
+                                  fontFamily: 'Product Sans',
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            )
-                          ],
+                              TextSpan(
+                                text: 'Firebase',
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  fontFamily: 'Product Sans',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],

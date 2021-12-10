@@ -6,9 +6,6 @@ import 'package:notes/_internal_packages.dart';
 
 Widget getBody(final ScreenTypes topScreen, final BuildContext context) {
   switch (topScreen) {
-    case ScreenTypes.backup:
-      return const BackUpScreen();
-
     case ScreenTypes.aboutMe:
       return const AboutMe();
 

@@ -7,7 +7,6 @@ class AppRoutes {
   static const setPassScreen = 'setpass';
   static const homeScreen = '/';
   static const archiveScreen = 'archive';
-  static const backupScreen = 'backup';
   static const trashScreen = 'trash';
   static const aboutMeScreen = 'about';
   static const settingsScreen = 'settings';

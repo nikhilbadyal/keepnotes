@@ -159,23 +159,6 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             color: Colors.transparent,
           ),
           ListTile(
-            leading: Icon(Icons.settings_backup_restore,
-                color: _activeRoute == AppRoutes.backupScreen
-                    ? Theme.of(context).colorScheme.secondary
-                    : null,),
-            title: Text(
-              Language.of(context).backup,
-              style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  color: _activeRoute == AppRoutes.backupScreen
-                      ? Theme.of(context).colorScheme.secondary
-                      : null,),
-            ),
-            onTap: () {
-              navigate(_activeRoute, context, AppRoutes.backupScreen);
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.delete_outlined,
                 color: _activeRoute == AppRoutes.trashScreen
                     ? Theme.of(context).colorScheme.secondary

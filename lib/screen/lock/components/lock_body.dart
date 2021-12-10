@@ -23,34 +23,54 @@ class _LockBodyState extends State<LockBody> {
   final _pinPutFocusNode = FocusNode();
 
   @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ],
+    );
+    super.dispose();
+  }
+
+  // TODO fix orientation keypad
+  @override
   Widget build(final BuildContext context) {
-    debugPrint(MediaQuery.of(context).size.height.toString());
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+      ],
+    );
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: Column(
           children: [
-            Expanded(
-              child: SvgPicture.asset(
-                otp,
-              ),
+            SvgPicture.asset(
+              otp,
+              height: 30 * heightMultiplier,
+            ),
+            SizedBox(
+              height: 5 * heightMultiplier,
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 30),
+              padding: EdgeInsets.only(bottom: 5 * heightMultiplier),
               child: Text(
                 widget.title,
-                style: const TextStyle(
-                  fontSize: 22,
+                style: TextStyle(
+                  fontSize: 3 * textMultiplier,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            KeyPad(
+            PinCodeBoxes(
               pinPutController: _pinPutController,
               pinPutFocusNode: _pinPutFocusNode,
               doneCallBack: widget.doneCallBack,
             ),
-            Expanded(
+            /*Expanded(
               flex: 2,
               child: GridView.count(
                 crossAxisCount: 3,
@@ -109,7 +129,7 @@ class _LockBodyState extends State<LockBody> {
                   ),
                 ],
               ),
-            ),
+            ),*/
           ],
         ),
       ),

@@ -3,7 +3,9 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({final Key? key,}) : super(key: key);
+  const SignUpForm({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   _SignUpFormState createState() => _SignUpFormState();
@@ -17,7 +19,9 @@ class _SignUpFormState extends State<SignUpForm> {
   bool remember = false;
   final List<String?> errors = [];
 
-  void addError({final String? error,}) {
+  void addError({
+    final String? error,
+  }) {
     if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
@@ -25,7 +29,9 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
-  void removeError({final String? error,}) {
+  void removeError({
+    final String? error,
+  }) {
     if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
@@ -40,15 +46,20 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30),),
+          SizedBox(
+            height: 2.8 * heightMultiplier,
+          ),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30),),
+          SizedBox(
+            height: 2.8 * heightMultiplier,
+          ),
           buildConformPassFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40),),
-          DefaultButton(
-            text: 'Continue',
-            press: () async {
+          SizedBox(
+            height: 5 * heightMultiplier,
+          ),
+          GestureDetector(
+            onTap: () async {
               if (_formKey.currentState!.validate()) {
                 unawaited(
                   showDialog(
@@ -83,6 +94,25 @@ class _SignUpFormState extends State<SignUpForm> {
                 }
               }
             },
+            child: SizedBox(
+              height: 6 * heightMultiplier,
+              child: Material(
+                borderRadius: BorderRadius.circular(25),
+                shadowColor:
+                    lighten(Theme.of(context).colorScheme.secondary, 20),
+                color: Theme.of(context).colorScheme.secondary,
+                elevation: 7,
+                child: Center(
+                  child: Text(
+                    Language.of(context).signUp,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Trueno',
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),

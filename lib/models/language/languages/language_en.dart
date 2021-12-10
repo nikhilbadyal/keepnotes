@@ -400,7 +400,7 @@ class LanguageEn extends Language {
   String get app => 'App';
 
   @override
-  String get dark => 'Theme';
+  String get dark => 'Dark';
 
   @override
   String get light => 'Light';

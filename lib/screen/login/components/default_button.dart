@@ -2,7 +2,7 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-class DefaultButton extends StatelessWidget {
+class DefaultButton extends StatefulWidget {
   const DefaultButton({
     final Key? key,
     this.text,
@@ -12,23 +12,35 @@ class DefaultButton extends StatelessWidget {
   final Function? press;
 
   @override
+  State<DefaultButton> createState() => _DefaultButtonState();
+}
+
+class _DefaultButtonState extends State<DefaultButton> {
+  @override
   Widget build(final BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: getProportionateScreenHeight(56),
-      child: TextButton(
-        style: TextButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),),
-          primary: Colors.white,
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-        ),
-        onPressed: press as void Function()?,
-        child: Text(
-          text!,
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(18),
-            color: Colors.white,
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 5 * SizeConfig.widthMultiplier,
+        right: 5 * SizeConfig.widthMultiplier,
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        height: 7 * heightMultiplier,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            primary: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+          ),
+          onPressed: widget.press as void Function()?,
+          child: Text(
+            widget.text!,
+            style: TextStyle(
+              fontSize: 2.3 * textMultiplier,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

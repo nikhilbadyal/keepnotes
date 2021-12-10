@@ -1,3 +1,4 @@
+export 'animations/animations.dart';
 export 'app_configuration.dart';
 export 'constants.dart';
 export 'encryption.dart';

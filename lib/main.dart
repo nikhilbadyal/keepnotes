@@ -68,7 +68,11 @@ Future<void> main() async {
     await runZonedGuarded(
       () async {
         return SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+          [
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.landscapeRight,
+            DeviceOrientation.landscapeLeft
+          ],
         ).then(
           (final _) => runApp(
             const MyNotes(),

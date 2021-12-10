@@ -301,7 +301,7 @@ class LanguageHi extends Language {
   String get soon => 'फीचर जल्द ही उपलब्ध होगा';
 
   @override
-  String get there => ' ';
+  String get there => 'आपको ';
 
   @override
   String get tryAgainLater => 'बाद में पुन: प्रयास करें ';

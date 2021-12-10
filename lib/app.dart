@@ -36,7 +36,9 @@ class _MyNotesState extends State<MyNotes> {
   void initState() {
     super.initState();
     for (final element in supportedLanguages) {
-      supportedLocales.add(Locale(element.languageCode, ''),);
+      supportedLocales.add(
+        Locale(element.languageCode, ''),
+      );
     }
   }
 
@@ -82,18 +84,27 @@ class _MyNotesState extends State<MyNotes> {
           final initRoute = Provider.of<Auth>(context, listen: false).isLoggedIn
               ? '/'
               : 'welcome';
-          return MaterialApp(
-            locale: _locale,
-            restorationScopeId: 'keepnotes',
-            supportedLocales: supportedLocales,
-            localizationsDelegates: localizationDelegates,
-            localeResolutionCallback: localeResolutionCallback,
-            theme: getThemeData(),
-            title: Language.of(context).appTitle,
-            initialRoute: initRoute,
-            debugShowCheckedModeBanner: false,
-            navigatorObservers: [routeObserver],
-            onGenerateRoute: generateRoute,
+          return LayoutBuilder(
+            builder: (final context, final constraints) {
+              return OrientationBuilder(
+                builder: (final context, final orientation) {
+                  SizeConfig().init(constraints, orientation);
+                  return MaterialApp(
+                    locale: _locale,
+                    restorationScopeId: 'keepnotes',
+                    supportedLocales: supportedLocales,
+                    localizationsDelegates: localizationDelegates,
+                    localeResolutionCallback: localeResolutionCallback,
+                    theme: getThemeData(),
+                    title: Language.of(context).appTitle,
+                    initialRoute: initRoute,
+                    debugShowCheckedModeBanner: false,
+                    navigatorObservers: [routeObserver],
+                    onGenerateRoute: generateRoute,
+                  );
+                },
+              );
+            },
           );
         },
       ),
@@ -101,7 +112,9 @@ class _MyNotesState extends State<MyNotes> {
   }
 
   Locale? localeResolutionCallback(
-      final Locale? locale, final Iterable<Locale> supportedLocales,) {
+    final Locale? locale,
+    final Iterable<Locale> supportedLocales,
+  ) {
     for (final supportedLocale in supportedLocales) {
       if (supportedLocale.languageCode == locale?.languageCode &&
           supportedLocale.countryCode == locale?.countryCode) {

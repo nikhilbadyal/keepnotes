@@ -69,127 +69,133 @@ class _IntroScreenState extends State<IntroScreen>
     });
 
     final backgroundColor =
-        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7);
+        Theme.of(context).scaffoldBackgroundColor == Colors.white
+            ? Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7)
+            : const Color.fromARGB(255, 40, 40, 40).withOpacity(0.9);
 
     Widget _body() {
       return Column(
         children: [
           Expanded(
+            flex: 9,
             child: TabBarView(
               controller: _controller,
               children: screens,
             ),
           ),
-          Container(
-            height: 50,
-            alignment: Alignment.center,
-            child: Stack(
+          Expanded(
+            child: Container(
+              height: 50,
               alignment: Alignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      child: _selectedIndex == 3
-                          ? const SizedBox()
-                          : TextButton(
-                              style: TextButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: _selectedIndex == 3
+                            ? const SizedBox()
+                            : TextButton(
+                                style: TextButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                 ),
-                              ),
-                              child: Text(
-                                Language.of(context).skip,
-                                style: TextStyle(
-                                  fontFamily: 'Product Sans',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color!
-                                      .withOpacity(0.7),
+                                child: Text(
+                                  Language.of(context).skip,
+                                  style: TextStyle(
+                                    fontFamily: 'Product Sans',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .color!
+                                        .withOpacity(0.7),
+                                  ),
                                 ),
+                                onPressed: () {
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    AppRoutes.loginScreen,
+                                  );
+                                },
                               ),
-                              onPressed: () {
-                                Navigator.pushReplacementNamed(
-                                  context,
-                                  AppRoutes.loginScreen,
-                                );
-                              },
-                            ),
+                      ),
                     ),
                   ),
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: screens.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (final context, final index) {
-                    return Center(
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 250),
-                        margin: const EdgeInsets.only(left: 8, right: 8),
-                        height: 10,
-                        width: 10,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: _selectedIndex == index
-                              ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context)
-                                  .iconTheme
-                                  .color!
-                                  .withOpacity(0.08),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: screens.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (final context, final index) {
+                      return Center(
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 250),
+                          margin: const EdgeInsets.only(left: 8, right: 8),
+                          height: 10,
+                          width: 10,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: _selectedIndex == index
+                                ? Theme.of(context).colorScheme.secondary
+                                : Theme.of(context)
+                                    .iconTheme
+                                    .color!
+                                    .withOpacity(0.08),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 400),
-                  child: _selectedIndex == 1 || _selectedIndex == 2
-                      ? Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
+                      );
+                    },
+                  ),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 400),
+                    child: _selectedIndex == 1 || _selectedIndex == 2
+                        ? Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                 ),
-                              ),
-                              onPressed: _selectedIndex < _controller.length - 1
-                                  ? () => setState(() {
-                                        _selectedIndex += 1;
-                                        _controller.index = _selectedIndex;
-                                      })
-                                  : null,
-                              child: Text(
-                                Language.of(context).next,
-                                style: TextStyle(
-                                  fontFamily: 'Product Sans',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color!
-                                      .withOpacity(0.7),
+                                onPressed: _selectedIndex <
+                                        _controller.length - 1
+                                    ? () => setState(() {
+                                          _selectedIndex += 1;
+                                          _controller.index = _selectedIndex;
+                                        })
+                                    : null,
+                                child: Text(
+                                  Language.of(context).next,
+                                  style: TextStyle(
+                                    fontFamily: 'Product Sans',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .color!
+                                        .withOpacity(0.7),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      : Container(),
-                )
-              ],
+                          )
+                        : Container(),
+                  )
+                ],
+              ),
             ),
           ),
-          Container(
+          /*Container(
             height: MediaQuery.of(context).padding.bottom,
-          )
+          )*/
         ],
       );
     }

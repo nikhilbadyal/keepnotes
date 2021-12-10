@@ -2,11 +2,14 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
+
 final RegExp emailValidatorRegExp =
     RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
 
 class SignForm extends StatefulWidget {
-  const SignForm({final Key? key,}) : super(key: key);
+  const SignForm({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   _SignFormState createState() => _SignFormState();
@@ -18,7 +21,9 @@ class _SignFormState extends State<SignForm> {
   String password = '';
   final List<String?> errors = [];
 
-  void addError({final String? error,}) {
+  void addError({
+    final String? error,
+  }) {
     if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
@@ -26,7 +31,9 @@ class _SignFormState extends State<SignForm> {
     }
   }
 
-  void removeError({final String? error,}) {
+  void removeError({
+    final String? error,
+  }) {
     if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
@@ -41,9 +48,13 @@ class _SignFormState extends State<SignForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30),),
+          SizedBox(
+            height: 2.8 * heightMultiplier,
+          ),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30),),
+          SizedBox(
+            height: 2.8 * heightMultiplier,
+          ),
           GestureDetector(
             onTap: () =>
                 Navigator.of(context).pushNamed(AppRoutes.forgotPasswordScreen),
@@ -56,21 +67,24 @@ class _SignFormState extends State<SignForm> {
             ),
           ),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20),),
-          DefaultButton(
-            text: Language.of(context).login,
-            press: () async {
+          SizedBox(
+            height: 2.5 * heightMultiplier,
+          ),
+          GestureDetector(
+            onTap: () async {
               if (_formKey.currentState!.validate()) {
-                unawaited(showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (final context) {
-                    return SpinKitCubeGrid(
-                      color: Theme.of(context).colorScheme.secondary,
-                      size: MediaQuery.of(context).size.height * 0.1,
-                    );
-                  },
-                ),);
+                unawaited(
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (final context) {
+                      return SpinKitCubeGrid(
+                        color: Theme.of(context).colorScheme.secondary,
+                        size: MediaQuery.of(context).size.height * 0.1,
+                      );
+                    },
+                  ),
+                );
                 _formKey.currentState!.save();
                 hideKeyboard(context);
                 final response = await Provider.of<Auth>(
@@ -89,12 +103,14 @@ class _SignFormState extends State<SignForm> {
                   listen: false,
                 ).isLoggedIn) {
                   Provider.of<AppConfiguration>(context, listen: false)
-                          .password =
-                      initialize(Provider.of<Auth>(context, listen: false)
-                          .auth
-                          .currentUser,);
+                      .password = initialize(
+                    Provider.of<Auth>(context, listen: false).auth.currentUser,
+                  );
                   await Navigator.pushNamedAndRemoveUntil(
-                      context, AppRoutes.homeScreen, (final route) => false,);
+                    context,
+                    AppRoutes.homeScreen,
+                    (final route) => false,
+                  );
                 } else {
                   Navigator.of(context).pop();
                   handleFirebaseError(
@@ -104,7 +120,78 @@ class _SignFormState extends State<SignForm> {
                 }
               }
             },
+            child: SizedBox(
+              height: 6 * heightMultiplier,
+              child: Material(
+                borderRadius: BorderRadius.circular(25),
+                shadowColor:
+                    lighten(Theme.of(context).colorScheme.secondary, 20),
+                color: Theme.of(context).colorScheme.secondary,
+                elevation: 7,
+                child: Center(
+                  child: Text(
+                    Language.of(context).login,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Trueno',
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
+          /*DefaultButton(
+            text: Language.of(context).login,
+            press: () async {
+              if (_formKey.currentState!.validate()) {
+                unawaited(
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (final context) {
+                      return SpinKitCubeGrid(
+                        color: Theme.of(context).colorScheme.secondary,
+                        size: MediaQuery.of(context).size.height * 0.1,
+                      );
+                    },
+                  ),
+                );
+                _formKey.currentState!.save();
+                hideKeyboard(context);
+                final response = await Provider.of<Auth>(
+                  context,
+                  listen: false,
+                ).signInWithPassword(
+                  email: email,
+                  password: password,
+                );
+                if (!mounted) {
+                  return;
+                }
+
+                if (Provider.of<Auth>(
+                  context,
+                  listen: false,
+                ).isLoggedIn) {
+                  Provider.of<AppConfiguration>(context, listen: false)
+                      .password = initialize(
+                    Provider.of<Auth>(context, listen: false).auth.currentUser,
+                  );
+                  await Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    AppRoutes.homeScreen,
+                    (final route) => false,
+                  );
+                } else {
+                  Navigator.of(context).pop();
+                  handleFirebaseError(
+                    response,
+                    context,
+                  );
+                }
+              }
+            },
+          ),*/
         ],
       ),
     );
@@ -193,13 +280,13 @@ class CustomSuffixIcon extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(
         0,
-        getProportionateScreenWidth(20),
-        getProportionateScreenWidth(20),
-        getProportionateScreenWidth(20),
+        7 * SizeConfig.widthMultiplier,
+        7 * SizeConfig.widthMultiplier,
+        7 * SizeConfig.widthMultiplier,
       ),
       child: SvgPicture.asset(
         svgIcon,
-        height: getProportionateScreenWidth(18),
+        height: 6.8 * SizeConfig.widthMultiplier,
       ),
     );
   }

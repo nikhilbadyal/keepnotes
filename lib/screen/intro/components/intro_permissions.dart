@@ -1,7 +1,6 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/screen/animations/show_up.dart';
 
 class IntroPermissions extends StatefulWidget {
   const IntroPermissions({final Key? key}) : super(key: key);
@@ -92,43 +91,44 @@ class _IntroPermissionsState extends State<IntroPermissions> {
             forward: true,
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.6,
+              height: MediaQuery.of(context).size.height * 0.6,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/images/grantAccess.png'),
-                  Container(
-                    margin: const EdgeInsets.only(top: 32),
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'YTSans',
-                          color: Theme.of(context).textTheme.bodyText1!.color,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '${Language.of(context).appName} ',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontFamily: 'Product Sans',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          TextSpan(
-                            text: Language.of(context).storageJustify,
-                            style: TextStyle(
-                              fontFamily: 'Product Sans',
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .color!
-                                  .withOpacity(0.8),
-                            ),
-                          )
-                        ],
+                  Image.asset(
+                    'assets/images/grantAccess.png',
+                    height: MediaQuery.of(context).size.height * 0.3,
+                  ),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'YTSans',
+                        color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
+                      children: [
+                        TextSpan(
+                          text: '${Language.of(context).appName} ',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontFamily: 'Product Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        TextSpan(
+                          text: Language.of(context).storageJustify,
+                          style: TextStyle(
+                            fontFamily: 'Product Sans',
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .color!
+                                .withOpacity(0.8),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ],

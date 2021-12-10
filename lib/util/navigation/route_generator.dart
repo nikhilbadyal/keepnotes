@@ -52,16 +52,6 @@ Route<dynamic> generateRoute(final RouteSettings settings) {
         );
       }
 
-    case AppRoutes.backupScreen:
-      {
-        return CupertinoPageRoute(
-          settings: settings,
-          builder: (final context) => const TopWidget(
-            topScreen: ScreenTypes.backup,
-          ),
-        );
-      }
-
     case AppRoutes.trashScreen:
       {
         return CupertinoPageRoute(

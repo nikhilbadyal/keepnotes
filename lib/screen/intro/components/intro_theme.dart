@@ -1,7 +1,6 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/screen/animations/show_up.dart';
 
 enum ThemeSelected { system, light, dark }
 
@@ -81,33 +80,38 @@ class _IntroThemeState extends State<IntroTheme> {
             forward: true,
             child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.6,
+              height: MediaQuery.of(context).size.height * 0.6,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/images/appTheme.png'),
-                  Container(
-                    margin: const EdgeInsets.only(top: 32),
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Product Sans',
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: '${Language.of(context).selectTheme}\n',
+                  Expanded(
+                    child: Image.asset('assets/images/appTheme.png'),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 32),
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Product Sans',
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).textTheme.bodyText1!.color,
                           ),
-                          TextSpan(
-                            text: '${Language.of(context).theme}!',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontWeight: FontWeight.w600,
+                          children: [
+                            TextSpan(
+                              text: '${Language.of(context).selectTheme}\n',
                             ),
-                          )
-                        ],
+                            TextSpan(
+                              text: '${Language.of(context).theme}!',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -118,108 +122,93 @@ class _IntroThemeState extends State<IntroTheme> {
           Container(
             alignment: Alignment.bottomCenter,
             margin: const EdgeInsets.only(bottom: 32),
-            child: Flex(
-              direction: Axis.horizontal,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: ShowUpTransition(
-                      duration: const Duration(milliseconds: 600),
-                      delay: const Duration(milliseconds: 700),
-                      forward: true,
-                      slideSide: SlideFromSlide.bottom,
-                      child: GestureDetector(
-                        onTap: () {
-                          context
-                              .read<AppConfiguration>()
-                              .changeAppTheme(AppTheme.light);
-                        },
-                        child: AnimatedContainer(
-                          padding: const EdgeInsets.all(8),
-                          duration: const Duration(milliseconds: 150),
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                ShowUpTransition(
+                  duration: const Duration(milliseconds: 600),
+                  delay: const Duration(milliseconds: 700),
+                  forward: true,
+                  slideSide: SlideFromSlide.bottom,
+                  child: GestureDetector(
+                    onTap: () {
+                      context
+                          .read<AppConfiguration>()
+                          .changeAppTheme(AppTheme.light);
+                    },
+                    child: AnimatedContainer(
+                      padding: const EdgeInsets.all(8),
+                      duration: const Duration(milliseconds: 150),
+                      height: 50,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: theme == ThemeSelected.light
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context).cardColor.withOpacity(0.4),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12.withOpacity(0.08),
+                            spreadRadius: 0.01,
+                            blurRadius: 20,
+                          )
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          Language.of(context).light,
+                          style: TextStyle(
+                            fontSize: 14,
                             color: theme == ThemeSelected.light
-                                ? Theme.of(context).colorScheme.secondary
-                                : Theme.of(context).cardColor.withOpacity(0.4),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12.withOpacity(0.08),
-                                spreadRadius: 0.01,
-                                blurRadius: 20,
-                              )
-                            ],
-                          ),
-                          child: Center(
-                            child: Text(
-                              Language.of(context).light,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: theme == ThemeSelected.light
-                                    ? Colors.white
-                                    : Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .color,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Product Sans',
-                              ),
-                            ),
+                                ? Colors.white
+                                : Theme.of(context).textTheme.bodyText1!.color,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Product Sans',
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 30),
-                    child: ShowUpTransition(
-                      duration: const Duration(milliseconds: 600),
-                      delay: const Duration(milliseconds: 800),
-                      forward: true,
-                      slideSide: SlideFromSlide.bottom,
-                      child: GestureDetector(
-                        onTap: () {
-                          context
-                              .read<AppConfiguration>()
-                              .changeAppTheme(AppTheme.dark);
-                        },
-                        child: AnimatedContainer(
-                          padding: const EdgeInsets.all(8),
-                          duration: const Duration(milliseconds: 150),
-                          height: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                ShowUpTransition(
+                  duration: const Duration(milliseconds: 600),
+                  delay: const Duration(milliseconds: 800),
+                  forward: true,
+                  slideSide: SlideFromSlide.bottom,
+                  child: GestureDetector(
+                    onTap: () {
+                      context
+                          .read<AppConfiguration>()
+                          .changeAppTheme(AppTheme.dark);
+                    },
+                    child: AnimatedContainer(
+                      padding: const EdgeInsets.all(8),
+                      duration: const Duration(milliseconds: 150),
+                      height: 50,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: theme == ThemeSelected.dark
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context).cardColor.withOpacity(0.4),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12.withOpacity(0.08),
+                            spreadRadius: 0.01,
+                            blurRadius: 20,
+                          )
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          Language.of(context).dark,
+                          style: TextStyle(
+                            fontSize: 14,
                             color: theme == ThemeSelected.dark
-                                ? Theme.of(context).colorScheme.secondary
-                                : Theme.of(context).cardColor.withOpacity(0.4),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12.withOpacity(0.08),
-                                spreadRadius: 0.01,
-                                blurRadius: 20,
-                              )
-                            ],
-                          ),
-                          child: Center(
-                            child: Text(
-                              Language.of(context).dark,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: theme == ThemeSelected.dark
-                                    ? Colors.white
-                                    : Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .color,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Product Sans',
-                              ),
-                            ),
+                                ? Colors.white
+                                : Theme.of(context).textTheme.bodyText1!.color,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Product Sans',
                           ),
                         ),
                       ),

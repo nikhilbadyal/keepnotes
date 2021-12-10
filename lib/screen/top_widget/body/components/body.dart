@@ -32,7 +32,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(final BuildContext context) {
-    SizeConfig().init(context);
     return FutureBuilder(
       future: myFuture,
       builder: (final context, final projectSnap) {

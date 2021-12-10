@@ -125,6 +125,77 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onToggle: toggleBiometric,
               ),
               SettingsTile(
+                title: Language.of(context).importNotes,
+                leading: const Icon(Icons.notes_outlined),
+                onPressed: (final context) {
+                  importFromFile().then((final value) {
+                    showSnackbar(
+                      context,
+                      value
+                          ? Language.of(context).done
+                          : Language.of(context).error,
+                      snackBarBehavior: SnackBarBehavior.floating,
+                    );
+                  });
+                },
+              ),
+              SettingsTile(
+                title: Language.of(context).exportNotes,
+                leading: const Icon(Icons.cloud_outlined),
+                onPressed: (final context) {
+                  showDialog(
+                    context: context,
+                    builder: (final context) {
+                      return AlertDialog(
+                        content: Text(
+                          Language.of(context).backupWarning,
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              if (context
+                                  .read<AppConfiguration>()
+                                  .password
+                                  .isNotEmpty) {
+                                Navigator.of(context).pushReplacementNamed(
+                                  AppRoutes.lockScreen,
+                                  arguments: false,
+                                );
+                              } else {
+                                showSnackbar(
+                                  context,
+                                  Language.of(context).setPasswordFirst,
+                                );
+                              }
+                            },
+                            child: Text(
+                              Language.of(context).alertDialogOp1,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              exportToFile().then((final value) {
+                                showSnackbar(
+                                  context,
+                                  value
+                                      ? Language.of(context).done
+                                      : Language.of(context).error,
+                                  snackBarBehavior: SnackBarBehavior.floating,
+                                );
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              Language.of(context).alreadyDone,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+              SettingsTile(
                 title: Language.of(context).changePassword,
                 leading: const Icon(
                   Icons.phonelink_lock,
@@ -224,7 +295,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       barrierDismissible: true,
       context: context,
       builder: (final context) => MyAlertDialog(
-        content: Text(Language.of(context).notAvailJustification),
+        content: Text(
+          Language.of(context).notAvailJustification,
+        ),
       ),
     );
   }
@@ -244,7 +317,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         .isNotEmpty) {
       await Navigator.pushNamed(context, AppRoutes.lockScreen, arguments: true);
     } else {
-      showSnackbar(context, Language.of(context).setPasswordFirst);
+      showSnackbar(
+        context,
+        Language.of(context).setPasswordFirst,
+      );
     }
   }
 
@@ -256,7 +332,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text(Language.of(context).areYouSure),
+                  Text(
+                    Language.of(context).areYouSure,
+                  ),
                 ],
               ),
             ),
@@ -265,13 +343,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onPressed: () async {
                   Navigator.of(context).pop(true);
                 },
-                child: Text(Language.of(context).alertDialogOp1),
+                child: Text(
+                  Language.of(context).alertDialogOp1,
+                ),
               ),
               TextButton(
                 onPressed: () async {
                   Navigator.of(context).pop(false);
                 },
-                child: Text(Language.of(context).alertDialogOp2),
+                child: Text(
+                  Language.of(context).alertDialogOp2,
+                ),
               ),
             ],
           ),
@@ -287,12 +369,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return;
       }
 
-      showSnackbar(context, Language.of(context).done);
+      showSnackbar(
+        context,
+        Language.of(context).done,
+      );
     }
   }
 
   Widget languageTrailing() {
     return PopupMenuButton(
+      color: Theme.of(context).scaffoldBackgroundColor,
       icon: Icon(
         Icons.arrow_drop_down,
         color: Theme.of(context).colorScheme.secondary,

@@ -3,8 +3,8 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-class KeyPad extends StatelessWidget {
-  const KeyPad({
+class PinCodeBoxes extends StatelessWidget {
+  const PinCodeBoxes({
     required this.doneCallBack,
     required this.pinPutController,
     required this.pinPutFocusNode,
@@ -29,25 +29,28 @@ class KeyPad extends StatelessWidget {
       ),
     );
     return Padding(
-        padding: const EdgeInsets.only(left: 65, right: 65),
-        child: PinPut(
-          useNativeKeyboard: false,
-          fieldsCount: pinCodeLen,
-          withCursor: true,
-          textStyle: const TextStyle(fontSize: 20),
-          eachFieldWidth: 55,
-          eachFieldHeight: 35,
-          onSubmit: (final pass) async {
-            doneCallBack.call(pass);
-            await Future.delayed(const Duration(milliseconds: pinEnterReset),);
-            pinPutController.clear();
-          },
-          focusNode: pinPutFocusNode,
-          controller: pinPutController,
-          submittedFieldDecoration: submitted,
-          selectedFieldDecoration: currentDecoration,
-          followingFieldDecoration: submitted,
-          pinAnimationType: PinAnimationType.fade,
-        ),);
+      padding: EdgeInsets.symmetric(horizontal: 16.7 * widthMultiplier),
+      child: PinPut(
+        fieldsCount: pinCodeLen,
+        withCursor: true,
+        textStyle: TextStyle(fontSize: 5.12 * widthMultiplier),
+        eachFieldWidth: 14 * widthMultiplier,
+        eachFieldHeight: 14 * widthMultiplier,
+        /* 4.1 * heightMultiplier,*/
+        onSubmit: (final pass) async {
+          doneCallBack.call(pass);
+          await Future.delayed(
+            const Duration(milliseconds: pinEnterReset),
+          );
+          pinPutController.clear();
+        },
+        focusNode: pinPutFocusNode,
+        controller: pinPutController,
+        submittedFieldDecoration: submitted,
+        selectedFieldDecoration: currentDecoration,
+        followingFieldDecoration: submitted,
+        pinAnimationType: PinAnimationType.fade,
+      ),
+    );
   }
 }

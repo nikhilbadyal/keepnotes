@@ -115,6 +115,12 @@ class FloatingDotState extends State<FloatingDot>
   late AnimationController controller;
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
 

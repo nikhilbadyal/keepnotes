@@ -4,7 +4,9 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class Login extends StatefulWidget {
-  const Login({final Key? key,}) : super(key: key);
+  const Login({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -13,47 +15,54 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(final BuildContext context) {
-    SizeConfig().init(context);
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20),),
+        padding: EdgeInsets.symmetric(
+          horizontal: 7 * SizeConfig.widthMultiplier,
+        ),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: SizeConfig.screenHeight * 0.04),
+              SizedBox(height: screenHeight * 0.04),
               Text(
                 Language.of(context).loginToContinue,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyText1!.color,
-                  fontSize: getProportionateScreenWidth(28),
+                  fontSize: 3 * textMultiplier,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
                 Language.of(context).loginExplaination,
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText1!.color,
+                  fontSize: 1.8 * textMultiplier,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              SizedBox(height: SizeConfig.screenHeight * 0.08),
+              SizedBox(height: screenHeight * 0.08),
               const SignForm(),
-              SizedBox(height: SizeConfig.screenHeight * 0.08),
+              SizedBox(height: screenHeight * 0.08),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SocialCard(
                     icon: googleIcon,
                     press: () async {
-                      unawaited(showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (final context) {
-                          return SpinKitCubeGrid(
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: MediaQuery.of(context).size.height * 0.1,
-                          );
-                        },
-                      ),);
+                      unawaited(
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (final context) {
+                            return SpinKitCubeGrid(
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: MediaQuery.of(context).size.height * 0.1,
+                            );
+                          },
+                        ),
+                      );
                       final response = await Provider.of<Auth>(
                         context,
                         listen: false,
@@ -67,12 +76,16 @@ class _LoginState extends State<Login> {
                         listen: false,
                       ).isLoggedIn) {
                         Provider.of<AppConfiguration>(context, listen: false)
-                                .password =
-                            initialize(Provider.of<Auth>(context, listen: false)
-                                .auth
-                                .currentUser,);
-                        await Navigator.pushNamedAndRemoveUntil(context,
-                            AppRoutes.homeScreen, (final route) => false,);
+                            .password = initialize(
+                          Provider.of<Auth>(context, listen: false)
+                              .auth
+                              .currentUser,
+                        );
+                        await Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          AppRoutes.homeScreen,
+                          (final route) => false,
+                        );
                       } else {
                         Navigator.of(context).pop();
                         handleFirebaseError(
@@ -84,7 +97,9 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              SizedBox(height: getProportionateScreenHeight(20),),
+              SizedBox(
+                height: 2.8 * heightMultiplier,
+              ),
               const NoAccountText(),
             ],
           ),

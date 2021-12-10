@@ -13,7 +13,6 @@ class _WelcomeState extends State<Welcome> {
 
   @override
   Widget build(final BuildContext context) {
-    SizeConfig().init(context);
     final splashData = <Map<String, String>>[
       {'text': Language.of(context).splashDes1, 'image': splashImage1},
       {'text': Language.of(context).splashDes2, 'image': splashImage2},
