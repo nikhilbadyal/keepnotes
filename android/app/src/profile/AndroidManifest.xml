@@ -2,5 +2,4 @@
     package="com.nikhil.flutter.notes">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <application android:label="@string/app_name" />
 </manifest>
