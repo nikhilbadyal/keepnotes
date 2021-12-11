@@ -37,22 +37,22 @@ class _IntroPermissionsState extends State<IntroPermissions> {
             child: Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(4.05 * widthMultiplier),
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 8),
+                      padding: EdgeInsets.only(right: 2.05 * widthMultiplier),
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 300),
                         child: accessGranted
                             ? Icon(
                                 MdiIcons.lockOpen,
-                                size: 40,
+                                size: 10.25 * widthMultiplier,
                                 color: Theme.of(context).colorScheme.secondary,
                               )
                             : Icon(
                                 MdiIcons.lock,
-                                size: 40,
+                                size: 10.25 * widthMultiplier,
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
                       ),
@@ -155,7 +155,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                 child: AnimatedContainer(
                   margin: const EdgeInsets.only(bottom: 32),
                   duration: const Duration(milliseconds: 500),
-                  height: 50,
+                  height: 5.88 * heightMultiplier,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: Theme.of(context).colorScheme.secondary,
@@ -183,7 +183,8 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(right: 16),
+                              margin:
+                                  EdgeInsets.only(right: 4.1 * widthMultiplier),
                               child: const Icon(
                                 EvaIcons.lockOutline,
                                 color: Colors.white,

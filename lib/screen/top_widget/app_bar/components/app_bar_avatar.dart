@@ -3,7 +3,10 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class AppBarAvatar extends StatefulWidget {
-  const AppBarAvatar({this.onWidgetTap, final Key? key,}) : super(key: key);
+  const AppBarAvatar({
+    this.onWidgetTap,
+    final Key? key,
+  }) : super(key: key);
 
   final Function()? onWidgetTap;
 
@@ -17,7 +20,9 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
 
   @override
   void initState() {
-    _animatedChild = child(Key(gender),);
+    _animatedChild = child(
+      Key(gender),
+    );
     super.initState();
   }
 
@@ -44,7 +49,9 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
       } else {
         gender = 'men';
       }
-      _animatedChild = child(Key(gender),);
+      _animatedChild = child(
+        Key(gender),
+      );
     });
     addStringToSF('gender', gender);
   }

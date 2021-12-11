@@ -3,13 +3,15 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SelectDeSelectAllFab extends StatelessWidget {
-  const SelectDeSelectAllFab({final Key? key,}) : super(key: key);
+  const SelectDeSelectAllFab({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(final BuildContext context) {
     final isFalseAvailable = homeBody!.selectedFlag.containsValue(false);
     return Padding(
-      padding: const EdgeInsets.only(bottom: 25),
+      padding: EdgeInsets.only(bottom: 2.9 * heightMultiplier),
       child: FloatingActionButton(
         onPressed: _selectAll,
         child: Icon(

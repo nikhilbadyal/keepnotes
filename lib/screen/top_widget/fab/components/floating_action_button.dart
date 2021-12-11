@@ -6,7 +6,7 @@ class Fab extends StatelessWidget {
   const Fab({
     required OnFabTap this.onFabTap,
     this.noteState = NoteState.unspecified,
-    this.icon = addIcon,
+    this.icon,
     final Key? key,
   }) : super(key: key);
 
@@ -14,12 +14,12 @@ class Fab extends StatelessWidget {
 
   final NoteState noteState;
 
-  final Icon icon;
+  final Icon? icon;
 
   @override
   Widget build(final BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 25),
+      padding: EdgeInsets.only(bottom: 2.94 * heightMultiplier),
       child: GestureDetector(
         onTap: () {
           HapticFeedback.vibrate();
@@ -27,7 +27,7 @@ class Fab extends StatelessWidget {
         },
         child: FloatingActionButton(
           onPressed: () => onFabTap(context, noteState),
-          child: icon,
+          child: icon ?? addIcon,
         ),
       ),
     );

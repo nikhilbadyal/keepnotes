@@ -30,13 +30,17 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                   icon: const Icon(Icons.arrow_back_outlined),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 4.1 * widthMultiplier),
                 Text(Language.of(context).options),
               ],
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            margin: EdgeInsets.only(
+              left: 4.1 * widthMultiplier,
+              right: 4.1 * widthMultiplier,
+              bottom: 16,
+            ),
             child: Column(
               children: [
                 Flex(
@@ -47,8 +51,9 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                         widget.autoSaver.cancel();
                         widget.saveNote();
                         unawaited(
-                            Provider.of<NotesHelper>(context, listen: false)
-                                .trash(widget.note),);
+                          Provider.of<NotesHelper>(context, listen: false)
+                              .trash(widget.note),
+                        );
                         Navigator.of(context).popUntil(
                           (final route) =>
                               route.settings.name == widget.note.path,
@@ -62,10 +67,12 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                         widget.autoSaver.cancel();
                         widget.saveNote();
                         unawaited(
-                            Provider.of<NotesHelper>(context, listen: false)
-                                .archive(widget.note),);
-                        Navigator.of(context)
-                            .popUntil(ModalRoute.withName(widget.note.path),);
+                          Provider.of<NotesHelper>(context, listen: false)
+                              .archive(widget.note),
+                        );
+                        Navigator.of(context).popUntil(
+                          ModalRoute.withName(widget.note.path),
+                        );
                       },
                       label: Language.of(context).archive,
                       icon: Icons.archive_outlined,
@@ -76,17 +83,21 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                         widget.autoSaver.cancel();
                         widget.saveNote();
                         Navigator.of(context).pop();
-                        unawaited(Clipboard.setData(
-                          ClipboardData(text: widget.note.title),
-                        ).then((final _) {
+                        unawaited(
                           Clipboard.setData(
-                            ClipboardData(text: widget.note.content),
-                          ).then(
-                            (final value) => showSnackbar(
-                                context, Language.of(context).done,
-                                snackBarBehavior: SnackBarBehavior.floating,),
-                          );
-                        }),);
+                            ClipboardData(text: widget.note.title),
+                          ).then((final _) {
+                            Clipboard.setData(
+                              ClipboardData(text: widget.note.content),
+                            ).then(
+                              (final value) => showSnackbar(
+                                context,
+                                Language.of(context).done,
+                                snackBarBehavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          }),
+                        );
                       },
                       label: Language.of(context).clipboard,
                     ),
@@ -96,8 +107,9 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                         widget.autoSaver.cancel();
                         widget.saveNote();
                         unawaited(
-                            Provider.of<NotesHelper>(context, listen: false)
-                                .trash(widget.note),);
+                          Provider.of<NotesHelper>(context, listen: false)
+                              .trash(widget.note),
+                        );
                         Navigator.of(context).popUntil(
                           (final route) =>
                               route.settings.name == widget.note.path,

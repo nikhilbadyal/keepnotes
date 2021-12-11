@@ -38,7 +38,9 @@ extension NoteInScreen on ScreenTypes {
 }
 
 abstract class TopWidgetBase extends StatefulWidget {
-  const TopWidgetBase({final Key? key,}) : super(key: key);
+  const TopWidgetBase({
+    final Key? key,
+  }) : super(key: key);
 
   BackPresAction? backPressAction();
 

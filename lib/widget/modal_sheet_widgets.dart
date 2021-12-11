@@ -3,24 +3,24 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 abstract class ModalSheetWidgets extends StatelessWidget {
-  const ModalSheetWidgets(
-      {required this.onTap,
-      required this.icon,
-      required this.label,
-      final Key? key,})
-      : super(key: key);
+  const ModalSheetWidgets({
+    required this.onTap,
+    required this.icon,
+    required this.label,
+    final Key? key,
+  }) : super(key: key);
   final Function()? onTap;
   final IconData icon;
   final String label;
 }
 
 class ModalSheetWidget extends ModalSheetWidgets {
-  const ModalSheetWidget(
-      {required final Function()? onTap,
-      required final IconData icon,
-      required final String label,
-      final Key? key,})
-      : super(key: key, onTap: onTap, icon: icon, label: label);
+  const ModalSheetWidget({
+    required final Function()? onTap,
+    required final IconData icon,
+    required final String label,
+    final Key? key,
+  }) : super(key: key, onTap: onTap, icon: icon, label: label);
 
   @override
   Widget build(final BuildContext context) => Flexible(
@@ -28,8 +28,8 @@ class ModalSheetWidget extends ModalSheetWidgets {
         child: GestureDetector(
           onTap: onTap,
           child: Container(
-            margin: const EdgeInsets.only(left: 8),
-            height: 80,
+            margin: EdgeInsets.only(left: 2 * widthMultiplier),
+            height: 9.41 * heightMultiplier,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
@@ -49,9 +49,9 @@ class ModalSheetWidget extends ModalSheetWidgets {
               children: [
                 Icon(
                   icon,
-                  size: 35,
+                  size: 8.87 * imageSizeMultiplier,
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 4.1 * widthMultiplier),
                 Text(label),
               ],
             ),
@@ -61,7 +61,9 @@ class ModalSheetWidget extends ModalSheetWidgets {
 }
 
 class ModalSheetDeleteAllWidget extends StatefulWidget {
-  const ModalSheetDeleteAllWidget({final Key? key,}) : super(key: key);
+  const ModalSheetDeleteAllWidget({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   State<ModalSheetDeleteAllWidget> createState() =>
@@ -110,10 +112,11 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
               return;
             }
             Navigator.of(context).popUntil(
-                (final route) => route.settings.name == AppRoutes.trashScreen,);
+              (final route) => route.settings.name == AppRoutes.trashScreen,
+            );
           },
           child: Container(
-            height: 80,
+            height: 9.41 * heightMultiplier,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
@@ -131,11 +134,11 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   TablerIcons.trash,
-                  size: 35,
+                  size: 9 * widthMultiplier,
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 4.1 * widthMultiplier),
                 Text(Language.of(context).emptyTrash),
               ],
             ),

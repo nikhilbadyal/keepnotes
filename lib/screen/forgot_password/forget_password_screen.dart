@@ -3,7 +3,9 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class ForgetPassword extends StatefulWidget {
-  const ForgetPassword({final Key? key,}) : super(key: key);
+  const ForgetPassword({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   _ForgetPasswordState createState() => _ForgetPasswordState();
@@ -27,13 +29,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(final BuildContext context) {
     return SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Form(
-          key: formKey,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25),
-            child: ListView(children: [
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: Form(
+        key: formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 6.41 * widthMultiplier),
+          child: ListView(
+            children: [
               const SizedBox(height: 75),
               SizedBox(
                 height: 125,
@@ -43,15 +46,18 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     Text(
                       Language.of(context).hello,
                       style: TextStyle(
-                          fontFamily: 'Trueno', fontSize: 7.1 * textMultiplier),
+                        fontFamily: 'Trueno',
+                        fontSize: 7.1 * textMultiplier,
+                      ),
                     ),
                     Positioned(
                       top: 50,
                       child: Text(
                         Language.of(context).there,
                         style: TextStyle(
-                            fontFamily: 'Trueno',
-                            fontSize: 7.1 * textMultiplier),
+                          fontFamily: 'Trueno',
+                          fontSize: 7.1 * textMultiplier,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -109,7 +115,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   Validators.required(Language.of(context).required),
                 ]),
               ),
-              const SizedBox(height: 50),
+              SizedBox(height: 5.88 * heightMultiplier),
               GestureDetector(
                 onTap: () async {
                   if (checkFields()) {
@@ -133,7 +139,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   }
                 },
                 child: SizedBox(
-                  height: 50,
+                  height: 5.88 * heightMultiplier,
                   child: Material(
                     borderRadius: BorderRadius.circular(25),
                     shadowColor:
@@ -144,16 +150,20 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       child: Text(
                         Language.of(context).resetPassword,
                         style: const TextStyle(
-                            color: Colors.white, fontFamily: 'Trueno',),
+                          color: Colors.white,
+                          fontFamily: 'Trueno',
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 25),
-            ],),
+            ],
           ),
-        ),);
+        ),
+      ),
+    );
   }
 }
 

@@ -2,14 +2,14 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar(
-      {required this.note,
-      required this.saveNote,
-      required this.onIconTap,
-      required this.isReadOnly,
-      required this.autoSaverTimer,
-      final Key? key,})
-      : super(key: key);
+  const BottomBar({
+    required this.note,
+    required this.saveNote,
+    required this.onIconTap,
+    required this.isReadOnly,
+    required this.autoSaverTimer,
+    final Key? key,
+  }) : super(key: key);
 
   final Note note;
   final Future<void> Function() saveNote;

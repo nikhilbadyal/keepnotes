@@ -14,21 +14,30 @@ Future<bool> launchUrl(final String url) async {
   }
 }
 
-void showSnackbar(final BuildContext context, final String data,
-    {final Duration duration = const Duration(seconds: snackBarDuration),
-    final SnackBarAction? action,
-    final SnackBarBehavior? snackBarBehavior,}) {
+void showSnackbar(
+  final BuildContext context,
+  final String data, {
+  final Duration duration = const Duration(seconds: snackBarDuration),
+  final SnackBarAction? action,
+  final SnackBarBehavior? snackBarBehavior,
+}) {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(
-    _getSnackBar(data,
-        duration: duration, snackBarBehavior: snackBarBehavior, action: action,),
+    _getSnackBar(
+      data,
+      duration: duration,
+      snackBarBehavior: snackBarBehavior,
+      action: action,
+    ),
   );
 }
 
-SnackBar _getSnackBar(final String data,
-    {required final Duration duration,
-    final SnackBarAction? action,
-    final SnackBarBehavior? snackBarBehavior,}) {
+SnackBar _getSnackBar(
+  final String data, {
+  required final Duration duration,
+  final SnackBarAction? action,
+  final SnackBarBehavior? snackBarBehavior,
+}) {
   return SnackBar(
     key: UniqueKey(),
     content: Text(

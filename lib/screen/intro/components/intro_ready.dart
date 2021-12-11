@@ -30,7 +30,7 @@ class IntroReady extends StatelessWidget {
                           duration: const Duration(milliseconds: 300),
                           child: Icon(
                             EvaIcons.layersOutline,
-                            size: 40,
+                            size: 10.2 * widthMultiplier,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
@@ -86,8 +86,8 @@ class IntroReady extends StatelessWidget {
                               ),
                               children: [
                                 TextSpan(
-                                  text:
-                                      '${Language.of(context).over},\n${Language.of(context).enjoy} ',
+                                  text: '${Language.of(context).over},'
+                                      '\n${Language.of(context).enjoy} ',
                                 ),
                                 TextSpan(
                                   text: '${Language.of(context).appName}!',
@@ -115,7 +115,7 @@ class IntroReady extends StatelessWidget {
           forward: true,
           slideSide: SlideFromSlide.bottom,
           child: Padding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: 4.1 * widthMultiplier),
             child: FloatingActionButton.extended(
               backgroundColor: Theme.of(context).colorScheme.secondary,
               label: Text(

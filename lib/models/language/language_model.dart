@@ -57,7 +57,8 @@ class FallbackLocalizationDelegate
 
   @override
   bool shouldReload(
-          covariant final LocalizationsDelegate<MaterialLocalizations> old,) =>
+    covariant final LocalizationsDelegate<MaterialLocalizations> old,
+  ) =>
       false;
 }
 

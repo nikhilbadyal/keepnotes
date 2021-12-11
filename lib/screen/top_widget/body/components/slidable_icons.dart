@@ -4,9 +4,14 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-Widget slidableAction(final String label, final Color foregroundColor,
-    final Note note, final IconData icon, final OnBuildContextTap onPressed,
-    {final OnBuildContextTap? onLongPressed,}) {
+Widget slidableAction(
+  final String label,
+  final Color foregroundColor,
+  final Note note,
+  final IconData icon,
+  final OnBuildContextTap onPressed, {
+  final OnBuildContextTap? onLongPressed,
+}) {
   return SlidableAction(
     autoClose: false,
     icon: icon,

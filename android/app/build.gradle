@@ -7,7 +7,6 @@ if (localPropertiesFile.exists()) {
 }
 
 def appcompat_version = "1.4.0"
-def lottie_version = "4.2.2"
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
@@ -117,6 +116,4 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.appcompat:appcompat-resources:$appcompat_version"
-    implementation "com.airbnb.android:lottie-compose:$lottie_version"
-    implementation "androidx.constraintlayout:constraintlayout:2.1.2"
 }

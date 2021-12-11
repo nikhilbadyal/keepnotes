@@ -385,7 +385,8 @@ class LanguageHi extends Language {
 
   @override
   String get storageJustify =>
-      'को  डेटा आयात और निर्यात करने के लिए आपके स्टोरेज की परमिशन की आवश्यकता है';
+      'को  डेटा आयात और निर्यात करने के लिए आपके स्टोरेज की '
+      'परमिशन की आवश्यकता है';
 
   @override
   String get next => 'अगला';

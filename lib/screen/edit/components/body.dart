@@ -25,10 +25,10 @@ class _EditBodyState extends State<EditBody> {
   @override
   Widget build(final BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(
+      padding: EdgeInsets.only(
         bottom: kBottomNavigationBarHeight,
-        left: 10,
-        right: 10,
+        left: 2.53 * widthMultiplier,
+        right: 2.53 * widthMultiplier,
       ),
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),

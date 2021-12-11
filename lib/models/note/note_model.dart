@@ -22,12 +22,13 @@ extension NotePath on Note {
 }
 
 class Note implements Comparable<Note> {
-  Note(
-      {required this.lastModify,
-      required this.id,
-      this.title = '',
-      this.content = '',
-      this.state = NoteState.unspecified,});
+  Note({
+    required this.lastModify,
+    required this.id,
+    this.title = '',
+    this.content = '',
+    this.state = NoteState.unspecified,
+  });
 
   String id;
   String title;
@@ -43,11 +44,12 @@ class Note implements Comparable<Note> {
     final NoteState? state,
   }) =>
       Note(
-          id: id,
-          title: title ?? this.title,
-          state: state ?? this.state,
-          lastModify: lastModify ?? this.lastModify,
-          content: content ?? this.content,);
+        id: id,
+        title: title ?? this.title,
+        state: state ?? this.state,
+        lastModify: lastModify ?? this.lastModify,
+        content: content ?? this.content,
+      );
 
   @override
   String toString() => 'Object is $id $title $content $lastModify $state';

@@ -69,9 +69,7 @@ class _IntroScreenState extends State<IntroScreen>
     });
 
     final backgroundColor =
-        Theme.of(context).scaffoldBackgroundColor == Colors.white
-            ? Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7)
-            : const Color.fromARGB(255, 40, 40, 40).withOpacity(0.9);
+        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7);
 
     Widget _body() {
       return Column(
@@ -85,7 +83,7 @@ class _IntroScreenState extends State<IntroScreen>
           ),
           Expanded(
             child: Container(
-              height: 50,
+              height: 5.88 * heightMultiplier,
               alignment: Alignment.center,
               child: Stack(
                 alignment: Alignment.center,
@@ -93,7 +91,7 @@ class _IntroScreenState extends State<IntroScreen>
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.only(left: 2.05 * widthMultiplier),
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 300),
                         child: _selectedIndex == 3
@@ -101,7 +99,9 @@ class _IntroScreenState extends State<IntroScreen>
                             : TextButton(
                                 style: TextButton.styleFrom(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(
+                                      0.59 * textMultiplier,
+                                    ),
                                   ),
                                 ),
                                 child: Text(
@@ -135,11 +135,14 @@ class _IntroScreenState extends State<IntroScreen>
                       return Center(
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 250),
-                          margin: const EdgeInsets.only(left: 8, right: 8),
-                          height: 10,
-                          width: 10,
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 2.05 * widthMultiplier,
+                          ),
+                          height: 2.57 * widthMultiplier,
+                          width: 2.57 * widthMultiplier,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
+                            borderRadius:
+                                BorderRadius.circular(5.88 * textMultiplier),
                             color: _selectedIndex == index
                                 ? Theme.of(context).colorScheme.secondary
                                 : Theme.of(context)
@@ -157,11 +160,14 @@ class _IntroScreenState extends State<IntroScreen>
                         ? Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                              padding: const EdgeInsets.only(right: 8),
+                              padding:
+                                  EdgeInsets.only(right: 0.94 * textMultiplier),
                               child: TextButton(
                                 style: TextButton.styleFrom(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(
+                                      0.58 * textMultiplier,
+                                    ),
                                   ),
                                 ),
                                 onPressed: _selectedIndex <
@@ -193,9 +199,9 @@ class _IntroScreenState extends State<IntroScreen>
               ),
             ),
           ),
-          /*Container(
+          Container(
             height: MediaQuery.of(context).padding.bottom,
-          )*/
+          )
         ],
       );
     }

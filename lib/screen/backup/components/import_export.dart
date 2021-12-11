@@ -25,9 +25,15 @@ Future<bool> exportToFile() async {
     try {
       final file = await File('${generalDownloadDir.path}/$fileName').create();
       final data = await FirebaseDatabaseHelper.getAll();
-      final items = data.docs.map((final e) => e.data(),).toList();
+      final items = data.docs
+          .map(
+            (final e) => e.data(),
+          )
+          .toList();
 
-      await file.writeAsString(json.encode(items),);
+      await file.writeAsString(
+        json.encode(items),
+      );
     } on Exception catch (_) {
       return false;
     }

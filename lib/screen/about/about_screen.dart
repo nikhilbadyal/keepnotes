@@ -3,7 +3,9 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class AboutMe extends StatefulWidget {
-  const AboutMe({final Key? key,}) : super(key: key);
+  const AboutMe({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   _AboutMeState createState() => _AboutMeState();
@@ -32,8 +34,8 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            const Divider(
-              height: 60,
+            Divider(
+              height: 7.05 * heightMultiplier,
               indent: 12,
               endIndent: 12,
             ),
@@ -46,7 +48,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 color: Theme.of(context).textTheme.bodyText1!.color,
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 3.52 * heightMultiplier),
             Text(
               Language.of(context).devName,
               style: TextStyle(
@@ -55,21 +57,22 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 fontWeight: FontWeight.normal,
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 3.52 * heightMultiplier),
             Text(
               Language.of(context).email,
               textAlign: TextAlign.start,
               style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'Product Sans',
-                  color: Theme.of(context).textTheme.bodyText1!.color,),
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Product Sans',
+                color: Theme.of(context).textTheme.bodyText1!.color,
+              ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 3.52 * heightMultiplier),
             Row(
               children: <Widget>[
                 const Icon(Icons.email),
-                const SizedBox(
-                  width: 10,
+                SizedBox(
+                  width: 2.56 * widthMultiplier,
                 ),
                 GestureDetector(
                   onTap: () async => launchUrl(
@@ -86,13 +89,16 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 ),
               ],
             ),
-            const Divider(
-              height: 60,
+            Divider(
+              height: 7 * heightMultiplier,
               indent: 12,
               endIndent: 12,
             ),
             Container(
-              margin: const EdgeInsets.only(left: 16, top: 8),
+              margin: EdgeInsets.only(
+                left: 4.1 * widthMultiplier,
+                top: 0.94 * heightMultiplier,
+              ),
               child: Center(
                 child: Text(
                   Language.of(context).social,
@@ -106,9 +112,9 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               ),
             ),
             const SocialLinksRow(),
-            const SizedBox(height: 16),
-            const Divider(
-              height: 60,
+            SizedBox(height: 1.88 * heightMultiplier),
+            Divider(
+              height: 7 * heightMultiplier,
               indent: 12,
               endIndent: 12,
             ),

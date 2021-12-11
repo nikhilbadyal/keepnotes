@@ -42,8 +42,10 @@ class SizeConfig {
 
   @override
   String toString() {
-    return 'Width: $_screenWidth \nHeight: $_screenHeight \nTextFactor: $textMultiplier '
-        '\nImageFactor: $imageSizeMultiplier \nHeightFactor: $_heightMultiplier '
+    return 'Width: $_screenWidth \nHeight: $_screenHeight '
+        '\nTextFactor: $textMultiplier '
+        '\nImageFactor: $imageSizeMultiplier \nHeightFactor:'
+        ' $_heightMultiplier '
         '\nWidthFactor: $widthMultiplier';
   }
 }

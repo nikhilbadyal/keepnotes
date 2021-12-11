@@ -25,7 +25,7 @@ class IntroWelcome extends StatelessWidget {
                   children: [
                     Flexible(
                       child: AvatarGlow(
-                        endRadius: 120,
+                        endRadius: 15 * heightMultiplier,
                         showTwoGlows: false,
                         glowColor: Theme.of(context)
                             .colorScheme
@@ -33,8 +33,8 @@ class IntroWelcome extends StatelessWidget {
                             .withOpacity(0.1),
                         repeatPauseDuration: const Duration(milliseconds: 400),
                         child: Container(
-                          height: 160,
-                          width: 160,
+                          height: 18.82 * heightMultiplier,
+                          width: 40.81 * widthMultiplier,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(200),
                             color: Theme.of(context)
@@ -44,8 +44,8 @@ class IntroWelcome extends StatelessWidget {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 120,
-                              width: 120,
+                              height: 13.11 * heightMultiplier,
+                              width: 30 * widthMultiplier,
                               child: SvgPicture.asset(
                                 'assets/images/icon.svg',
                               ),
@@ -100,7 +100,7 @@ class IntroWelcome extends StatelessWidget {
                 },
                 child: Container(
                   alignment: Alignment.topLeft,
-                  margin: const EdgeInsets.all(16),
+                  margin: EdgeInsets.all(4.1 * widthMultiplier),
                   child: Row(
                     children: [
                       Flexible(
@@ -111,13 +111,13 @@ class IntroWelcome extends StatelessWidget {
                             children: [
                               Container(
                                 alignment: Alignment.center,
-                                height: 15,
-                                width: 15,
+                                height: 3.8 * widthMultiplier,
+                                width: 3.8 * widthMultiplier,
                                 color: Colors.white,
                               ),
                               Icon(
                                 MdiIcons.youtube,
-                                size: 40,
+                                size: 10.2 * widthMultiplier,
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
                             ],
@@ -177,7 +177,7 @@ class IntroWelcome extends StatelessWidget {
           forward: true,
           slideSide: SlideFromSlide.bottom,
           child: Padding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: 4.1 * widthMultiplier),
             child: FloatingActionButton.extended(
               backgroundColor: Theme.of(context).colorScheme.secondary,
               label: Text(

@@ -29,9 +29,12 @@ class NoteWidget extends StatelessWidget {
         onLongPress: onItemLongPress,
         onTap: onItemTap,
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+          margin: EdgeInsets.symmetric(
+            horizontal: 1.02 * widthMultiplier,
+            vertical: 0.47 * heightMultiplier,
+          ),
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: EdgeInsets.symmetric(horizontal: 3.07 * widthMultiplier),
           decoration: BoxDecoration(
             color: appTheme == AppTheme.light
                 ? Theme.of(context).floatingActionButtonTheme.foregroundColor
@@ -47,8 +50,8 @@ class NoteWidget extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 1.17 * heightMultiplier,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,8 +72,8 @@ class NoteWidget extends StatelessWidget {
                         )
                       else
                         Container(),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 1.17 * heightMultiplier,
                       ),
                       Text(
                         note.strLastModifiedDate,
@@ -81,7 +84,8 @@ class NoteWidget extends StatelessWidget {
                             fontSize: 1.52 * textMultiplier,
                             fontWeight: FontWeight.w400,
                             height: 1.3,
-                          ),),
+                          ),
+                        ),
                       ),
                       const SizedBox(
                         height: 8,
@@ -97,7 +101,8 @@ class NoteWidget extends StatelessWidget {
                               fontSize: 1.76 * textMultiplier,
                               fontWeight: FontWeight.w400,
                               height: 1.5,
-                            ),),
+                            ),
+                          ),
                         ),
                       ),
                     ],

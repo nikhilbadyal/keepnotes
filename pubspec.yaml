@@ -20,7 +20,7 @@ dependencies:
   firebase_auth: ^3.3.3
   firebase_core: ^1.10.5
   cloud_firestore: ^3.1.4
-  encrypt: ^5.0.0
+  encrypt: ^5.0.1
   material_design_icons_flutter: ^5.0.6595
   file_picker: ^4.2.7
   eva_icons_flutter: ^3.0.2
@@ -32,9 +32,9 @@ dependencies:
   local_auth: ^1.1.8
   logger: ^1.1.0
   path: ^1.8.0
-  provider: ^6.0.0
+  provider: ^6.0.1
   permission_handler: ^8.3.0
-  sentry_flutter: ^6.2.0
+  sentry_flutter: ^6.2.1
   shared_preferences: ^2.0.11
   sqflite: ^2.0.1
   url_launcher: ^6.0.17

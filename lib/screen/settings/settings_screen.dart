@@ -42,7 +42,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget settingsList() {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: EdgeInsets.only(top: 0.94 * heightMultiplier),
       child: SettingsList(
         sections: [
           TilesSection(
@@ -383,7 +383,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Icons.arrow_drop_down,
         color: Theme.of(context).colorScheme.secondary,
       ),
-      iconSize: 30,
+      iconSize: 3.52 * heightMultiplier,
       onSelected: onLocaleChange,
       itemBuilder: (final context) => supportedLanguages
           .map(
