@@ -340,6 +340,8 @@ abstract class Language {
 
   String get ready;
 
+  String get allowAccess;
+
   static Language of(final BuildContext context) =>
       Localizations.of<Language>(context, Language) ?? LanguageHi();
 }

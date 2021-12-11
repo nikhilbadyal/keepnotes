@@ -3,26 +3,22 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-ThemeData blackTheme(final Color primary, final Color accent) {
+ThemeData blackTheme(final Color primary, final Color secondary) {
   return ThemeData.dark().copyWith(
     scaffoldBackgroundColor: Colors.black,
     canvasColor: Colors.black,
     appBarTheme: AppBarTheme(
       color: primary,
       elevation: 0,
-      /*systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: primary == Colors.white ? primary : null,
-        statusBarIconBrightness: Brightness.light,
-      ),*/
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       foregroundColor: Colors.white,
-      backgroundColor: accent,
+      backgroundColor: secondary,
     ),
     iconTheme: const IconThemeData().copyWith(color: Colors.white),
-    colorScheme: ColorScheme.dark(primary: primary, secondary: accent),
+    colorScheme: ColorScheme.dark(primary: primary, secondary: secondary),
     snackBarTheme: SnackBarThemeData(
-      backgroundColor: accent,
+      backgroundColor: secondary,
       actionTextColor: greyColor,
       contentTextStyle: TextStyle(color: greyColor),
       behavior: SnackBarBehavior.fixed,
@@ -36,6 +32,11 @@ ThemeData blackTheme(final Color primary, final Color accent) {
     dialogTheme: DialogTheme(
       backgroundColor: Colors.black,
       titleTextStyle: const TextStyle().copyWith(color: Colors.white),
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: lighten(secondary, 30),
+      cursorColor: lighten(secondary, 20),
+      selectionHandleColor: lighten(secondary),
     ),
   );
 }

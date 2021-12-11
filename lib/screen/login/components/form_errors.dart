@@ -24,11 +24,11 @@ class FormError extends StatelessWidget {
       children: [
         SvgPicture.asset(
           errorSvg,
-          height: 5 * SizeConfig.widthMultiplier,
-          width: 5 * SizeConfig.widthMultiplier,
+          height: 5 * widthMultiplier,
+          width: 5 * widthMultiplier,
         ),
         SizedBox(
-          width: 5 * SizeConfig.widthMultiplier,
+          width: 5 * widthMultiplier,
         ),
         Text(error),
       ],

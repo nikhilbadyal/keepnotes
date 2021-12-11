@@ -280,13 +280,13 @@ class CustomSuffixIcon extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(
         0,
-        7 * SizeConfig.widthMultiplier,
-        7 * SizeConfig.widthMultiplier,
-        7 * SizeConfig.widthMultiplier,
+        7 * widthMultiplier,
+        7 * widthMultiplier,
+        7 * widthMultiplier,
       ),
       child: SvgPicture.asset(
         svgIcon,
-        height: 6.8 * SizeConfig.widthMultiplier,
+        height: 6.8 * widthMultiplier,
       ),
     );
   }

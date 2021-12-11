@@ -20,8 +20,8 @@ class _DefaultButtonState extends State<DefaultButton> {
   Widget build(final BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: 5 * SizeConfig.widthMultiplier,
-        right: 5 * SizeConfig.widthMultiplier,
+        left: 5 * widthMultiplier,
+        right: 5 * widthMultiplier,
       ),
       child: SizedBox(
         width: double.infinity,

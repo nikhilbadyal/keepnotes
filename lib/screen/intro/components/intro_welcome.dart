@@ -59,7 +59,7 @@ class IntroWelcome extends StatelessWidget {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 2.35 * textMultiplier,
                             fontFamily: 'YTSans',
                             fontWeight: FontWeight.w400,
                             color: Theme.of(context).textTheme.bodyText1!.color,
@@ -78,7 +78,7 @@ class IntroWelcome extends StatelessWidget {
                                 color: Theme.of(context).colorScheme.secondary,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 1,
-                                fontSize: 32,
+                                fontSize: 3.7 * textMultiplier,
                                 fontFamily: 'Product Sans',
                               ),
                             )
@@ -128,7 +128,7 @@ class IntroWelcome extends StatelessWidget {
                         child: RichText(
                           text: TextSpan(
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 1.88 * textMultiplier,
                               fontFamily: 'YTSans',
                               fontWeight: FontWeight.w400,
                               color:
@@ -182,10 +182,10 @@ class IntroWelcome extends StatelessWidget {
               backgroundColor: Theme.of(context).colorScheme.secondary,
               label: Text(
                 Language.of(context).getStarted,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'YTSans',
-                  fontSize: 16,
+                  fontSize: 1.88 * textMultiplier,
                 ),
               ),
               icon: const Icon(EvaIcons.arrowForward, color: Colors.white),
@@ -208,7 +208,7 @@ class IntroWelcome extends StatelessWidget {
           child: Text(
             Localizations.localeOf(context).languageCode.toUpperCase(),
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 1.64 * textMultiplier,
               fontFamily: 'Product Sans',
               fontWeight: FontWeight.w800,
               color: Theme.of(context).textTheme.bodyText1!.color,
@@ -235,7 +235,7 @@ class IntroWelcome extends StatelessWidget {
                     Text(
                       e.name,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 1.88 * textMultiplier,
                         fontFamily: 'YTSans',
                         fontWeight: FontWeight.w400,
                         color: Theme.of(context).textTheme.bodyText1!.color,

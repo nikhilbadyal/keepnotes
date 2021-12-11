@@ -23,26 +23,17 @@ class _LockBodyState extends State<LockBody> {
   final _pinPutFocusNode = FocusNode();
 
   @override
-  void dispose() {
-    SystemChrome.setPreferredOrientations(
-      [
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ],
+  Widget build(final BuildContext context) {
+    return OrientationBuilder(
+      builder: (final context, final orientation) {
+        return orientation == Orientation.portrait
+            ? buildPotrait()
+            : buildLandscape();
+      },
     );
-    super.dispose();
   }
 
-  // TODO fix orientation keypad
-  @override
-  Widget build(final BuildContext context) {
-    SystemChrome.setPreferredOrientations(
-      [
-        DeviceOrientation.portraitUp,
-      ],
-    );
+  Widget buildPotrait() {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(top: 10),
@@ -70,76 +61,44 @@ class _LockBodyState extends State<LockBody> {
               pinPutFocusNode: _pinPutFocusNode,
               doneCallBack: widget.doneCallBack,
             ),
-            /*Expanded(
-              flex: 2,
-              child: GridView.count(
-                crossAxisCount: 3,
-                shrinkWrap: true,
-                padding: const EdgeInsets.only(left: 50, right: 50),
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((final e) {
-                    return RoundedButton(
-                      pad: shouldPad(e.toString()),
-                      title: Text(
-                        '$e',
-                        style: const TextStyle(fontSize: keyPadNumberSize),
-                      ),
-                      onTap: () {
-                        if (_pinPutController.text.length >= (pinCodeLen + 1)) {
-                          return;
-                        }
-
-                        _pinPutController.text = '${_pinPutController.text}$e';
-                      },
-                    );
-                  }),
-                  if (Provider.of<AppConfiguration>(context).bioNotAvailable ||
-                      widget.onFingerTap == null)
-                    Container()
-                  else
-                    RoundedButton(
-                      title: const Icon(Icons.fingerprint_outlined),
-                      onTap: widget.onFingerTap,
-                    ),
-                  RoundedButton(
-                    title: const Text(
-                      '0',
-                      style: TextStyle(fontSize: keyPadNumberSize),
-                    ),
-                    onTap: () {
-                      if (_pinPutController.text.length >= (pinCodeLen + 1)) {
-                        return;
-                      }
-
-                      _pinPutController.text = '${_pinPutController.text}0';
-                    },
-                  ),
-                  RoundedButton(
-                    title: const Text(
-                      '⌫',
-                      style: TextStyle(fontSize: keyPadNumberSize),
-                    ),
-                    onTap: () {
-                      if (_pinPutController.text.isNotEmpty) {
-                        _pinPutController.text = _pinPutController.text
-                            .substring(0, _pinPutController.text.length - 1);
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),*/
           ],
         ),
       ),
     );
   }
 
-  bool shouldPad(final String string) {
-    if (string == '1' || string == '2' || string == '3') {
-      return false;
-    }
-    return true;
+  Widget buildLandscape() {
+    return SafeArea(
+      child: Row(
+        children: [
+          Expanded(
+            child: SvgPicture.asset(
+              otp,
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 5 * heightMultiplier),
+                  child: Text(
+                    widget.title,
+                    style: TextStyle(
+                      fontSize: 3 * textMultiplier,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                PinCodeBoxes(
+                  pinPutController: _pinPutController,
+                  pinPutFocusNode: _pinPutFocusNode,
+                  doneCallBack: widget.doneCallBack,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

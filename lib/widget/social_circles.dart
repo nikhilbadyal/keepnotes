@@ -19,13 +19,13 @@ class SocialCard extends StatelessWidget {
       onTap: press as void Function()?,
       child: Container(
         margin: EdgeInsets.symmetric(
-          horizontal: 1 * SizeConfig.widthMultiplier,
+          horizontal: 1 * widthMultiplier,
         ),
         padding: EdgeInsets.all(
-          1 * SizeConfig.widthMultiplier,
+          1 * widthMultiplier,
         ),
         height: 4 * heightMultiplier,
-        width: 9 * SizeConfig.widthMultiplier,
+        width: 9 * widthMultiplier,
         decoration: const BoxDecoration(
           color: Color(0xFFF5F6F9),
           shape: BoxShape.circle,

@@ -40,8 +40,8 @@ class _EditBodyState extends State<EditBody> {
               maxLines: null,
               textCapitalization: TextCapitalization.sentences,
               style: GoogleFonts.merriweather(
-                textStyle: const TextStyle(
-                  fontSize: 18,
+                textStyle: TextStyle(
+                  fontSize: 2.15 * textMultiplier,
                   height: 1.7,
                   fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.italic,
@@ -63,9 +63,9 @@ class _EditBodyState extends State<EditBody> {
               maxLines: null,
               showCursor: true,
               style: GoogleFonts.openSans(
-                textStyle: const TextStyle(
+                textStyle: TextStyle(
                   wordSpacing: 1.3,
-                  fontSize: 15,
+                  fontSize: 1.6 * textMultiplier,
                   fontWeight: FontWeight.w400,
                   height: 1.35,
                 ),

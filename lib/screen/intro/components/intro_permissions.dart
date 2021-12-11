@@ -61,7 +61,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 2.63 * textMultiplier,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).textTheme.bodyText1!.color,
@@ -103,7 +103,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 2.15 * textMultiplier,
                         fontFamily: 'YTSans',
                         color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
@@ -173,10 +173,10 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                           children: [
                             Container(
                               margin: const EdgeInsets.only(left: 18, right: 8),
-                              child: const Text(
-                                'Allow Access',
+                              child: Text(
+                                Language.of(context).allowAccess,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 1.91 * textMultiplier,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
                                 ),

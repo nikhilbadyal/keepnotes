@@ -419,4 +419,7 @@ class LanguageHi extends Language {
 
   @override
   String get ready => 'तैयार';
+
+  @override
+  String get allowAccess => 'परमिशन दें';
 }

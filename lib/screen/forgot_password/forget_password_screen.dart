@@ -42,15 +42,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   children: [
                     Text(
                       Language.of(context).hello,
-                      style:
-                          const TextStyle(fontFamily: 'Trueno', fontSize: 60),
+                      style: TextStyle(
+                          fontFamily: 'Trueno', fontSize: 7.1 * textMultiplier),
                     ),
                     Positioned(
                       top: 50,
                       child: Text(
                         Language.of(context).there,
-                        style:
-                            const TextStyle(fontFamily: 'Trueno', fontSize: 60),
+                        style: TextStyle(
+                            fontFamily: 'Trueno',
+                            fontSize: 7.1 * textMultiplier),
                       ),
                     ),
                     Positioned(
@@ -77,7 +78,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 1.79 * textMultiplier,
                       ),
                     ),
                   ),
@@ -94,7 +95,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   labelText: Language.of(context).email,
                   labelStyle: TextStyle(
                     fontFamily: 'Trueno',
-                    fontSize: 12,
+                    fontSize: 1.44 * textMultiplier,
                     color: Colors.grey.withOpacity(0.5),
                   ),
                   focusedBorder: UnderlineInputBorder(

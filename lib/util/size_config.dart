@@ -9,50 +9,53 @@ class SizeConfig {
   static late double _blockWidth = 0;
   static late double _blockHeight = 0;
 
-  static late double textMultiplier;
-  static late double imageSizeMultiplier;
+  static late double _textMultiplier;
+  static late double _imageSizeMultiplier;
   static late double _heightMultiplier;
-  static late double widthMultiplier;
-  static late bool isPortrait = true;
-  static late bool isMobilePortrait = false;
+  static late double _widthMultiplier;
+  static late bool _isPortrait = true;
+
+  // static late bool _isMobilePortrait = false;
 
   void init(final BoxConstraints constraints, final Orientation orientation) {
     if (orientation == Orientation.portrait) {
       _screenWidth = constraints.maxWidth;
       _screenHeight = constraints.maxHeight;
-      isPortrait = true;
-      if (_screenWidth < 450) {
-        isMobilePortrait = true;
-      }
+      _isPortrait = true;
+      // if (_screenWidth < 450) {
+      //   _isMobilePortrait = true;
+      // }
     } else {
       _screenWidth = constraints.maxHeight;
       _screenHeight = constraints.maxWidth;
-      isPortrait = false;
-      isMobilePortrait = false;
+      _isPortrait = false;
+      // _isMobilePortrait = false;
     }
     _blockWidth = _screenWidth / 100;
     _blockHeight = _screenHeight / 100;
-    textMultiplier = _blockHeight;
-    imageSizeMultiplier = _blockWidth;
+    _textMultiplier = _blockHeight;
+    _imageSizeMultiplier = _blockWidth;
     _heightMultiplier = _blockHeight;
-    widthMultiplier = _blockWidth;
+    _widthMultiplier = _blockWidth;
     debugPrint(toString());
   }
 
   @override
   String toString() {
-    return 'Width: $_screenWidth \nHeight: $_screenHeight \nText: $textMultiplier '
-        '\nImage: $imageSizeMultiplier \nHeightFactor: $_heightMultiplier '
+    return 'Width: $_screenWidth \nHeight: $_screenHeight \nTextFactor: $textMultiplier '
+        '\nImageFactor: $imageSizeMultiplier \nHeightFactor: $_heightMultiplier '
         '\nWidthFactor: $widthMultiplier';
   }
 }
 
 double get screenHeight => SizeConfig._screenHeight;
 
-double get textMultiplier => SizeConfig.textMultiplier;
+double get textMultiplier => SizeConfig._textMultiplier;
 
-double get imageSizeMultiplier => SizeConfig.imageSizeMultiplier;
+double get imageSizeMultiplier => SizeConfig._imageSizeMultiplier;
 
 double get heightMultiplier => SizeConfig._heightMultiplier;
 
-double get widthMultiplier => SizeConfig.widthMultiplier;
+double get widthMultiplier => SizeConfig._widthMultiplier;
+
+bool get isPotrait => SizeConfig._isPortrait;

@@ -59,11 +59,13 @@ class NoteWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: GoogleFonts.merriweather(
-                              textStyle: const TextStyle(
-                                  fontSize: 18,
-                                  height: 1,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FontStyle.italic,),),
+                            textStyle: TextStyle(
+                              fontSize: 2.11 * textMultiplier,
+                              height: 1,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
                         )
                       else
                         Container(),
@@ -74,12 +76,12 @@ class NoteWidget extends StatelessWidget {
                         note.strLastModifiedDate,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.openSans(
-                            textStyle: const TextStyle(
-                          wordSpacing: 1.3,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                          height: 1.3,
-                        ),),
+                          textStyle: TextStyle(
+                            wordSpacing: 1.3,
+                            fontSize: 1.52 * textMultiplier,
+                            fontWeight: FontWeight.w400,
+                            height: 1.3,
+                          ),),
                       ),
                       const SizedBox(
                         height: 8,
@@ -90,12 +92,12 @@ class NoteWidget extends StatelessWidget {
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
-                              textStyle: const TextStyle(
-                            wordSpacing: 1,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            height: 1.5,
-                          ),),
+                            textStyle: TextStyle(
+                              wordSpacing: 1,
+                              fontSize: 1.76 * textMultiplier,
+                              fontWeight: FontWeight.w400,
+                              height: 1.5,
+                            ),),
                         ),
                       ),
                     ],

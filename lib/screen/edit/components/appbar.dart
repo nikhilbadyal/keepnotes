@@ -3,12 +3,12 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class EditAppBar extends StatelessWidget with PreferredSizeWidget {
-  const EditAppBar(
-      {required this.note,
-      required this.saveNote,
-      required this.autoSaverTimer,
-      final Key? key,})
-      : super(key: key);
+  const EditAppBar({
+    required this.note,
+    required this.saveNote,
+    required this.autoSaverTimer,
+    final Key? key,
+  }) : super(key: key);
 
   final Note note;
   final Future<bool> Function() saveNote;
@@ -20,11 +20,13 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
       leading: BackButton(
         onPressed: () {
           autoSaverTimer.cancel();
-          unawaited(saveNote().then((final value) {
-            if (!value) {
-              showSnackbar(context, Language.of(context).error);
-            }
-          }),);
+          unawaited(
+            saveNote().then((final value) {
+              if (!value) {
+                showSnackbar(context, Language.of(context).error);
+              }
+            }),
+          );
           Navigator.of(context).pop();
         },
         color: Colors.white,
@@ -33,20 +35,23 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
         Consumer<CharCount>(
           builder: (final _, final counter, final __) {
             return Center(
-                child: Padding(
-              padding: const EdgeInsets.only(
-                right: 20,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: 20,
+                ),
+                child: Text(
+                  counter.count.toString(),
+                  style: GoogleFonts.merriweather(
+                    textStyle: TextStyle(
+                      fontSize: 2.35 * textMultiplier,
+                      height: 1.7,
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
               ),
-              child: Text(
-                counter.count.toString(),
-                style: GoogleFonts.merriweather(
-                    textStyle: const TextStyle(
-                        fontSize: 20,
-                        height: 1.7,
-                        fontWeight: FontWeight.w600,
-                        fontStyle: FontStyle.italic,),),
-              ),
-            ),);
+            );
           },
         )
       ],

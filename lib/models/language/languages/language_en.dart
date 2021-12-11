@@ -420,4 +420,7 @@ class LanguageEn extends Language {
   @override
   // TODO: implement ready
   String get ready => 'Ready';
+
+  @override
+  String get allowAccess => 'Allow access';
 }

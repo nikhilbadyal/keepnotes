@@ -25,18 +25,18 @@ class PinCodeBoxes extends StatelessWidget {
     final currentDecoration = BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
-        color: Theme.of(context).colorScheme.primary,
+        color: Theme.of(context).colorScheme.secondary,
       ),
     );
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.7 * widthMultiplier),
+      padding: EdgeInsets.symmetric(horizontal: 8 * heightMultiplier),
       child: PinPut(
+        autofocus: true,
         fieldsCount: pinCodeLen,
         withCursor: true,
         textStyle: TextStyle(fontSize: 5.12 * widthMultiplier),
         eachFieldWidth: 14 * widthMultiplier,
         eachFieldHeight: 14 * widthMultiplier,
-        /* 4.1 * heightMultiplier,*/
         onSubmit: (final pass) async {
           doneCallBack.call(pass);
           await Future.delayed(

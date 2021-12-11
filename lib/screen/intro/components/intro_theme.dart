@@ -52,7 +52,7 @@ class _IntroThemeState extends State<IntroTheme> {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 2.63 * textMultiplier,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).textTheme.bodyText1!.color,
@@ -94,7 +94,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 2.15 * textMultiplier,
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w500,
                             color: Theme.of(context).textTheme.bodyText1!.color,
@@ -158,7 +158,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         child: Text(
                           Language.of(context).light,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 1.64 * textMultiplier,
                             color: theme == ThemeSelected.light
                                 ? Colors.white
                                 : Theme.of(context).textTheme.bodyText1!.color,
@@ -203,7 +203,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         child: Text(
                           Language.of(context).dark,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 1.64 * textMultiplier,
                             color: theme == ThemeSelected.dark
                                 ? Colors.white
                                 : Theme.of(context).textTheme.bodyText1!.color,

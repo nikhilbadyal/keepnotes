@@ -3,7 +3,9 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class LockScreen extends StatefulWidget {
-  const LockScreen({final Key? key,}) : super(key: key);
+  const LockScreen({
+    final Key? key,
+  }) : super(key: key);
 
   @override
   _LockScreenState createState() => _LockScreenState();
@@ -36,8 +38,11 @@ class _LockScreenState extends State<LockScreen> {
             return;
           }
 
-          await navigate(ModalRoute.of(context)!.settings.name!, context,
-              AppRoutes.hiddenScreen,);
+          await navigate(
+            ModalRoute.of(context)!.settings.name!,
+            context,
+            AppRoutes.hiddenScreen,
+          );
         }
       }
     } else {
@@ -49,9 +54,10 @@ class _LockScreenState extends State<LockScreen> {
               actions: [
                 TextButton(
                   onPressed: () async {
-                    final status = await Provider.of<AppConfiguration>(context,
-                            listen: false,)
-                        .authenticate(Language.of(context).localizedReason);
+                    final status = await Provider.of<AppConfiguration>(
+                      context,
+                      listen: false,
+                    ).authenticate(Language.of(context).localizedReason);
                     if (!mounted) {
                       return;
                     }
@@ -60,7 +66,9 @@ class _LockScreenState extends State<LockScreen> {
                   },
                   child: Text(
                     Language.of(context).alertDialogOp1,
-                    style: const TextStyle(fontSize: 20),
+                    style: TextStyle(
+                      fontSize: 2.35 * textMultiplier,
+                    ),
                   ),
                 ),
                 TextButton(
@@ -69,7 +77,9 @@ class _LockScreenState extends State<LockScreen> {
                   },
                   child: Text(
                     Language.of(context).alertDialogOp2,
-                    style: const TextStyle(fontSize: 20),
+                    style: TextStyle(
+                      fontSize: 2.35 * textMultiplier,
+                    ),
                   ),
                 ),
               ],
@@ -94,12 +104,17 @@ class _LockScreenState extends State<LockScreen> {
       if (bioEnable && firstTime) {
         await addBoolToSF('firstTimeNeeded', value: false);
       }
-      await Future.delayed(const Duration(milliseconds: pinEnterReset),);
+      await Future.delayed(
+        const Duration(milliseconds: pinEnterReset),
+      );
       if (!mounted) {
         return;
       }
-      await navigate(ModalRoute.of(context)!.settings.name!, context,
-          AppRoutes.hiddenScreen,);
+      await navigate(
+        ModalRoute.of(context)!.settings.name!,
+        context,
+        AppRoutes.hiddenScreen,
+      );
     } else {
       showSnackbar(
         context,

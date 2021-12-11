@@ -5,25 +5,17 @@ import 'package:notes/_internal_packages.dart';
 
 ThemeData lightTheme(final Color primary, final Color secondary) {
   return ThemeData.light().copyWith(
-    appBarTheme: AppBarTheme(
-      elevation: 0,
-      color: primary,
-      foregroundColor: primary == Colors.white ? Colors.grey.shade900 : null,
-      /*systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: primary == Colors.white ? primary : null,
-          statusBarIconBrightness:
-              primary == Colors.white ? Brightness.dark : Brightness.light,
-        ),*/
+    scaffoldBackgroundColor: Colors.white,
+    canvasColor: Colors.white,
+    appBarTheme: getAppBarTheme(primary),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      foregroundColor: Colors.white,
     ),
-    floatingActionButtonTheme:
-        const FloatingActionButtonThemeData(foregroundColor: Colors.white),
+    iconTheme: const IconThemeData().copyWith(color: Colors.black),
     colorScheme: ColorScheme.light(
       primary: primary,
       secondary: secondary,
     ),
-    iconTheme: const IconThemeData().copyWith(color: Colors.black),
-    canvasColor: Colors.white,
-    scaffoldBackgroundColor: Colors.white,
     snackBarTheme: SnackBarThemeData(
       backgroundColor: secondary,
       actionTextColor: greyColor,
@@ -31,14 +23,19 @@ ThemeData lightTheme(final Color primary, final Color secondary) {
       behavior: SnackBarBehavior.fixed,
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
     ),
-    cardColor: Colors.black,
-    dialogBackgroundColor: Colors.black,
+    cardColor: Colors.white,
+    dialogBackgroundColor: Colors.white,
     dividerColor: Colors.white,
     dialogTheme: DialogTheme(
       backgroundColor: Colors.white,
       titleTextStyle: const TextStyle().copyWith(color: Colors.black),
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: lighten(secondary, 30),
+      cursorColor: lighten(secondary, 20),
+      selectionHandleColor: lighten(secondary),
     ),
   );
 }

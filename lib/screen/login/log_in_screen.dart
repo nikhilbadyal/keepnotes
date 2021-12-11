@@ -19,7 +19,7 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 7 * SizeConfig.widthMultiplier,
+          horizontal: 7 * widthMultiplier,
         ),
         child: SingleChildScrollView(
           child: Column(

@@ -20,8 +20,8 @@ class NoNotesBody extends StatelessWidget {
               Center(
                 child: RichText(
                   text: TextSpan(
-                    style: const TextStyle(
-                      fontSize: 22,
+                    style: TextStyle(
+                      fontSize: 2.63 * textMultiplier,
                       fontWeight: FontWeight.w600,
                     ),
                     children: [
@@ -38,8 +38,8 @@ class NoNotesBody extends StatelessWidget {
             else
               RichText(
                 text: TextSpan(
-                  style: const TextStyle(
-                    fontSize: 22,
+                  style: TextStyle(
+                    fontSize: 2.63 * textMultiplier,
                     fontWeight: FontWeight.w600,
                   ),
                   children: [
@@ -58,11 +58,8 @@ class NoNotesBody extends StatelessWidget {
                     TextSpan(
                       text: '+',
                       style: TextStyle(
-                        fontSize: 30,
-                        color: Theme.of(context).colorScheme.primary ==
-                                Colors.black
-                            ? Colors.white
-                            : Theme.of(context).colorScheme.primary,
+                        fontSize: 3.52 * textMultiplier,
+                        color: Theme.of(context).colorScheme.secondary,
                         fontWeight: FontWeight.bold,
                       ),
                       recognizer: TapGestureRecognizer()

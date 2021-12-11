@@ -39,7 +39,7 @@ class IntroReady extends StatelessWidget {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           style: TextStyle(
-                            fontSize: 22,
+                            fontSize: 2.63 * textMultiplier,
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).textTheme.bodyText1!.color,
@@ -76,7 +76,7 @@ class IntroReady extends StatelessWidget {
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 2.15 * textMultiplier,
                                 fontFamily: 'Product Sans',
                                 fontWeight: FontWeight.w500,
                                 color: Theme.of(context)
@@ -120,10 +120,10 @@ class IntroReady extends StatelessWidget {
               backgroundColor: Theme.of(context).colorScheme.secondary,
               label: Text(
                 Language.of(context).login,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'YTSans',
-                  fontSize: 16,
+                  fontSize: 1.88 * textMultiplier,
                 ),
               ),
               icon: const Icon(EvaIcons.logInOutline, color: Colors.white),

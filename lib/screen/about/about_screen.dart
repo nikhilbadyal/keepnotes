@@ -51,7 +51,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               Language.of(context).devName,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
-                fontSize: 20,
+                fontSize: 2.35 * textMultiplier,
                 fontWeight: FontWeight.normal,
               ),
             ),
@@ -80,7 +80,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 15,
+                      fontSize: 1.8 * textMultiplier,
                     ),
                   ),
                 ),

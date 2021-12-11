@@ -109,7 +109,7 @@ class _IntroScreenState extends State<IntroScreen>
                                   style: TextStyle(
                                     fontFamily: 'Product Sans',
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 14,
+                                    fontSize: 1.67 * textMultiplier,
                                     color: Theme.of(context)
                                         .textTheme
                                         .bodyText1!
@@ -176,7 +176,7 @@ class _IntroScreenState extends State<IntroScreen>
                                   style: TextStyle(
                                     fontFamily: 'Product Sans',
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 14,
+                                    fontSize: 1.67 * textMultiplier,
                                     color: Theme.of(context)
                                         .textTheme
                                         .bodyText1!

@@ -49,9 +49,17 @@ final Uri emailLaunchUri = Uri(
 
 //Widget const
 const addIcon = Icon(
-  Icons.edit_outlined,
+  Icons.add_outlined,
   size: 30,
 );
+
+AppBarTheme getAppBarTheme(final Color primary) {
+  return AppBarTheme(
+    elevation: 0,
+    color: primary,
+    foregroundColor: primary == Colors.white ? Colors.grey.shade900 : null,
+  );
+}
 
 //Function Const
 typedef DoneCallBack = void Function(String text);

@@ -67,16 +67,8 @@ Future<void> main() async {
   if (dsn.isNotEmpty || kDebugMode) {
     await runZonedGuarded(
       () async {
-        return SystemChrome.setPreferredOrientations(
-          [
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.landscapeRight,
-            DeviceOrientation.landscapeLeft
-          ],
-        ).then(
-          (final _) => runApp(
-            const MyNotes(),
-          ),
+        return runApp(
+          const MyNotes(),
         );
       },
       reportError,

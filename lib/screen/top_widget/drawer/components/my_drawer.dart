@@ -60,9 +60,9 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               accountEmail: Text(
                 wish,
                 style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).iconTheme.color,),
+                    fontSize: 1.64 * textMultiplier,
+                  color: Theme.of(context).iconTheme.color,
+                ),
               ),
               accountName: null,
               onDetailsPressed: () async {

@@ -18,8 +18,6 @@ Widget getBody(final ScreenTypes topScreen, final BuildContext context) {
       return const ForgetPassword();
     case ScreenTypes.signup:
       return const SignUp();
-    case ScreenTypes.welcome:
-      return const Welcome();
     case ScreenTypes.enterPin:
       return const LockScreen();
     case ScreenTypes.setpass:
@@ -94,12 +92,14 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
         }
       }),
       slidableAction(
-          Language.of(context).archive,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note,
-          Icons.archive_outlined,
-          (final context) => unawaited(
-              Provider.of<NotesHelper>(context, listen: false).archive(note),),),
+        Language.of(context).archive,
+        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        note,
+        Icons.archive_outlined,
+        (final context) => unawaited(
+          Provider.of<NotesHelper>(context, listen: false).archive(note),
+        ),
+      ),
     ],
   );
 }
@@ -109,41 +109,47 @@ ActionPane homeRight(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-          Language.of(context).copy,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note,
-          Icons.copy_outlined,
-          (final context) => unawaited(
-              Provider.of<NotesHelper>(context, listen: false).copy(note),),),
+        Language.of(context).copy,
+        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        note,
+        Icons.copy_outlined,
+        (final context) => unawaited(
+          Provider.of<NotesHelper>(context, listen: false).copy(note),
+        ),
+      ),
       slidableAction(
-          Language.of(context).trash,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note,
-          Icons.delete_outlined,
-          (final context) => unawaited(
-              Provider.of<NotesHelper>(context, listen: false).trash(note),),
-          onLongPressed: (final context) async {
-        await showDialog<bool>(
-          barrierDismissible: false,
-          context: context,
-          builder: (final context) => MyAlertDialog(
-            content: Text(Language.of(context).deleteNotePermanently),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  unawaited(Provider.of<NotesHelper>(context, listen: false)
-                      .delete(note),);
-                },
-                child: Text(Language.of(context).alertDialogOp1),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text(Language.of(context).alertDialogOp2),
-              )
-            ],
-          ),
-        );
-      },)
+        Language.of(context).trash,
+        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        note,
+        Icons.delete_outlined,
+        (final context) => unawaited(
+          Provider.of<NotesHelper>(context, listen: false).trash(note),
+        ),
+        onLongPressed: (final context) async {
+          await showDialog<bool>(
+            barrierDismissible: false,
+            context: context,
+            builder: (final context) => MyAlertDialog(
+              content: Text(Language.of(context).deleteNotePermanently),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    unawaited(
+                      Provider.of<NotesHelper>(context, listen: false)
+                          .delete(note),
+                    );
+                  },
+                  child: Text(Language.of(context).alertDialogOp1),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(Language.of(context).alertDialogOp2),
+                )
+              ],
+            ),
+          );
+        },
+      )
     ],
   );
 }
@@ -158,7 +164,8 @@ ActionPane hiddenLeft(final Note note, final BuildContext context) {
         note,
         Icons.remove_red_eye_outlined,
         (final context) => unawaited(
-            Provider.of<NotesHelper>(context, listen: false).unhide(note),),
+          Provider.of<NotesHelper>(context, listen: false).unhide(note),
+        ),
       )
     ],
   );
@@ -174,7 +181,8 @@ ActionPane hiddenRight(final Note note, final BuildContext context) {
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
-            Provider.of<NotesHelper>(context, listen: false).trash(note),),
+          Provider.of<NotesHelper>(context, listen: false).trash(note),
+        ),
       )
     ],
   );
@@ -205,13 +213,14 @@ ActionPane archiveLeft(final Note note, final BuildContext context) {
         }
       }),
       slidableAction(
-          Language.of(context).unarchive,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note,
-          Icons.unarchive_outlined,
-          (final context) => unawaited(
-              Provider.of<NotesHelper>(context, listen: false)
-                  .unarchive(note),),),
+        Language.of(context).unarchive,
+        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        note,
+        Icons.unarchive_outlined,
+        (final context) => unawaited(
+          Provider.of<NotesHelper>(context, listen: false).unarchive(note),
+        ),
+      ),
     ],
   );
 }
@@ -221,19 +230,22 @@ ActionPane archiveRight(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-          Language.of(context).copy,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note,
-          Icons.copy_outlined,
-          (final context) => unawaited(
-              Provider.of<NotesHelper>(context, listen: false).copy(note),),),
+        Language.of(context).copy,
+        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        note,
+        Icons.copy_outlined,
+        (final context) => unawaited(
+          Provider.of<NotesHelper>(context, listen: false).copy(note),
+        ),
+      ),
       slidableAction(
         Language.of(context).trash,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
-            Provider.of<NotesHelper>(context, listen: false).trash(note),),
+          Provider.of<NotesHelper>(context, listen: false).trash(note),
+        ),
       ),
     ],
   );
@@ -278,12 +290,14 @@ ActionPane trashLeft(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-          Language.of(context).restore,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
-          note,
-          Icons.restore_outlined,
-          (final context) => unawaited(
-              Provider.of<NotesHelper>(context, listen: false).undelete(note),),),
+        Language.of(context).restore,
+        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        note,
+        Icons.restore_outlined,
+        (final context) => unawaited(
+          Provider.of<NotesHelper>(context, listen: false).undelete(note),
+        ),
+      ),
     ],
   );
 }
