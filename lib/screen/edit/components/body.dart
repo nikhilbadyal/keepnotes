@@ -25,10 +25,10 @@ class _EditBodyState extends State<EditBody> {
   @override
   Widget build(final BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         bottom: kBottomNavigationBarHeight,
-        left: 2.53 * widthMultiplier,
-        right: 2.53 * widthMultiplier,
+        left: 10,
+        right: 10,
       ),
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -40,8 +40,8 @@ class _EditBodyState extends State<EditBody> {
               maxLines: null,
               textCapitalization: TextCapitalization.sentences,
               style: GoogleFonts.merriweather(
-                textStyle: TextStyle(
-                  fontSize: 2.15 * textMultiplier,
+                textStyle: const TextStyle(
+                  fontSize: 18,
                   height: 1.7,
                   fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.italic,
@@ -63,9 +63,9 @@ class _EditBodyState extends State<EditBody> {
               maxLines: null,
               showCursor: true,
               style: GoogleFonts.openSans(
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   wordSpacing: 1.3,
-                  fontSize: 1.6 * textMultiplier,
+                  fontSize: 15,
                   fontWeight: FontWeight.w400,
                   height: 1.35,
                 ),

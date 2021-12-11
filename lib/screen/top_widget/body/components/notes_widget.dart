@@ -29,12 +29,9 @@ class NoteWidget extends StatelessWidget {
         onLongPress: onItemLongPress,
         onTap: onItemTap,
         child: Container(
-          margin: EdgeInsets.symmetric(
-            horizontal: 1.02 * widthMultiplier,
-            vertical: 0.47 * heightMultiplier,
-          ),
+          margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
           width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 3.07 * widthMultiplier),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
             color: appTheme == AppTheme.light
                 ? Theme.of(context).floatingActionButtonTheme.foregroundColor
@@ -50,8 +47,8 @@ class NoteWidget extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 1.17 * heightMultiplier,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,8 +59,8 @@ class NoteWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: GoogleFonts.merriweather(
-                            textStyle: TextStyle(
-                              fontSize: 2.11 * textMultiplier,
+                            textStyle: const TextStyle(
+                              fontSize: 18,
                               height: 1,
                               fontWeight: FontWeight.w600,
                               fontStyle: FontStyle.italic,
@@ -72,16 +69,16 @@ class NoteWidget extends StatelessWidget {
                         )
                       else
                         Container(),
-                      SizedBox(
-                        height: 1.17 * heightMultiplier,
+                      const SizedBox(
+                        height: 10,
                       ),
                       Text(
                         note.strLastModifiedDate,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             wordSpacing: 1.3,
-                            fontSize: 1.52 * textMultiplier,
+                            fontSize: 13,
                             fontWeight: FontWeight.w400,
                             height: 1.3,
                           ),
@@ -96,9 +93,9 @@ class NoteWidget extends StatelessWidget {
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               wordSpacing: 1,
-                              fontSize: 1.76 * textMultiplier,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400,
                               height: 1.5,
                             ),
