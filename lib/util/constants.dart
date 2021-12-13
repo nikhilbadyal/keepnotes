@@ -39,7 +39,7 @@ const pinEnterReset = 500;
 const bottomSheetTimer = 200;
 const exitTimeInMillis = 1500;
 const debugTimeDilation = 1.5;
-const keyPadNumberSize = 25.0;
+const keyPadNumberSize = 30.0;
 
 final Uri emailLaunchUri = Uri(
   scheme: 'mailto',

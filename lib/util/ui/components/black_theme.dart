@@ -25,6 +25,7 @@ ThemeData blackTheme(final Color primary, final Color secondary) {
     ),
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.black,
+
     ),
     cardColor: Colors.black,
     dialogBackgroundColor: Colors.black,

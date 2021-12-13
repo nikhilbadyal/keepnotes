@@ -31,7 +31,8 @@ class PinCodeBoxes extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8 * heightMultiplier),
       child: PinPut(
-        autofocus: true,
+        // autofocus: true,
+        useNativeKeyboard: false,
         fieldsCount: pinCodeLen,
         withCursor: true,
         textStyle: TextStyle(fontSize: 5.12 * widthMultiplier),

@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
+import 'package:notes/widget/floating_dots.dart';
 
 class LockBody extends StatefulWidget {
   const LockBody({
@@ -34,69 +37,276 @@ class _LockBodyState extends State<LockBody> {
   }
 
   Widget buildPotrait() {
+    final val = screenHeight - kToolbarHeight - 24;
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Column(
-          children: [
-            SvgPicture.asset(
-              otp,
-              height: 30 * heightMultiplier,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+            child: FloatingDotGroup(
+              number: 10,
+              size: DotSize.large,
+              colors: [Theme.of(context).colorScheme.secondary],
+              speed: DotSpeed.fast,
             ),
-            SizedBox(
-              height: 5 * heightMultiplier,
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 5 * heightMultiplier),
-              child: Text(
-                widget.title,
-                style: TextStyle(
-                  fontSize: 3 * textMultiplier,
-                  fontWeight: FontWeight.bold,
+          ),
+          Column(
+            children: [
+              SizedBox(
+                height: val * 0.12,
+              ),
+              Icon(
+                Icons.lock_outlined,
+                size: val * 0.06,
+              ),
+              SizedBox(
+                height: val * 0.05,
+              ),
+              SizedBox(
+                height: val * 0.09,
+                child: Text(
+                  widget.title,
                 ),
               ),
-            ),
-            PinCodeBoxes(
-              pinPutController: _pinPutController,
-              pinPutFocusNode: _pinPutFocusNode,
-              doneCallBack: widget.doneCallBack,
-            ),
-          ],
-        ),
+              SizedBox(
+                height: val * 0.1,
+                child: PinCodeBoxes(
+                  pinPutController: _pinPutController,
+                  pinPutFocusNode: _pinPutFocusNode,
+                  doneCallBack: widget.doneCallBack,
+                ),
+              ),
+              SizedBox(
+                height: val * 0.6,
+                child: GridView.count(
+                  padding: const EdgeInsets.all(30),
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((final e) {
+                      return InkWell(
+                        customBorder: const CircleBorder(),
+                        onTap: () {
+                          HapticFeedback.heavyImpact();
+                          if (_pinPutController.text.length >=
+                              (pinCodeLen + 1)) {
+                            return;
+                          }
+                          _pinPutController.text =
+                              '${_pinPutController.text}$e';
+                        },
+                        child: Center(
+                          child: Text(
+                            '$e',
+                            style: const TextStyle(fontSize: keyPadNumberSize),
+                          ),
+                        ),
+                      );
+                    }),
+                    if (Provider.of<AppConfiguration>(context)
+                            .bioNotAvailable ||
+                        widget.onFingerTap == null)
+                      Container()
+                    else
+                      InkWell(
+                        customBorder: const CircleBorder(),
+                        onTap: () {
+                          HapticFeedback.heavyImpact();
+                          widget.onFingerTap!.call();
+                        },
+                        child: const Icon(Icons.fingerprint_outlined),
+                      ),
+                    InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () {
+                        HapticFeedback.heavyImpact();
+                        SystemSound.play(SystemSoundType.click);
+
+                        if (_pinPutController.text.length >= (pinCodeLen + 1)) {
+                          return;
+                        }
+
+                        _pinPutController.text = '${_pinPutController.text}0';
+                      },
+                      child: const Center(
+                        child: Text(
+                          '0',
+                          style: TextStyle(fontSize: keyPadNumberSize),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () {
+                        HapticFeedback.heavyImpact();
+
+                        if (_pinPutController.text.isNotEmpty) {
+                          _pinPutController.text =
+                              _pinPutController.text.substring(
+                            0,
+                            _pinPutController.text.length - 1,
+                          );
+                        }
+                      },
+                      child: const Center(
+                        child: Text(
+                          '⌫',
+                          style: TextStyle(fontSize: keyPadNumberSize),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).padding.bottom,
+              )
+            ],
+          )
+        ],
       ),
     );
   }
 
   Widget buildLandscape() {
+    final val = MediaQuery.of(context).size.width;
+
     return SafeArea(
-      child: Row(
+      child: Stack(
+        fit: StackFit.expand,
         children: [
-          Expanded(
-            child: SvgPicture.asset(
-              otp,
+          ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+            child: FloatingDotGroup(
+              number: 10,
+              size: DotSize.large,
+              colors: [Theme.of(context).colorScheme.secondary],
+              speed: DotSpeed.fast,
             ),
           ),
-          Expanded(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 5 * heightMultiplier),
-                  child: Text(
-                    widget.title,
-                    style: TextStyle(
-                      fontSize: 3 * textMultiplier,
-                      fontWeight: FontWeight.bold,
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: val * 0.1,
                     ),
+                    Icon(
+                      Icons.lock_outlined,
+                      size: val * 0.06,
+                    ),
+                    SizedBox(
+                      height: val * 0.03,
+                    ),
+                    Text(
+                      widget.title,
+                      style: TextStyle(
+                        fontSize: 3 * textMultiplier,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: val * 0.05,
+                    ),
+                    PinCodeBoxes(
+                      pinPutController: _pinPutController,
+                      pinPutFocusNode: _pinPutFocusNode,
+                      doneCallBack: widget.doneCallBack,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                  child: Column(
+                children: [
+                  GridView.count(
+                    padding: const EdgeInsets.all(30),
+                    crossAxisCount: 3,
+                    shrinkWrap: true,
+                    childAspectRatio: 1.55,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((final e) {
+                        return InkWell(
+                          customBorder: const CircleBorder(),
+                          onTap: () {
+                            HapticFeedback.heavyImpact();
+                            if (_pinPutController.text.length >=
+                                (pinCodeLen + 1)) {
+                              return;
+                            }
+                            _pinPutController.text =
+                                '${_pinPutController.text}$e';
+                          },
+                          child: Center(
+                            child: Text(
+                              '$e',
+                              style:
+                                  const TextStyle(fontSize: keyPadNumberSize),
+                            ),
+                          ),
+                        );
+                      }),
+                      if (Provider.of<AppConfiguration>(context)
+                              .bioNotAvailable ||
+                          widget.onFingerTap == null)
+                        Container()
+                      else
+                        InkWell(
+                          customBorder: const CircleBorder(),
+                          onTap: () {
+                            HapticFeedback.heavyImpact();
+                            widget.onFingerTap!.call();
+                          },
+                          child: const Icon(Icons.fingerprint_outlined),
+                        ),
+                      InkWell(
+                        customBorder: const CircleBorder(),
+                        onTap: () {
+                          HapticFeedback.heavyImpact();
+                          if (_pinPutController.text.length >=
+                              (pinCodeLen + 1)) {
+                            return;
+                          }
+
+                          _pinPutController.text = '${_pinPutController.text}0';
+                        },
+                        child: const Center(
+                          child: Text(
+                            '0',
+                            style: TextStyle(fontSize: keyPadNumberSize),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        customBorder: const CircleBorder(),
+                        onTap: () {
+                          HapticFeedback.heavyImpact();
+
+                          if (_pinPutController.text.isNotEmpty) {
+                            _pinPutController.text =
+                                _pinPutController.text.substring(
+                              0,
+                              _pinPutController.text.length - 1,
+                            );
+                          }
+                        },
+                        child: const Center(
+                          child: Text(
+                            '⌫',
+                            style: TextStyle(fontSize: keyPadNumberSize),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                PinCodeBoxes(
-                  pinPutController: _pinPutController,
-                  pinPutFocusNode: _pinPutFocusNode,
-                  doneCallBack: widget.doneCallBack,
-                ),
-              ],
-            ),
-          )
+                ],
+              )),
+            ],
+          ),
         ],
       ),
     );
