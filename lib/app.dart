@@ -2,8 +2,6 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-import 'screen/lock/new_pin_code.dart';
-
 final RouteObserver<Route> routeObserver = RouteObserver<Route>();
 
 late Encrypt encryption;
