@@ -220,17 +220,50 @@ class _LockBodyState extends State<LockBody> {
                 ),
               ),
               Expanded(
-                  child: Column(
-                children: [
-                  GridView.count(
-                    padding: const EdgeInsets.all(30),
-                    crossAxisCount: 3,
-                    shrinkWrap: true,
-                    childAspectRatio: 1.55,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((final e) {
-                        return InkWell(
+                child: Column(
+                  children: [
+                    GridView.count(
+                      padding: const EdgeInsets.all(30),
+                      crossAxisCount: 3,
+                      shrinkWrap: true,
+                      childAspectRatio: 1.55,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((final e) {
+                          return InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: () {
+                              HapticFeedback.heavyImpact();
+                              if (_pinPutController.text.length >=
+                                  (pinCodeLen + 1)) {
+                                return;
+                              }
+                              _pinPutController.text =
+                                  '${_pinPutController.text}$e';
+                            },
+                            child: Center(
+                              child: Text(
+                                '$e',
+                                style:
+                                    const TextStyle(fontSize: keyPadNumberSize),
+                              ),
+                            ),
+                          );
+                        }),
+                        if (Provider.of<AppConfiguration>(context)
+                                .bioNotAvailable ||
+                            widget.onFingerTap == null)
+                          Container()
+                        else
+                          InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: () {
+                              HapticFeedback.heavyImpact();
+                              widget.onFingerTap!.call();
+                            },
+                            child: const Icon(Icons.fingerprint_outlined),
+                          ),
+                        InkWell(
                           customBorder: const CircleBorder(),
                           onTap: () {
                             HapticFeedback.heavyImpact();
@@ -238,73 +271,42 @@ class _LockBodyState extends State<LockBody> {
                                 (pinCodeLen + 1)) {
                               return;
                             }
+
                             _pinPutController.text =
-                                '${_pinPutController.text}$e';
+                                '${_pinPutController.text}0';
                           },
-                          child: Center(
+                          child: const Center(
                             child: Text(
-                              '$e',
-                              style:
-                                  const TextStyle(fontSize: keyPadNumberSize),
+                              '0',
+                              style: TextStyle(fontSize: keyPadNumberSize),
                             ),
                           ),
-                        );
-                      }),
-                      if (Provider.of<AppConfiguration>(context)
-                              .bioNotAvailable ||
-                          widget.onFingerTap == null)
-                        Container()
-                      else
+                        ),
                         InkWell(
                           customBorder: const CircleBorder(),
                           onTap: () {
                             HapticFeedback.heavyImpact();
-                            widget.onFingerTap!.call();
+
+                            if (_pinPutController.text.isNotEmpty) {
+                              _pinPutController.text =
+                                  _pinPutController.text.substring(
+                                0,
+                                _pinPutController.text.length - 1,
+                              );
+                            }
                           },
-                          child: const Icon(Icons.fingerprint_outlined),
-                        ),
-                      InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: () {
-                          HapticFeedback.heavyImpact();
-                          if (_pinPutController.text.length >=
-                              (pinCodeLen + 1)) {
-                            return;
-                          }
-
-                          _pinPutController.text = '${_pinPutController.text}0';
-                        },
-                        child: const Center(
-                          child: Text(
-                            '0',
-                            style: TextStyle(fontSize: keyPadNumberSize),
+                          child: const Center(
+                            child: Text(
+                              '⌫',
+                              style: TextStyle(fontSize: keyPadNumberSize),
+                            ),
                           ),
                         ),
-                      ),
-                      InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: () {
-                          HapticFeedback.heavyImpact();
-
-                          if (_pinPutController.text.isNotEmpty) {
-                            _pinPutController.text =
-                                _pinPutController.text.substring(
-                              0,
-                              _pinPutController.text.length - 1,
-                            );
-                          }
-                        },
-                        child: const Center(
-                          child: Text(
-                            '⌫',
-                            style: TextStyle(fontSize: keyPadNumberSize),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              )),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ],
