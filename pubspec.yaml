@@ -38,7 +38,7 @@ dependencies:
   wc_form_validators: ^1.0.0
   pinput: ^1.2.2
   progress_state_button: ^1.0.4
-  google_fonts: ^2.1.0
+  google_fonts: ^2.1.1
   flutter_slidable:
     git:
       url: https://github.com/nikhilbadyal/flutter_slidable.git
