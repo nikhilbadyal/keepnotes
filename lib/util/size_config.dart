@@ -15,21 +15,15 @@ class SizeConfig {
   static late double _widthMultiplier;
   static late bool _isPortrait = true;
 
-  // static late bool _isMobilePortrait = false;
-
   void init(final BoxConstraints constraints, final Orientation orientation) {
     if (orientation == Orientation.portrait) {
       _screenWidth = constraints.maxWidth;
       _screenHeight = constraints.maxHeight;
       _isPortrait = true;
-      // if (_screenWidth < 450) {
-      //   _isMobilePortrait = true;
-      // }
     } else {
       _screenWidth = constraints.maxHeight;
       _screenHeight = constraints.maxWidth;
       _isPortrait = false;
-      // _isMobilePortrait = false;
     }
     _blockWidth = _screenWidth / 100;
     _blockHeight = _screenHeight / 100;
@@ -37,7 +31,6 @@ class SizeConfig {
     _imageSizeMultiplier = _blockWidth;
     _heightMultiplier = _blockHeight;
     _widthMultiplier = _blockWidth;
-    debugPrint(toString());
   }
 
   @override
