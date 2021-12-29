@@ -2,6 +2,7 @@ export 'animations/animations.dart';
 export 'app_configuration.dart';
 export 'constants.dart';
 export 'encryption.dart';
+export 'extensions.dart';
 export 'navigation/navigation.dart';
 export 'shared_pref.dart';
 export 'size_config.dart';

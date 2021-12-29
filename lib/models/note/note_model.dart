@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
-import 'package:notes/util/navigation/app_routes.dart';
 
 enum NoteState {
   unspecified,
@@ -10,13 +9,23 @@ enum NoteState {
   trashed,
 }
 
-extension NotePath on Note {
+extension NoteX on Note {
   static const _values = [
     AppRoutes.homeScreen,
     AppRoutes.archiveScreen,
     AppRoutes.hiddenScreen,
     AppRoutes.trashScreen
   ];
+
+  static Note get emptyNote => Note(
+        id: '',
+        title: '',
+        content: '',
+        lastModify: DateTime.now(),
+        checkBoxItems: [],
+        hasList: false,
+        state: NoteState.unspecified,
+      );
 
   String get path => _values[state.index];
 }
@@ -25,9 +34,11 @@ class Note implements Comparable<Note> {
   Note({
     required this.lastModify,
     required this.id,
-    this.title = '',
-    this.content = '',
-    this.state = NoteState.unspecified,
+    required this.title,
+    required this.content,
+    required this.state,
+    required this.checkBoxItems,
+    required this.hasList,
   });
 
   String id;
@@ -35,6 +46,8 @@ class Note implements Comparable<Note> {
   String content;
   DateTime lastModify;
   NoteState state;
+  List<CheckBoxItem> checkBoxItems;
+  bool hasList;
 
   Note copyWith({
     required final String id,
@@ -42,6 +55,8 @@ class Note implements Comparable<Note> {
     final String? content,
     final DateTime? lastModify,
     final NoteState? state,
+    final List<CheckBoxItem>? checkBoxItems,
+    final bool? hasList,
   }) =>
       Note(
         id: id,
@@ -49,6 +64,8 @@ class Note implements Comparable<Note> {
         state: state ?? this.state,
         lastModify: lastModify ?? this.lastModify,
         content: content ?? this.content,
+        checkBoxItems: checkBoxItems ?? this.checkBoxItems,
+        hasList: hasList ?? this.hasList,
       );
 
   @override
@@ -66,7 +83,7 @@ class Note implements Comparable<Note> {
   }
 
   static Note fromMap(final Map<String, dynamic> json) {
-    return Note(
+    return NoteX.emptyNote.copyWith(
       id: const Uuid().v4(),
       title: json['title'].toString(),
       content: json['content'].toString(),
@@ -79,7 +96,7 @@ class Note implements Comparable<Note> {
 
   static Note fromDocumentSnapshot(final QueryDocumentSnapshot json) {
     final int state = json['state'];
-    return Note(
+    return NoteX.emptyNote.copyWith(
       id: json['id'],
       title: json['title'].toString(),
       content: json['content'].toString(),

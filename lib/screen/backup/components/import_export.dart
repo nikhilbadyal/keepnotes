@@ -53,7 +53,7 @@ Future<bool> importFromFile() async {
       for (final element in jsonList) {
         element['id'] = const Uuid().v4();
       }
-      await SqfliteDatabaseHelper.batchInsert1(jsonList);
+      // await SqfliteDatabaseHelper.batchInsert1(jsonList);
       await FirebaseDatabaseHelper.batchInsert1(jsonList);
       return true;
     } else {
