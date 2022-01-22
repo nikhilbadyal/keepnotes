@@ -6,7 +6,7 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def appcompat_version = "1.4.0"
+def appcompat_version = "1.4.1"
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
@@ -44,9 +44,6 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    lintOptions {
-        disable 'InvalidPackage'
-    }
 
     defaultConfig {
         applicationId "com.nikhil.flutter.notes"
@@ -105,6 +102,9 @@ android {
             versionNameSuffix "-profile"
             signingConfig signingConfigs.release
         }
+    }
+    lint {
+        disable 'InvalidPackage'
     }
 }
 
