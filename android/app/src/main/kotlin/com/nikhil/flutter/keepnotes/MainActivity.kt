@@ -1,4 +1,4 @@
-package com.nikhil.flutter.notes
+package com.nikhil.flutter.keepnotes
 
 import android.os.Build
 import android.os.Bundle
