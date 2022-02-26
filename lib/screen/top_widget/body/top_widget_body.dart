@@ -125,30 +125,6 @@ ActionPane homeRight(final Note note, final BuildContext context) {
         (final context) => unawaited(
           Provider.of<NotesHelper>(context, listen: false).trash(note),
         ),
-        onLongPressed: (final context) async {
-          await showDialog<bool>(
-            barrierDismissible: false,
-            context: context,
-            builder: (final context) => MyAlertDialog(
-              content: Text(Language.of(context).deleteNotePermanently),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    unawaited(
-                      Provider.of<NotesHelper>(context, listen: false)
-                          .delete(note),
-                    );
-                  },
-                  child: Text(Language.of(context).alertDialogOp1),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(Language.of(context).alertDialogOp2),
-                )
-              ],
-            ),
-          );
-        },
       )
     ],
   );
