@@ -43,7 +43,7 @@ has various UI colors with the support of light and black theme.
 
 ---
 
-## Thnaks for images & Icons
+## Thanks for images & Icons
 <div>
     <a href="https://storyset.com/illustration/hidden/pana" title="Backup">Backup</a><br>
     <a href="https://icons8.com/icons/set/github" title="GitHub">GitHub</a><br>
@@ -62,4 +62,3 @@ has various UI colors with the support of light and black theme.
     <a href="https://www.flaticon.com/free-icon/notes_752326" title="AppIcon">App Icon</a><br>
     
 </div>
-
