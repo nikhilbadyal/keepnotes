@@ -17,7 +17,7 @@ export 'package:logger/logger.dart';
 export 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 export 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 export 'package:permission_handler/permission_handler.dart';
-export 'package:pinput/pin_put/pin_put.dart';
+export 'package:pinput/pinput.dart';
 export 'package:progress_state_button/iconed_button.dart';
 export 'package:progress_state_button/progress_button.dart';
 export 'package:provider/provider.dart';

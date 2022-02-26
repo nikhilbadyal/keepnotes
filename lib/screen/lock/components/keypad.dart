@@ -16,29 +16,13 @@ class PinCodeBoxes extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final submitted = BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(
-        color: Colors.grey,
-      ),
-    );
-    final currentDecoration = BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(
-        color: Theme.of(context).colorScheme.secondary,
-      ),
-    );
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8 * heightMultiplier),
-      child: PinPut(
+      child: Pinput(
         // autofocus: true,
         useNativeKeyboard: false,
-        fieldsCount: pinCodeLen,
-        withCursor: true,
-        textStyle: TextStyle(fontSize: 5.12 * widthMultiplier),
-        eachFieldWidth: 14 * widthMultiplier,
-        eachFieldHeight: 14 * widthMultiplier,
-        onSubmit: (final pass) async {
+        showCursor: true,
+        onSubmitted: (final pass) async {
           doneCallBack.call(pass);
           await Future.delayed(
             const Duration(milliseconds: pinEnterReset),
@@ -47,9 +31,6 @@ class PinCodeBoxes extends StatelessWidget {
         },
         focusNode: pinPutFocusNode,
         controller: pinPutController,
-        submittedFieldDecoration: submitted,
-        selectedFieldDecoration: currentDecoration,
-        followingFieldDecoration: submitted,
         pinAnimationType: PinAnimationType.fade,
       ),
     );
