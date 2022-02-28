@@ -32,9 +32,14 @@ jobs:
       - run: |
           echo "${{ secrets.STOREFILE }}" | base64 --decode > android/app/keepnotes.jks
 
-      - name: Add google json
-        run: |
-          echo ${{ secrets.FIREBASE_JSON }} >> ${{env.FIREBASE_PATH}}
+      - name: Decode google-services.json
+        env:
+          FIREBASE_SECRET: ${{ secrets.FIREBASE_JSON }}
+        run: echo $FIREBASE_SECRET > ${{env.FIREBASE_PATH}}
+
+#      - name: Add google json
+#        run: |
+#          echo "${{ secrets.FIREBASE_JSON }}" >> ${{env.FIREBASE_PATH}}
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk
