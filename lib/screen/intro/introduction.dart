@@ -49,7 +49,7 @@ class _IntroScreenState extends State<IntroScreen>
 
   @override
   Widget build(final BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((final _) async {
+   /* WidgetsBinding.instance!.addPostFrameCallback((final _) async {
       final _systemBrightness = Theme.of(context).brightness;
       final _statusBarBrightness = _systemBrightness == Brightness.light
           ? Brightness.dark
@@ -66,7 +66,7 @@ class _IntroScreenState extends State<IntroScreen>
           systemNavigationBarIconBrightness: _themeBrightness,
         ),
       );
-    });
+    });*/
 
     final backgroundColor =
         Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7);
