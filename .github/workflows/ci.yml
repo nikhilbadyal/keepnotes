@@ -34,7 +34,7 @@ jobs:
 
       - name: Add google json
         run: |
-          echo google-services=\${{ secrets.FIREBASE_JSON }} >> ${{env.FIREBASE_PATH}}
+          echo ${{ secrets.FIREBASE_JSON }} >> ${{env.FIREBASE_PATH}}
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk
