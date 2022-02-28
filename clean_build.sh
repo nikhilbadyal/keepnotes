@@ -1,1 +1,1 @@
-fclean.bat && fbuild.bat
+fclean.sh && fbuild.sh
