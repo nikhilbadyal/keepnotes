@@ -124,7 +124,6 @@ List<Color> primaryColors = [
   Colors.deepOrange,
   Colors.brown,
   Colors.blueGrey,
-  Colors.black,
 ];
 List<Color> secondaryColors = [
   const Color(0xff0370FF),

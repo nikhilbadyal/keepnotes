@@ -2,12 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [master]
     paths-ignore:
       - '**/README.md'
   pull_request:
-    branches: [master]
-
   workflow_dispatch:
 
 jobs:
@@ -26,6 +23,21 @@ jobs:
           cache: true
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
+      - name: populate key.properties
+        run: |
+          echo "${{ secrets.KEY_PROPERTIES_FILE }}" | base64 --decode > ${{env.KEY_PROPERTIES_PATH}}
+      - name: populate keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > ${{env.KEYSTORE_PATH}}
+      - name: Populate google-services.json
+        run: |
+          echo $GOOGLE_SERVICES_JSON_SECRET > ${{env.GOOGLE_SERVICES_JSON_PATH}}
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk
+
+env:
+  KEY_PROPERTIES_PATH: "./android/key.properties"
+  KEYSTORE_PATH: "./android/app/keepnotes.jks"
+  GOOGLE_SERVICES_JSON_PATH: "./android/app/google-services.json"
+  GOOGLE_SERVICES_JSON_SECRET: ${{ secrets.GOOGLE_SERVICES_JSON_FILE }}

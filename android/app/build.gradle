@@ -4,6 +4,8 @@ if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
+}else {
+    throw new FileNotFoundException("Cannot find local.properties")
 }
 
 def appcompat_version = "1.4.1"
@@ -74,7 +76,7 @@ android {
                     storePassword keystoreProperties['storePassword']
                 }
             } else {
-                print('not signed')
+                throw new FileNotFoundException("Cannot read Key.properties")
             }
         }
     }
@@ -86,6 +88,8 @@ android {
             file(rootProject.file('key.properties')).with { propFile ->
                 if (propFile.canRead()) {
                     signingConfig signingConfigs.release
+                }else {
+                    throw new FileNotFoundException("Cannot read Key.properties")
                 }
             }
         }

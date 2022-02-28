@@ -1,11 +1,12 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-import 'package:notes/sentry_dsn.dart';
+// import 'package:notes/sentry_dsn.dart';
 
 // Add your own DSN if you want.
 // Read here https://docs.sentry.io/platforms/flutter/
-const dsn = dsnLink;
+// ignore: do_not_use_environment
+String dsn = const String.fromEnvironment('SENTRY_DSN');
 
 final sentry = SentryClient(
   SentryOptions(dsn: dsn),
@@ -63,8 +64,7 @@ Future<void> main() async {
       logger.e('reportError debugMode $error $stackTrace');
     }
   }
-
-  if (dsn.isNotEmpty || kDebugMode) {
+  if (dsn.isNotEmpty) {
     await runZonedGuarded(
       () async {
         return runApp(
