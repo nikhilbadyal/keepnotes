@@ -2,11 +2,14 @@ name: CI
 
 on:
   push:
-    paths-ignore:
-      - '**/README.md'
-  pull_request:
-  workflow_dispatch:
-
+    branches:
+      - master
+    paths:
+      - lib/**
+      - android/**
+      - assets/**
+      - '!**/*.md'
+      - pubspec.yaml
 jobs:
   build:
     name: flutter build
