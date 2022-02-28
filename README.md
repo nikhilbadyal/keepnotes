@@ -1,4 +1,5 @@
 [![CI](https://github.com/nikhilbadyal/keepnotes/actions/workflows/ci.yml/badge.svg)](https://github.com/nikhilbadyal/keepnotes/actions/workflows/ci.yml)
+
 Keep Notes is a privacy oriented, secure , beautiful and fast note (s) taking application made in flutter. It supports
 various features like adding and saving notes. Hiding notes with password, archiving them. To make UI look beautiful it
 has various UI colors with the support of light and black theme.
