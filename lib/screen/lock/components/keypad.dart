@@ -19,10 +19,9 @@ class PinCodeBoxes extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8 * heightMultiplier),
       child: Pinput(
-        // autofocus: true,
         useNativeKeyboard: false,
         showCursor: true,
-        onSubmitted: (final pass) async {
+        onCompleted: (final pass) async {
           doneCallBack.call(pass);
           await Future.delayed(
             const Duration(milliseconds: pinEnterReset),
