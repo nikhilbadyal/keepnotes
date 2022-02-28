@@ -32,9 +32,13 @@ jobs:
       - run: |
           echo "${{ secrets.STOREFILE }}" | base64 --decode > android/app/keepnotes.jks
 
+      - name: Add google json
+        run: |
+          echo google-services=\${{ secrets.FIREBASE_JSON }} >> ${{env.FIREBASE_PATH}}
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk
 
 env:
   PROPERTIES_PATH: "./android/key.properties"
+  FIREBASE_PATH: "./android/app/google-services.json"
