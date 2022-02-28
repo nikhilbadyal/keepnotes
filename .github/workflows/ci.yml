@@ -23,28 +23,21 @@ jobs:
           cache: true
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
-#      - run: |
-#          echo storePassword=\${{ secrets.STOREPASSWORD }} >> ${{env.PROPERTIES_PATH}}
-#          echo keyPassword=\${{ secrets.KEYPASSWORD }} > ${{env.PROPERTIES_PATH}}
-#          echo keyAlias=\${{ secrets.KEYALIAS }} >> ${{env.PROPERTIES_PATH}}
-#          echo storeFile=\${{ secrets.STOREFILENAME }} >> ${{env.PROPERTIES_PATH}}
-      - run: |
-          echo "${{ secrets.LOCAL_PROPERTIES }}" | base64 --decode > android/key.properties
-      - run: |
-          echo "${{ secrets.STOREFILE }}" | base64 --decode > android/app/keepnotes.jks
-
-      - name: Decode google-services.json
-        env:
-          FIREBASE_SECRET: ${{ secrets.FIREBASE_JSON }}
-        run: echo $FIREBASE_SECRET > ${{env.FIREBASE_PATH}}
-
-#      - name: Add google json
-#        run: |
-#          echo "${{ secrets.FIREBASE_JSON }}" >> ${{env.FIREBASE_PATH}}
+      - name: populate key.properties
+        run: |
+          echo "${{ secrets.KEY_PROPERTIES_FILE }}" | base64 --decode > ${{env.KEY_PROPERTIES_PATH}}
+      - name: populate keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > ${{env.KEYSTORE_PATH}}
+      - name: Populate google-services.json
+        run: |
+          echo $GOOGLE_SERVICES_JSON_SECRET > ${{env.GOOGLE_SERVICES_JSON_PATH}}
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk
 
 env:
-  PROPERTIES_PATH: "./android/key.properties"
-  FIREBASE_PATH: "./android/app/google-services.json"
+  KEY_PROPERTIES_PATH: "android/key.properties"
+  KEYSTORE_PATH: "android/app/keepnotes.jks"
+  GOOGLE_SERVICES_JSON_PATH: "./android/app/google-services.json"
+  GOOGLE_SERVICES_JSON_SECRET: ${{ secrets.GOOGLE_SERVICES_JSON_FILE }}
