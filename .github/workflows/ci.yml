@@ -37,7 +37,7 @@ jobs:
       - run: flutter build apk
 
 env:
-  KEY_PROPERTIES_PATH: "android/key.properties"
-  KEYSTORE_PATH: "android/app/keepnotes.jks"
+  KEY_PROPERTIES_PATH: "./android/key.properties"
+  KEYSTORE_PATH: "./android/app/keepnotes.jks"
   GOOGLE_SERVICES_JSON_PATH: "./android/app/google-services.json"
   GOOGLE_SERVICES_JSON_SECRET: ${{ secrets.GOOGLE_SERVICES_JSON_FILE }}
