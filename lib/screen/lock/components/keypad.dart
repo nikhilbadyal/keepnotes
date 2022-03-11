@@ -20,7 +20,6 @@ class PinCodeBoxes extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8 * heightMultiplier),
       child: Pinput(
         useNativeKeyboard: false,
-        showCursor: true,
         onCompleted: (final pass) async {
           doneCallBack.call(pass);
           await Future.delayed(
