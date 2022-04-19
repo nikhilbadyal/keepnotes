@@ -1,4 +1,5 @@
 import 'package:notes/_aap_packages.dart';
+import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class AppConfiguration with ChangeNotifier {
@@ -47,8 +48,10 @@ class AppConfiguration with ChangeNotifier {
     try {
       return localAuthentication.authenticate(
         localizedReason: reason,
-        stickyAuth: true,
-        biometricOnly: true,
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+          biometricOnly: true,
+        ),
       );
     } catch (errorCode) {
       return false;
