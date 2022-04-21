@@ -42,7 +42,12 @@ has various UI colors with the support of light and black theme.
 <img src="https://i.imgur.com/cZYa4AQ.png" width="30%"></img>
 
 
-
+# Build Steps
+- PreRequisite 
+  - `key.properties` - Add in `/android`
+  - `google-services.json` - Add in `/android/app/`
+  - `key.jks` - `/android/app/`
+  
 ---
 
 ## Thanks for images & Icons
