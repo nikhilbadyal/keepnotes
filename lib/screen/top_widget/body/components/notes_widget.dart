@@ -5,18 +5,12 @@ import 'package:notes/_internal_packages.dart';
 class NoteWidget extends StatelessWidget {
   const NoteWidget({
     required this.note,
-    required this.isSelected,
-    required this.selectedFlag,
     this.onItemTap,
-    this.onItemLongPress,
     final Key? key,
   }) : super(key: key);
 
   final Note note;
   final OnTap? onItemTap;
-  final OnTap? onItemLongPress;
-  final bool isSelected;
-  final Map<int, bool> selectedFlag;
 
   @override
   Widget build(final BuildContext context) {
@@ -26,7 +20,6 @@ class NoteWidget extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: getHeight(note.content.length),
       child: GestureDetector(
-        onLongPress: onItemLongPress,
         onTap: onItemTap,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
@@ -106,22 +99,11 @@ class NoteWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              _selectedIcon(isSelected),
             ],
           ),
         ),
       ),
     );
-  }
-
-  Widget _selectedIcon(final bool isSelected) {
-    if (isSelected) {
-      return Icon(
-        isSelected ? Icons.check_box : Icons.check_box_outline_blank,
-      );
-    } else {
-      return const SizedBox();
-    }
   }
 
   double getHeight(final int length) {

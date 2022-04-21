@@ -13,23 +13,21 @@ class EditScreen extends StatefulWidget {
 
 class _EditScreenState extends State<EditScreen> {
   bool isReadOnly = false;
-  late Note noteInEditing;
+  late Note note;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
   late String _titleFromInitial;
   late String _contentFromInitial;
-  late String oldName;
   late Timer autoSaverTimer;
-  late Note currentNote;
+  late bool needFocus = false;
 
   @override
   Widget build(final BuildContext context) {
-    currentNote = ModalRoute.of(context)!.settings.arguments! as Note;
-    noteInEditing = currentNote;
-    _titleController.text = noteInEditing.title;
-    _contentController.text = noteInEditing.content;
-    _titleFromInitial = currentNote.title;
-    _contentFromInitial = currentNote.content;
+    note = ModalRoute.of(context)!.settings.arguments! as Note;
+    _titleController.text = note.title;
+    _contentController.text = note.content;
+    _titleFromInitial = note.title;
+    _contentFromInitial = note.content;
     autoSaverTimer =
         Timer.periodic(const Duration(seconds: backGroundTimer), (final timer) {
       backgroundSaveNote();
@@ -39,8 +37,9 @@ class _EditScreenState extends State<EditScreen> {
       child: WillPopScope(
         onWillPop: onBackPress,
         child: Scaffold(
+          resizeToAvoidBottomInset: true,
           appBar: EditAppBar(
-            note: noteInEditing,
+            note: note,
             saveNote: saveNote,
             autoSaverTimer: autoSaverTimer,
           ),
@@ -51,7 +50,7 @@ class _EditScreenState extends State<EditScreen> {
             autofocus: _contentFromInitial.isEmpty && _titleFromInitial.isEmpty,
           ),
           bottomSheet: BottomBar(
-            note: noteInEditing,
+            note: note,
             saveNote: saveNote,
             onIconTap: onPressed,
             isReadOnly: isReadOnly,
@@ -78,8 +77,7 @@ class _EditScreenState extends State<EditScreen> {
   Future<bool> saveNote() async {
     final isEdited = updateNote();
     if (isEdited) {
-      await Provider.of<NotesHelper>(context, listen: false)
-          .insert(noteInEditing);
+      await Provider.of<NotesHelper>(context, listen: false).insert(note);
     }
     return true;
   }
@@ -89,12 +87,12 @@ class _EditScreenState extends State<EditScreen> {
   }
 
   bool updateNote() {
-    noteInEditing
+    note
       ..title = _titleController.text.trim()
       ..content = _contentController.text.trim();
-    if (!(noteInEditing.title == _titleFromInitial &&
-        noteInEditing.content == _contentFromInitial)) {
-      noteInEditing.lastModify = DateTime.now();
+    if (!(note.title == _titleFromInitial &&
+        note.content == _contentFromInitial)) {
+      note.lastModify = DateTime.now();
       return true;
     }
     return false;

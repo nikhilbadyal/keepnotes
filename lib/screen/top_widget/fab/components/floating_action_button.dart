@@ -38,7 +38,7 @@ Future<void> onFabTap(
   final BuildContext context,
   final NoteState noteState,
 ) async {
-  final emptyNote = Note(
+  final emptyNote = NoteX.emptyNote.copyWith(
     id: const Uuid().v4(),
     lastModify: DateTime.now(),
     state: noteState,

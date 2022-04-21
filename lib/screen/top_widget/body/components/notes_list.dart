@@ -25,8 +25,6 @@ class NotesList extends StatefulWidget {
 }
 
 class _NotesListState extends State<NotesList> {
-  bool isSelectionMode = false;
-  Map<int, bool> selectedFlag = {};
 
   void callSetState() {
     setState(() {});
@@ -56,22 +54,21 @@ class _NotesListState extends State<NotesList> {
           physics: const BouncingScrollPhysics(),
           itemCount: widget.notehelper.mainNotes.length,
           itemBuilder: (final context, final index) {
-            final item = widget.notehelper.mainNotes.elementAt(index);
-            selectedFlag[index] = selectedFlag[index] ?? false;
-            final isSelected = selectedFlag[index] ?? false;
-            return Slidable(
+            try{
+              final item = widget.notehelper.mainNotes.elementAt(index);
+              return Slidable(
               key: UniqueKey(),
               startActionPane: widget.primary(item, context),
               endActionPane: widget.secondary(item, context),
               child: NoteWidget(
                 note: item,
-                onItemTap: () => onItemTap(item, index, isSelected: isSelected),
-                onItemLongPress: () =>
-                    onItemLongPress(index, isSelected: isSelected),
-                isSelected: isSelected,
-                selectedFlag: selectedFlag,
+                onItemTap: () => onItemTap(item, index,),
               ),
             );
+            }on RangeError {
+              debugPrint(widget.notehelper.mainNotes.length.toString());
+              return const Icon(Icons.bug_report_outlined);
+            }
           },
         ),
       ),
@@ -83,12 +80,6 @@ class _NotesListState extends State<NotesList> {
     final int index, {
     final bool isSelected = false,
   }) async {
-    if (isSelectionMode) {
-      setState(() {
-        selectedFlag[index] = !isSelected;
-        isSelectionMode = selectedFlag.containsValue(true);
-      });
-    } else {
       if (item.state == NoteState.trashed) {
         await showDialog<void>(
           barrierDismissible: true,
@@ -106,10 +97,4 @@ class _NotesListState extends State<NotesList> {
         );
       }
     }
-  }
-
-  void onItemLongPress(
-    final int index, {
-    final bool isSelected = false,
-  }) {}
 }

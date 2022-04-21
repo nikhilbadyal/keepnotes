@@ -245,7 +245,7 @@ class NotesHelper with ChangeNotifier {
         ...List.from(
           notesList.map(
             (final itemVar) {
-              final item = Note(
+              final item = NoteX.emptyNote.copyWith(
                 id: itemVar['id'],
                 title: noteState == NoteState.hidden.index
                     ? encryption.decryptStr(itemVar['title'])

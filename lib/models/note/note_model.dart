@@ -10,13 +10,21 @@ enum NoteState {
   trashed,
 }
 
-extension NotePath on Note {
+extension NoteX on Note {
   static const _values = [
     AppRoutes.homeScreen,
     AppRoutes.archiveScreen,
     AppRoutes.hiddenScreen,
     AppRoutes.trashScreen
   ];
+
+  static Note get emptyNote => Note(
+        id: '',
+        title: '',
+        content: '',
+        lastModify: DateTime.now(),
+        state: NoteState.unspecified,
+      );
 
   String get path => _values[state.index];
 }
@@ -25,9 +33,9 @@ class Note implements Comparable<Note> {
   Note({
     required this.lastModify,
     required this.id,
-    this.title = '',
-    this.content = '',
-    this.state = NoteState.unspecified,
+    required this.title,
+    required this.content,
+    required this.state,
   });
 
   String id;
@@ -66,7 +74,7 @@ class Note implements Comparable<Note> {
   }
 
   static Note fromMap(final Map<String, dynamic> json) {
-    return Note(
+    return NoteX.emptyNote.copyWith(
       id: const Uuid().v4(),
       title: json['title'].toString(),
       content: json['content'].toString(),
@@ -79,7 +87,7 @@ class Note implements Comparable<Note> {
 
   static Note fromDocumentSnapshot(final QueryDocumentSnapshot json) {
     final int state = json['state'];
-    return Note(
+    return NoteX.emptyNote.copyWith(
       id: json['id'],
       title: json['title'].toString(),
       content: json['content'].toString(),
