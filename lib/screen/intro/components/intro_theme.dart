@@ -34,7 +34,7 @@ class _IntroThemeState extends State<IntroTheme> {
             child: Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: EdgeInsets.all(4.1 * widthMultiplier),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
                     Padding(
@@ -43,7 +43,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         duration: const Duration(milliseconds: 300),
                         child: Icon(
                           EvaIcons.colorPaletteOutline,
-                          size: 10.2 * imageSizeMultiplier,
+                          size: 40,
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
@@ -52,7 +52,7 @@ class _IntroThemeState extends State<IntroTheme> {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         style: TextStyle(
-                          fontSize: 2.63 * textMultiplier,
+                          fontSize: 23,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).textTheme.bodyText1!.color,
@@ -94,7 +94,7 @@ class _IntroThemeState extends State<IntroTheme> {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         style: TextStyle(
-                          fontSize: 2.15 * textMultiplier,
+                          fontSize: 18,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).textTheme.bodyText1!.color,
@@ -139,8 +139,8 @@ class _IntroThemeState extends State<IntroTheme> {
                       child: AnimatedContainer(
                         padding: const EdgeInsets.all(8),
                         duration: const Duration(milliseconds: 150),
-                        height: 5.88 * heightMultiplier,
-                        width: 30.7 * widthMultiplier,
+                        height: 52,
+                        width: 120,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: theme == ThemeSelected.light
@@ -158,7 +158,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           child: Text(
                             Language.of(context).light,
                             style: TextStyle(
-                              fontSize: 1.64 * textMultiplier,
+                              fontSize: 15,
                               color: theme == ThemeSelected.light
                                   ? Colors.white
                                   : Theme.of(context)
@@ -206,7 +206,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           child: Text(
                             Language.of(context).dark,
                             style: TextStyle(
-                              fontSize: 1.64 * textMultiplier,
+                              fontSize: 15,
                               color: theme == ThemeSelected.dark
                                   ? Colors.white
                                   : Theme.of(context)

@@ -37,7 +37,6 @@ class _LockBodyState extends State<LockBody> {
   }
 
   Widget buildPotrait() {
-    final val = screenHeight - kToolbarHeight - 24;
     return SafeArea(
       child: Stack(
         fit: StackFit.expand,
@@ -53,24 +52,24 @@ class _LockBodyState extends State<LockBody> {
           ),
           Column(
             children: [
-              SizedBox(
-                height: val * 0.12,
+              const SizedBox(
+                height: 80,
               ),
-              Icon(
+              const Icon(
                 Icons.lock_outlined,
-                size: val * 0.06,
+                size: 48,
+              ),
+              const SizedBox(
+                height: 40,
               ),
               SizedBox(
-                height: val * 0.05,
-              ),
-              SizedBox(
-                height: val * 0.09,
+                height: 72,
                 child: Text(
                   widget.title,
                 ),
               ),
               SizedBox(
-                height: val * 0.1,
+                height: 80,
                 child: PinCodeBoxes(
                   pinPutController: _pinPutController,
                   pinPutFocusNode: _pinPutFocusNode,
@@ -78,7 +77,6 @@ class _LockBodyState extends State<LockBody> {
                 ),
               ),
               SizedBox(
-                height: val * 0.6,
                 child: GridView.count(
                   padding: const EdgeInsets.all(30),
                   crossAxisCount: 3,
@@ -203,8 +201,8 @@ class _LockBodyState extends State<LockBody> {
                     ),
                     Text(
                       widget.title,
-                      style: TextStyle(
-                        fontSize: 3 * textMultiplier,
+                      style: const TextStyle(
+                        fontSize: 27 ,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

@@ -20,7 +20,8 @@ class HomeNoteOptions extends StatefulWidget {
 
 class _HomeNoteOptionsState extends State<HomeNoteOptions> {
   @override
-  Widget build(final BuildContext context) => Wrap(
+  Widget build(final BuildContext context) {
+    return Wrap(
         children: [
           Container(
             margin: const EdgeInsets.all(8),
@@ -30,15 +31,15 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                   icon: const Icon(Icons.arrow_back_outlined),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
-                SizedBox(width: 4.1 * widthMultiplier),
+                const SizedBox(width: 16),
                 Text(Language.of(context).options),
               ],
             ),
           ),
           Container(
-            margin: EdgeInsets.only(
-              left: 4.1 * widthMultiplier,
-              right: 4.1 * widthMultiplier,
+            margin: const EdgeInsets.only(
+              left: 16,
+              right: 16,
               bottom: 16,
             ),
             child: Column(
@@ -140,4 +141,5 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
           )
         ],
       );
+  }
 }

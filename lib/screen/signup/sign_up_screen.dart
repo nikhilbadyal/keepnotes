@@ -18,17 +18,17 @@ class _SignUpState extends State<SignUp> {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 7 * widthMultiplier,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 28,
           ),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: screenHeight * 0.04),
+                const SizedBox(height: 35),
                 Text(
                   Language.of(context).registerAccount,
                   style: TextStyle(
-                    fontSize: 3 * textMultiplier,
+                    fontSize: 27,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).textTheme.bodyText1!.color,
                     height: 1.5,
@@ -38,9 +38,9 @@ class _SignUpState extends State<SignUp> {
                   Language.of(context).signUpJustification,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: screenHeight * 0.08),
+                const SizedBox(height: 70),
                 const SignUpForm(),
-                SizedBox(height: screenHeight * 0.08),
+                const SizedBox(height: 70),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -93,8 +93,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 2.8 * heightMultiplier,
+                const SizedBox(
+                  height: 25,
                 ),
                 Text(
                   Language.of(context).totalPrivacy,

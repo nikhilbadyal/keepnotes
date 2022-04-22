@@ -30,15 +30,15 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                   icon: const Icon(Icons.arrow_back_outlined),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
-                SizedBox(width: 4.1 * widthMultiplier),
+                const SizedBox(width: 16),
                 Text(Language.of(context).options),
               ],
             ),
           ),
           Container(
-            margin: EdgeInsets.only(
-              left: 4.1 * widthMultiplier,
-              right: 4.1 * widthMultiplier,
+            margin: const EdgeInsets.only(
+              left: 16,
+              right: 16,
               bottom: 16,
             ),
             child: Column(

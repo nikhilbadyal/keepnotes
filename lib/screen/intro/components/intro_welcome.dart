@@ -25,7 +25,7 @@ class IntroWelcome extends StatelessWidget {
                   children: [
                     Flexible(
                       child: AvatarGlow(
-                        endRadius: 15 * heightMultiplier,
+                        endRadius: 133,
                         showTwoGlows: false,
                         glowColor: Theme.of(context)
                             .colorScheme
@@ -33,8 +33,8 @@ class IntroWelcome extends StatelessWidget {
                             .withOpacity(0.1),
                         repeatPauseDuration: const Duration(milliseconds: 400),
                         child: Container(
-                          height: 18.82 * heightMultiplier,
-                          width: 40.81 * widthMultiplier,
+                          height: 168,
+                          width: 160,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(200),
                             color: Theme.of(context)
@@ -44,8 +44,8 @@ class IntroWelcome extends StatelessWidget {
                           ),
                           child: Center(
                             child: SizedBox(
-                              height: 13.11 * heightMultiplier,
-                              width: 30 * widthMultiplier,
+                              height: 52,
+                              width: 120,
                               child: SvgPicture.asset(
                                 'assets/images/icon.svg',
                               ),
@@ -59,7 +59,7 @@ class IntroWelcome extends StatelessWidget {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           style: TextStyle(
-                            fontSize: 2.35 * textMultiplier,
+                            fontSize: 20,
                             fontFamily: 'YTSans',
                             fontWeight: FontWeight.w400,
                             color: Theme.of(context).textTheme.bodyText1!.color,
@@ -78,7 +78,7 @@ class IntroWelcome extends StatelessWidget {
                                 color: Theme.of(context).colorScheme.secondary,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 1,
-                                fontSize: 3.7 * textMultiplier,
+                                fontSize: 32,
                                 fontFamily: 'Product Sans',
                               ),
                             )
@@ -100,7 +100,7 @@ class IntroWelcome extends StatelessWidget {
                 },
                 child: Container(
                   alignment: Alignment.topLeft,
-                  margin: EdgeInsets.all(4.1 * widthMultiplier),
+                  margin: const EdgeInsets.all(16),
                   child: Row(
                     children: [
                       Flexible(
@@ -111,13 +111,13 @@ class IntroWelcome extends StatelessWidget {
                             children: [
                               Container(
                                 alignment: Alignment.center,
-                                height: 3.8 * widthMultiplier,
-                                width: 3.8 * widthMultiplier,
+                                height: 15,
+                                width: 15,
                                 color: Colors.white,
                               ),
                               Icon(
                                 MdiIcons.youtube,
-                                size: 10.2 * widthMultiplier,
+                                size: 40,
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
                             ],
@@ -128,7 +128,7 @@ class IntroWelcome extends StatelessWidget {
                         child: RichText(
                           text: TextSpan(
                             style: TextStyle(
-                              fontSize: 1.88 * textMultiplier,
+                              fontSize: 16,
                               fontFamily: 'YTSans',
                               fontWeight: FontWeight.w400,
                               color:
@@ -177,15 +177,15 @@ class IntroWelcome extends StatelessWidget {
           forward: true,
           slideSide: SlideFromSlide.bottom,
           child: Padding(
-            padding: EdgeInsets.only(right: 4.1 * widthMultiplier),
+            padding: const EdgeInsets.only(right: 16),
             child: FloatingActionButton.extended(
               backgroundColor: Theme.of(context).colorScheme.secondary,
               label: Text(
                 Language.of(context).getStarted,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'YTSans',
-                  fontSize: 1.88 * textMultiplier,
+                  fontSize: 16,
                 ),
               ),
               icon: const Icon(EvaIcons.arrowForward, color: Colors.white),
@@ -208,7 +208,7 @@ class IntroWelcome extends StatelessWidget {
           child: Text(
             Localizations.localeOf(context).languageCode.toUpperCase(),
             style: TextStyle(
-              fontSize: 1.64 * textMultiplier,
+              fontSize: 15,
               fontFamily: 'Product Sans',
               fontWeight: FontWeight.w800,
               color: Theme.of(context).textTheme.bodyText1!.color,
@@ -235,7 +235,7 @@ class IntroWelcome extends StatelessWidget {
                     Text(
                       e.name,
                       style: TextStyle(
-                        fontSize: 1.88 * textMultiplier,
+                        fontSize: 16,
                         fontFamily: 'YTSans',
                         fontWeight: FontWeight.w400,
                         color: Theme.of(context).textTheme.bodyText1!.color,

@@ -37,22 +37,22 @@ class _IntroPermissionsState extends State<IntroPermissions> {
             child: Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: EdgeInsets.all(4.05 * widthMultiplier),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(right: 2.05 * widthMultiplier),
+                      padding: const EdgeInsets.only(right: 8),
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 300),
                         child: accessGranted
                             ? Icon(
                                 MdiIcons.lockOpen,
-                                size: 10.25 * widthMultiplier,
+                                size: 42,
                                 color: Theme.of(context).colorScheme.secondary,
                               )
                             : Icon(
                                 MdiIcons.lock,
-                                size: 10.25 * widthMultiplier,
+                                size: 42,
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
                       ),
@@ -61,7 +61,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         style: TextStyle(
-                          fontSize: 2.63 * textMultiplier,
+                          fontSize: 23,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).textTheme.bodyText1!.color,
@@ -103,7 +103,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       style: TextStyle(
-                        fontSize: 2.15 * textMultiplier,
+                        fontSize: 18,
                         fontFamily: 'YTSans',
                         color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
@@ -155,7 +155,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                 child: AnimatedContainer(
                   margin: const EdgeInsets.only(bottom: 32),
                   duration: const Duration(milliseconds: 500),
-                  height: 5.88 * heightMultiplier,
+                  height: 52,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: Theme.of(context).colorScheme.secondary,
@@ -175,8 +175,8 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                               margin: const EdgeInsets.only(left: 18, right: 8),
                               child: Text(
                                 Language.of(context).allowAccess,
-                                style: TextStyle(
-                                  fontSize: 1.91 * textMultiplier,
+                                style: const TextStyle(
+                                  fontSize: 17,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -184,7 +184,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                             ),
                             Container(
                               margin:
-                                  EdgeInsets.only(right: 4.1 * widthMultiplier),
+                                  const EdgeInsets.only(right: 16),
                               child: const Icon(
                                 EvaIcons.lockOutline,
                                 color: Colors.white,

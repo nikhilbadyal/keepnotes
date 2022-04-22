@@ -30,7 +30,7 @@ class IntroReady extends StatelessWidget {
                           duration: const Duration(milliseconds: 300),
                           child: Icon(
                             EvaIcons.layersOutline,
-                            size: 10.2 * widthMultiplier,
+                            size:40,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
@@ -39,7 +39,7 @@ class IntroReady extends StatelessWidget {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           style: TextStyle(
-                            fontSize: 2.63 * textMultiplier,
+                            fontSize: 23,
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).textTheme.bodyText1!.color,
@@ -76,7 +76,7 @@ class IntroReady extends StatelessWidget {
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               style: TextStyle(
-                                fontSize: 2.15 * textMultiplier,
+                                fontSize: 18,
                                 fontFamily: 'Product Sans',
                                 fontWeight: FontWeight.w500,
                                 color: Theme.of(context)
@@ -115,15 +115,15 @@ class IntroReady extends StatelessWidget {
           forward: true,
           slideSide: SlideFromSlide.bottom,
           child: Padding(
-            padding: EdgeInsets.only(right: 4.1 * widthMultiplier),
+            padding: const EdgeInsets.only(right: 16),
             child: FloatingActionButton.extended(
               backgroundColor: Theme.of(context).colorScheme.secondary,
               label: Text(
                 Language.of(context).login,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'YTSans',
-                  fontSize: 1.88 * textMultiplier,
+                  fontSize: 16,
                 ),
               ),
               icon: const Icon(EvaIcons.logInOutline, color: Colors.white),

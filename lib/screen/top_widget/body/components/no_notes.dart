@@ -20,8 +20,8 @@ class NoNotesBody extends StatelessWidget {
               Center(
                 child: RichText(
                   text: TextSpan(
-                    style: TextStyle(
-                      fontSize: 2.63 * textMultiplier,
+                    style: const TextStyle(
+                      fontSize: 23,
                       fontWeight: FontWeight.w600,
                     ),
                     children: [
@@ -38,8 +38,8 @@ class NoNotesBody extends StatelessWidget {
             else
               RichText(
                 text: TextSpan(
-                  style: TextStyle(
-                    fontSize: 2.63 * textMultiplier,
+                  style: const TextStyle(
+                    fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),
                   children: [
@@ -58,7 +58,7 @@ class NoNotesBody extends StatelessWidget {
                     TextSpan(
                       text: '+',
                       style: TextStyle(
-                        fontSize: 3.52 * textMultiplier,
+                        fontSize: 30,
                         color: Theme.of(context).colorScheme.secondary,
                         fontWeight: FontWeight.bold,
                       ),

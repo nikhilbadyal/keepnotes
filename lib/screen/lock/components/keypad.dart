@@ -17,7 +17,7 @@ class PinCodeBoxes extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8 * heightMultiplier),
+      padding: const EdgeInsets.symmetric(horizontal: 70),
       child: Pinput(
         useNativeKeyboard: false,
         onCompleted: (final pass) async {

@@ -66,8 +66,8 @@ class _LockScreenState extends State<LockScreen> {
                   },
                   child: Text(
                     Language.of(context).alertDialogOp1,
-                    style: TextStyle(
-                      fontSize: 2.35 * textMultiplier,
+                    style: const TextStyle(
+                      fontSize: 20,
                     ),
                   ),
                 ),
@@ -77,8 +77,8 @@ class _LockScreenState extends State<LockScreen> {
                   },
                   child: Text(
                     Language.of(context).alertDialogOp2,
-                    style: TextStyle(
-                      fontSize: 2.35 * textMultiplier,
+                    style: const TextStyle(
+                      fontSize: 20,
                     ),
                   ),
                 ),

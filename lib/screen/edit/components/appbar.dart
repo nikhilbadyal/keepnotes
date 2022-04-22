@@ -36,14 +36,14 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
           builder: (final _, final counter, final __) {
             return Center(
               child: Padding(
-                padding: EdgeInsets.only(
-                  right: 5.12 * widthMultiplier,
+                padding: const EdgeInsets.only(
+                  right: 20,
                 ),
                 child: Text(
                   counter.count.toString(),
                   style: GoogleFonts.merriweather(
-                    textStyle: TextStyle(
-                      fontSize: 2.35 * textMultiplier,
+                    textStyle: const TextStyle(
+                      fontSize: 20,
                       height: 1.7,
                       fontWeight: FontWeight.w600,
                       fontStyle: FontStyle.italic,

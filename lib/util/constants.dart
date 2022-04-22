@@ -48,9 +48,9 @@ final Uri emailLaunchUri = Uri(
 );
 
 //Widget const
-Icon addIcon = Icon(
+Icon addIcon = const Icon(
   Icons.add_outlined,
-  size: 3.52 * heightMultiplier,
+  size: 30,
 );
 
 AppBarTheme getAppBarTheme(final Color primary) {

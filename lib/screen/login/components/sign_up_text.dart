@@ -14,8 +14,8 @@ class NoAccountText extends StatelessWidget {
       children: [
         Text(
           Language.of(context).noAccount,
-          style: TextStyle(
-            fontSize: 2.2 * textMultiplier,
+          style: const TextStyle(
+            fontSize: 20,
           ),
         ),
         GestureDetector(
@@ -23,7 +23,7 @@ class NoAccountText extends StatelessWidget {
           child: Text(
             Language.of(context).signUp,
             style: TextStyle(
-              fontSize: 1.8 * textMultiplier,
+              fontSize: 16,
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),

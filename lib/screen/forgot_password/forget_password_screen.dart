@@ -34,7 +34,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       child: Form(
         key: formKey,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 6.41 * widthMultiplier),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: ListView(
             children: [
               const SizedBox(height: 75),
@@ -45,18 +45,18 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   children: [
                     Text(
                       Language.of(context).hello,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Trueno',
-                        fontSize: 7.1 * textMultiplier,
+                        fontSize: 63,
                       ),
                     ),
                     Positioned(
                       top: 50,
                       child: Text(
                         Language.of(context).there,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Trueno',
-                          fontSize: 7.1 * textMultiplier,
+                          fontSize: 63,
                         ),
                       ),
                     ),
@@ -84,7 +84,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontWeight: FontWeight.bold,
-                        fontSize: 1.79 * textMultiplier,
+                        fontSize: 15,
                       ),
                     ),
                   ),
@@ -101,7 +101,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   labelText: Language.of(context).email,
                   labelStyle: TextStyle(
                     fontFamily: 'Trueno',
-                    fontSize: 1.44 * textMultiplier,
+                    fontSize: 12,
                     color: Colors.grey.withOpacity(0.5),
                   ),
                   focusedBorder: UnderlineInputBorder(
@@ -115,7 +115,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   Validators.required(Language.of(context).required),
                 ]),
               ),
-              SizedBox(height: 5.88 * heightMultiplier),
+              const SizedBox(height: 52),
               GestureDetector(
                 onTap: () async {
                   if (checkFields()) {
@@ -139,7 +139,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   }
                 },
                 child: SizedBox(
-                  height: 5.88 * heightMultiplier,
+                  height: 52,
                   child: Material(
                     borderRadius: BorderRadius.circular(25),
                     shadowColor:

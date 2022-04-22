@@ -34,8 +34,8 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            Divider(
-              height: 7.05 * heightMultiplier,
+            const Divider(
+              height: 62,
               indent: 12,
               endIndent: 12,
             ),
@@ -48,16 +48,16 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 color: Theme.of(context).textTheme.bodyText1!.color,
               ),
             ),
-            SizedBox(height: 3.52 * heightMultiplier),
+            const SizedBox(height: 30),
             Text(
               Language.of(context).devName,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
-                fontSize: 2.35 * textMultiplier,
+                fontSize: 20,
                 fontWeight: FontWeight.normal,
               ),
             ),
-            SizedBox(height: 3.52 * heightMultiplier),
+            const SizedBox(height: 30),
             Text(
               Language.of(context).email,
               textAlign: TextAlign.start,
@@ -67,12 +67,12 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 color: Theme.of(context).textTheme.bodyText1!.color,
               ),
             ),
-            SizedBox(height: 3.52 * heightMultiplier),
+            const SizedBox(height: 30),
             Row(
               children: <Widget>[
                 const Icon(Icons.email),
-                SizedBox(
-                  width: 2.56 * widthMultiplier,
+                const SizedBox(
+                  width: 10,
                 ),
                 GestureDetector(
                   onTap: () async => launchUrl(
@@ -83,21 +83,21 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 1.8 * textMultiplier,
+                      fontSize: 16,
                     ),
                   ),
                 ),
               ],
             ),
-            Divider(
-              height: 7 * heightMultiplier,
+            const Divider(
+              height: 62,
               indent: 12,
               endIndent: 12,
             ),
             Container(
-              margin: EdgeInsets.only(
-                left: 4.1 * widthMultiplier,
-                top: 0.94 * heightMultiplier,
+              margin: const EdgeInsets.only(
+                left: 16,
+                top: 8.3,
               ),
               child: Center(
                 child: Text(
@@ -112,9 +112,9 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               ),
             ),
             const SocialLinksRow(),
-            SizedBox(height: 1.88 * heightMultiplier),
-            Divider(
-              height: 7 * heightMultiplier,
+            const SizedBox(height: 16),
+            const Divider(
+              height: 62,
               indent: 12,
               endIndent: 12,
             ),

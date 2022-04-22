@@ -18,18 +18,18 @@ class _LoginState extends State<Login> {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 7 * widthMultiplier,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 28,
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: screenHeight * 0.04),
+              const SizedBox(height: 35),
               Text(
                 Language.of(context).loginToContinue,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyText1!.color,
-                  fontSize: 3 * textMultiplier,
+                  fontSize: 27,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -38,13 +38,13 @@ class _LoginState extends State<Login> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyText1!.color,
-                  fontSize: 1.8 * textMultiplier,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: screenHeight * 0.08),
+              const SizedBox(height: 70),
               const SignForm(),
-              SizedBox(height: screenHeight * 0.08),
+              const SizedBox(height: 70),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -97,8 +97,8 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 2.8 * heightMultiplier,
+              const SizedBox(
+                height: 25,
               ),
               const NoAccountText(),
             ],

@@ -46,17 +46,17 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(
-            height: 2.8 * heightMultiplier,
+          const SizedBox(
+            height: 25,
           ),
           buildPasswordFormField(),
-          SizedBox(
-            height: 2.8 * heightMultiplier,
+          const SizedBox(
+            height: 25,
           ),
           buildConformPassFormField(),
           FormError(errors: errors),
-          SizedBox(
-            height: 5 * heightMultiplier,
+          const SizedBox(
+            height: 44,
           ),
           GestureDetector(
             onTap: () async {
@@ -95,7 +95,7 @@ class _SignUpFormState extends State<SignUpForm> {
               }
             },
             child: SizedBox(
-              height: 6 * heightMultiplier,
+              height: 53,
               child: Material(
                 borderRadius: BorderRadius.circular(25),
                 shadowColor:

@@ -62,7 +62,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               accountEmail: Text(
                 wish,
                 style: TextStyle(
-                  fontSize: 1.64 * textMultiplier,
+                  fontSize: 15,
                   color: Theme.of(context).iconTheme.color,
                 ),
               ),
@@ -169,8 +169,8 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               navigate(_activeRoute, context, AppRoutes.archiveScreen);
             },
           ),
-          Divider(
-            height: 1.76 * heightMultiplier,
+          const Divider(
+            height: 15,
             color: Colors.transparent,
           ),
           ListTile(
@@ -191,8 +191,8 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             ),
             onTap: () => navigate(_activeRoute, context, AppRoutes.trashScreen),
           ),
-          Divider(
-            height: 1.76 * heightMultiplier,
+          const Divider(
+            height: 15,
             color: Colors.transparent,
           ),
           ListTile(

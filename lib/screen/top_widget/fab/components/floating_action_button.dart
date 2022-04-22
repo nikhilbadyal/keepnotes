@@ -19,7 +19,7 @@ class Fab extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 2.94 * heightMultiplier),
+      padding: const EdgeInsets.only(bottom: 26),
       child: GestureDetector(
         onTap: () {
           HapticFeedback.vibrate();

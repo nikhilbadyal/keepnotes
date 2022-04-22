@@ -54,7 +54,6 @@ class _NotesListState extends State<NotesList> {
           physics: const BouncingScrollPhysics(),
           itemCount: widget.notehelper.mainNotes.length,
           itemBuilder: (final context, final index) {
-            try{
               final item = widget.notehelper.mainNotes.elementAt(index);
               return Slidable(
               key: UniqueKey(),
@@ -65,10 +64,6 @@ class _NotesListState extends State<NotesList> {
                 onItemTap: () => onItemTap(item, index,),
               ),
             );
-            }on RangeError {
-              debugPrint(widget.notehelper.mainNotes.length.toString());
-              return const Icon(Icons.bug_report_outlined);
-            }
           },
         ),
       ),

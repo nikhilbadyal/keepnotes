@@ -88,7 +88,6 @@ class _MyNotesState extends State<MyNotes> {
             builder: (final context, final constraints) {
               return OrientationBuilder(
                 builder: (final context, final orientation) {
-                  SizeConfig().init(constraints, orientation);
                   return MaterialApp(
                     locale: _locale,
                     restorationScopeId: 'keepnotes',

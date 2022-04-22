@@ -20,12 +20,12 @@ class _SocialLinksRowState extends State<SocialLinksRow> {
   @override
   Widget build(final BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        left: 3.1 * widthMultiplier,
-        right: 3.1 * widthMultiplier,
-        top: 1.88 * heightMultiplier,
+      margin: const EdgeInsets.only(
+        left: 12,
+        right: 12,
+        top: 16,
       ),
-      height: 5.88 * heightMultiplier,
+      height: 52,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

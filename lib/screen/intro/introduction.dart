@@ -83,7 +83,7 @@ class _IntroScreenState extends State<IntroScreen>
           ),
           Expanded(
             child: Container(
-              height: 5.88 * heightMultiplier,
+              height: 52,
               alignment: Alignment.center,
               child: Stack(
                 alignment: Alignment.center,
@@ -91,7 +91,7 @@ class _IntroScreenState extends State<IntroScreen>
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 2.05 * widthMultiplier),
+                      padding: const EdgeInsets.only(left: 8),
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 300),
                         child: _selectedIndex == 3
@@ -100,7 +100,7 @@ class _IntroScreenState extends State<IntroScreen>
                                 style: TextButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
-                                      0.59 * textMultiplier,
+                                      5,
                                     ),
                                   ),
                                 ),
@@ -109,7 +109,7 @@ class _IntroScreenState extends State<IntroScreen>
                                   style: TextStyle(
                                     fontFamily: 'Product Sans',
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 1.67 * textMultiplier,
+                                    fontSize: 15,
                                     color: Theme.of(context)
                                         .textTheme
                                         .bodyText1!
@@ -135,14 +135,14 @@ class _IntroScreenState extends State<IntroScreen>
                       return Center(
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 250),
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 2.05 * widthMultiplier,
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 8,
                           ),
-                          height: 2.57 * widthMultiplier,
-                          width: 2.57 * widthMultiplier,
+                          height: 10,
+                          width: 10,
                           decoration: BoxDecoration(
                             borderRadius:
-                                BorderRadius.circular(5.88 * textMultiplier),
+                                BorderRadius.circular(52),
                             color: _selectedIndex == index
                                 ? Theme.of(context).colorScheme.secondary
                                 : Theme.of(context)
@@ -161,12 +161,12 @@ class _IntroScreenState extends State<IntroScreen>
                             alignment: Alignment.centerRight,
                             child: Padding(
                               padding:
-                                  EdgeInsets.only(right: 0.94 * textMultiplier),
+                                  const EdgeInsets.only(right: 8),
                               child: TextButton(
                                 style: TextButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
-                                      0.58 * textMultiplier,
+                                      5,
                                     ),
                                   ),
                                 ),
@@ -182,7 +182,7 @@ class _IntroScreenState extends State<IntroScreen>
                                   style: TextStyle(
                                     fontFamily: 'Product Sans',
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 1.67 * textMultiplier,
+                                    fontSize: 15,
                                     color: Theme.of(context)
                                         .textTheme
                                         .bodyText1!

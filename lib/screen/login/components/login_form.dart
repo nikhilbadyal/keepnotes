@@ -48,12 +48,12 @@ class _SignFormState extends State<SignForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(
-            height: 2.8 * heightMultiplier,
+          const SizedBox(
+            height: 25,
           ),
           buildPasswordFormField(),
-          SizedBox(
-            height: 2.8 * heightMultiplier,
+          const SizedBox(
+            height: 25,
           ),
           GestureDetector(
             onTap: () =>
@@ -67,8 +67,8 @@ class _SignFormState extends State<SignForm> {
             ),
           ),
           FormError(errors: errors),
-          SizedBox(
-            height: 2.5 * heightMultiplier,
+          const SizedBox(
+            height: 25,
           ),
           GestureDetector(
             onTap: () async {
@@ -121,7 +121,7 @@ class _SignFormState extends State<SignForm> {
               }
             },
             child: SizedBox(
-              height: 6 * heightMultiplier,
+              height: 53,
               child: Material(
                 borderRadius: BorderRadius.circular(25),
                 shadowColor:
@@ -278,15 +278,15 @@ class CustomSuffixIcon extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(
+      padding: const EdgeInsets.fromLTRB(
         0,
-        7 * widthMultiplier,
-        7 * widthMultiplier,
-        7 * widthMultiplier,
+        28,
+        28,
+        28,
       ),
       child: SvgPicture.asset(
         svgIcon,
-        height: 6.8 * widthMultiplier,
+        height: 28,
       ),
     );
   }

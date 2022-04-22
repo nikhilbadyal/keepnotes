@@ -28,8 +28,8 @@ class ModalSheetWidget extends ModalSheetWidgets {
         child: GestureDetector(
           onTap: onTap,
           child: Container(
-            margin: EdgeInsets.only(left: 2 * widthMultiplier),
-            height: 9.41 * heightMultiplier,
+            margin: const EdgeInsets.only(left: 8),
+            height: 84,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
@@ -49,9 +49,9 @@ class ModalSheetWidget extends ModalSheetWidgets {
               children: [
                 Icon(
                   icon,
-                  size: 8.87 * imageSizeMultiplier,
+                  size: 35,
                 ),
-                SizedBox(width: 4.1 * widthMultiplier),
+                const SizedBox(width: 16),
                 Text(label),
               ],
             ),
@@ -116,7 +116,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
             );
           },
           child: Container(
-            height: 9.41 * heightMultiplier,
+            height: 84,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
@@ -134,11 +134,11 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   TablerIcons.trash,
-                  size: 9 * widthMultiplier,
+                  size: 36,
                 ),
-                SizedBox(width: 4.1 * widthMultiplier),
+                const SizedBox(width: 16),
                 Text(Language.of(context).emptyTrash),
               ],
             ),

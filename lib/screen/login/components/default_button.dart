@@ -1,5 +1,4 @@
 //24-11-2021 09:09 PM
-import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class DefaultButton extends StatefulWidget {
@@ -19,13 +18,13 @@ class _DefaultButtonState extends State<DefaultButton> {
   @override
   Widget build(final BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: 5 * widthMultiplier,
-        right: 5 * widthMultiplier,
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
       ),
       child: SizedBox(
         width: double.infinity,
-        height: 7 * heightMultiplier,
+        height: 62,
         child: TextButton(
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -37,8 +36,8 @@ class _DefaultButtonState extends State<DefaultButton> {
           onPressed: widget.press as void Function()?,
           child: Text(
             widget.text!,
-            style: TextStyle(
-              fontSize: 2.3 * textMultiplier,
+            style: const TextStyle(
+              fontSize: 20,
               color: Colors.white,
             ),
           ),

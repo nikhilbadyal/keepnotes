@@ -1,5 +1,4 @@
 //24-11-2021 09:04 PM
-import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
@@ -18,14 +17,14 @@ class SocialCard extends StatelessWidget {
     return GestureDetector(
       onTap: press as void Function()?,
       child: Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: 1 * widthMultiplier,
+        margin: const EdgeInsets.symmetric(
+          horizontal: 4,
         ),
-        padding: EdgeInsets.all(
-          1 * widthMultiplier,
+        padding: const EdgeInsets.all(
+          4,
         ),
-        height: 4 * heightMultiplier,
-        width: 9 * widthMultiplier,
+        height: 16,
+        width: 36,
         decoration: const BoxDecoration(
           color: Color(0xFFF5F6F9),
           shape: BoxShape.circle,
