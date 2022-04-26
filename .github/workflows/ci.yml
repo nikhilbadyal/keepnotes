@@ -52,7 +52,7 @@ jobs:
         run: flutter format --set-exit-if-changed --dry-run .
 
       - name: Build apk
-      - run: flutter build apk --split-per-abi
+        run: flutter build apk --split-per-abi
 
 env:
   KEY_PROPERTIES_PATH: "./android/key.properties"
