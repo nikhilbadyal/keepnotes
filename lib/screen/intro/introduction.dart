@@ -141,8 +141,7 @@ class _IntroScreenState extends State<IntroScreen>
                           height: 10,
                           width: 10,
                           decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(52),
+                            borderRadius: BorderRadius.circular(52),
                             color: _selectedIndex == index
                                 ? Theme.of(context).colorScheme.secondary
                                 : Theme.of(context)
@@ -160,8 +159,7 @@ class _IntroScreenState extends State<IntroScreen>
                         ? Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.only(right: 8),
                               child: TextButton(
                                 style: TextButton.styleFrom(
                                   shape: RoundedRectangleBorder(

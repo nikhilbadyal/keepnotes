@@ -202,7 +202,7 @@ class _LockBodyState extends State<LockBody> {
                     Text(
                       widget.title,
                       style: const TextStyle(
-                        fontSize: 27 ,
+                        fontSize: 27,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

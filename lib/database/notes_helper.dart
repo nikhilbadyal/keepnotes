@@ -256,8 +256,9 @@ class NotesHelper with ChangeNotifier {
                 lastModify: DateTime.fromMillisecondsSinceEpoch(
                   int.parse(itemVar['lastModify'].toString()),
                 ),
-                state: NoteState.values[int.parse([itemVar['state']].
-                            toString(),)],
+                state: NoteState.values[int.parse(
+                  [itemVar['state']].toString(),
+                )],
               );
               return item;
             },

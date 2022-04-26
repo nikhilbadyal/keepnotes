@@ -9,7 +9,8 @@ Widget slidableAction(
   final Color foregroundColor,
   final Note note,
   final IconData icon,
-  final OnBuildContextTap onPressed,) {
+  final OnBuildContextTap onPressed,
+) {
   return SlidableAction(
     autoClose: false,
     icon: icon,

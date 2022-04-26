@@ -30,7 +30,7 @@ class IntroReady extends StatelessWidget {
                           duration: const Duration(milliseconds: 300),
                           child: Icon(
                             EvaIcons.layersOutline,
-                            size:40,
+                            size: 40,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),

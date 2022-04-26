@@ -183,8 +183,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                               ),
                             ),
                             Container(
-                              margin:
-                                  const EdgeInsets.only(right: 16),
+                              margin: const EdgeInsets.only(right: 16),
                               child: const Icon(
                                 EvaIcons.lockOutline,
                                 color: Colors.white,

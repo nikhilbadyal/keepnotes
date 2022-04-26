@@ -64,6 +64,7 @@ Future<void> main() async {
       logger.e('reportError debugMode $error $stackTrace');
     }
   }
+
   if (dsn.isNotEmpty || kDebugMode) {
     await runZonedGuarded(
       () async {

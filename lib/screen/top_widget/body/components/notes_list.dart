@@ -25,7 +25,6 @@ class NotesList extends StatefulWidget {
 }
 
 class _NotesListState extends State<NotesList> {
-
   void callSetState() {
     setState(() {});
   }
@@ -54,14 +53,17 @@ class _NotesListState extends State<NotesList> {
           physics: const BouncingScrollPhysics(),
           itemCount: widget.notehelper.mainNotes.length,
           itemBuilder: (final context, final index) {
-              final item = widget.notehelper.mainNotes.elementAt(index);
-              return Slidable(
+            final item = widget.notehelper.mainNotes.elementAt(index);
+            return Slidable(
               key: UniqueKey(),
               startActionPane: widget.primary(item, context),
               endActionPane: widget.secondary(item, context),
               child: NoteWidget(
                 note: item,
-                onItemTap: () => onItemTap(item, index,),
+                onItemTap: () => onItemTap(
+                  item,
+                  index,
+                ),
               ),
             );
           },
@@ -75,21 +77,21 @@ class _NotesListState extends State<NotesList> {
     final int index, {
     final bool isSelected = false,
   }) async {
-      if (item.state == NoteState.trashed) {
-        await showDialog<void>(
-          barrierDismissible: true,
-          context: context,
-          builder: (final context) => MyAlertDialog(
-            content: Text(Language.of(context).trashEditingWarning),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        await Navigator.pushNamed(
-          context,
-          AppRoutes.editScreen,
-          arguments: item,
-        );
-      }
+    if (item.state == NoteState.trashed) {
+      await showDialog<void>(
+        barrierDismissible: true,
+        context: context,
+        builder: (final context) => MyAlertDialog(
+          content: Text(Language.of(context).trashEditingWarning),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      await Navigator.pushNamed(
+        context,
+        AppRoutes.editScreen,
+        arguments: item,
+      );
     }
+  }
 }
