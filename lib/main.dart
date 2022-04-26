@@ -65,7 +65,7 @@ Future<void> main() async {
     }
   }
 
-  if (dsn.isNotEmpty || kDebugMode) {
+  if (dsn.isNotEmpty) {
     await runZonedGuarded(
       () async {
         return runApp(

@@ -1,1 +1,0 @@
-fclean.sh && fbuild.sh
