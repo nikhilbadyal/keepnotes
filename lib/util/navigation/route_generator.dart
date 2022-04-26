@@ -136,7 +136,7 @@ Route<dynamic> errorRoute() {
   );
 }
 
-Future navigate(
+Future<void> navigate(
   final String activeRoute,
   final BuildContext context,
   final String newRoute, [

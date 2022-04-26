@@ -220,7 +220,7 @@ class NotesHelper with ChangeNotifier {
     }
   }
 
-  Future getAllNotes(final int noteState) async {
+  Future<void> getAllNotes(final int noteState) async {
     if (!isLastPage && !isLoading) {
       isLoading = true;
       if (!(getBoolFromSF('syncedWithFirebase') ?? false)) {
@@ -246,17 +246,18 @@ class NotesHelper with ChangeNotifier {
           notesList.map(
             (final itemVar) {
               final item = NoteX.emptyNote.copyWith(
-                id: itemVar['id'],
+                id: itemVar['id'].toString(),
                 title: noteState == NoteState.hidden.index
-                    ? encryption.decryptStr(itemVar['title'])
+                    ? encryption.decryptStr(itemVar['title'].toString())
                     : itemVar['title'].toString(),
                 content: noteState == NoteState.hidden.index
-                    ? encryption.decryptStr(itemVar['content'])
+                    ? encryption.decryptStr(itemVar['content'].toString())
                     : itemVar['content'].toString(),
                 lastModify: DateTime.fromMillisecondsSinceEpoch(
-                  itemVar['lastModify'],
+                  int.parse(itemVar['lastModify'].toString()),
                 ),
-                state: NoteState.values[itemVar['state']],
+                state: NoteState.values[int.parse([itemVar['state']].
+                            toString(),)],
               );
               return item;
             },

@@ -2,7 +2,7 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-final RouteObserver<Route> routeObserver = RouteObserver<Route>();
+final RouteObserver<Route<void>> routeObserver = RouteObserver<Route<void>>();
 
 late Encrypt encryption;
 final LocalAuthentication localAuthentication = LocalAuthentication();

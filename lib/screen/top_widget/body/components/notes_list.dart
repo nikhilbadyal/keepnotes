@@ -17,8 +17,8 @@ class NotesList extends StatefulWidget {
   final NotesHelper notehelper;
 
   final NoteState fromWhere;
-  final Function(Note note, BuildContext context) primary;
-  final Function(Note note, BuildContext context) secondary;
+  final ActionPane? Function(Note note, BuildContext context) primary;
+  final ActionPane? Function(Note note, BuildContext context) secondary;
 
   @override
   _NotesListState createState() => _NotesListState();

@@ -3,12 +3,13 @@ import 'package:notes/_aap_packages.dart';
 //TODO fix this
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 late SharedPreferences prefs;
 
-Future<bool> launchUrl(final String url) async {
-  if (await canLaunch(url)) {
-    return launch(url);
+Future<bool> urlLauncher(final String url) async {
+  if (await canLaunchUrlString(url)) {
+    return launchUrlString(url);
   } else {
     return false;
   }

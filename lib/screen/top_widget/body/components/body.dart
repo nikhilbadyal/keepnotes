@@ -12,16 +12,16 @@ class Body extends StatefulWidget {
 
   final NoteState fromWhere;
 
-  final Function(Note note, BuildContext context) primary;
+  final ActionPane? Function(Note note, BuildContext context) primary;
 
-  final Function(Note note, BuildContext context) secondary;
+  final ActionPane? Function(Note note, BuildContext context) secondary;
 
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  late Future myFuture;
+  late Future<void> myFuture;
 
   @override
   void initState() {

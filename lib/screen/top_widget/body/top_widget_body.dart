@@ -130,7 +130,7 @@ ActionPane homeRight(final Note note, final BuildContext context) {
   );
 }
 
-ActionPane hiddenLeft(final Note note, final BuildContext context) {
+ActionPane? hiddenLeft(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
@@ -164,7 +164,7 @@ ActionPane hiddenRight(final Note note, final BuildContext context) {
   );
 }
 
-ActionPane archiveLeft(final Note note, final BuildContext context) {
+ActionPane? archiveLeft(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [

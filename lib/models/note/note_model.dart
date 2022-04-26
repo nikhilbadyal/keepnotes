@@ -79,20 +79,20 @@ class Note implements Comparable<Note> {
       title: json['title'].toString(),
       content: json['content'].toString(),
       lastModify: DateTime.fromMillisecondsSinceEpoch(
-        json['lastModify'],
+        int.parse(json['lastModify'].toString()),
       ),
-      state: NoteState.values[json['state']],
+      state: NoteState.values[int.parse(json['state'].toString())],
     );
   }
 
   static Note fromDocumentSnapshot(final QueryDocumentSnapshot json) {
-    final int state = json['state'];
+    final state = int.parse(json['state'].toString());
     return NoteX.emptyNote.copyWith(
-      id: json['id'],
+      id: json['id'].toString(),
       title: json['title'].toString(),
       content: json['content'].toString(),
       lastModify: DateTime.fromMillisecondsSinceEpoch(
-        json['lastModify'],
+        int.parse(json['lastModify'].toString()),
       ),
       state: NoteState.values[state],
     );

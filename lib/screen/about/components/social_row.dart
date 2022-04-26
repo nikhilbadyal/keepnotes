@@ -1,6 +1,7 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SocialLinksRow extends StatefulWidget {
   const SocialLinksRow({
@@ -30,11 +31,11 @@ class _SocialLinksRowState extends State<SocialLinksRow> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
-            onTap: () => launch(telegramUrl),
+            onTap: () => launchUrlString(telegramUrl),
             child: SvgPicture.asset(telegram),
           ),
           GestureDetector(
-            onTap: () => launch(repoLink),
+            onTap: () => launchUrlString(repoLink),
             child: SvgPicture.asset(github),
           ),
         ],

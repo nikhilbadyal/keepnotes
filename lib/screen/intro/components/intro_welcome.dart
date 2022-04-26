@@ -1,6 +1,7 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class IntroWelcome extends StatelessWidget {
   const IntroWelcome({required this.onNext, final Key? key}) : super(key: key);
@@ -96,7 +97,7 @@ class IntroWelcome extends StatelessWidget {
               duration: const Duration(milliseconds: 600),
               child: GestureDetector(
                 onTap: () {
-                  launch(githubProfile);
+                  launchUrlString(githubProfile);
                 },
                 child: Container(
                   alignment: Alignment.topLeft,

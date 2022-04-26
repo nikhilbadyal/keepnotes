@@ -1,6 +1,7 @@
 //24-11-2021 03:19 PM
 
 import 'package:notes/_aap_packages.dart';
+import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 //Image Const
@@ -66,7 +67,7 @@ typedef DoneCallBack = void Function(String text);
 typedef OnTap = void Function();
 typedef OnBuildContextTap = void Function(BuildContext context);
 typedef OnFabTap = void Function(BuildContext context, NoteState noteState);
-typedef SlidableActions = Function(Note note, BuildContext context);
+typedef SlidableActions = ActionPane? Function(Note note, BuildContext context);
 typedef PickerLayoutBuilder = Widget Function(
   BuildContext context,
   List<Color> colors,

@@ -13,9 +13,9 @@ dependencies:
 
   animations: ^2.0.2
   avatar_glow: ^2.0.2
-  firebase_auth: ^3.3.14
-  firebase_core: ^1.14.1
-  cloud_firestore: ^3.1.12
+  firebase_auth: ^3.3.15
+  firebase_core: ^1.15.0
+  cloud_firestore: ^3.1.13
   encrypt: ^5.0.1
   material_design_icons_flutter: ^5.0.6595
   file_picker: ^4.5.1
@@ -30,15 +30,15 @@ dependencies:
   path: ^1.8.0
   provider: ^6.0.2
   permission_handler: ^9.2.0
-  sentry_flutter: ^6.5.0
+  sentry_flutter: ^6.5.1
   shared_preferences: ^2.0.13
   sqflite: ^2.0.2+1
-  url_launcher: ^6.0.20
+  url_launcher: ^6.1.0
   uuid: ^3.0.6
   wc_form_validators: ^1.0.0
   pinput: ^2.2.7
   progress_state_button: ^1.0.4
-  google_fonts: ^2.3.1
+  google_fonts: ^2.3.2
   flutter_slidable:
     git:
       url: https://github.com/nikhilbadyal/flutter_slidable.git

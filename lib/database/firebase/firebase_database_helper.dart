@@ -110,7 +110,7 @@ class FirebaseDatabaseHelper {
       DocumentReference<Map<String, dynamic>> ref;
       for (final element in notesList) {
         {
-          ref = notesReference.doc(element['id']);
+          ref = notesReference.doc(element['id'].toString());
           transaction.set(ref, element);
         }
       }
@@ -122,7 +122,7 @@ class FirebaseDatabaseHelper {
       DocumentReference<Map<String, dynamic>> ref;
       for (final element in notesList) {
         {
-          ref = notesReference.doc(element['id']);
+          ref = notesReference.doc(element['id'].toString());
           transaction.set(ref, element);
         }
       }
