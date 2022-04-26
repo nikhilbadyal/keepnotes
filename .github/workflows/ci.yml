@@ -26,18 +26,33 @@ jobs:
           cache: true
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
-      - name: populate key.properties
+
+      - name: Run Flutter Doctor
+        run: flutter doctor -v
+
+      - name: Populate key.properties
         run: |
           echo "${{ secrets.KEY_PROPERTIES_FILE }}" | base64 --decode > ${{env.KEY_PROPERTIES_PATH}}
-      - name: populate keystore
+
+      - name: Populate keystore
         run: |
           echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > ${{env.KEYSTORE_PATH}}
+
       - name: Populate google-services.json
         run: |
           echo $GOOGLE_SERVICES_JSON_SECRET > ${{env.GOOGLE_SERVICES_JSON_PATH}}
-      - run: flutter pub get
-      - run: flutter analyze
-      - run: flutter build apk
+
+      - name: Run pub get
+        run: flutter pub get -v
+
+      - name: Run flutter analyzer
+        run: flutter analyze
+
+      - name: Ensure the Dart code is formatted correctly
+        run: flutter format --set-exit-if-changed --dry-run .
+
+      - name: Build apk
+      - run: flutter build apk --split-per-abi
 
 env:
   KEY_PROPERTIES_PATH: "./android/key.properties"
