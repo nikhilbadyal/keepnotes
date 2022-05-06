@@ -39,9 +39,7 @@ dependencies:
   pinput: ^2.2.7
   progress_state_button: ^1.0.4
   google_fonts: ^2.3.2
-  flutter_slidable:
-    git:
-      url: https://github.com/nikhilbadyal/flutter_slidable.git
+  flutter_slidable: ^1.2.0
   keepsettings:
     git:
       url: https://github.com/nikhilbadyal/keepsettings.git
