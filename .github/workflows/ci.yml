@@ -60,12 +60,6 @@ jobs:
       - name: Build apk
         run: flutter build apk --split-per-abi
 
-      - name: Send Telegram Message
-        uses: nikhilbadyal/telegram-forwarder@0.0.1
-        with:
-          token: ${{ secrets.token }}
-          message: ${{ secrets.message }}
-          recipient: ${{ secrets.recipient }}
 
 env:
   KEY_PROPERTIES_PATH: "./android/key.properties"
