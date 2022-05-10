@@ -6,7 +6,8 @@ import 'package:notes/_internal_packages.dart';
 // Add your own DSN if you want.
 // Read here https://docs.sentry.io/platforms/flutter/
 // ignore: do_not_use_environment
-String dsn = const String.fromEnvironment('SENTRY_DSN');
+Map<String, String> env = Platform.environment;
+String dsn = '';
 
 final sentry = SentryClient(
   SentryOptions(dsn: dsn),
@@ -29,7 +30,7 @@ Logger logger = Logger(
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
+  dsn = env['SENTRY_DSN'] ?? '';
   prefs = await SharedPreferences.getInstance();
   if (kDebugMode) {
     timeDilation = debugTimeDilation;
@@ -75,7 +76,7 @@ Future<void> main() async {
       reportError,
     );
   } else {
-    logger.w('reportError DNS NOT FOUND');
+    logger.w('SENTRY_DNS NOT FOUND');
     exit(1);
   }
 }
