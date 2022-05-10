@@ -122,3 +122,4 @@ app.*.symbols
 **aab
 /bfg.jar
 ..bfg-report
+local.properties
