@@ -63,6 +63,14 @@ jobs:
       - name: Build apk
         run: flutter build apk --split-per-abi
 
+      - name: Upload APK to Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: Latest Build
+          document: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+
 
 env:
   KEY_PROPERTIES_PATH: "./android/key.properties"
