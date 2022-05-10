@@ -33,8 +33,11 @@ jobs:
           cache-key: flutter
           cache-path: ${{ runner.tool_cache }}/flutter
 
+      - name: Disable Analytics
+        run: flutter config --no-analytics
+
       - name: Run Flutter Doctor
-        run: flutter doctor -v
+        run: flutter doctor --verbose
 
       - name: Populate key.properties
         run: |
@@ -49,16 +52,16 @@ jobs:
           echo $GOOGLE_SERVICES_JSON_SECRET > ${{env.GOOGLE_SERVICES_JSON_PATH}}
 
       - name: Run pub get
-        run: flutter pub get --verbose
+        run: flutter pub get
 
       - name: Run flutter analyzer
-        run: flutter analyze --congratulate --fatal-infos --fatal-warnings --verbose
+        run: flutter analyze --congratulate --fatal-infos --fatal-warnings
 
       - name: Ensure the Dart code is formatted correctly
-        run: flutter format --set-exit-if-changed --dry-run --verbose .
+        run: flutter format --set-exit-if-changed --dry-run .
 
       - name: Build apk
-        run: flutter build apk --split-per-abi --verbose --suppress-analytics --verbose
+        run: flutter build apk --split-per-abi
 
 
 env:
