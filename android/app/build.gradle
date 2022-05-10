@@ -110,6 +110,7 @@ android {
     lint {
         disable 'InvalidPackage'
     }
+    namespace 'com.nikhil.flutter.keepnotes'
 }
 
 flutter {
