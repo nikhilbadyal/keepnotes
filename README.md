@@ -59,7 +59,7 @@ has various UI colors with the support of light and black theme.
     ```
   - `google-services.json` - Add in `/android/app/`.
   Check [here](https://support.google.com/firebase/answer/7015592) to get.
-  - `key.jks` - `/android/app/`.
+  - `key.jks` - Add in `/android/app/`.
   Check [here](https://docs.oracle.com/cd/E19509-01/820-3503/ggfen/index.html) to get.
 
 ---
