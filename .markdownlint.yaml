@@ -1,0 +1,2 @@
+# Autoformatter friendly markdownlint config (all formatting rules disabled)
+html: false
