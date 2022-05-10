@@ -69,7 +69,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: Latest Build
-          document: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          document: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk,build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
 
 
 env:
