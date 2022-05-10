@@ -68,18 +68,19 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
           message: |
-            Build from latest ${{github.event_name}}
-            ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
-            Repository: ${{ github.repository }}
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+            Build from latest *${{secrets.event_name}}*
+            *${{ secrets.actor }}* created commit
+            with message
+            `${{ secrets.message }}`
+            in [${{ secrets.repository }}](https://github.com/${{ secrets.repository }})
+            See changes [here](https://github.com/${{ secrets
+            .actor}}/commit/${{secrets.sha}})
           document: |
             build/app/outputs/flutter-apk/app-arm64-v8a-release.apk,
             build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk,
             build/app/outputs/flutter-apk/app-x86_64-release.apk
-
-
 
 env:
   KEY_PROPERTIES_PATH: "./android/key.properties"
