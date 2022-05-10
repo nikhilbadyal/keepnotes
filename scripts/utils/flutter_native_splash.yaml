@@ -1,9 +1,13 @@
 flutter_native_splash:
 
-  # flutter pub run flutter_native_splash:create
+  # flutter pub run flutter_native_splash:create --path=scripts/utils/flutter_native_splash.yaml
   # flutter pub run flutter_native_splash:remove
 
   color: "#000000"
   image: assets/images/icon.png
   android: true
   android_gravity: center
+  android_12:
+    image: assets/images/icon.png
+    icon_background_color: "#000000"
+  fullscreen: true
