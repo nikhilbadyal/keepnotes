@@ -1,4 +1,4 @@
-[![CI](https://github.com/nikhilbadyal/keepnotes/actions/workflows/ci.yml/badge.svg)](https://github.com/nikhilbadyal/keepnotes/actions/workflows/ci.yml)
+# [![CI](https://github.com/nikhilbadyal/keepnotes/actions/workflows/ci.yml/badge.svg)](https://github.com/nikhilbadyal/keepnotes/actions/workflows/ci.yml)
 
 Keep Notes is a privacy oriented, secure , beautiful and fast note (s) taking application made in flutter. It supports
 various features like adding and saving notes. Hiding notes with password, archiving them. To make UI look beautiful it
@@ -7,50 +7,51 @@ has various UI colors with the support of light and black theme.
 <img src="https://i.imgur.com/53hpGkk.png" width="40%" height="550"></img>
 <img src="https://i.imgur.com/FGnDtPk.png" width="40%" height="550"></img>
 
-
 ---
 
 ## Features
 
-+ [✓] Create and Save Notes
-+ [✓]Archive them to avoid clutter
-+ [✓]Hide your Notes
-+ [✓]Recycle Bin
-+ [✓]Multiple UI colors
-+ [✓]Backup and Restore option
-+ [✓] Hidden notes are AES encrypted tied with your password.
-- [ ] Export Notes as PDF file
+- [✓] Create and Save Notes
+- [✓]Archive them to avoid clutter
+- [✓]Hide your Notes
+- [✓]Recycle Bin
+- [✓]Multiple UI colors
+- [✓]Backup and Restore option
+- [✓] Hidden notes are AES encrypted tied with your password.
 
+- [ ] Export Notes as PDF file
 
 ---
 
 ## Screenshots
-<img src="https://i.imgur.com/s7LxdiB.png" width="30%"></img> 
-<img src="https://i.imgur.com/XbbFYLm.png" width="30%"></img> 
-<img src="https://i.imgur.com/0eirKsA.png" width="30%"></img> 
-<img src="https://i.imgur.com/HC7ccDg.png" width="30%"></img> 
-<img src="https://i.imgur.com/IV3H8vj.png" width="30%"></img> 
-<img src="https://i.imgur.com/pqarCPZ.png" width="30%"></img> 
-<img src="https://i.imgur.com/qQSV0G5.png" width="30%"></img> 
-<img src="https://i.imgur.com/cWnlC4x.png" width="30%"></img> 
-<img src="https://i.imgur.com/lpLYJ9y.png" width="30%"></img> 
-<img src="https://i.imgur.com/BAXJwmj.png" width="30%"></img> 
-<img src="https://i.imgur.com/sfC4BFE.png" width="30%"></img> 
-<img src="https://i.imgur.com/oVx2u1H.png" width="30%"></img> 
-<img src="https://i.imgur.com/M0gnrY3.png" width="30%"></img> 
-<img src="https://i.imgur.com/phwvjjK.png" width="30%"></img> 
+
+<img src="https://i.imgur.com/s7LxdiB.png" width="30%"></img>
+<img src="https://i.imgur.com/XbbFYLm.png" width="30%"></img>
+<img src="https://i.imgur.com/0eirKsA.png" width="30%"></img>
+<img src="https://i.imgur.com/HC7ccDg.png" width="30%"></img>
+<img src="https://i.imgur.com/IV3H8vj.png" width="30%"></img>
+<img src="https://i.imgur.com/pqarCPZ.png" width="30%"></img>
+<img src="https://i.imgur.com/qQSV0G5.png" width="30%"></img>
+<img src="https://i.imgur.com/cWnlC4x.png" width="30%"></img>
+<img src="https://i.imgur.com/lpLYJ9y.png" width="30%"></img>
+<img src="https://i.imgur.com/BAXJwmj.png" width="30%"></img>
+<img src="https://i.imgur.com/sfC4BFE.png" width="30%"></img>
+<img src="https://i.imgur.com/oVx2u1H.png" width="30%"></img>
+<img src="https://i.imgur.com/M0gnrY3.png" width="30%"></img>
+<img src="https://i.imgur.com/phwvjjK.png" width="30%"></img>
 <img src="https://i.imgur.com/cZYa4AQ.png" width="30%"></img>
 
+## Build Steps
 
-# Build Steps
-- PreRequisite 
+- PreRequisite
   - `key.properties` - Add in `/android`
   - `google-services.json` - Add in `/android/app/`
   - `key.jks` - `/android/app/`
-  
+
 ---
 
 ## Thanks for images & Icons
+
 <div>
     <a href="https://storyset.com/illustration/hidden/pana" title="Backup">Backup</a><br>
     <a href="https://icons8.com/icons/set/github" title="GitHub">GitHub</a><br>
@@ -67,5 +68,4 @@ has various UI colors with the support of light and black theme.
     <a href="https://www.freepik.com/free-vector/social-media-icons-vector-set-with-facebook-instagram-twitter-tiktok-youtube-logos_17221195.htm" title="Telegram">Telegram</a><br>
     <a href="https://www.freepik.com/premium-vector/business-character-concept-beside-angle-cool-character-male-female-korean-style-colored-pictures-cartoon-style_9129007.htm" title="Women">Women</a><br>
     <a href="https://www.flaticon.com/free-icon/notes_752326" title="AppIcon">App Icon</a><br>
-    
 </div>
