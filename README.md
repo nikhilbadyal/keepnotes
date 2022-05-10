@@ -1,6 +1,6 @@
 # [![CI](https://github.com/nikhilbadyal/keepnotes/actions/workflows/ci.yml/badge.svg)](https://github.com/nikhilbadyal/keepnotes/actions/workflows/ci.yml)
 
-Keep Notes is a privacy oriented, secure , beautiful and fast note (s) taking
+Keep Notes is a privacy-oriented, secure , beautiful and fast note (s) taking
 application made in flutter. It supports
 various features like adding and saving notes. Hiding notes with password,
 archiving them. To make UI look beautiful it
@@ -46,9 +46,21 @@ has various UI colors with the support of light and black theme.
 ## Build Steps
 
 - PreRequisite
+  - `sentry_dsn.dart` - Add in `/lib`(see below for content of the file)
+    ```dart
+    const sentryDsn = '<INSERT YOUR SENTRY_DSN HERE';
+    ```
   - `key.properties` - Add in `/android`
-  - `google-services.json` - Add in `/android/app/`
-  - `key.jks` - `/android/app/`
+    ```properties
+    storePassword=<storePassword>
+    keyPassword=<keyPassword>
+    keyAlias=<keyAlias>
+    storeFile=<storeFileName.jks>
+    ```
+  - `google-services.json` - Add in `/android/app/`.
+  Check [here](https://support.google.com/firebase/answer/7015592) to get.
+  - `key.jks` - `/android/app/`.
+  Check [here](https://docs.oracle.com/cd/E19509-01/820-3503/ggfen/index.html) to get.
 
 ---
 
