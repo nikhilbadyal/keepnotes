@@ -1,10 +1,7 @@
 name: CI
 
-on: [push,pull_request]
+on:
   push:
-    branches:
-      - master
-      - dev
     paths:
       - lib/**
       - android/**
@@ -12,6 +9,7 @@ on: [push,pull_request]
       - '!**/*.md'
       - pubspec.yaml
       - .github/workflows/**
+  pull_request:
 jobs:
   build:
     name: flutter build
