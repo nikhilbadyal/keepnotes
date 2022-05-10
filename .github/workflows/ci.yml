@@ -68,8 +68,17 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Latest Build
-          document: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk,build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+          message: |
+            Build from latest ${{github.event_name}}
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+          document: |
+            build/app/outputs/flutter-apk/app-arm64-v8a-release.apk,
+            build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk,
+            build/app/outputs/flutter-apk/app-x86_64-release.apk
+
 
 
 env:
