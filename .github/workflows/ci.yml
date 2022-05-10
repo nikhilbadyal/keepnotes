@@ -49,16 +49,16 @@ jobs:
           echo $GOOGLE_SERVICES_JSON_SECRET > ${{env.GOOGLE_SERVICES_JSON_PATH}}
 
       - name: Run pub get
-        run: flutter pub get -v
+        run: flutter pub get --verbose
 
       - name: Run flutter analyzer
-        run: flutter analyze
+        run: flutter analyze --congratulate --fatal-infos --fatal-warnings --verbose
 
       - name: Ensure the Dart code is formatted correctly
-        run: flutter format --set-exit-if-changed --dry-run .
+        run: flutter format --set-exit-if-changed --dry-run --verbose .
 
       - name: Build apk
-        run: flutter build apk --split-per-abi
+        run: flutter build apk --split-per-abi --verbose --suppress-analytics --verbose
 
 
 env:
