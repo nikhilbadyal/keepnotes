@@ -1,13 +1,11 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
-// import 'package:notes/sentry_dsn.dart';
+import 'package:notes/sentry_dsn.dart';
 
 // Add your own DSN if you want.
 // Read here https://docs.sentry.io/platforms/flutter/
-// ignore: do_not_use_environment
-Map<String, String> env = Platform.environment;
-String dsn = '';
+String dsn = sentryDsn;
 
 final sentry = SentryClient(
   SentryOptions(dsn: dsn),
@@ -30,7 +28,6 @@ Logger logger = Logger(
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  dsn = env['SENTRY_DSN'] ?? '';
   prefs = await SharedPreferences.getInstance();
   if (kDebugMode) {
     timeDilation = debugTimeDilation;

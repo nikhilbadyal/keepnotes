@@ -47,6 +47,11 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > ${{env.KEYSTORE_PATH}}
 
+      - name: Populate sentry dsn
+        run: |
+          echo "${{ secrets.SENTRY_DSN_DART_FILE }}" | base64 --decode > ${{env
+          .SENTRY_DSN_PATH}}
+
       - name: Populate google-services.json
         run: |
           echo $GOOGLE_SERVICES_JSON_SECRET > ${{env.GOOGLE_SERVICES_JSON_PATH}}
@@ -84,5 +89,6 @@ jobs:
 env:
   KEY_PROPERTIES_PATH: "./android/key.properties"
   KEYSTORE_PATH: "./android/app/keepnotes.jks"
+  SENTRY_DSN_PATH: "./lib/sentry_dsn.dart"
   GOOGLE_SERVICES_JSON_PATH: "./android/app/google-services.json"
   GOOGLE_SERVICES_JSON_SECRET: ${{ secrets.GOOGLE_SERVICES_JSON_FILE }}
