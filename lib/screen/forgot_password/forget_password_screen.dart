@@ -134,7 +134,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     await navigate(
                       AppRoutes.forgotPasswordScreen,
                       context,
-                      AppRoutes.welcomeScreen,
+                      AppRoutes.introScreen,
                     );
                   }
                 },

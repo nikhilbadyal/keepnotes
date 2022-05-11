@@ -10,7 +10,7 @@ class AppRoutes {
   static const trashScreen = 'trash';
   static const aboutMeScreen = 'about';
   static const settingsScreen = 'settings';
-  static const welcomeScreen = 'welcome';
+  static const introScreen = 'intro';
   static const loginScreen = 'login';
   static const forgotPasswordScreen = 'forgot';
   static const editScreen = 'edit';

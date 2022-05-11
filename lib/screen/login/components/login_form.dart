@@ -197,13 +197,6 @@ class _SignFormState extends State<SignForm> {
     );
   }
 
-  void hideKeyboard(final BuildContext context) {
-    final currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
-  }
-
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,

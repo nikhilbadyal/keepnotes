@@ -31,7 +31,7 @@ class TopWidget extends TopWidgetBase {
       case ScreenTypes.login:
       case ScreenTypes.forgotPassword:
       case ScreenTypes.signup:
-      case ScreenTypes.welcome:
+      case ScreenTypes.intro:
         return allowBack;
       default:
         return null;

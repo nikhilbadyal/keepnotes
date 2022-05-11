@@ -83,7 +83,7 @@ class _MyNotesState extends State<MyNotes> {
           }
           final initRoute = Provider.of<Auth>(context, listen: false).isLoggedIn
               ? '/'
-              : 'welcome';
+              : 'intro';
           return LayoutBuilder(
             builder: (final context, final constraints) {
               return OrientationBuilder(

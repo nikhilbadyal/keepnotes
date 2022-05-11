@@ -122,3 +122,10 @@ Future<void> ohArchiveTap(
     Provider.of<NotesHelper>(context, listen: false).trash(note),
   );
 }
+
+void hideKeyboard(final BuildContext context) {
+  final currentFocus = FocusScope.of(context);
+  if (!currentFocus.hasPrimaryFocus) {
+    currentFocus.unfocus();
+  }
+}

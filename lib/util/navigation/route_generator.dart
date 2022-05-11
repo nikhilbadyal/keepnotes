@@ -82,7 +82,7 @@ Route<dynamic> generateRoute(final RouteSettings settings) {
         );
       }
 
-    case AppRoutes.welcomeScreen:
+    case AppRoutes.introScreen:
       {
         return CupertinoPageRoute(
           settings: settings,

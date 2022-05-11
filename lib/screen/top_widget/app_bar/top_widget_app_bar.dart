@@ -37,7 +37,7 @@ AppBar? getAppBar(final ScreenTypes topScreen, final BuildContext context) {
       return AppBar(
         title: Text(Language.of(context).settings),
       );
-    case ScreenTypes.welcome:
+    case ScreenTypes.intro:
     case ScreenTypes.signup:
     case ScreenTypes.login:
     case ScreenTypes.forgotPassword:

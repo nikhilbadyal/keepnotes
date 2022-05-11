@@ -16,7 +16,6 @@ class _IntroScreenState extends State<IntroScreen>
   late TabController _controller;
 
   int _selectedIndex = 0;
-  late Widget introWelcome;
 
   List<Widget> screens = [];
 

@@ -12,7 +12,7 @@ enum ScreenTypes {
   trash,
   aboutMe,
   settings,
-  welcome,
+  intro,
   login,
   forgotPassword,
   edit,

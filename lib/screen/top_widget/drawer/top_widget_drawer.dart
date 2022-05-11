@@ -5,7 +5,7 @@ import 'package:notes/_internal_packages.dart';
 
 Widget? getDrawer(final ScreenTypes topScreen, final BuildContext context) {
   switch (topScreen) {
-    case ScreenTypes.welcome:
+    case ScreenTypes.intro:
     case ScreenTypes.login:
     case ScreenTypes.forgotPassword:
     case ScreenTypes.signup:

@@ -417,7 +417,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     await Navigator.pushNamedAndRemoveUntil(
       context,
-      AppRoutes.welcomeScreen,
+      AppRoutes.introScreen,
       (final route) => false,
     );
   }
