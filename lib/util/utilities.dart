@@ -55,3 +55,70 @@ String initialize(final User? curUser) {
   FirebaseDatabaseHelper(curUser.uid);
   return encryption.decryptStr(getStringFromSF('password') ?? '');
 }
+
+Future<void> ohHideTap(
+  final Timer autoSaver,
+  final Function() saveNote,
+  final BuildContext context,
+  final Note note, {
+  final bool isMounted = false,
+}) async {
+  autoSaver.cancel();
+  saveNote();
+  final status =
+      Provider.of<AppConfiguration>(context, listen: false).password.isNotEmpty;
+  if (!status) {
+    await showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (final context) => MyAlertDialog(
+        content: Text(
+          Language.of(context).setPasswordFirst,
+        ),
+      ),
+    );
+  } else {
+    if (!isMounted) {
+      return;
+    }
+    Navigator.of(context).popUntil(
+      ModalRoute.withName(note.path),
+    );
+    await Provider.of<NotesHelper>(context, listen: false).hide(note);
+  }
+}
+
+Future<void> ohTrashTap(
+  final Timer autoSaver,
+  final Function() saveNote,
+  final BuildContext context,
+  final Note note, {
+  final bool isMounted = false,
+}) async {
+  autoSaver.cancel();
+  saveNote();
+
+  Navigator.of(context).popUntil(
+    ModalRoute.withName(note.path),
+  );
+  unawaited(
+    Provider.of<NotesHelper>(context, listen: false).trash(note),
+  );
+}
+
+Future<void> ohArchiveTap(
+  final Timer autoSaver,
+  final Function() saveNote,
+  final BuildContext context,
+  final Note note, {
+  final bool isMounted = false,
+}) async {
+  autoSaver.cancel();
+  saveNote();
+  Navigator.of(context).popUntil(
+    ModalRoute.withName(note.path),
+  );
+  unawaited(
+    Provider.of<NotesHelper>(context, listen: false).trash(note),
+  );
+}

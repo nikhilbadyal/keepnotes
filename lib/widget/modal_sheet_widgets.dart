@@ -80,19 +80,25 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
                   barrierDismissible: false,
                   context: context,
                   builder: (final context) => MyAlertDialog(
-                    content: Text(Language.of(context).emptyTrashWarning),
+                    content: Text(
+                      Language.of(context).emptyTrashWarning,
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () async {
                           Navigator.of(context).pop(true);
                         },
-                        child: Text(Language.of(context).alertDialogOp1),
+                        child: Text(
+                          Language.of(context).alertDialogOp1,
+                        ),
                       ),
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pop(false);
                         },
-                        child: Text(Language.of(context).alertDialogOp2),
+                        child: Text(
+                          Language.of(context).alertDialogOp2,
+                        ),
                       ),
                     ],
                   ),
@@ -112,7 +118,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
               return;
             }
             Navigator.of(context).popUntil(
-              (final route) => route.settings.name == AppRoutes.trashScreen,
+              ModalRoute.withName(AppRoutes.trashScreen),
             );
           },
           child: Container(
@@ -139,10 +145,52 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
                   size: 36,
                 ),
                 const SizedBox(width: 16),
-                Text(Language.of(context).emptyTrash),
+                Text(
+                  Language.of(context).emptyTrash,
+                ),
               ],
             ),
           ),
         ),
       );
+}
+
+class CopyToClipBoardModelSheetWidget extends StatelessWidget {
+  const CopyToClipBoardModelSheetWidget(
+    this.autoSaver,
+    this.saveNote,
+    this.note, {
+    final Key? key,
+  }) : super(key: key);
+  final Timer autoSaver;
+  final Function() saveNote;
+  final Note note;
+
+  @override
+  Widget build(final BuildContext context) {
+    return ModalSheetWidget(
+      icon: TablerIcons.copy,
+      onTap: () {
+        autoSaver.cancel();
+        saveNote();
+        Navigator.of(context).pop();
+        unawaited(
+          Clipboard.setData(
+            ClipboardData(text: note.title),
+          ).then((final _) {
+            Clipboard.setData(
+              ClipboardData(text: note.content),
+            ).then(
+              (final value) => showSnackbar(
+                context,
+                Language.of(context).done,
+                snackBarBehavior: SnackBarBehavior.floating,
+              ),
+            );
+          }),
+        );
+      },
+      label: Language.of(context).clipboard,
+    );
+  }
 }

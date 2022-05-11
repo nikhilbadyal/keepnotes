@@ -66,7 +66,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
       if (ModalRoute.of(context)!.settings.name! == AppRoutes.lockScreen ||
           ModalRoute.of(context)!.settings.name! == AppRoutes.setPassScreen) {
         Navigator.of(context).popUntil(
-          (final route) => route.settings.name == AppRoutes.homeScreen,
+          ModalRoute.withName(AppRoutes.homeScreen),
         );
         return Future.value(true);
       } else if (ModalRoute.of(context)!.settings.name! ==

@@ -55,8 +55,7 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                               .trash(widget.note),
                         );
                         Navigator.of(context).popUntil(
-                          (final route) =>
-                              route.settings.name == widget.note.path,
+                          ModalRoute.withName(widget.note.path),
                         );
                       },
                       icon: Icons.drive_file_move_outline,
@@ -64,55 +63,31 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                     ),
                     ModalSheetWidget(
                       onTap: () {
-                        widget.autoSaver.cancel();
-                        widget.saveNote();
-                        unawaited(
-                          Provider.of<NotesHelper>(context, listen: false)
-                              .archive(widget.note),
-                        );
-                        Navigator.of(context).popUntil(
-                          ModalRoute.withName(widget.note.path),
+                        ohArchiveTap(
+                          widget.autoSaver,
+                          widget.saveNote,
+                          context,
+                          widget.note,
+                          isMounted: mounted,
                         );
                       },
                       label: Language.of(context).archive,
                       icon: Icons.archive_outlined,
                     ),
-                    ModalSheetWidget(
-                      icon: TablerIcons.copy,
-                      onTap: () {
-                        widget.autoSaver.cancel();
-                        widget.saveNote();
-                        Navigator.of(context).pop();
-                        unawaited(
-                          Clipboard.setData(
-                            ClipboardData(text: widget.note.title),
-                          ).then((final _) {
-                            Clipboard.setData(
-                              ClipboardData(text: widget.note.content),
-                            ).then(
-                              (final value) => showSnackbar(
-                                context,
-                                Language.of(context).done,
-                                snackBarBehavior: SnackBarBehavior.floating,
-                              ),
-                            );
-                          }),
-                        );
-                      },
-                      label: Language.of(context).clipboard,
+                    CopyToClipBoardModelSheetWidget(
+                      widget.autoSaver,
+                      widget.saveNote,
+                      widget.note,
                     ),
                     ModalSheetWidget(
                       icon: Icons.delete_outlined,
-                      onTap: () async {
-                        widget.autoSaver.cancel();
-                        widget.saveNote();
-                        unawaited(
-                          Provider.of<NotesHelper>(context, listen: false)
-                              .trash(widget.note),
-                        );
-                        Navigator.of(context).popUntil(
-                          (final route) =>
-                              route.settings.name == widget.note.path,
+                      onTap: () {
+                        ohTrashTap(
+                          widget.autoSaver,
+                          widget.saveNote,
+                          context,
+                          widget.note,
+                          isMounted: mounted,
                         );
                       },
                       label: Language.of(context).delete,
