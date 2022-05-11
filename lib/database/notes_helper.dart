@@ -257,7 +257,7 @@ class NotesHelper with ChangeNotifier {
                   int.parse(itemVar['lastModify'].toString()),
                 ),
                 state: NoteState.values[int.parse(
-                  [itemVar['state']].toString(),
+                  itemVar['state'].toString(),
                 )],
               );
               return item;
