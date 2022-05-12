@@ -1,4 +1,5 @@
 //30-11-2021 01:11 PM
+import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class RoundedButton extends StatelessWidget {
@@ -19,7 +20,7 @@ class RoundedButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
+          color: context.theme.canvasColor,
         ),
         alignment: Alignment.center,
         child: title,

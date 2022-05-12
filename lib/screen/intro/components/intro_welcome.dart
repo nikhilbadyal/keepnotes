@@ -28,9 +28,7 @@ class IntroWelcome extends StatelessWidget {
                       child: AvatarGlow(
                         endRadius: 133,
                         showTwoGlows: false,
-                        glowColor: Theme.of(context)
-                            .colorScheme
-                            .secondary
+                        glowColor: context.theme.colorScheme.secondary
                             .withOpacity(0.1),
                         repeatPauseDuration: const Duration(milliseconds: 400),
                         child: Container(
@@ -38,9 +36,7 @@ class IntroWelcome extends StatelessWidget {
                           width: 160,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(200),
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondary
+                            color: context.theme.colorScheme.secondary
                                 .withOpacity(0.1),
                           ),
                           child: Center(
@@ -63,7 +59,7 @@ class IntroWelcome extends StatelessWidget {
                             fontSize: 20,
                             fontFamily: 'YTSans',
                             fontWeight: FontWeight.w400,
-                            color: Theme.of(context).textTheme.bodyText1!.color,
+                            color: context.theme.textTheme.bodyText1!.color,
                           ),
                           children: [
                             TextSpan(
@@ -76,7 +72,7 @@ class IntroWelcome extends StatelessWidget {
                             TextSpan(
                               text: context.language.appName,
                               style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: context.theme.colorScheme.secondary,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 1,
                                 fontSize: 32,
@@ -119,7 +115,7 @@ class IntroWelcome extends StatelessWidget {
                               Icon(
                                 MdiIcons.youtube,
                                 size: 40,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: context.theme.colorScheme.secondary,
                               ),
                             ],
                           ),
@@ -132,8 +128,7 @@ class IntroWelcome extends StatelessWidget {
                               fontSize: 16,
                               fontFamily: 'YTSans',
                               fontWeight: FontWeight.w400,
-                              color:
-                                  Theme.of(context).textTheme.bodyText1!.color,
+                              color: context.theme.textTheme.bodyText1!.color,
                             ),
                             children: [
                               const TextSpan(
@@ -146,8 +141,7 @@ class IntroWelcome extends StatelessWidget {
                               TextSpan(
                                 text: 'Firebase',
                                 style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
+                                  color: context.theme.colorScheme.secondary,
                                   fontFamily: 'Product Sans',
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -180,7 +174,7 @@ class IntroWelcome extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
             child: FloatingActionButton.extended(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
+              backgroundColor: context.theme.colorScheme.secondary,
               label: Text(
                 context.language.getStarted,
                 style: const TextStyle(
@@ -212,7 +206,7 @@ class IntroWelcome extends StatelessWidget {
               fontSize: 15,
               fontFamily: 'Product Sans',
               fontWeight: FontWeight.w800,
-              color: Theme.of(context).textTheme.bodyText1!.color,
+              color: context.theme.textTheme.bodyText1!.color,
             ),
           ),
         ),
@@ -239,7 +233,7 @@ class IntroWelcome extends StatelessWidget {
                         fontSize: 16,
                         fontFamily: 'YTSans',
                         fontWeight: FontWeight.w400,
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: context.theme.textTheme.bodyText1!.color,
                       ),
                     )
                   ],

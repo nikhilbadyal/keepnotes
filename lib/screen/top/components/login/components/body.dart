@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
               Text(
                 context.language.loginToContinue,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1!.color,
+                  color: context.theme.textTheme.bodyText1!.color,
                   fontSize: 27,
                   fontWeight: FontWeight.bold,
                 ),
@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
                 context.language.loginExplaination,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1!.color,
+                  color: context.theme.textTheme.bodyText1!.color,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
                           context: context,
                           builder: (final context) {
                             return SpinKitCubeGrid(
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: context.theme.colorScheme.secondary,
                               size: MediaQuery.of(context).size.height * 0.1,
                             );
                           },

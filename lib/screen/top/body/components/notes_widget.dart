@@ -27,7 +27,7 @@ class NoteWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           decoration: BoxDecoration(
             color: appTheme == AppTheme.light
-                ? Theme.of(context).floatingActionButtonTheme.foregroundColor
+                ? context.theme.floatingActionButtonTheme.foregroundColor
                 : Colors.black,
             borderRadius: BorderRadius.circular(15),
             border: Border.all(

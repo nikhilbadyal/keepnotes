@@ -31,7 +31,7 @@ class IntroReady extends StatelessWidget {
                           child: Icon(
                             EvaIcons.layersOutline,
                             size: 40,
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: context.theme.colorScheme.secondary,
                           ),
                         ),
                       ),
@@ -42,7 +42,7 @@ class IntroReady extends StatelessWidget {
                             fontSize: 23,
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w600,
-                            color: Theme.of(context).textTheme.bodyText1!.color,
+                            color: context.theme.textTheme.bodyText1!.color,
                           ),
                           children: [TextSpan(text: context.language.ready)],
                         ),
@@ -77,10 +77,7 @@ class IntroReady extends StatelessWidget {
                                 fontSize: 18,
                                 fontFamily: 'Product Sans',
                                 fontWeight: FontWeight.w500,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .color,
+                                color: context.theme.textTheme.bodyText1!.color,
                               ),
                               children: [
                                 TextSpan(
@@ -90,8 +87,7 @@ class IntroReady extends StatelessWidget {
                                 TextSpan(
                                   text: '${context.language.appName}!',
                                   style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
+                                    color: context.theme.colorScheme.secondary,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 )
@@ -115,7 +111,7 @@ class IntroReady extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
             child: FloatingActionButton.extended(
-              backgroundColor: Theme.of(context).colorScheme.secondary,
+              backgroundColor: context.theme.colorScheme.secondary,
               label: Text(
                 context.language.login,
                 style: const TextStyle(

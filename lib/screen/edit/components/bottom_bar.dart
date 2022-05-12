@@ -30,7 +30,7 @@ class _BottomBarState extends State<BottomBar> {
         AppTheme.values[getIntFromSF('appTheme') ?? AppTheme.black.index];
     return BottomAppBar(
       child: Container(
-        color: Theme.of(context).canvasColor,
+        color: context.theme.canvasColor,
         height: kBottomNavigationBarHeight,
         padding: const EdgeInsets.symmetric(horizontal: 1),
         child: Row(

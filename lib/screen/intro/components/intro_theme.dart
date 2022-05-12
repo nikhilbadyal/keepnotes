@@ -44,7 +44,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         child: Icon(
                           EvaIcons.colorPaletteOutline,
                           size: 40,
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: context.theme.colorScheme.secondary,
                         ),
                       ),
                     ),
@@ -55,14 +55,14 @@ class _IntroThemeState extends State<IntroTheme> {
                           fontSize: 23,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w600,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          color: context.theme.textTheme.bodyText1!.color,
                         ),
                         children: [
                           TextSpan(text: context.language.app),
                           TextSpan(
                             text: context.language.theme,
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: context.theme.colorScheme.secondary,
                               fontWeight: FontWeight.w600,
                             ),
                           )
@@ -97,7 +97,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           fontSize: 18,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w500,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          color: context.theme.textTheme.bodyText1!.color,
                         ),
                         children: [
                           TextSpan(
@@ -106,7 +106,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           TextSpan(
                             text: '${context.language.theme}!',
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: context.theme.colorScheme.secondary,
                               fontWeight: FontWeight.w600,
                             ),
                           )
@@ -144,8 +144,8 @@ class _IntroThemeState extends State<IntroTheme> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: theme == ThemeSelected.light
-                              ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).cardColor.withOpacity(0.4),
+                              ? context.theme.colorScheme.secondary
+                              : context.theme.cardColor.withOpacity(0.4),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black12.withOpacity(0.08),
@@ -161,10 +161,7 @@ class _IntroThemeState extends State<IntroTheme> {
                               fontSize: 15,
                               color: theme == ThemeSelected.light
                                   ? Colors.white
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color,
+                                  : context.theme.textTheme.bodyText1!.color,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Product Sans',
                             ),
@@ -192,8 +189,8 @@ class _IntroThemeState extends State<IntroTheme> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: theme == ThemeSelected.dark
-                              ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).cardColor.withOpacity(0.4),
+                              ? context.theme.colorScheme.secondary
+                              : context.theme.cardColor.withOpacity(0.4),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black12.withOpacity(0.08),
@@ -209,10 +206,7 @@ class _IntroThemeState extends State<IntroTheme> {
                               fontSize: 15,
                               color: theme == ThemeSelected.dark
                                   ? Colors.white
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color,
+                                  : context.theme.textTheme.bodyText1!.color,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Product Sans',
                             ),

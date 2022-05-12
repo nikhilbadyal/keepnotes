@@ -1,4 +1,5 @@
 //24-11-2021 09:09 PM
+import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class DefaultButton extends StatefulWidget {
@@ -31,7 +32,7 @@ class _DefaultButtonState extends State<DefaultButton> {
               borderRadius: BorderRadius.circular(20),
             ),
             primary: Colors.white,
-            backgroundColor: Theme.of(context).colorScheme.secondary,
+            backgroundColor: context.theme.colorScheme.secondary,
           ),
           onPressed: widget.press as void Function()?,
           child: Text(

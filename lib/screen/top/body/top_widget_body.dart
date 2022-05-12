@@ -64,7 +64,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
     children: [
       slidableAction(
           context.language.hide,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           TablerIcons.ghost, (final context) async {
         final status = Provider.of<AppConfiguration>(context, listen: false)
@@ -84,7 +84,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
       }),
       slidableAction(
         context.language.archive,
-        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.archive_outlined,
         (final context) => unawaited(
@@ -101,7 +101,7 @@ ActionPane homeRight(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.copy,
-        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.copy_outlined,
         (final context) => unawaited(
@@ -110,7 +110,7 @@ ActionPane homeRight(final Note note, final BuildContext context) {
       ),
       slidableAction(
         context.language.trash,
-        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
@@ -127,7 +127,7 @@ ActionPane? hiddenLeft(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.unhide,
-        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.remove_red_eye_outlined,
         (final context) => unawaited(
@@ -144,7 +144,7 @@ ActionPane hiddenRight(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.trash,
-        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
@@ -161,7 +161,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
     children: [
       slidableAction(
           context.language.hide,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           TablerIcons.ghost, (final context) async {
         final status = Provider.of<AppConfiguration>(context, listen: false)
@@ -181,7 +181,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
       }),
       slidableAction(
         context.language.unarchive,
-        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.unarchive_outlined,
         (final context) => unawaited(
@@ -198,7 +198,7 @@ ActionPane archiveRight(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.copy,
-        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.copy_outlined,
         (final context) => unawaited(
@@ -207,7 +207,7 @@ ActionPane archiveRight(final Note note, final BuildContext context) {
       ),
       slidableAction(
         context.language.trash,
-        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
@@ -224,7 +224,7 @@ ActionPane trashRight(final Note note, final BuildContext context) {
     children: [
       slidableAction(
           context.language.delete,
-          Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+          context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           Icons.delete_forever_outlined, (final context) async {
         await showDialog<bool>(
@@ -258,7 +258,7 @@ ActionPane trashLeft(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.restore,
-        Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.restore_outlined,
         (final context) => unawaited(

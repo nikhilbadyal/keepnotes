@@ -1,3 +1,4 @@
+import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 abstract class ModalSheetWidgets extends StatelessWidget {
@@ -31,10 +32,10 @@ class ModalSheetWidget extends ModalSheetWidgets {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: Theme.of(context).iconTheme.color!.withOpacity(0.1),
+                color: context.theme.iconTheme.color!.withOpacity(0.1),
                 width: 1.5,
               ),
-              color: Theme.of(context).cardColor,
+              color: context.theme.cardColor,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 12,

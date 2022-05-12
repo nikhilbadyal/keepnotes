@@ -22,7 +22,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
 
   @override
   Widget build(final BuildContext context) {
-    final isAndroid = Theme.of(context).platform == TargetPlatform.android;
+    final isAndroid = context.theme.platform == TargetPlatform.android;
     if (isAndroid) {
       return WillPopScope(
         onWillPop: widget.backPresAction ?? defaultBackPress,

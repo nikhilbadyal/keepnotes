@@ -53,7 +53,7 @@ AppBar? getAppBar(final ScreenTypes topScreen, final BuildContext context) {
               : Colors.white,
         ),
         elevation: 0,
-        backgroundColor: Theme.of(context).canvasColor,
+        backgroundColor: context.theme.canvasColor,
       );
     default:
       return null;

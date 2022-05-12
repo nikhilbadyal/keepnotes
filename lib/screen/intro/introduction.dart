@@ -47,7 +47,7 @@ class _IntroScreenState extends State<IntroScreen>
   @override
   Widget build(final BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((final _) async {
-      final systemBrightness = Theme.of(context).brightness;
+      final systemBrightness = context.theme.brightness;
       final statusBarBrightness = systemBrightness == Brightness.light
           ? Brightness.dark
           : Brightness.light;
@@ -59,14 +59,14 @@ class _IntroScreenState extends State<IntroScreen>
           statusBarColor: Colors.transparent,
           statusBarBrightness: statusBarBrightness,
           statusBarIconBrightness: statusBarBrightness,
-          systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+          systemNavigationBarColor: context.theme.scaffoldBackgroundColor,
           systemNavigationBarIconBrightness: themeBrightness,
         ),
       );
     });
 
     final backgroundColor =
-        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7);
+        context.theme.scaffoldBackgroundColor.withOpacity(0.7);
 
     Widget _body() {
       return Column(
@@ -107,10 +107,8 @@ class _IntroScreenState extends State<IntroScreen>
                                     fontFamily: 'Product Sans',
                                     fontWeight: FontWeight.w600,
                                     fontSize: 15,
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .color!
+                                    color: context
+                                        .theme.textTheme.bodyText1!.color!
                                         .withOpacity(0.7),
                                   ),
                                 ),
@@ -137,10 +135,8 @@ class _IntroScreenState extends State<IntroScreen>
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(52),
                             color: _selectedIndex == index
-                                ? Theme.of(context).colorScheme.secondary
-                                : Theme.of(context)
-                                    .iconTheme
-                                    .color!
+                                ? context.theme.colorScheme.secondary
+                                : context.theme.iconTheme.color!
                                     .withOpacity(0.08),
                           ),
                         ),
@@ -175,10 +171,8 @@ class _IntroScreenState extends State<IntroScreen>
                                     fontFamily: 'Product Sans',
                                     fontWeight: FontWeight.w600,
                                     fontSize: 15,
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .color!
+                                    color: context
+                                        .theme.textTheme.bodyText1!.color!
                                         .withOpacity(0.7),
                                   ),
                                 ),
@@ -207,7 +201,7 @@ class _IntroScreenState extends State<IntroScreen>
             child: FloatingDotGroup(
               number: 10,
               size: DotSize.large,
-              colors: [Theme.of(context).colorScheme.secondary],
+              colors: [context.theme.colorScheme.secondary],
               speed: DotSpeed.fast,
             ),
           ),

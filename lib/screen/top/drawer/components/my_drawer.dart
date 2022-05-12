@@ -53,7 +53,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
           RepaintBoundary(
             child: UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
+                color: context.theme.canvasColor,
               ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.transparent,
@@ -65,7 +65,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                 wish,
                 style: TextStyle(
                   fontSize: 15,
-                  color: Theme.of(context).iconTheme.color,
+                  color: context.theme.iconTheme.color,
                 ),
               ),
               accountName: null,
@@ -137,7 +137,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(
               Icons.notes,
               color: _activeRoute == AppRoutes.homeScreen
-                  ? Theme.of(context).colorScheme.secondary
+                  ? context.theme.colorScheme.secondary
                   : null,
             ),
             title: Text(
@@ -145,7 +145,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.homeScreen
-                    ? Theme.of(context).colorScheme.secondary
+                    ? context.theme.colorScheme.secondary
                     : null,
               ),
             ),
@@ -157,7 +157,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(
               Icons.archive_outlined,
               color: _activeRoute == AppRoutes.archiveScreen
-                  ? Theme.of(context).colorScheme.secondary
+                  ? context.theme.colorScheme.secondary
                   : null,
             ),
             title: Text(
@@ -165,7 +165,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.archiveScreen
-                    ? Theme.of(context).colorScheme.secondary
+                    ? context.theme.colorScheme.secondary
                     : null,
               ),
             ),
@@ -181,7 +181,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(
               Icons.delete_outlined,
               color: _activeRoute == AppRoutes.trashScreen
-                  ? Theme.of(context).colorScheme.secondary
+                  ? context.theme.colorScheme.secondary
                   : null,
             ),
             title: Text(
@@ -189,7 +189,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.trashScreen
-                    ? Theme.of(context).colorScheme.secondary
+                    ? context.theme.colorScheme.secondary
                     : null,
               ),
             ),
@@ -203,7 +203,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(
               Icons.settings,
               color: _activeRoute == AppRoutes.settingsScreen
-                  ? Theme.of(context).colorScheme.secondary
+                  ? context.theme.colorScheme.secondary
                   : null,
             ),
             title: Text(
@@ -211,7 +211,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.settingsScreen
-                    ? Theme.of(context).colorScheme.secondary
+                    ? context.theme.colorScheme.secondary
                     : null,
               ),
             ),
@@ -222,7 +222,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(
               Icons.person_outline,
               color: _activeRoute == AppRoutes.aboutMeScreen
-                  ? Theme.of(context).colorScheme.secondary
+                  ? context.theme.colorScheme.secondary
                   : null,
             ),
             title: Text(
@@ -230,7 +230,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.aboutMeScreen
-                    ? Theme.of(context).colorScheme.secondary
+                    ? context.theme.colorScheme.secondary
                     : null,
               ),
             ),
@@ -241,7 +241,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
             leading: Icon(
               Icons.bug_report_outlined,
               color: _activeRoute == AppRoutes.suggestScreen
-                  ? Theme.of(context).colorScheme.secondary
+                  ? context.theme.colorScheme.secondary
                   : null,
             ),
             title: Text(
@@ -249,7 +249,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.suggestScreen
-                    ? Theme.of(context).colorScheme.secondary
+                    ? context.theme.colorScheme.secondary
                     : null,
               ),
             ),

@@ -58,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(Icons.delete_forever_outlined),
                 activeText: context.language.on,
                 inactiveText: context.language.off,
-                switchActiveColor: Theme.of(context).colorScheme.secondary,
+                switchActiveColor: context.theme.colorScheme.secondary,
                 switchValue: directlyDelete,
                 onToggle: directDelete,
               ),
@@ -98,7 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
               SettingsTile.switchTile(
-                switchActiveColor: Theme.of(context).colorScheme.secondary,
+                switchActiveColor: context.theme.colorScheme.secondary,
                 title: context.language.darkMode,
                 activeText: context.language.on,
                 inactiveText: context.language.off,
@@ -120,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(
                   Icons.fingerprint_outlined,
                 ),
-                switchActiveColor: Theme.of(context).colorScheme.secondary,
+                switchActiveColor: context.theme.colorScheme.secondary,
                 switchValue: fpDirectly,
                 onToggle: toggleBiometric,
               ),
@@ -372,10 +372,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget languageTrailing() {
     return PopupMenuButton(
-      color: Theme.of(context).scaffoldBackgroundColor,
+      color: context.theme.scaffoldBackgroundColor,
       icon: Icon(
         Icons.arrow_drop_down,
-        color: Theme.of(context).colorScheme.secondary,
+        color: context.theme.colorScheme.secondary,
       ),
       iconSize: 30,
       onSelected: onLocaleChange,

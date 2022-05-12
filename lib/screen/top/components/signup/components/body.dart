@@ -30,7 +30,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(
                     fontSize: 27,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    color: context.theme.textTheme.bodyText1!.color,
                     height: 1.5,
                   ),
                 ),
@@ -53,7 +53,7 @@ class _SignUpState extends State<SignUp> {
                             context: context,
                             builder: (final context) {
                               return SpinKitCubeGrid(
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: context.theme.colorScheme.secondary,
                                 size: MediaQuery.of(context).size.height * 0.1,
                               );
                             },
@@ -99,7 +99,7 @@ class _SignUpState extends State<SignUp> {
                 Text(
                   context.language.totalPrivacy,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.caption,
+                  style: context.theme.textTheme.caption,
                 )
               ],
             ),

@@ -28,7 +28,7 @@ class NoNotesBody extends StatelessWidget {
                       TextSpan(
                         text: context.language.nothingHere,
                         style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          color: context.theme.textTheme.bodyText1!.color,
                         ),
                       ),
                     ],
@@ -46,20 +46,20 @@ class NoNotesBody extends StatelessWidget {
                     TextSpan(
                       text: '${context.language.nothingHere}\n',
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: context.theme.textTheme.bodyText1!.color,
                       ),
                     ),
                     TextSpan(
                       text: context.language.tapOn,
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: context.theme.textTheme.bodyText1!.color,
                       ),
                     ),
                     TextSpan(
                       text: '+',
                       style: TextStyle(
                         fontSize: 30,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: context.theme.colorScheme.secondary,
                         fontWeight: FontWeight.bold,
                       ),
                       recognizer: TapGestureRecognizer()
@@ -79,7 +79,7 @@ class NoNotesBody extends StatelessWidget {
                     TextSpan(
                       text: context.language.toAddNewNote,
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: context.theme.textTheme.bodyText1!.color,
                       ),
                     ),
                   ],

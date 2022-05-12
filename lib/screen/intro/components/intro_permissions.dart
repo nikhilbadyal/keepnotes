@@ -48,12 +48,12 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                             ? Icon(
                                 MdiIcons.lockOpen,
                                 size: 42,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: context.theme.colorScheme.secondary,
                               )
                             : Icon(
                                 MdiIcons.lock,
                                 size: 42,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: context.theme.colorScheme.secondary,
                               ),
                       ),
                     ),
@@ -64,7 +64,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                           fontSize: 23,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w600,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          color: context.theme.textTheme.bodyText1!.color,
                         ),
                         children: [
                           TextSpan(
@@ -73,7 +73,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                           TextSpan(
                             text: context.language.access,
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: context.theme.colorScheme.secondary,
                               fontWeight: FontWeight.w600,
                             ),
                           )
@@ -105,13 +105,13 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                       style: TextStyle(
                         fontSize: 18,
                         fontFamily: 'YTSans',
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: context.theme.textTheme.bodyText1!.color,
                       ),
                       children: [
                         TextSpan(
                           text: '${context.language.appName} ',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
+                            color: context.theme.colorScheme.secondary,
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w700,
                           ),
@@ -121,10 +121,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                           style: TextStyle(
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w500,
-                            color: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .color!
+                            color: context.theme.textTheme.bodyText1!.color!
                                 .withOpacity(0.8),
                           ),
                         )
@@ -158,7 +155,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                   height: 52,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: context.theme.colorScheme.secondary,
                   ),
                   child: accessGranted
                       ? Container(

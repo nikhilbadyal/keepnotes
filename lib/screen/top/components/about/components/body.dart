@@ -45,14 +45,14 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Product Sans',
-                color: Theme.of(context).textTheme.bodyText1!.color,
+                color: context.theme.textTheme.bodyText1!.color,
               ),
             ),
             const SizedBox(height: 30),
             Text(
               context.language.devName,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.secondary,
+                color: context.theme.colorScheme.secondary,
                 fontSize: 20,
                 fontWeight: FontWeight.normal,
               ),
@@ -64,7 +64,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Product Sans',
-                color: Theme.of(context).textTheme.bodyText1!.color,
+                color: context.theme.textTheme.bodyText1!.color,
               ),
             ),
             const SizedBox(height: 30),
@@ -82,7 +82,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                     'nikhildevelops@gmail.com',
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: context.theme.colorScheme.secondary,
                       fontSize: 16,
                     ),
                   ),
@@ -106,7 +106,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Product Sans',
-                    color: Theme.of(context).textTheme.bodyText1!.color,
+                    color: context.theme.textTheme.bodyText1!.color,
                   ),
                 ),
               ),
