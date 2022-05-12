@@ -124,12 +124,13 @@ Route<dynamic> generateRoute(final RouteSettings settings) {
         );
       }
     default:
-      return errorRoute();
+      return errorRoute(settings);
   }
 }
 
-Route<dynamic> errorRoute() {
+Route<dynamic> errorRoute(final RouteSettings? settings) {
   return CupertinoPageRoute(
+    settings: settings,
     builder: (final context) {
       return const ErrorScreen();
     },
