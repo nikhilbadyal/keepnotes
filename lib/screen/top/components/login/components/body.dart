@@ -24,7 +24,6 @@ class _LoginState extends State<Login> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 35),
               Text(
                 context.language.loginToContinue,
                 style: TextStyle(
@@ -42,9 +41,9 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 70),
+              const SizedBox(height: 60),
               const SignForm(),
-              const SizedBox(height: 70),
+              const SizedBox(height: 50),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -34,7 +34,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       child: Form(
         key: formKey,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 45),
           child: ListView(
             children: [
               const SizedBox(height: 75),

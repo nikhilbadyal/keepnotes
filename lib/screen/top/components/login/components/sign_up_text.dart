@@ -15,15 +15,18 @@ class NoAccountText extends StatelessWidget {
         Text(
           context.language.noAccount,
           style: const TextStyle(
-            fontSize: 20,
+            fontSize: 18,
           ),
+        ),
+        const SizedBox(
+          width: 6,
         ),
         InkWell(
           onTap: () => context.nextPage(AppRoutes.signUpScreen),
           child: Text(
             context.language.signUp,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 20,
               color: context.theme.colorScheme.secondary,
             ),
           ),

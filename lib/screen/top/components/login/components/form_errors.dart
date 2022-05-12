@@ -21,21 +21,24 @@ class FormError extends StatelessWidget {
     );
   }
 
-  Row formErrorText({
+  Widget formErrorText({
     required final String error,
   }) {
-    return Row(
-      children: [
-        SvgPicture.asset(
-          errorSvg,
-          height: 20,
-          width: 20,
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Text(error),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Row(
+        children: [
+          SvgPicture.asset(
+            errorSvg,
+            height: 20,
+            width: 20,
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Text(error),
+        ],
+      ),
     );
   }
 }

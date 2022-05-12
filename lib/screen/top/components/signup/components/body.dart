@@ -24,7 +24,6 @@ class _SignUpState extends State<SignUp> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 35),
                 Text(
                   context.language.registerAccount,
                   style: TextStyle(
@@ -40,7 +39,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 const SizedBox(height: 70),
                 const SignUpForm(),
-                const SizedBox(height: 70),
+                const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
