@@ -27,7 +27,7 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
               }
             }),
           );
-          Navigator.of(context).pop();
+          context.previousPage();
         },
         color: Colors.white,
       ),

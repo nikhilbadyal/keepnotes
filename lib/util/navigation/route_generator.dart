@@ -159,10 +159,9 @@ Future<void> navigate(
   } else {
     if (activeRoute == '/') {
       Navigator.pop(context);
-      await Navigator.pushNamed(context, newRoute, arguments: arguments);
+      context.nextPage(newRoute, arguments: arguments);
     } else {
-      await Navigator.pushReplacementNamed(
-        context,
+      context.nextReplacementPage(
         newRoute,
         arguments: arguments,
       );

@@ -32,9 +32,7 @@ class _IntroScreenState extends State<IntroScreen>
       const IntroPermissions(),
       const IntroTheme(),
       IntroReady(
-        onLogin: () {
-          Navigator.pushNamed(context, AppRoutes.loginScreen);
-        },
+        onLogin: () => context.nextPage(AppRoutes.loginScreen),
       )
     ];
     _controller = TabController(length: screens.length, vsync: this);
@@ -116,12 +114,9 @@ class _IntroScreenState extends State<IntroScreen>
                                         .withOpacity(0.7),
                                   ),
                                 ),
-                                onPressed: () {
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    AppRoutes.loginScreen,
-                                  );
-                                },
+                                onPressed: () => context.nextReplacementPage(
+                                  AppRoutes.loginScreen,
+                                ),
                               ),
                       ),
                     ),

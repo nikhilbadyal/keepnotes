@@ -57,14 +57,9 @@ String initialize(final User? curUser) {
 }
 
 Future<void> ohHideTap(
-  final Timer autoSaver,
-  final Function() saveNote,
   final BuildContext context,
-  final Note note, {
-  final bool isMounted = false,
-}) async {
-  autoSaver.cancel();
-  saveNote();
+  final Note note,
+) async {
   final status =
       Provider.of<AppConfiguration>(context, listen: false).password.isNotEmpty;
   if (!status) {
@@ -78,49 +73,25 @@ Future<void> ohHideTap(
       ),
     );
   } else {
-    if (!isMounted) {
-      return;
-    }
-    Navigator.of(context).popUntil(
-      ModalRoute.withName(note.path),
-    );
     await Provider.of<NotesHelper>(context, listen: false).hide(note);
   }
 }
 
 Future<void> ohTrashTap(
-  final Timer autoSaver,
-  final Function() saveNote,
   final BuildContext context,
-  final Note note, {
-  final bool isMounted = false,
-}) async {
-  autoSaver.cancel();
-  saveNote();
-
+  final Note note,
+) async {
   Navigator.of(context).popUntil(
     ModalRoute.withName(note.path),
   );
-  unawaited(
-    Provider.of<NotesHelper>(context, listen: false).trash(note),
-  );
+  await Provider.of<NotesHelper>(context, listen: false).trash(note);
 }
 
 Future<void> ohArchiveTap(
-  final Timer autoSaver,
-  final Function() saveNote,
   final BuildContext context,
-  final Note note, {
-  final bool isMounted = false,
-}) async {
-  autoSaver.cancel();
-  saveNote();
-  Navigator.of(context).popUntil(
-    ModalRoute.withName(note.path),
-  );
-  unawaited(
-    Provider.of<NotesHelper>(context, listen: false).trash(note),
-  );
+  final Note note,
+) async {
+  await Provider.of<NotesHelper>(context, listen: false).trash(note);
 }
 
 void hideKeyboard(final BuildContext context) {

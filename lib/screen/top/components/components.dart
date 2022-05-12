@@ -1,0 +1,10 @@
+export 'about/about.dart';
+export 'archive/archive.dart';
+export 'backup/backup.dart';
+export 'forgot_password/forgot_password.dart';
+export 'hidden/hidden.dart';
+export 'home/home.dart';
+export 'lock/lock.dart';
+export 'login/login.dart';
+export 'settings/settings.dart';
+export 'signup/signup.dart';

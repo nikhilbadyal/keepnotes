@@ -16,21 +16,15 @@ class Encrypt {
   late Encrypter encrypter;
 
   void encrypt(final Note copiedNote) {
-    if (copiedNote.title.isNotEmpty) {
-      copiedNote.title = encrypter.encrypt(copiedNote.title, iv: iv).base64;
-    }
-    if (copiedNote.content.isNotEmpty) {
-      copiedNote.content = encrypter.encrypt(copiedNote.content, iv: iv).base64;
-    }
+    copiedNote
+      ..title = encryptStr(copiedNote.title)
+      ..content = encryptStr(copiedNote.content);
   }
 
   void decrypt(final Note copiedNote) {
-    if (copiedNote.title.isNotEmpty) {
-      copiedNote.title = encrypter.decrypt64(copiedNote.title, iv: iv);
-    }
-    if (copiedNote.content.isNotEmpty) {
-      copiedNote.content = encrypter.decrypt64(copiedNote.content, iv: iv);
-    }
+    copiedNote
+      ..title = decryptStr(copiedNote.title)
+      ..content = decryptStr(copiedNote.content);
   }
 
   String decryptStr(final String str) {
