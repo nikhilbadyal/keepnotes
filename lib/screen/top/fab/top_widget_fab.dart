@@ -12,45 +12,48 @@ Widget? getFAB(final ScreenTypes topScreen, final BuildContext context) {
         noteState: NoteState.archived,
       );
     case ScreenTypes.trash:
-      return FloatingActionButton(
-        child: const Icon(Icons.delete_forever_outlined),
-        onPressed: () {
-          showModalBottomSheet<void>(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 26),
+        child: FloatingActionButton(
+          child: const Icon(Icons.delete_forever_outlined),
+          onPressed: () {
+            showModalBottomSheet<void>(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
               ),
-            ),
-            clipBehavior: Clip.antiAlias,
-            context: context,
-            builder: (final context) {
-              return Wrap(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back_outlined),
-                          onPressed: context.previousPage,
-                        ),
-                        const SizedBox(width: 16),
-                        Text(context.language.options),
+              clipBehavior: Clip.antiAlias,
+              context: context,
+              builder: (final context) {
+                return Wrap(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.arrow_back_outlined),
+                            onPressed: context.previousPage,
+                          ),
+                          const SizedBox(width: 16),
+                          Text(context.language.options),
+                        ],
+                      ),
+                    ),
+                    Flex(
+                      direction: Axis.horizontal,
+                      children: const [
+                        ModalSheetDeleteAllWidget(),
                       ],
                     ),
-                  ),
-                  Flex(
-                    direction: Axis.horizontal,
-                    children: const [
-                      ModalSheetDeleteAllWidget(),
-                    ],
-                  ),
-                ],
-              );
-            },
-          );
-        },
+                  ],
+                );
+              },
+            );
+          },
+        ),
       );
     case ScreenTypes.home:
       return const Fab(
