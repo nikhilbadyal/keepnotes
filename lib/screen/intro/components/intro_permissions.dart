@@ -96,7 +96,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/grantAccess.png',
+                    grantAccess,
                     height: MediaQuery.of(context).size.height * 0.3,
                   ),
                   RichText(

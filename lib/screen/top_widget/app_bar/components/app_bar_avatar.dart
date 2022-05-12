@@ -62,7 +62,7 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
       radius: 20,
       backgroundColor: Colors.white,
       backgroundImage: AssetImage(
-        'assets/images/$gender.png',
+        '$imageAssets$gender.png',
       ),
     );
   }

@@ -67,7 +67,7 @@ class IntroReady extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: Image.asset('assets/images/appReady.png'),
+                        child: Image.asset(appReady),
                       ),
                       Expanded(
                         child: Container(

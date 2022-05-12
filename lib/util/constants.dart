@@ -20,6 +20,10 @@ const String splashImage2 = '${imageAssets}splash2.png';
 const String splashImage3 = '${imageAssets}splash3.png';
 const String telegram = '${imageAssets}telegram.svg';
 const String women = '${imageAssets}women.png';
+const String appIcon = '${imageAssets}icon.svg';
+const String appTheme = '${imageAssets}appTheme.png';
+const String appReady = '${imageAssets}appReady.png';
+const String grantAccess = '${imageAssets}grantAccess.png';
 
 // String Const
 const String imageAssets = 'assets/images/';

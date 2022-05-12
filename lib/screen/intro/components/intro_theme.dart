@@ -85,7 +85,7 @@ class _IntroThemeState extends State<IntroTheme> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/images/appTheme.png',
+                    appTheme,
                     height: MediaQuery.of(context).size.height * 0.3,
                   ),
                   Container(

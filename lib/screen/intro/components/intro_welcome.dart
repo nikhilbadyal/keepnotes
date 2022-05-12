@@ -48,7 +48,7 @@ class IntroWelcome extends StatelessWidget {
                               height: 52,
                               width: 120,
                               child: SvgPicture.asset(
-                                'assets/images/icon.svg',
+                                appIcon,
                               ),
                             ),
                           ),
