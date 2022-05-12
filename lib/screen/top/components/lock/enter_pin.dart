@@ -39,7 +39,7 @@ class _LockScreenState extends State<LockScreen> {
           }
 
           await navigate(
-            ModalRoute.of(context)!.settings.name!,
+            context.modalRouteSettingName(),
             context,
             AppRoutes.hiddenScreen,
           );
@@ -108,7 +108,7 @@ class _LockScreenState extends State<LockScreen> {
         return;
       }
       await navigate(
-        ModalRoute.of(context)!.settings.name!,
+        context.modalRouteSettingName(),
         context,
         AppRoutes.hiddenScreen,
       );
@@ -124,7 +124,7 @@ class _LockScreenState extends State<LockScreen> {
     if (enteredPassCode ==
         Provider.of<AppConfiguration>(context, listen: false).password) {
       await navigate(
-        ModalRoute.of(context)!.settings.name!,
+        context.modalRouteSettingName(),
         context,
         AppRoutes.setPassScreen,
         DataObj(
@@ -144,7 +144,7 @@ class _LockScreenState extends State<LockScreen> {
 
   @override
   Widget build(final BuildContext context) {
-    args = ModalRoute.of(context)!.settings.arguments! as bool;
+    args = context.modalRouteArguments() as bool;
     return LockBody(
       title: context.language.enterPassword,
       doneCallBack: args ? newPassDone : doneEnteringPass,

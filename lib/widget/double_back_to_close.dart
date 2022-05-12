@@ -63,14 +63,13 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
       return Future.value(true);
     } else {
       _lastTimeBackButtonWasTapped = DateTime.now().millisecondsSinceEpoch;
-      if (ModalRoute.of(context)!.settings.name! == AppRoutes.lockScreen ||
-          ModalRoute.of(context)!.settings.name! == AppRoutes.setPassScreen) {
+      if (context.modalRouteSettingName() == AppRoutes.lockScreen ||
+          context.modalRouteSettingName() == AppRoutes.setPassScreen) {
         context.navigator.popUntil(
           ModalRoute.withName(AppRoutes.homeScreen),
         );
         return Future.value(true);
-      } else if (ModalRoute.of(context)!.settings.name! ==
-              AppRoutes.homeScreen &&
+      } else if (context.modalRouteSettingName() == AppRoutes.homeScreen &&
           !isOpened) {
         showSnackbar(
           context,

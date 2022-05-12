@@ -23,7 +23,7 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(final BuildContext context) {
-    note = ModalRoute.of(context)!.settings.arguments! as Note;
+    note = context.modalRouteArguments() as Note;
     _titleController.text = note.title;
     _contentController.text = note.content;
     _titleFromInitial = note.title;

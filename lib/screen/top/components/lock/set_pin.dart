@@ -24,7 +24,7 @@ class _SetPasswordState extends State<SetPassword> {
         return;
       }
       await navigate(
-        ModalRoute.of(context)!.settings.name!,
+        context.modalRouteSettingName(),
         context,
         AppRoutes.setPassScreen,
         DataObj(
@@ -72,7 +72,7 @@ class _SetPasswordState extends State<SetPassword> {
           }
 
           await navigate(
-            ModalRoute.of(context)!.settings.name!,
+            context.modalRouteSettingName(),
             context,
             AppRoutes.hiddenScreen,
           );
@@ -90,7 +90,7 @@ class _SetPasswordState extends State<SetPassword> {
         }
 
         await navigate(
-          ModalRoute.of(context)!.settings.name!,
+          context.modalRouteSettingName(),
           context,
           AppRoutes.setPassScreen,
           DataObj(
@@ -105,7 +105,7 @@ class _SetPasswordState extends State<SetPassword> {
 
   @override
   Widget build(final BuildContext context) {
-    args = ModalRoute.of(context)!.settings.arguments! as DataObj;
+    args = context.modalRouteArguments() as DataObj;
     return LockBody(
       title: args.heading,
       doneCallBack: doneEnteringPass,

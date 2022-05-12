@@ -107,6 +107,16 @@ extension ContextExtensions on BuildContext {
 
   ScaffoldMessengerState get sm => ScaffoldMessenger.of(this);
 
+  String modalRouteSettingName<T>() {
+    final modalRoute = ModalRoute.of<T>(this);
+    return modalRoute!.settings.name ?? '/';
+  }
+
+  Object modalRouteArguments<T>() {
+    final lol = ModalRoute.of<T>(this);
+    return lol!.settings.arguments!;
+  }
+
   ///
   /// Pushes the built widget to the screen using the material fade in animation
   ///

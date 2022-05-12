@@ -41,7 +41,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
 
   @override
   void didPush() {
-    _activeRoute = ModalRoute.of(context)!.settings.name ?? '/';
+    _activeRoute = context.modalRouteSettingName();
   }
 
   @override
@@ -77,8 +77,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                 final bioEnable = getBoolFromSF('bio') ?? false;
                 final firstTime = getBoolFromSF('firstTimeNeeded') ?? false;
                 final fpDirectly = getBoolFromSF('fpDirectly') ?? true;
-                if (ModalRoute.of(context)!.settings.name ==
-                    AppRoutes.hiddenScreen) {
+                if (context.modalRouteSettingName() == AppRoutes.hiddenScreen) {
                   context.previousPage();
                   return;
                 }
@@ -97,7 +96,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                     }
                     if (status) {
                       await navigate(
-                        ModalRoute.of(context)!.settings.name!,
+                        context.modalRouteSettingName(),
                         context,
                         AppRoutes.hiddenScreen,
                       );
