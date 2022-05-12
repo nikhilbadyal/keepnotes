@@ -53,11 +53,11 @@ class _BodyState extends State<Body> {
         } else {
           final spinkit = SpinKitCircle(
             color: context.theme.colorScheme.secondary,
-            size: MediaQuery.of(context).size.height * 0.1,
+            size: context.mq.size.height * 0.1,
           );
           return SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: context.mq.size.height,
+            width: context.mq.size.width,
             child: Center(child: spinkit),
           );
         }

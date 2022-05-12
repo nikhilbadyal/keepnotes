@@ -79,7 +79,7 @@ class _SignFormState extends State<SignForm> {
                     builder: (final context) {
                       return SpinKitCubeGrid(
                         color: context.theme.colorScheme.secondary,
-                        size: MediaQuery.of(context).size.height * 0.1,
+                        size: context.mq.size.height * 0.1,
                       );
                     },
                   ),

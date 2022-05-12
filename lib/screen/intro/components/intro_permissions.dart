@@ -90,14 +90,14 @@ class _IntroPermissionsState extends State<IntroPermissions> {
             duration: const Duration(milliseconds: 600),
             forward: true,
             child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.6,
-              height: MediaQuery.of(context).size.height * 0.6,
+              width: context.mq.size.width * 0.6,
+              height: context.mq.size.height * 0.6,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
                     grantAccess,
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: context.mq.size.height * 0.3,
                   ),
                   RichText(
                     textAlign: TextAlign.center,

@@ -186,7 +186,7 @@ class _IntroScreenState extends State<IntroScreen>
             ),
           ),
           Container(
-            height: MediaQuery.of(context).padding.bottom,
+            height: context.mq.padding.bottom,
           )
         ],
       );

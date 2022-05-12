@@ -18,7 +18,7 @@ Widget defaultLayoutBuilder(
   final List<Color> colors,
   final PickerItem child,
 ) {
-  final orientation = MediaQuery.of(context).orientation;
+  final orientation = context.mq.orientation;
 
   return SizedBox(
     width: 300,

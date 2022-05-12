@@ -17,7 +17,7 @@ class NoteWidget extends StatelessWidget {
     final appTheme =
         AppTheme.values[getIntFromSF('appTheme') ?? AppTheme.black.index];
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
+      width: context.mq.size.width,
       height: getHeight(note.content.length),
       child: GestureDetector(
         onTap: onItemTap,

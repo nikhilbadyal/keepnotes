@@ -100,8 +100,8 @@ class ImageWig extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.4,
-      width: MediaQuery.of(context).size.width * 0.5,
+      height: context.mq.size.height * 0.4,
+      width: context.mq.size.width * 0.5,
       child: Image.asset(
         noNotes,
         fit: BoxFit.contain,

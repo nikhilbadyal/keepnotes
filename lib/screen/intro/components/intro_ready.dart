@@ -59,8 +59,8 @@ class IntroReady extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  width: context.mq.size.width * 0.6,
+                  height: context.mq.size.height * 0.6,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

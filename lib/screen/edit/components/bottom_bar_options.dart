@@ -26,7 +26,7 @@ class _BottomBarOptionsState extends State<BottomBarOptions>
           children: [
             _currentOptionWidget(),
             Container(
-              height: MediaQuery.of(context).padding.bottom,
+              height: context.mq.padding.bottom,
               color: context.theme.cardColor,
             )
           ],

@@ -159,7 +159,7 @@ class _LockBodyState extends State<LockBody> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).padding.bottom,
+                height: context.mq.padding.bottom,
               )
             ],
           )
@@ -169,7 +169,7 @@ class _LockBodyState extends State<LockBody> {
   }
 
   Widget buildLandscape() {
-    final val = MediaQuery.of(context).size.width;
+    final val = context.mq.size.width;
 
     return SafeArea(
       child: Stack(
