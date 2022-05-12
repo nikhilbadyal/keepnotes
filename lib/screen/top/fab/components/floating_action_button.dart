@@ -23,7 +23,7 @@ class Fab extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           HapticFeedback.vibrate();
-          Scaffold.of(context).openDrawer();
+          context.scaffold.openDrawer();
         },
         child: FloatingActionButton(
           onPressed: () => onFabTap(context, noteState),
