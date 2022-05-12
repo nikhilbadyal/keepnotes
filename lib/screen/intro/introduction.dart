@@ -48,21 +48,21 @@ class _IntroScreenState extends State<IntroScreen>
 
   @override
   Widget build(final BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((final _) async {
-      final _systemBrightness = Theme.of(context).brightness;
-      final _statusBarBrightness = _systemBrightness == Brightness.light
+    WidgetsBinding.instance.addPostFrameCallback((final _) async {
+      final systemBrightness = Theme.of(context).brightness;
+      final statusBarBrightness = systemBrightness == Brightness.light
           ? Brightness.dark
           : Brightness.light;
-      final _themeBrightness = _systemBrightness == Brightness.light
+      final themeBrightness = systemBrightness == Brightness.light
           ? Brightness.dark
           : Brightness.light;
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
-          statusBarBrightness: _statusBarBrightness,
-          statusBarIconBrightness: _statusBarBrightness,
+          statusBarBrightness: statusBarBrightness,
+          statusBarIconBrightness: statusBarBrightness,
           systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
-          systemNavigationBarIconBrightness: _themeBrightness,
+          systemNavigationBarIconBrightness: themeBrightness,
         ),
       );
     });

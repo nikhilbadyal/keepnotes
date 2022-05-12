@@ -19,7 +19,7 @@ class FirebaseDatabaseHelper {
             note.toMap(),
           );
       return true;
-    } on Exception catch (e, _) {
+    } on Exception {
       return false;
     }
   }
@@ -30,7 +30,7 @@ class FirebaseDatabaseHelper {
             note.toMap(),
           );
       return true;
-    } on Exception catch (_, __) {
+    } on Exception {
       return false;
     }
   }
@@ -42,7 +42,7 @@ class FirebaseDatabaseHelper {
     try {
       await notesReference.doc(note.id).delete();
       return true;
-    } on Exception catch (_, __) {
+    } on Exception {
       return false;
     }
   }
@@ -94,7 +94,7 @@ class FirebaseDatabaseHelper {
           );
       await batch.commit();
       return true;
-    } on Exception catch (e, _) {
+    } on Exception {
       return false;
     }
   }

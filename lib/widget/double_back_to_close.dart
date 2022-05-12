@@ -22,8 +22,8 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
 
   @override
   Widget build(final BuildContext context) {
-    final _isAndroid = Theme.of(context).platform == TargetPlatform.android;
-    if (_isAndroid) {
+    final isAndroid = Theme.of(context).platform == TargetPlatform.android;
+    if (isAndroid) {
       return WillPopScope(
         onWillPop: widget.backPresAction ?? defaultBackPress,
         child: widget.child,
@@ -58,8 +58,8 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
       return true;
     }
     Provider.of<NotesHelper>(context, listen: false).notify();
-    final _currentTime = DateTime.now().millisecondsSinceEpoch;
-    if ((_currentTime - _lastTimeBackButtonWasTapped) < exitTimeInMillis) {
+    final currentTime = DateTime.now().millisecondsSinceEpoch;
+    if ((currentTime - _lastTimeBackButtonWasTapped) < exitTimeInMillis) {
       return Future.value(true);
     } else {
       _lastTimeBackButtonWasTapped = DateTime.now().millisecondsSinceEpoch;

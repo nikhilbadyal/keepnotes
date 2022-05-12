@@ -60,7 +60,7 @@ class Auth with ChangeNotifier {
       await auth.sendPasswordResetEmail(email: email);
       isLoggedIn = false;
       return 'success';
-    } on FirebaseAuthException catch (e, __) {
+    } on FirebaseAuthException catch (e) {
       return e.code;
     }
   }
