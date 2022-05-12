@@ -117,6 +117,8 @@ extension ContextExtensions on BuildContext {
     return lol!.settings.arguments!;
   }
 
+  FocusNode get focus => FocusScope.of(this);
+
   ///
   /// Pushes the built widget to the screen using the material fade in animation
   ///

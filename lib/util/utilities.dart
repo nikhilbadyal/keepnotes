@@ -92,8 +92,7 @@ Future<void> ohArchiveTap(
 }
 
 void hideKeyboard(final BuildContext context) {
-  final currentFocus = FocusScope.of(context);
-  if (!currentFocus.hasPrimaryFocus) {
-    currentFocus.unfocus();
+  if (!context.focus.hasPrimaryFocus) {
+    context.focus.unfocus();
   }
 }

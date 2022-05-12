@@ -74,7 +74,7 @@ class _BottomBarState extends State<BottomBar> {
   }
 
   void moreMenu(final BuildContext context) {
-    FocusScope.of(context).requestFocus(
+    context.focus.requestFocus(
       FocusNode(),
     );
     showModalBottomSheet<dynamic>(
