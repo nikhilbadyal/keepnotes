@@ -22,7 +22,7 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
   Future<void> saveNoteAndCancelTimer() async {
     widget.autoSaver.cancel();
     widget.saveNote();
-    Navigator.of(context).popUntil(
+    context.navigator.popUntil(
       ModalRoute.withName(widget.note.path),
     );
   }

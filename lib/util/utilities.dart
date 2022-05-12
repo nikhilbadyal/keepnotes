@@ -81,9 +81,6 @@ Future<void> ohTrashTap(
   final BuildContext context,
   final Note note,
 ) async {
-  Navigator.of(context).popUntil(
-    ModalRoute.withName(note.path),
-  );
   await Provider.of<NotesHelper>(context, listen: false).trash(note);
 }
 

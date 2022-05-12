@@ -111,6 +111,8 @@ extension ContextExtensions on BuildContext {
     return navigator.push<T>(MaterialPageRoute(builder: builder));
   }
 
+  void popUntil(final RoutePredicate predicate) {}
+
   ///
   /// Removes the top most Widget in the navigator's stack
   ///

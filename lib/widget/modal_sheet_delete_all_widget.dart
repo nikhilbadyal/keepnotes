@@ -55,7 +55,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
             if (!mounted) {
               return;
             }
-            Navigator.of(context).popUntil(
+            context.navigator.popUntil(
               ModalRoute.withName(AppRoutes.trashScreen),
             );
           },

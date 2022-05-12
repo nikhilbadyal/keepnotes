@@ -65,7 +65,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
       _lastTimeBackButtonWasTapped = DateTime.now().millisecondsSinceEpoch;
       if (ModalRoute.of(context)!.settings.name! == AppRoutes.lockScreen ||
           ModalRoute.of(context)!.settings.name! == AppRoutes.setPassScreen) {
-        Navigator.of(context).popUntil(
+        context.navigator.popUntil(
           ModalRoute.withName(AppRoutes.homeScreen),
         );
         return Future.value(true);
