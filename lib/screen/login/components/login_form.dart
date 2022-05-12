@@ -140,58 +140,6 @@ class _SignFormState extends State<SignForm> {
               ),
             ),
           ),
-          /*DefaultButton(
-            text: Language.of(context).login,
-            press: () async {
-              if (_formKey.currentState!.validate()) {
-                unawaited(
-                  showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (final context) {
-                      return SpinKitCubeGrid(
-                        color: Theme.of(context).colorScheme.secondary,
-                        size: MediaQuery.of(context).size.height * 0.1,
-                      );
-                    },
-                  ),
-                );
-                _formKey.currentState!.save();
-                hideKeyboard(context);
-                final response = await Provider.of<Auth>(
-                  context,
-                  listen: false,
-                ).signInWithPassword(
-                  email: email,
-                  password: password,
-                );
-                if (!mounted) {
-                  return;
-                }
-
-                if (Provider.of<Auth>(
-                  context,
-                  listen: false,
-                ).isLoggedIn) {
-                  Provider.of<AppConfiguration>(context, listen: false)
-                      .password = initialize(
-                    Provider.of<Auth>(context, listen: false).auth.currentUser,
-                  );
-                  await Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    AppRoutes.homeScreen,
-                    (final route) => false,
-                  );
-                } else {
-                  Navigator.of(context).pop();
-                  handleFirebaseError(
-                    response,
-                    context,
-                  );
-                }
-              }
-            },
-          ),*/
         ],
       ),
     );
