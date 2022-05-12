@@ -24,7 +24,7 @@ class ModalSheetWidget extends ModalSheetWidgets {
   @override
   Widget build(final BuildContext context) => Flexible(
         fit: FlexFit.tight,
-        child: GestureDetector(
+        child: InkWell(
           onTap: onTap,
           child: Container(
             margin: const EdgeInsets.only(left: 8),

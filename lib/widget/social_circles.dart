@@ -14,7 +14,7 @@ class SocialCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: press as void Function()?,
       child: Container(
         margin: const EdgeInsets.symmetric(

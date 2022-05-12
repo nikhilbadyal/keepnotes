@@ -30,11 +30,11 @@ class _SocialLinksRowState extends State<SocialLinksRow> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          GestureDetector(
+          InkWell(
             onTap: () => launchUrlString(telegramUrl),
             child: SvgPicture.asset(telegram),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () => launchUrlString(repoLink),
             child: SvgPicture.asset(github),
           ),

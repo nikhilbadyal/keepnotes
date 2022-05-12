@@ -19,7 +19,7 @@ class NoteWidget extends StatelessWidget {
     return SizedBox(
       width: context.mq.size.width,
       height: getHeight(note.content.length),
-      child: GestureDetector(
+      child: InkWell(
         onTap: onItemTap,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),

@@ -91,7 +91,7 @@ class IntroWelcome extends StatelessWidget {
               forward: true,
               slideSide: SlideFromSlide.top,
               duration: const Duration(milliseconds: 600),
-              child: GestureDetector(
+              child: InkWell(
                 onTap: () {
                   launchUrlString(githubProfile);
                 },

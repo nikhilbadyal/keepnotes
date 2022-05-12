@@ -55,7 +55,7 @@ class _SignFormState extends State<SignForm> {
           const SizedBox(
             height: 25,
           ),
-          GestureDetector(
+          InkWell(
             onTap: () => context.nextPage(AppRoutes.forgotPasswordScreen),
             child: Align(
               alignment: Alignment.bottomRight,
@@ -69,7 +69,7 @@ class _SignFormState extends State<SignForm> {
           const SizedBox(
             height: 25,
           ),
-          GestureDetector(
+          InkWell(
             onTap: () async {
               if (_formKey.currentState!.validate()) {
                 unawaited(

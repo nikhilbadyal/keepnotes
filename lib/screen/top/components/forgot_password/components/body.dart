@@ -116,7 +116,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ]),
               ),
               const SizedBox(height: 52),
-              GestureDetector(
+              InkWell(
                 onTap: () async {
                   if (checkFields()) {
                     final response =

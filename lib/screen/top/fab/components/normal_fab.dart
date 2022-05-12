@@ -20,7 +20,7 @@ class Fab extends StatelessWidget {
   Widget build(final BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 26),
-      child: GestureDetector(
+      child: InkWell(
         onTap: () {
           HapticFeedback.vibrate();
           context.scaffold.openDrawer();

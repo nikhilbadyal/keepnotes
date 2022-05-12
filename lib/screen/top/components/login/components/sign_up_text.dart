@@ -18,7 +18,7 @@ class NoAccountText extends StatelessWidget {
             fontSize: 20,
           ),
         ),
-        GestureDetector(
+        InkWell(
           onTap: () => context.nextPage(AppRoutes.signUpScreen),
           child: Text(
             context.language.signUp,

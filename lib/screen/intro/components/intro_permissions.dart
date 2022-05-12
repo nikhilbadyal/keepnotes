@@ -139,7 +139,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
             slideSide: SlideFromSlide.bottom,
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: GestureDetector(
+              child: InkWell(
                 onTap: () {
                   if (accessGranted == false) {
                     Permission.storage.request().then((final status) {

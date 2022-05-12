@@ -16,7 +16,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
   @override
   Widget build(final BuildContext context) => Flexible(
         fit: FlexFit.tight,
-        child: GestureDetector(
+        child: InkWell(
           onTap: () async {
             final status = await showDialog<bool>(
                   barrierDismissible: false,

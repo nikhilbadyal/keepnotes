@@ -23,7 +23,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Center(
-              child: GestureDetector(
+              child: InkWell(
                 onTap: () {
                   urlLauncher(githubProfile);
                 },
@@ -74,7 +74,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                 const SizedBox(
                   width: 10,
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () async => urlLauncher(
                     emailLaunchUri.toString(),
                   ),

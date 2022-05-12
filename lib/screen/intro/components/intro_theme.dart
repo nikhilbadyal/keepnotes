@@ -130,7 +130,7 @@ class _IntroThemeState extends State<IntroTheme> {
                     delay: const Duration(milliseconds: 700),
                     forward: true,
                     slideSide: SlideFromSlide.bottom,
-                    child: GestureDetector(
+                    child: InkWell(
                       onTap: () {
                         context
                             .read<AppConfiguration>()
@@ -175,7 +175,7 @@ class _IntroThemeState extends State<IntroTheme> {
                     delay: const Duration(milliseconds: 800),
                     forward: true,
                     slideSide: SlideFromSlide.bottom,
-                    child: GestureDetector(
+                    child: InkWell(
                       onTap: () {
                         context
                             .read<AppConfiguration>()

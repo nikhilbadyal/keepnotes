@@ -58,7 +58,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(
             height: 44,
           ),
-          GestureDetector(
+          InkWell(
             onTap: () async {
               if (_formKey.currentState!.validate()) {
                 unawaited(
