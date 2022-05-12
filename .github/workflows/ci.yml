@@ -31,6 +31,7 @@ jobs:
           channel: 'stable'
           cache: true
           cache-key: flutter
+          flutter-version: '3.0.0'
           cache-path: ${{ runner.tool_cache }}/flutter
 
       - name: Disable Analytics
