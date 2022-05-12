@@ -23,7 +23,7 @@ class SocialCard extends StatelessWidget {
         padding: const EdgeInsets.all(
           4,
         ),
-        height: 16,
+        height: 36,
         width: 36,
         decoration: const BoxDecoration(
           color: Color(0xFFF5F6F9),

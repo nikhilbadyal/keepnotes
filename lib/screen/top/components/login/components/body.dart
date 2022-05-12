@@ -70,7 +70,6 @@ class _LoginState extends State<Login> {
                       if (!mounted) {
                         return;
                       }
-
                       if (Provider.of<Auth>(
                         context,
                         listen: false,
