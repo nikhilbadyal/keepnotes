@@ -7,35 +7,35 @@ AppBar? getAppBar(final ScreenTypes topScreen, final BuildContext context) {
   switch (topScreen) {
     case ScreenTypes.hidden:
       return AppBar(
-        title: Text(Language.of(context).hidden),
+        title: Text(context.language.hidden),
       );
     case ScreenTypes.home:
       return AppBar(
-        title: Text(Language.of(context).home),
+        title: Text(context.language.home),
       );
 
     case ScreenTypes.archive:
       return AppBar(
-        title: Text(Language.of(context).archive),
+        title: Text(context.language.archive),
       );
 
     case ScreenTypes.backup:
       return AppBar(
-        title: Text(Language.of(context).backup),
+        title: Text(context.language.backup),
       );
 
     case ScreenTypes.trash:
       return AppBar(
-        title: Text(Language.of(context).trash),
+        title: Text(context.language.trash),
       );
 
     case ScreenTypes.aboutMe:
       return AppBar(
-        title: Text(Language.of(context).about),
+        title: Text(context.language.about),
       );
     case ScreenTypes.settings:
       return AppBar(
-        title: Text(Language.of(context).settings),
+        title: Text(context.language.settings),
       );
     case ScreenTypes.intro:
     case ScreenTypes.signup:

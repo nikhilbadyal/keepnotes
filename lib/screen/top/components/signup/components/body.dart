@@ -26,7 +26,7 @@ class _SignUpState extends State<SignUp> {
               children: [
                 const SizedBox(height: 35),
                 Text(
-                  Language.of(context).registerAccount,
+                  context.language.registerAccount,
                   style: TextStyle(
                     fontSize: 27,
                     fontWeight: FontWeight.bold,
@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Text(
-                  Language.of(context).signUpJustification,
+                  context.language.signUpJustification,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 70),
@@ -97,7 +97,7 @@ class _SignUpState extends State<SignUp> {
                   height: 25,
                 ),
                 Text(
-                  Language.of(context).totalPrivacy,
+                  context.language.totalPrivacy,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption,
                 )

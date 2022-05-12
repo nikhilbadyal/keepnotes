@@ -44,9 +44,7 @@ class IntroReady extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).textTheme.bodyText1!.color,
                           ),
-                          children: [
-                            TextSpan(text: Language.of(context).ready)
-                          ],
+                          children: [TextSpan(text: context.language.ready)],
                         ),
                       ),
                     ],
@@ -86,11 +84,11 @@ class IntroReady extends StatelessWidget {
                               ),
                               children: [
                                 TextSpan(
-                                  text: '${Language.of(context).over},'
-                                      '\n${Language.of(context).enjoy} ',
+                                  text: '${context.language.over},'
+                                      '\n${context.language.enjoy} ',
                                 ),
                                 TextSpan(
-                                  text: '${Language.of(context).appName}!',
+                                  text: '${context.language.appName}!',
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.secondary,
@@ -119,7 +117,7 @@ class IntroReady extends StatelessWidget {
             child: FloatingActionButton.extended(
               backgroundColor: Theme.of(context).colorScheme.secondary,
               label: Text(
-                Language.of(context).login,
+                context.language.login,
                 style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'YTSans',

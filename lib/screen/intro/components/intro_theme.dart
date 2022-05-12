@@ -58,9 +58,9 @@ class _IntroThemeState extends State<IntroTheme> {
                           color: Theme.of(context).textTheme.bodyText1!.color,
                         ),
                         children: [
-                          TextSpan(text: Language.of(context).app),
+                          TextSpan(text: context.language.app),
                           TextSpan(
-                            text: Language.of(context).theme,
+                            text: context.language.theme,
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.w600,
@@ -101,10 +101,10 @@ class _IntroThemeState extends State<IntroTheme> {
                         ),
                         children: [
                           TextSpan(
-                            text: '${Language.of(context).selectTheme}\n',
+                            text: '${context.language.selectTheme}\n',
                           ),
                           TextSpan(
-                            text: '${Language.of(context).theme}!',
+                            text: '${context.language.theme}!',
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.w600,
@@ -156,7 +156,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         ),
                         child: Center(
                           child: Text(
-                            Language.of(context).light,
+                            context.language.light,
                             style: TextStyle(
                               fontSize: 15,
                               color: theme == ThemeSelected.light
@@ -204,7 +204,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         ),
                         child: Center(
                           child: Text(
-                            Language.of(context).dark,
+                            context.language.dark,
                             style: TextStyle(
                               fontSize: 15,
                               color: theme == ThemeSelected.dark

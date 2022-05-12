@@ -74,7 +74,7 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
           !isOpened) {
         showSnackbar(
           context,
-          Language.of(context).doubleBackToExit,
+          context.language.doubleBackToExit,
           snackBarBehavior: SnackBarBehavior.fixed,
           duration: const Duration(milliseconds: exitTimeInMillis - 10),
         );

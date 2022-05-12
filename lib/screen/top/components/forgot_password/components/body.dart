@@ -44,7 +44,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 child: Stack(
                   children: [
                     Text(
-                      Language.of(context).hello,
+                      context.language.hello,
                       style: const TextStyle(
                         fontFamily: 'Trueno',
                         fontSize: 63,
@@ -53,7 +53,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     Positioned(
                       top: 50,
                       child: Text(
-                        Language.of(context).there,
+                        context.language.there,
                         style: const TextStyle(
                           fontFamily: 'Trueno',
                           fontSize: 63,
@@ -80,7 +80,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      Language.of(context).email,
+                      context.language.email,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontWeight: FontWeight.bold,
@@ -98,7 +98,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 },
                 textAlign: TextAlign.left,
                 decoration: InputDecoration(
-                  labelText: Language.of(context).email,
+                  labelText: context.language.email,
                   labelStyle: TextStyle(
                     fontFamily: 'Trueno',
                     fontSize: 12,
@@ -111,8 +111,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                 ),
                 validator: Validators.compose([
-                  Validators.email(Language.of(context).checkEmail),
-                  Validators.required(Language.of(context).required),
+                  Validators.email(context.language.checkEmail),
+                  Validators.required(context.language.required),
                 ]),
               ),
               const SizedBox(height: 52),
@@ -129,7 +129,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     if (response != 'success') {
                       handleFirebaseError(response, context);
                     } else {
-                      showSnackbar(context, Language.of(context).checkEmail);
+                      showSnackbar(context, context.language.checkEmail);
                     }
                     await navigate(
                       AppRoutes.forgotPasswordScreen,
@@ -148,7 +148,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     elevation: 7,
                     child: Center(
                       child: Text(
-                        Language.of(context).resetPassword,
+                        context.language.resetPassword,
                         style: const TextStyle(
                           color: Colors.white,
                           fontFamily: 'Trueno',
@@ -170,24 +170,24 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 void handleFirebaseError(final String response, final BuildContext context) {
   debugPrint(response);
   if (response == 'user-not-found' || response == 'auth/user-not-found') {
-    showSnackbar(context, Language.of(context).signUp);
+    showSnackbar(context, context.language.signUp);
   } else if (response == 'invalid-email' || response == 'auth/invalid-email') {
-    showSnackbar(context, Language.of(context).checkEmail);
+    showSnackbar(context, context.language.checkEmail);
   } else if (response == 'wrong-password') {
-    showSnackbar(context, Language.of(context).wrongPassword);
+    showSnackbar(context, context.language.wrongPassword);
   } else if (response == 'account-exists-with-different-credential') {
-    showSnackbar(context, Language.of(context).accountAlreadyExist);
+    showSnackbar(context, context.language.accountAlreadyExist);
   } else if (response == 'email-already-in-use') {
-    showSnackbar(context, Language.of(context).emailAlreadyExist);
+    showSnackbar(context, context.language.emailAlreadyExist);
   } else if (response == 'invalid-email') {
-    showSnackbar(context, Language.of(context).invalidEmail);
+    showSnackbar(context, context.language.invalidEmail);
   } else if (response == 'email-not-verified') {
-    showSnackbar(context, Language.of(context).verifyEmail);
+    showSnackbar(context, context.language.verifyEmail);
   } else if (response == 'weak-password') {
-    showSnackbar(context, Language.of(context).weakPassword);
+    showSnackbar(context, context.language.weakPassword);
   } else if (response == 'too-many-requests') {
-    showSnackbar(context, Language.of(context).tryAgainLater);
+    showSnackbar(context, context.language.tryAgainLater);
   } else {
-    showSnackbar(context, Language.of(context).contactUs);
+    showSnackbar(context, context.language.contactUs);
   }
 }

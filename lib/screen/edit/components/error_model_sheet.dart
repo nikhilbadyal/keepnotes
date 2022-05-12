@@ -8,6 +8,6 @@ class ErrorModalSheet extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => SizedBox(
-        child: Text(Language.of(context).error),
+        child: Text(context.language.error),
       );
 }

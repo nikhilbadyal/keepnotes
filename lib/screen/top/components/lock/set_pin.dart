@@ -29,7 +29,7 @@ class _SetPasswordState extends State<SetPassword> {
         AppRoutes.setPassScreen,
         DataObj(
           enteredPassCode,
-          Language.of(context).reEnterPassword,
+          context.language.reEnterPassword,
           resetPass: args.resetPass,
           isFirst: false,
         ),
@@ -41,7 +41,7 @@ class _SetPasswordState extends State<SetPassword> {
               enteredPassCode) {
             showSnackbar(
               context,
-              Language.of(context).samePasswordError,
+              context.language.samePasswordError,
             );
           } else {
             await Provider.of<AppConfiguration>(context, listen: false)
@@ -62,7 +62,7 @@ class _SetPasswordState extends State<SetPassword> {
           );
           showSnackbar(
             context,
-            Language.of(context).done,
+            context.language.done,
           );
           await Future.delayed(
             const Duration(milliseconds: pinEnterReset),
@@ -80,7 +80,7 @@ class _SetPasswordState extends State<SetPassword> {
       } else {
         showSnackbar(
           context,
-          Language.of(context).passwordNotMatch,
+          context.language.passwordNotMatch,
         );
         await Future.delayed(
           const Duration(milliseconds: pinEnterReset),
@@ -95,7 +95,7 @@ class _SetPasswordState extends State<SetPassword> {
           AppRoutes.setPassScreen,
           DataObj(
             '',
-            Language.of(context).enterNewPassword,
+            context.language.enterNewPassword,
             isFirst: true,
           ),
         );

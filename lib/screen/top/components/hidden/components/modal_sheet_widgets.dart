@@ -39,7 +39,7 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                   onPressed: context.previousPage,
                 ),
                 const SizedBox(width: 16),
-                Text(Language.of(context).options),
+                Text(context.language.options),
               ],
             ),
           ),
@@ -63,7 +63,7 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                         );
                       },
                       icon: Icons.drive_file_move_outline,
-                      label: Language.of(context).unhide,
+                      label: context.language.unhide,
                     ),
                     ModalSheetWidget(
                       onTap: () {
@@ -75,7 +75,7 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                           ),
                         );
                       },
-                      label: Language.of(context).archive,
+                      label: context.language.archive,
                       icon: Icons.archive_outlined,
                     ),
                     CopyToClipBoardModelSheetWidget(
@@ -92,7 +92,7 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                           ),
                         );
                       },
-                      label: Language.of(context).delete,
+                      label: context.language.delete,
                     ),
                   ],
                 ),

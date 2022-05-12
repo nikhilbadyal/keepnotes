@@ -102,7 +102,7 @@ class _IntroScreenState extends State<IntroScreen>
                                   ),
                                 ),
                                 child: Text(
-                                  Language.of(context).skip,
+                                  context.language.skip,
                                   style: TextStyle(
                                     fontFamily: 'Product Sans',
                                     fontWeight: FontWeight.w600,
@@ -170,7 +170,7 @@ class _IntroScreenState extends State<IntroScreen>
                                         })
                                     : null,
                                 child: Text(
-                                  Language.of(context).next,
+                                  context.language.next,
                                   style: TextStyle(
                                     fontFamily: 'Product Sans',
                                     fontWeight: FontWeight.w600,

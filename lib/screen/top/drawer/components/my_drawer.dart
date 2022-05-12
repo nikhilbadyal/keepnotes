@@ -90,7 +90,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                       context,
                       listen: false,
                     ).authenticate(
-                      Language.of(context).localizedReason,
+                      context.language.localizedReason,
                     );
                     if (!mounted) {
                       return;
@@ -121,7 +121,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                     AppRoutes.setPassScreen,
                     DataObj(
                       '',
-                      Language.of(context).enterNewPassword,
+                      context.language.enterNewPassword,
                       isFirst: true,
                     ),
                   );
@@ -141,7 +141,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                   : null,
             ),
             title: Text(
-              Language.of(context).home,
+              context.language.home,
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.homeScreen
@@ -161,7 +161,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                   : null,
             ),
             title: Text(
-              Language.of(context).archive,
+              context.language.archive,
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.archiveScreen
@@ -185,7 +185,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                   : null,
             ),
             title: Text(
-              Language.of(context).trash,
+              context.language.trash,
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.trashScreen
@@ -207,7 +207,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                   : null,
             ),
             title: Text(
-              Language.of(context).settings,
+              context.language.settings,
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.settingsScreen
@@ -226,7 +226,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                   : null,
             ),
             title: Text(
-              Language.of(context).about,
+              context.language.about,
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.aboutMeScreen
@@ -245,7 +245,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                   : null,
             ),
             title: Text(
-              Language.of(context).reportSuggest,
+              context.language.reportSuggest,
               style: TextStyle(
                 fontWeight: FontWeight.normal,
                 color: _activeRoute == AppRoutes.suggestScreen
@@ -268,16 +268,16 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
   }) {
     final hour = DateTime.now().hour;
     String wish;
-    final startWish = Language.of(context).good;
+    final startWish = context.language.good;
     if (hour >= 5 && hour <= 11) {
-      wish = '$startWish ${Language.of(context).morning}';
+      wish = '$startWish ${context.language.morning}';
     } else if (hour >= 12 && hour <= 17) {
-      wish = '$startWish ${Language.of(context).afternoon}';
+      wish = '$startWish ${context.language.afternoon}';
     } else {
-      wish = '$startWish ${Language.of(context).night}';
+      wish = '$startWish ${context.language.night}';
     }
     if (undiscovered ?? !isHiddenDiscovered) {
-      wish += Language.of(context).tapMe;
+      wish += context.language.tapMe;
     }
     return wish;
   }

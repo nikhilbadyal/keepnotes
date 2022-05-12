@@ -47,7 +47,7 @@ class _BottomBarState extends State<BottomBar> {
             ),
             Center(
               child: Text(
-                '${Language.of(context).modified} '
+                '${context.language.modified} '
                 '${widget.note.strLastModifiedDate1}',
               ),
             ),
@@ -59,13 +59,13 @@ class _BottomBarState extends State<BottomBar> {
                 }
 
                 if (widget.note.content.isEmpty && widget.note.title.isEmpty) {
-                  showSnackbar(context, Language.of(context).emptyNote);
+                  showSnackbar(context, context.language.emptyNote);
                 } else {
                   moreMenu(context);
                 }
               },
               icon: const Icon(Icons.more_vert_outlined),
-              tooltip: Language.of(context).more,
+              tooltip: context.language.more,
             ),
           ],
         ),

@@ -22,7 +22,7 @@ class _LockScreenState extends State<LockScreen> {
           context: context,
           barrierDismissible: false,
           builder: (final context) => MyAlertDialog(
-            content: Text(Language.of(context).enterPasswordOnce),
+            content: Text(context.language.enterPasswordOnce),
           ),
         );
       } else {
@@ -32,7 +32,7 @@ class _LockScreenState extends State<LockScreen> {
 
         final status =
             await Provider.of<AppConfiguration>(context, listen: false)
-                .authenticate(Language.of(context).localizedReason);
+                .authenticate(context.language.localizedReason);
         if (status) {
           if (!mounted) {
             return;
@@ -50,21 +50,21 @@ class _LockScreenState extends State<LockScreen> {
             context: context,
             barrierDismissible: false,
             builder: (final context) => MyAlertDialog(
-              content: Text(Language.of(context).setFpFirst),
+              content: Text(context.language.setFpFirst),
               actions: [
                 TextButton(
                   onPressed: () async {
                     final status = await Provider.of<AppConfiguration>(
                       context,
                       listen: false,
-                    ).authenticate(Language.of(context).localizedReason);
+                    ).authenticate(context.language.localizedReason);
                     if (!mounted) {
                       return;
                     }
                     context.previousPage(status);
                   },
                   child: Text(
-                    Language.of(context).alertDialogOp1,
+                    context.language.alertDialogOp1,
                     style: const TextStyle(
                       fontSize: 20,
                     ),
@@ -73,7 +73,7 @@ class _LockScreenState extends State<LockScreen> {
                 TextButton(
                   onPressed: () => context.previousPage(false),
                   child: Text(
-                    Language.of(context).alertDialogOp2,
+                    context.language.alertDialogOp2,
                     style: const TextStyle(
                       fontSize: 20,
                     ),
@@ -115,7 +115,7 @@ class _LockScreenState extends State<LockScreen> {
     } else {
       showSnackbar(
         context,
-        Language.of(context).wrongPassword,
+        context.language.wrongPassword,
       );
     }
   }
@@ -129,7 +129,7 @@ class _LockScreenState extends State<LockScreen> {
         AppRoutes.setPassScreen,
         DataObj(
           '',
-          Language.of(context).enterNewPassword,
+          context.language.enterNewPassword,
           resetPass: true,
           isFirst: true,
         ),
@@ -137,7 +137,7 @@ class _LockScreenState extends State<LockScreen> {
     } else {
       showSnackbar(
         context,
-        Language.of(context).wrongPassword,
+        context.language.wrongPassword,
       );
     }
   }
@@ -146,7 +146,7 @@ class _LockScreenState extends State<LockScreen> {
   Widget build(final BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments! as bool;
     return LockBody(
-      title: Language.of(context).enterPassword,
+      title: context.language.enterPassword,
       doneCallBack: args ? newPassDone : doneEnteringPass,
       onFingerTap: args ? null : onFingerTap,
     );

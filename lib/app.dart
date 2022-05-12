@@ -95,7 +95,7 @@ class _MyNotesState extends State<MyNotes> {
                     localizationsDelegates: localizationDelegates,
                     localeResolutionCallback: localeResolutionCallback,
                     theme: getThemeData(),
-                    title: Language.of(context).appTitle,
+                    title: context.language.appTitle,
                     initialRoute: initRoute,
                     debugShowCheckedModeBanner: false,
                     navigatorObservers: [routeObserver],

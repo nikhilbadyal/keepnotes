@@ -23,7 +23,7 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
           unawaited(
             saveNote().then((final value) {
               if (!value) {
-                showSnackbar(context, Language.of(context).error);
+                showSnackbar(context, context.language.error);
               }
             }),
           );

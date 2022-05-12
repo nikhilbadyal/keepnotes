@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
             children: [
               const SizedBox(height: 35),
               Text(
-                Language.of(context).loginToContinue,
+                context.language.loginToContinue,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyText1!.color,
                   fontSize: 27,
@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Text(
-                Language.of(context).loginExplaination,
+                context.language.loginExplaination,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyText1!.color,

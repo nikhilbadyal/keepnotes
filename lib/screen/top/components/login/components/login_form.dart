@@ -60,7 +60,7 @@ class _SignFormState extends State<SignForm> {
             child: Align(
               alignment: Alignment.bottomRight,
               child: Text(
-                Language.of(context).forgotPassword,
+                context.language.forgotPassword,
                 style: const TextStyle(decoration: TextDecoration.underline),
               ),
             ),
@@ -129,7 +129,7 @@ class _SignFormState extends State<SignForm> {
                 elevation: 7,
                 child: Center(
                   child: Text(
-                    Language.of(context).login,
+                    context.language.login,
                     style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'Trueno',
@@ -150,25 +150,25 @@ class _SignFormState extends State<SignForm> {
       onSaved: (final newValue) => password = newValue ?? '',
       onChanged: (final value) {
         if (value.isNotEmpty) {
-          removeError(error: Language.of(context).enterPassword);
+          removeError(error: context.language.enterPassword);
         } else if (value.length >= minPassword) {
-          removeError(error: Language.of(context).shortPassword);
+          removeError(error: context.language.shortPassword);
         }
         return;
       },
       validator: (final value) {
         if (value!.isEmpty) {
-          addError(error: Language.of(context).enterPassword);
+          addError(error: context.language.enterPassword);
           return '';
         } else if (value.length < minPassword) {
-          addError(error: Language.of(context).shortPassword);
+          addError(error: context.language.shortPassword);
           return '';
         }
         return null;
       },
       decoration: InputDecoration(
-        labelText: Language.of(context).password,
-        hintText: Language.of(context).enterPassword,
+        labelText: context.language.password,
+        hintText: context.language.enterPassword,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: const CustomSuffixIcon(svgIcon: lockSvg),
       ),
@@ -181,25 +181,25 @@ class _SignFormState extends State<SignForm> {
       onSaved: (final newValue) => email = newValue ?? '',
       onChanged: (final value) {
         if (value.isNotEmpty) {
-          removeError(error: Language.of(context).enterEmail);
+          removeError(error: context.language.enterEmail);
         } else if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(error: Language.of(context).invalidEmail);
+          removeError(error: context.language.invalidEmail);
         }
         return;
       },
       validator: (final value) {
         if (value!.isEmpty) {
-          addError(error: Language.of(context).enterEmail);
+          addError(error: context.language.enterEmail);
           return '';
         } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: Language.of(context).invalidEmail);
+          addError(error: context.language.invalidEmail);
           return '';
         }
         return null;
       },
       decoration: InputDecoration(
-        labelText: Language.of(context).email,
-        hintText: Language.of(context).enterEmail,
+        labelText: context.language.email,
+        hintText: context.language.enterEmail,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: const CustomSuffixIcon(svgIcon: mailSvg),
       ),

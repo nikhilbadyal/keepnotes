@@ -46,18 +46,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: SettingsList(
         sections: [
           TilesSection(
-            title: Language.of(context).general,
+            title: context.language.general,
             tiles: [
               SettingsTile(
-                title: Language.of(context).labelLanguage,
+                title: context.language.labelLanguage,
                 leading: const Icon(Icons.language),
                 trailing: languageTrailing(),
               ),
               SettingsTile.switchTile(
-                title: Language.of(context).directDelete,
+                title: context.language.directDelete,
                 leading: const Icon(Icons.delete_forever_outlined),
-                activeText: Language.of(context).on,
-                inactiveText: Language.of(context).off,
+                activeText: context.language.on,
+                inactiveText: context.language.off,
                 switchActiveColor: Theme.of(context).colorScheme.secondary,
                 switchValue: directlyDelete,
                 onToggle: directDelete,
@@ -65,17 +65,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           TilesSection(
-            title: Language.of(context).ui,
+            title: context.language.ui,
             tiles: [
               SettingsTile(
                 trailing: const Icon(Icons.arrow_forward_ios),
-                title: Language.of(context).appColor,
+                title: context.language.appColor,
                 leading: const Icon(
                   Icons.color_lens_outlined,
                 ),
                 onPressed: (final context) {
                   colorPicker(
-                    Language.of(context).pickColor,
+                    context.language.pickColor,
                     primaryColors,
                     primaryColor,
                     onPrimaryColorChange,
@@ -84,13 +84,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile(
                 trailing: const Icon(Icons.arrow_forward_ios),
-                title: Language.of(context).accentColor,
+                title: context.language.accentColor,
                 leading: const Icon(
                   TablerIcons.color_swatch,
                 ),
                 onPressed: (final context) {
                   colorPicker(
-                    Language.of(context).pickColor,
+                    context.language.pickColor,
                     secondaryColors,
                     accentColor,
                     onAccentColorChange,
@@ -99,9 +99,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               SettingsTile.switchTile(
                 switchActiveColor: Theme.of(context).colorScheme.secondary,
-                title: Language.of(context).darkMode,
-                activeText: Language.of(context).on,
-                inactiveText: Language.of(context).off,
+                title: context.language.darkMode,
+                activeText: context.language.on,
+                inactiveText: context.language.off,
                 leading: const Icon(
                   Icons.dark_mode_outlined,
                 ),
@@ -111,12 +111,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
           TilesSection(
-            title: Language.of(context).security,
+            title: context.language.security,
             tiles: [
               SettingsTile.switchTile(
-                title: Language.of(context).directBio,
-                activeText: Language.of(context).on,
-                inactiveText: Language.of(context).off,
+                title: context.language.directBio,
+                activeText: context.language.on,
+                inactiveText: context.language.off,
                 leading: const Icon(
                   Icons.fingerprint_outlined,
                 ),
@@ -125,22 +125,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onToggle: toggleBiometric,
               ),
               SettingsTile(
-                title: Language.of(context).importNotes,
+                title: context.language.importNotes,
                 leading: const Icon(Icons.notes_outlined),
                 onPressed: (final context) {
                   importFromFile().then((final value) {
                     showSnackbar(
                       context,
-                      value
-                          ? Language.of(context).done
-                          : Language.of(context).error,
+                      value ? context.language.done : context.language.error,
                       snackBarBehavior: SnackBarBehavior.floating,
                     );
                   });
                 },
               ),
               SettingsTile(
-                title: Language.of(context).exportNotes,
+                title: context.language.exportNotes,
                 leading: const Icon(Icons.cloud_outlined),
                 onPressed: (final context) {
                   showDialog(
@@ -148,7 +146,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     builder: (final context) {
                       return AlertDialog(
                         content: Text(
-                          Language.of(context).backupWarning,
+                          context.language.backupWarning,
                         ),
                         actions: [
                           TextButton(
@@ -164,12 +162,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               } else {
                                 showSnackbar(
                                   context,
-                                  Language.of(context).setPasswordFirst,
+                                  context.language.setPasswordFirst,
                                 );
                               }
                             },
                             child: Text(
-                              Language.of(context).alertDialogOp1,
+                              context.language.alertDialogOp1,
                             ),
                           ),
                           TextButton(
@@ -178,15 +176,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 showSnackbar(
                                   context,
                                   value
-                                      ? Language.of(context).done
-                                      : Language.of(context).error,
+                                      ? context.language.done
+                                      : context.language.error,
                                   snackBarBehavior: SnackBarBehavior.floating,
                                 );
                               });
                               context.previousPage();
                             },
                             child: Text(
-                              Language.of(context).alreadyDone,
+                              context.language.alreadyDone,
                             ),
                           ),
                         ],
@@ -196,7 +194,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
               SettingsTile(
-                title: Language.of(context).changePassword,
+                title: context.language.changePassword,
                 leading: const Icon(
                   Icons.phonelink_lock,
                 ),
@@ -205,7 +203,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
               SettingsTile(
-                title: Language.of(context).removeBiometric,
+                title: context.language.removeBiometric,
                 leading: const Icon(
                   Icons.face_outlined,
                 ),
@@ -214,7 +212,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
               SettingsTile(
-                title: Language.of(context).logOut,
+                title: context.language.logOut,
                 leading: const Icon(
                   TablerIcons.logout,
                 ),
@@ -296,7 +294,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (final context) => MyAlertDialog(
         content: Text(
-          Language.of(context).notAvailJustification,
+          context.language.notAvailJustification,
         ),
       ),
     );
@@ -319,7 +317,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } else {
       showSnackbar(
         context,
-        Language.of(context).setPasswordFirst,
+        context.language.setPasswordFirst,
       );
     }
   }
@@ -333,7 +331,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: ListBody(
                 children: <Widget>[
                   Text(
-                    Language.of(context).areYouSure,
+                    context.language.areYouSure,
                   ),
                 ],
               ),
@@ -342,13 +340,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               TextButton(
                 onPressed: () => context.previousPage(true),
                 child: Text(
-                  Language.of(context).alertDialogOp1,
+                  context.language.alertDialogOp1,
                 ),
               ),
               TextButton(
                 onPressed: () => context.previousPage(false),
                 child: Text(
-                  Language.of(context).alertDialogOp2,
+                  context.language.alertDialogOp2,
                 ),
               ),
             ],
@@ -367,7 +365,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
       showSnackbar(
         context,
-        Language.of(context).done,
+        context.language.done,
       );
     }
   }

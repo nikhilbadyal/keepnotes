@@ -40,7 +40,7 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                 onPressed: context.previousPage,
               ),
               const SizedBox(width: 16),
-              Text(Language.of(context).options),
+              Text(context.language.options),
             ],
           ),
         ),
@@ -56,7 +56,7 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                 direction: Axis.horizontal,
                 children: [
                   ModalSheetWidget(
-                    label: Language.of(context).hide,
+                    label: context.language.hide,
                     icon: TablerIcons.ghost,
                     onTap: () {
                       saveNoteAndCancelTimer();
@@ -79,7 +79,7 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                       );
                     },
                     icon: Icons.archive_outlined,
-                    label: Language.of(context).archive,
+                    label: context.language.archive,
                   ),
                   CopyToClipBoardModelSheetWidget(
                     widget.note,
@@ -95,7 +95,7 @@ class _HomeNoteOptionsState extends State<HomeNoteOptions> {
                         ),
                       );
                     },
-                    label: Language.of(context).delete,
+                    label: context.language.delete,
                   ),
                 ],
               ),

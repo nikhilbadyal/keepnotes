@@ -48,7 +48,7 @@ class _EditBodyState extends State<EditBody> {
                 ),
               ),
               decoration: InputDecoration(
-                hintText: Language.of(context).enterNoteTitle,
+                hintText: context.language.enterNoteTitle,
                 border: InputBorder.none,
               ),
             ),
@@ -71,7 +71,7 @@ class _EditBodyState extends State<EditBody> {
                 ),
               ),
               decoration: InputDecoration(
-                hintText: Language.of(context).enterNoteContent,
+                hintText: context.language.enterNoteContent,
                 border: InputBorder.none,
               ),
             ),

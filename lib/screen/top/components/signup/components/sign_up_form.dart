@@ -85,7 +85,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 context.previousPage();
 
                 if (response == 'success') {
-                  showSnackbar(context, Language.of(context).checkEmail);
+                  showSnackbar(context, context.language.checkEmail);
                 } else {
                   handleFirebaseError(
                     response,
@@ -104,7 +104,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 elevation: 7,
                 child: Center(
                   child: Text(
-                    Language.of(context).signUp,
+                    context.language.signUp,
                     style: const TextStyle(
                       color: Colors.white,
                       fontFamily: 'Trueno',
@@ -125,25 +125,25 @@ class _SignUpFormState extends State<SignUpForm> {
       onSaved: (final newValue) => conformPassword = newValue,
       onChanged: (final value) {
         if (value.isNotEmpty) {
-          removeError(error: Language.of(context).enterPassword);
+          removeError(error: context.language.enterPassword);
         } else if (value.isNotEmpty && password == conformPassword) {
-          removeError(error: Language.of(context).passwordNotMatch);
+          removeError(error: context.language.passwordNotMatch);
         }
         conformPassword = value;
       },
       validator: (final value) {
         if (value!.isEmpty) {
-          addError(error: Language.of(context).enterPassword);
+          addError(error: context.language.enterPassword);
           return '';
         } else if (password != value) {
-          addError(error: Language.of(context).passwordNotMatch);
+          addError(error: context.language.passwordNotMatch);
           return '';
         }
         return null;
       },
       decoration: InputDecoration(
-        labelText: Language.of(context).confirmPassword,
-        hintText: Language.of(context).reEnterPassword,
+        labelText: context.language.confirmPassword,
+        hintText: context.language.reEnterPassword,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: const CustomSuffixIcon(svgIcon: lockSvg),
       ),
@@ -156,18 +156,18 @@ class _SignUpFormState extends State<SignUpForm> {
       onSaved: (final newValue) => password = newValue ?? '',
       onChanged: (final value) {
         if (value.isNotEmpty) {
-          removeError(error: Language.of(context).enterPassword);
+          removeError(error: context.language.enterPassword);
         } else if (value.length >= minPassword) {
-          removeError(error: Language.of(context).shortPassword);
+          removeError(error: context.language.shortPassword);
         }
         password = value;
       },
       validator: (final value) {
         if (value!.isEmpty) {
-          addError(error: Language.of(context).enterPassword);
+          addError(error: context.language.enterPassword);
           return '';
         } else if (value.length < minPassword) {
-          addError(error: Language.of(context).shortPassword);
+          addError(error: context.language.shortPassword);
           return '';
         }
         return null;
@@ -187,25 +187,25 @@ class _SignUpFormState extends State<SignUpForm> {
       onSaved: (final newValue) => email = newValue ?? '',
       onChanged: (final value) {
         if (value.isNotEmpty) {
-          removeError(error: Language.of(context).enterEmail);
+          removeError(error: context.language.enterEmail);
         } else if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(error: Language.of(context).invalidEmail);
+          removeError(error: context.language.invalidEmail);
         }
         return;
       },
       validator: (final value) {
         if (value!.isEmpty) {
-          addError(error: Language.of(context).enterEmail);
+          addError(error: context.language.enterEmail);
           return '';
         } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: Language.of(context).invalidEmail);
+          addError(error: context.language.invalidEmail);
           return '';
         }
         return null;
       },
       decoration: InputDecoration(
-        labelText: Language.of(context).email,
-        hintText: Language.of(context).enterEmail,
+        labelText: context.language.email,
+        hintText: context.language.enterEmail,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: const CustomSuffixIcon(svgIcon: mailSvg),
       ),

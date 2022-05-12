@@ -68,10 +68,10 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                         ),
                         children: [
                           TextSpan(
-                            text: '${Language.of(context).grant} ',
+                            text: '${context.language.grant} ',
                           ),
                           TextSpan(
-                            text: Language.of(context).access,
+                            text: context.language.access,
                             style: TextStyle(
                               color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.w600,
@@ -109,7 +109,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                       ),
                       children: [
                         TextSpan(
-                          text: '${Language.of(context).appName} ',
+                          text: '${context.language.appName} ',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
                             fontFamily: 'Product Sans',
@@ -117,7 +117,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                           ),
                         ),
                         TextSpan(
-                          text: Language.of(context).storageJustify,
+                          text: context.language.storageJustify,
                           style: TextStyle(
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w500,
@@ -174,7 +174,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                             Container(
                               margin: const EdgeInsets.only(left: 18, right: 8),
                               child: Text(
-                                Language.of(context).allowAccess,
+                                context.language.allowAccess,
                                 style: const TextStyle(
                                   fontSize: 17,
                                   color: Colors.white,

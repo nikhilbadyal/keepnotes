@@ -63,7 +63,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-          Language.of(context).hide,
+          context.language.hide,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           TablerIcons.ghost, (final context) async {
@@ -75,7 +75,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
             barrierDismissible: true,
             context: context,
             builder: (final context) => MyAlertDialog(
-              content: Text(Language.of(context).setPasswordFirst),
+              content: Text(context.language.setPasswordFirst),
             ),
           );
         } else {
@@ -83,7 +83,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
         }
       }),
       slidableAction(
-        Language.of(context).archive,
+        context.language.archive,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.archive_outlined,
@@ -100,7 +100,7 @@ ActionPane homeRight(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-        Language.of(context).copy,
+        context.language.copy,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.copy_outlined,
@@ -109,7 +109,7 @@ ActionPane homeRight(final Note note, final BuildContext context) {
         ),
       ),
       slidableAction(
-        Language.of(context).trash,
+        context.language.trash,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.delete_outlined,
@@ -126,7 +126,7 @@ ActionPane? hiddenLeft(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-        Language.of(context).unhide,
+        context.language.unhide,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.remove_red_eye_outlined,
@@ -143,7 +143,7 @@ ActionPane hiddenRight(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-        Language.of(context).trash,
+        context.language.trash,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.delete_outlined,
@@ -160,7 +160,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-          Language.of(context).hide,
+          context.language.hide,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           TablerIcons.ghost, (final context) async {
@@ -172,7 +172,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
             barrierDismissible: true,
             context: context,
             builder: (final context) => MyAlertDialog(
-              content: Text(Language.of(context).setPasswordFirst),
+              content: Text(context.language.setPasswordFirst),
             ),
           );
         } else {
@@ -180,7 +180,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
         }
       }),
       slidableAction(
-        Language.of(context).unarchive,
+        context.language.unarchive,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.unarchive_outlined,
@@ -197,7 +197,7 @@ ActionPane archiveRight(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-        Language.of(context).copy,
+        context.language.copy,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.copy_outlined,
@@ -206,7 +206,7 @@ ActionPane archiveRight(final Note note, final BuildContext context) {
         ),
       ),
       slidableAction(
-        Language.of(context).trash,
+        context.language.trash,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.delete_outlined,
@@ -223,7 +223,7 @@ ActionPane trashRight(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-          Language.of(context).delete,
+          context.language.delete,
           Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           Icons.delete_forever_outlined, (final context) async {
@@ -231,18 +231,18 @@ ActionPane trashRight(final Note note, final BuildContext context) {
           barrierDismissible: false,
           context: context,
           builder: (final context) => MyAlertDialog(
-            content: Text(Language.of(context).deleteNotePermanently),
+            content: Text(context.language.deleteNotePermanently),
             actions: [
               TextButton(
                 onPressed: () {
                   Provider.of<NotesHelper>(context, listen: false).delete(note);
                   context.previousPage();
                 },
-                child: Text(Language.of(context).alertDialogOp1),
+                child: Text(context.language.alertDialogOp1),
               ),
               TextButton(
                 onPressed: context.previousPage,
-                child: Text(Language.of(context).alertDialogOp2),
+                child: Text(context.language.alertDialogOp2),
               )
             ],
           ),
@@ -257,7 +257,7 @@ ActionPane trashLeft(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-        Language.of(context).restore,
+        context.language.restore,
         Theme.of(context).textTheme.bodyText1!.color ?? Colors.redAccent,
         note,
         Icons.restore_outlined,

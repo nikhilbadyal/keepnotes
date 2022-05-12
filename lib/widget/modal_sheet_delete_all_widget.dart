@@ -23,19 +23,19 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
                   context: context,
                   builder: (final context) => MyAlertDialog(
                     content: Text(
-                      Language.of(context).emptyTrashWarning,
+                      context.language.emptyTrashWarning,
                     ),
                     actions: [
                       TextButton(
                         onPressed: () => context.previousPage(true),
                         child: Text(
-                          Language.of(context).alertDialogOp1,
+                          context.language.alertDialogOp1,
                         ),
                       ),
                       TextButton(
                         onPressed: () => context.previousPage(false),
                         child: Text(
-                          Language.of(context).alertDialogOp2,
+                          context.language.alertDialogOp2,
                         ),
                       ),
                     ],
@@ -84,7 +84,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  Language.of(context).emptyTrash,
+                  context.language.emptyTrash,
                 ),
               ],
             ),

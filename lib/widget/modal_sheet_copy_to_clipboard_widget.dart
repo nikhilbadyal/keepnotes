@@ -24,14 +24,14 @@ class CopyToClipBoardModelSheetWidget extends StatelessWidget {
             ).then(
               (final value) => showSnackbar(
                 context,
-                Language.of(context).done,
+                context.language.done,
                 snackBarBehavior: SnackBarBehavior.floating,
               ),
             );
           }),
         );
       },
-      label: Language.of(context).clipboard,
+      label: context.language.clipboard,
     );
   }
 }

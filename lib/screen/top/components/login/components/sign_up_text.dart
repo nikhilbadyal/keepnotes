@@ -13,7 +13,7 @@ class NoAccountText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          Language.of(context).noAccount,
+          context.language.noAccount,
           style: const TextStyle(
             fontSize: 20,
           ),
@@ -21,7 +21,7 @@ class NoAccountText extends StatelessWidget {
         GestureDetector(
           onTap: () => context.nextPage(AppRoutes.signUpScreen),
           child: Text(
-            Language.of(context).signUp,
+            context.language.signUp,
             style: TextStyle(
               fontSize: 16,
               color: Theme.of(context).colorScheme.secondary,

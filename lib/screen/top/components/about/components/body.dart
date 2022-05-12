@@ -40,7 +40,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               endIndent: 12,
             ),
             Text(
-              Language.of(context).name,
+              context.language.name,
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -50,7 +50,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
             ),
             const SizedBox(height: 30),
             Text(
-              Language.of(context).devName,
+              context.language.devName,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 20,
@@ -59,7 +59,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
             ),
             const SizedBox(height: 30),
             Text(
-              Language.of(context).email,
+              context.language.email,
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -101,7 +101,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               ),
               child: Center(
                 child: Text(
-                  Language.of(context).social,
+                  context.language.social,
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,

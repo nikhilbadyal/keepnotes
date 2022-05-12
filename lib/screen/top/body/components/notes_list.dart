@@ -83,7 +83,7 @@ class _NotesListState extends State<NotesList> {
         barrierDismissible: true,
         context: context,
         builder: (final context) => MyAlertDialog(
-          content: Text(Language.of(context).trashEditingWarning),
+          content: Text(context.language.trashEditingWarning),
         ),
       );
     } else {

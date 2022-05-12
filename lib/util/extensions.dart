@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart' show CupertinoTheme, CupertinoThemeData;
 import 'package:flutter/material.dart';
+import 'package:notes/_aap_packages.dart';
 
 /// Extensions for general basic [Context]
 extension ContextExtensions on BuildContext {
@@ -101,6 +102,8 @@ extension ContextExtensions on BuildContext {
   /// It is used for routing in flutter
   ///
   NavigatorState get navigator => Navigator.of(this);
+
+  Language get language => Language.of(this);
 
   ///
   /// Pushes the built widget to the screen using the material fade in animation

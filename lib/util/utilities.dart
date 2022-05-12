@@ -68,7 +68,7 @@ Future<void> ohHideTap(
       context: context,
       builder: (final context) => MyAlertDialog(
         content: Text(
-          Language.of(context).setPasswordFirst,
+          context.language.setPasswordFirst,
         ),
       ),
     );

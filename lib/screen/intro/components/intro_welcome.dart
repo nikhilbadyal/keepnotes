@@ -67,14 +67,14 @@ class IntroWelcome extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: '${Language.of(context).welcomeTo}\n',
+                              text: '${context.language.welcomeTo}\n',
                               style: const TextStyle(
                                 fontFamily: 'Product Sans',
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             TextSpan(
-                              text: Language.of(context).appName,
+                              text: context.language.appName,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary,
                                 fontWeight: FontWeight.w800,
@@ -182,7 +182,7 @@ class IntroWelcome extends StatelessWidget {
             child: FloatingActionButton.extended(
               backgroundColor: Theme.of(context).colorScheme.secondary,
               label: Text(
-                Language.of(context).getStarted,
+                context.language.getStarted,
                 style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'YTSans',

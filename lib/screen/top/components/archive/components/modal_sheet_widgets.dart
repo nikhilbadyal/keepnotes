@@ -42,7 +42,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                 onPressed: context.previousPage,
               ),
               const SizedBox(width: 16),
-              Text(Language.of(context).options),
+              Text(context.language.options),
             ],
           ),
         ),
@@ -58,7 +58,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                 direction: Axis.horizontal,
                 children: [
                   ModalSheetWidget(
-                    label: Language.of(context).hide,
+                    label: context.language.hide,
                     icon: TablerIcons.ghost,
                     onTap: () {
                       saveNoteAndCancelTimer();
@@ -71,7 +71,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                     },
                   ),
                   ModalSheetWidget(
-                    label: Language.of(context).unarchive,
+                    label: context.language.unarchive,
                     onTap: () {
                       saveNoteAndCancelTimer();
                       unawaited(
@@ -95,7 +95,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                         ),
                       );
                     },
-                    label: Language.of(context).delete,
+                    label: context.language.delete,
                   ),
                 ],
               ),

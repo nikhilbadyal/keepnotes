@@ -26,7 +26,7 @@ class NoNotesBody extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: Language.of(context).nothingHere,
+                        text: context.language.nothingHere,
                         style: TextStyle(
                           color: Theme.of(context).textTheme.bodyText1!.color,
                         ),
@@ -44,13 +44,13 @@ class NoNotesBody extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: '${Language.of(context).nothingHere}\n',
+                      text: '${context.language.nothingHere}\n',
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
                     ),
                     TextSpan(
-                      text: Language.of(context).tapOn,
+                      text: context.language.tapOn,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
@@ -77,7 +77,7 @@ class NoNotesBody extends StatelessWidget {
                         },
                     ),
                     TextSpan(
-                      text: Language.of(context).toAddNewNote,
+                      text: context.language.toAddNewNote,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
