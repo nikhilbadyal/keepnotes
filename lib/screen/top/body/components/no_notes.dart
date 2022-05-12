@@ -69,7 +69,7 @@ class NoNotesBody extends StatelessWidget {
                             lastModify: DateTime.now(),
                             state: noteState,
                           );
-                          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                          context.sm.removeCurrentSnackBar();
                           context.nextPage(
                             AppRoutes.editScreen,
                             arguments: emptyNote,

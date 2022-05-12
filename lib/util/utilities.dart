@@ -22,8 +22,8 @@ void showSnackbar(
   final SnackBarAction? action,
   final SnackBarBehavior? snackBarBehavior,
 }) {
-  ScaffoldMessenger.of(context).removeCurrentSnackBar();
-  ScaffoldMessenger.of(context).showSnackBar(
+  context.sm.removeCurrentSnackBar();
+  context.sm.showSnackBar(
     _getSnackBar(
       data,
       duration: duration,

@@ -43,7 +43,7 @@ Future<void> onFabTap(
     lastModify: DateTime.now(),
     state: noteState,
   );
-  ScaffoldMessenger.of(context).removeCurrentSnackBar();
+  context.sm.removeCurrentSnackBar();
   context.nextPage(
     AppRoutes.editScreen,
     arguments: emptyNote,

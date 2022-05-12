@@ -105,6 +105,8 @@ extension ContextExtensions on BuildContext {
 
   Language get language => Language.of(this);
 
+  ScaffoldMessengerState get sm => ScaffoldMessenger.of(this);
+
   ///
   /// Pushes the built widget to the screen using the material fade in animation
   ///

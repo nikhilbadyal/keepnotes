@@ -87,7 +87,7 @@ class _NotesListState extends State<NotesList> {
         ),
       );
     } else {
-      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      context.sm.removeCurrentSnackBar();
       context.nextPage(
         AppRoutes.editScreen,
         arguments: item,
