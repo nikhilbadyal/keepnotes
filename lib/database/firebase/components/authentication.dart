@@ -1,8 +1,8 @@
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-class Auth with ChangeNotifier {
-  Auth() : isLoggedIn = false {
+class FirebaseAuthentication with ChangeNotifier {
+  FirebaseAuthentication() : isLoggedIn = false {
     isLoggedIn = auth.currentUser != null;
   }
 

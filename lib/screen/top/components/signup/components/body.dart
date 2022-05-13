@@ -58,7 +58,8 @@ class _SignUpState extends State<SignUp> {
                             },
                           ),
                         );
-                        final response = await Provider.of<Auth>(
+                        final response =
+                            await Provider.of<FirebaseAuthentication>(
                           context,
                           listen: false,
                         ).signInWithGoogle();
@@ -66,15 +67,16 @@ class _SignUpState extends State<SignUp> {
                           return;
                         }
 
-                        if (Provider.of<Auth>(
+                        if (Provider.of<FirebaseAuthentication>(
                           context,
                           listen: false,
                         ).isLoggedIn) {
                           Provider.of<AppConfiguration>(context, listen: false)
                               .password = initialize(
-                            Provider.of<Auth>(context, listen: false)
-                                .auth
-                                .currentUser,
+                            Provider.of<FirebaseAuthentication>(
+                              context,
+                              listen: false,
+                            ).auth.currentUser,
                           );
                           await Navigator.pushNamedAndRemoveUntil(
                             context,

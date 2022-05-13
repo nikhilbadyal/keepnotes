@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-class FirebaseDatabaseHelper {
-  FirebaseDatabaseHelper(final String uid) {
+class FirebaseHelper {
+  FirebaseHelper(final String uid) {
     notesReference =
         db.collection(userCollection).doc(uid).collection(notesCollection);
   }

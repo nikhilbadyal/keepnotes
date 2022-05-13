@@ -24,7 +24,7 @@ Future<bool> exportToFile() async {
     final generalDownloadDir = Directory('/storage/emulated/0/Download');
     try {
       final file = await File('${generalDownloadDir.path}/$fileName').create();
-      final data = await FirebaseDatabaseHelper.getAll();
+      final data = await FirebaseHelper.getAll();
       final items = data.docs
           .map(
             (final e) => e.data(),
@@ -54,7 +54,7 @@ Future<bool> importFromFile() async {
         element['id'] = const Uuid().v4();
       }
       // await SqfliteDatabaseHelper.batchInsert1(jsonList);
-      await FirebaseDatabaseHelper.batchInsert(jsonList);
+      await FirebaseHelper.batchInsert(jsonList);
       return true;
     } else {
       return false;

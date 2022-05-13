@@ -76,7 +76,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     ),
                   );
                   _formKey.currentState!.save();
-                  final response = await Provider.of<Auth>(
+                  final response = await Provider.of<FirebaseAuthentication>(
                     context,
                     listen: false,
                   ).singUp(email: email, password: password);

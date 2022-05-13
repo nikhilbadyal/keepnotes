@@ -88,7 +88,7 @@ class _SignFormState extends State<SignForm> {
                   );
                   _formKey.currentState!.save();
                   hideKeyboard(context);
-                  final response = await Provider.of<Auth>(
+                  final response = await Provider.of<FirebaseAuthentication>(
                     context,
                     listen: false,
                   ).signInWithPassword(
@@ -99,15 +99,16 @@ class _SignFormState extends State<SignForm> {
                     return;
                   }
 
-                  if (Provider.of<Auth>(
+                  if (Provider.of<FirebaseAuthentication>(
                     context,
                     listen: false,
                   ).isLoggedIn) {
                     Provider.of<AppConfiguration>(context, listen: false)
                         .password = initialize(
-                      Provider.of<Auth>(context, listen: false)
-                          .auth
-                          .currentUser,
+                      Provider.of<FirebaseAuthentication>(
+                        context,
+                        listen: false,
+                      ).auth.currentUser,
                     );
                     await Navigator.pushNamedAndRemoveUntil(
                       context,

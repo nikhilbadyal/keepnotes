@@ -119,9 +119,10 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               InkWell(
                 onTap: () async {
                   if (checkFields()) {
-                    final response =
-                        await Provider.of<Auth>(context, listen: false)
-                            .forgetPassword(email: email ?? '');
+                    final response = await Provider.of<FirebaseAuthentication>(
+                      context,
+                      listen: false,
+                    ).forgetPassword(email: email ?? '');
                     if (!mounted) {
                       return;
                     }

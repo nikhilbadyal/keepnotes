@@ -52,7 +52,7 @@ SnackBar _getSnackBar(
 
 String initialize(final User? curUser) {
   encryption = Encrypt(curUser!.uid);
-  FirebaseDatabaseHelper(curUser.uid);
+  FirebaseHelper(curUser.uid);
   return encryption.decryptStr(getStringFromSF('password') ?? '');
 }
 

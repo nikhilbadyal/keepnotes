@@ -24,7 +24,7 @@ class NotesHelper with ChangeNotifier {
   Future<bool> signOut() async {
     reset();
     return await SqfliteDatabaseHelper.deleteDB() &&
-        await FirebaseDatabaseHelper.terminateDB() &&
+        await FirebaseHelper.terminateDB() &&
         await removeFromSF('syncedWithFirebase');
   }
 
@@ -48,7 +48,7 @@ class NotesHelper with ChangeNotifier {
       ..insert(0, note);
     unawaited(
       SqfliteDatabaseHelper.insert(copiedNote).then(
-        (final value) async => FirebaseDatabaseHelper.insert(copiedNote),
+        (final value) async => FirebaseHelper.insert(copiedNote),
       ),
     );
     notifyListeners();
@@ -63,7 +63,7 @@ class NotesHelper with ChangeNotifier {
     notifyListeners();
     unawaited(
       SqfliteDatabaseHelper.insert(copiedNote).then((final value) async {
-        await FirebaseDatabaseHelper.insert(copiedNote);
+        await FirebaseHelper.insert(copiedNote);
       }),
     );
     return true;
@@ -76,7 +76,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.archived;
     unawaited(
       SqfliteDatabaseHelper.update(note).then((final value) async {
-        await FirebaseDatabaseHelper.update(note);
+        await FirebaseHelper.update(note);
       }),
     );
     notifyListeners();
@@ -91,7 +91,7 @@ class NotesHelper with ChangeNotifier {
     });
     unawaited(
       SqfliteDatabaseHelper.update(copiedNote).then((final value) async {
-        await FirebaseDatabaseHelper.update(copiedNote);
+        await FirebaseHelper.update(copiedNote);
       }),
     );
     notifyListeners();
@@ -105,7 +105,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.unspecified;
     unawaited(
       SqfliteDatabaseHelper.update(note).then((final value) async {
-        await FirebaseDatabaseHelper.update(note);
+        await FirebaseHelper.update(note);
       }),
     );
     notifyListeners();
@@ -119,7 +119,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.unspecified;
     unawaited(
       SqfliteDatabaseHelper.update(note).then((final value) async {
-        await FirebaseDatabaseHelper.update(note);
+        await FirebaseHelper.update(note);
       }),
     );
     notifyListeners();
@@ -133,7 +133,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.unspecified;
     unawaited(
       SqfliteDatabaseHelper.update(note).then((final value) async {
-        await FirebaseDatabaseHelper.update(note);
+        await FirebaseHelper.update(note);
       }),
     );
     notifyListeners();
@@ -148,7 +148,7 @@ class NotesHelper with ChangeNotifier {
       unawaited(
         SqfliteDatabaseHelper.delete('id = ?', [note.id])
             .then((final value) async {
-          await FirebaseDatabaseHelper.delete(note);
+          await FirebaseHelper.delete(note);
         }),
       );
     } on Exception catch (_) {
@@ -167,7 +167,7 @@ class NotesHelper with ChangeNotifier {
     unawaited(
       SqfliteDatabaseHelper.update(note).then((final value) async {
         await getAllNotes(orig);
-        await FirebaseDatabaseHelper.update(note);
+        await FirebaseHelper.update(note);
       }),
     );
     notifyListeners();
@@ -176,7 +176,7 @@ class NotesHelper with ChangeNotifier {
 
   Future<bool> deleteAllHidden() async {
     await SqfliteDatabaseHelper.delete('state = ?', [NoteState.hidden.index]);
-    await FirebaseDatabaseHelper.batchDelete(
+    await FirebaseHelper.batchDelete(
       'state',
       isEqualTo: [NoteState.hidden.index],
     );
@@ -190,7 +190,7 @@ class NotesHelper with ChangeNotifier {
       SqfliteDatabaseHelper.delete('state = ?', [NoteState.trashed.index])
           .then((final _) {
         unawaited(
-          FirebaseDatabaseHelper.batchDelete(
+          FirebaseHelper.batchDelete(
             'state',
             isEqualTo: NoteState.trashed.index,
           ),
@@ -202,7 +202,7 @@ class NotesHelper with ChangeNotifier {
 
   Future<List<Map<String, dynamic>>> getFromFirebase() async {
     try {
-      final notesList = await FirebaseDatabaseHelper.getAll();
+      final notesList = await FirebaseHelper.getAll();
       final items = notesList.docs
           .map(
             (final e) => e.data(),

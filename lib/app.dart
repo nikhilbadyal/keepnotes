@@ -68,22 +68,26 @@ class _MyNotesState extends State<MyNotes> {
         ChangeNotifierProvider<AppConfiguration>(
           create: (final context) => AppConfiguration(),
         ),
-        ChangeNotifierProvider<Auth>(
-          create: (final context) => Auth(),
+        ChangeNotifierProvider<FirebaseAuthentication>(
+          create: (final context) => FirebaseAuthentication(),
         ),
       ],
       child: Builder(
         builder: (final context) {
           Provider.of<AppConfiguration>(context);
           final curUser =
-              Provider.of<Auth>(context, listen: false).auth.currentUser;
+              Provider.of<FirebaseAuthentication>(context, listen: false)
+                  .auth
+                  .currentUser;
           if (curUser != null) {
             Provider.of<AppConfiguration>(context, listen: false).password =
                 initialize(curUser);
           }
-          final initRoute = Provider.of<Auth>(context, listen: false).isLoggedIn
-              ? '/'
-              : 'intro';
+          final initRoute =
+              Provider.of<FirebaseAuthentication>(context, listen: false)
+                      .isLoggedIn
+                  ? '/'
+                  : 'intro';
           return LayoutBuilder(
             builder: (final context, final constraints) {
               return OrientationBuilder(
