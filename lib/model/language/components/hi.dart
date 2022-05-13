@@ -1,6 +1,6 @@
 import 'package:notes/_aap_packages.dart';
 
-class LanguageHi extends Language {
+class LanguageHi extends LanguageModel {
   @override
   String get appTitle => 'नोट्स ऐप';
 

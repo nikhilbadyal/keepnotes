@@ -16,7 +16,7 @@ class LanguageData {
   final String languageCode;
 }
 
-Future<Language> _loadLocale(final Locale locale) async {
+Future<LanguageModel> _loadLocale(final Locale locale) async {
   switch (locale.languageCode) {
     case 'en':
       return LanguageEn();
@@ -27,7 +27,7 @@ Future<Language> _loadLocale(final Locale locale) async {
   }
 }
 
-class AppLocalizationsDelegate extends LocalizationsDelegate<Language> {
+class AppLocalizationsDelegate extends LocalizationsDelegate<LanguageModel> {
   const AppLocalizationsDelegate();
 
   @override
@@ -40,10 +40,10 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<Language> {
   }
 
   @override
-  Future<Language> load(final Locale locale) => _loadLocale(locale);
+  Future<LanguageModel> load(final Locale locale) => _loadLocale(locale);
 
   @override
-  bool shouldReload(final LocalizationsDelegate<Language> old) => false;
+  bool shouldReload(final LocalizationsDelegate<LanguageModel> old) => false;
 }
 
 class FallbackLocalizationDelegate
@@ -62,7 +62,7 @@ class FallbackLocalizationDelegate
       false;
 }
 
-abstract class Language {
+abstract class LanguageModel {
   String get splashDes1;
 
   String get splashDes2;
@@ -343,8 +343,8 @@ abstract class Language {
 
   String get allowAccess;
 
-  static Language of(final BuildContext context) =>
-      Localizations.of<Language>(context, Language) ?? LanguageHi();
+  static LanguageModel of(final BuildContext context) =>
+      Localizations.of<LanguageModel>(context, LanguageModel) ?? LanguageHi();
 }
 
 const String prefSelectedLanguageCode = 'SelectedLanguageCode';

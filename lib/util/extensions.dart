@@ -103,7 +103,7 @@ extension ContextExtensions on BuildContext {
   ///
   NavigatorState get navigator => Navigator.of(this);
 
-  Language get language => Language.of(this);
+  LanguageModel get language => LanguageModel.of(this);
 
   ScaffoldMessengerState get sm => ScaffoldMessenger.of(this);
 
