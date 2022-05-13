@@ -28,4 +28,4 @@ bool? getBoolFromSF(final String key) {
 
 int? getIntFromSF(final String key) => prefs.getInt(key);
 
-Future<void> removeFromSF(final String key) async => prefs.remove(key);
+Future<bool> removeFromSF(final String key) async => prefs.remove(key);

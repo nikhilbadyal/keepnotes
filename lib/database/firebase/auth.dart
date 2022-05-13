@@ -17,15 +17,8 @@ class Auth with ChangeNotifier {
   }) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
-      if (auth.currentUser != null) {
-        isLoggedIn = auth.currentUser!.emailVerified;
-      }
-      if (!isLoggedIn) {
-        unawaited(
-          auth.currentUser!.delete(),
-        );
-      }
-      return isLoggedIn ? 'success' : 'user-not-found';
+      isLoggedIn = true;
+      return 'success';
     } on FirebaseAuthException catch (e) {
       return e.code;
     }
@@ -58,7 +51,6 @@ class Auth with ChangeNotifier {
   Future<String> forgetPassword({required final String email}) async {
     try {
       await auth.sendPasswordResetEmail(email: email);
-      isLoggedIn = false;
       return 'success';
     } on FirebaseAuthException catch (e) {
       return e.code;

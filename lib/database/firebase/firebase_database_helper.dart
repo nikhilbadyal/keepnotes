@@ -12,120 +12,91 @@ class FirebaseDatabaseHelper {
   static String notesCollection = 'notes';
   static String userCollection = 'user';
   static late CollectionReference<Map<String, dynamic>> notesReference;
+  static bool isSuccess = true;
 
   static Future<bool> insert(final Note note) async {
     try {
-      await notesReference.doc(note.id).set(
-            note.toMap(),
-          );
-      return true;
+      await notesReference.doc(note.id).set(note.toMap());
     } on Exception {
-      return false;
+      isSuccess = false;
+      logger.wtf('Firebase note insert failed');
     }
+    return isSuccess;
   }
 
   static Future<bool> update(final Note note) async {
     try {
-      await notesReference.doc(note.id).update(
-            note.toMap(),
-          );
-      return true;
+      await notesReference.doc(note.id).update(note.toMap());
     } on Exception {
-      return false;
+      isSuccess = false;
+      logger.wtf('Firebase note update failed');
     }
+    return isSuccess;
   }
 
   static Future<bool> delete(
-    final NoteOperation notesOperation,
     final Note note,
   ) async {
     try {
       await notesReference.doc(note.id).delete();
-      return true;
     } on Exception {
-      return false;
+      isSuccess = false;
+      logger.wtf('Firebase note delete failed');
     }
-  }
-
-  static Query<Map<String, dynamic>> queryData(
-    final Object field, {
-    final Object? isEqualTo,
-    final Object? isNotEqualTo,
-    final Object? isLessThan,
-    final Object? isLessThanOrEqualTo,
-    final Object? isGreaterThan,
-    final Object? isGreaterThanOrEqualTo,
-    final Object? arrayContains,
-    final List<Object?>? arrayContainsAny,
-    final List<Object?>? whereIn,
-    final List<Object?>? whereNotIn,
-    final bool? isNull,
-  }) {
-    return db.collection(userCollection).where(field, isEqualTo: isEqualTo);
+    return isSuccess;
   }
 
   static Future<bool> batchDelete(
     final Object field, {
     final Object? isEqualTo,
-    final Object? isNotEqualTo,
-    final Object? isLessThan,
-    final Object? isLessThanOrEqualTo,
-    final Object? isGreaterThan,
-    final Object? isGreaterThanOrEqualTo,
-    final Object? arrayContains,
-    final List<Object?>? arrayContainsAny,
-    final List<Object?>? whereIn,
-    final List<Object?>? whereNotIn,
-    final bool? isNull,
   }) async {
-    final tempNotesReference =
-        notesReference.where(field, isEqualTo: isEqualTo);
-    final batch = db.batch();
     try {
+      final tempNotesReference =
+          notesReference.where(field, isEqualTo: isEqualTo);
+      final batch = db.batch();
       await tempNotesReference.get().then(
             (final value) => {
-              // ignore: avoid_function_literals_in_foreach_calls
-              value.docs.forEach(
-                (final element) => {
-                  batch.delete(element.reference),
-                },
-              ),
+              for (final doc in value.docs) {batch.delete(doc.reference)}
             },
           );
       await batch.commit();
-      return true;
     } on Exception {
-      return false;
+      isSuccess = false;
+      logger.wtf('Firebase batch delete failed');
     }
+    return isSuccess;
+  }
+
+  static Future<bool> batchInsert(final List<dynamic> notesList) async {
+    try {
+      await db.runTransaction((final transaction) async {
+        DocumentReference<Map<String, dynamic>> ref;
+        for (final element in notesList) {
+          {
+            ref = notesReference.doc(element['id'].toString());
+            transaction.set(ref, element);
+          }
+        }
+      });
+    } on Exception {
+      isSuccess = false;
+      logger.wtf('Firebase batch insert failed');
+    }
+    return isSuccess;
   }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getAll() async {
     return notesReference.get();
   }
 
-  static Future<void> batchInsert(
-    final List<Map<String, dynamic>> notesList,
-  ) async {
-    await db.runTransaction((final transaction) async {
-      DocumentReference<Map<String, dynamic>> ref;
-      for (final element in notesList) {
-        {
-          ref = notesReference.doc(element['id'].toString());
-          transaction.set(ref, element);
-        }
-      }
-    });
-  }
-
-  static Future<void> batchInsert1(final List<dynamic> notesList) async {
-    await db.runTransaction((final transaction) async {
-      DocumentReference<Map<String, dynamic>> ref;
-      for (final element in notesList) {
-        {
-          ref = notesReference.doc(element['id'].toString());
-          transaction.set(ref, element);
-        }
-      }
-    });
+  static Future<bool> terminateDB() async {
+    try {
+      await db.terminate();
+      await db.clearPersistence();
+    } on Exception {
+      isSuccess = false;
+      logger.wtf('Firebase terminateDB failed');
+    }
+    return isSuccess;
   }
 }

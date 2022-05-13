@@ -7,6 +7,7 @@ import 'package:notes/_internal_packages.dart';
 class SqfliteDatabaseHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
+  static bool isSuccess = true;
 
   static final fieldMap = {
     'id': 'text PRIMARY KEY ',
@@ -21,7 +22,7 @@ class SqfliteDatabaseHelper {
   static Future<Database> get database async {
     final databasePath = await getDatabasesPath();
     final status = await databaseExists(databasePath);
-    if (!status) {
+    if (status) {
       _database = await openDatabase(
         join(databasePath, dbName),
         onCreate: (final database, final version) => database.execute(
@@ -45,33 +46,48 @@ class SqfliteDatabaseHelper {
     return query;
   }
 
+  static void queryStatus(final int noOfRows) {
+    if (noOfRows == 0) {
+      throw SqfliteException(
+        errorCode: 'E01',
+        errorDetails: 'Sqflite note insert failed',
+      );
+    }
+  }
+
   static Future<bool> insert(final Note note) async {
     final db = await database;
     try {
-      await db.insert(
+      final status = await db.insert(
         tableName,
         note.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-    } on Exception catch (_) {
-      return false;
+      queryStatus(status);
+    } on SqfliteException {
+      isSuccess = false;
+
+      logger.wtf('Sqflite note insert failed');
     }
-    return true;
+    return isSuccess;
   }
 
   static Future<bool> update(final Note note) async {
     final db = await database;
     try {
-      await db.update(
+      final status = await db.update(
         tableName,
         note.toMap(),
         where: 'id = ?',
         whereArgs: [note.id],
       );
-    } on Exception catch (_) {
-      return false;
+      queryStatus(status);
+    } on SqfliteException {
+      isSuccess = false;
+
+      logger.wtf('Sqflite note update failed');
     }
-    return true;
+    return isSuccess;
   }
 
   static Future<bool> delete(
@@ -80,15 +96,18 @@ class SqfliteDatabaseHelper {
   ) async {
     final db = await database;
     try {
-      await db.delete(
+      final status = await db.delete(
         tableName,
         where: whereCond,
         whereArgs: where,
       );
-      return true;
-    } on Exception catch (_) {
-      return false;
+      queryStatus(status);
+    } on SqfliteException {
+      isSuccess = false;
+
+      logger.wtf('Sqflite note delete failed');
     }
+    return isSuccess;
   }
 
   static Future<List<Map<String, dynamic>>> queryData({
@@ -98,9 +117,9 @@ class SqfliteDatabaseHelper {
     final int? offSet,
   }) async {
     final db = await database;
-    late Future<List<Map<String, Object?>>> resultSet;
+    var resultSet = <Map<String, Object?>>[];
     try {
-      resultSet = db.query(
+      resultSet = await db.query(
         tableName,
         orderBy: 'lastModify desc',
         where: whereStr,
@@ -108,8 +127,8 @@ class SqfliteDatabaseHelper {
         limit: limit,
         offset: offSet,
       );
-    } on Exception catch (_) {
-      throw DatabaseExceptions('9');
+    } on SqfliteException {
+      logger.wtf('Sqflite queryData failed');
     }
     return resultSet;
   }
@@ -118,36 +137,31 @@ class SqfliteDatabaseHelper {
     final List<Map<String, dynamic>> notesList, {
     final ConflictAlgorithm? conflictAlgorithm,
   }) async {
-    final db = await database;
-    final batch = db.batch();
-    for (final element in notesList) {
-      batch.insert(tableName, element, conflictAlgorithm: conflictAlgorithm);
+    try {
+      final db = await database;
+      final batch = db.batch();
+      for (final element in notesList) {
+        batch.insert(tableName, element, conflictAlgorithm: conflictAlgorithm);
+      }
+      await batch.commit(noResult: true, continueOnError: false);
+    } on SqfliteException {
+      isSuccess = false;
+      logger.wtf('Sqflite batch delete failed');
     }
-    await batch.commit(noResult: true);
-    return true;
+    return isSuccess;
   }
 
-  static Future<bool> batchInsert1(
-    final List<dynamic> notesList, {
-    final ConflictAlgorithm? conflictAlgorithm,
-  }) async {
-    final db = await database;
-    final batch = db.batch();
-    for (final element in notesList) {
-      batch.insert(
-        tableName,
-        element as Map<String, dynamic>,
-        conflictAlgorithm: conflictAlgorithm,
+  static Future<bool> deleteDB() async {
+    try {
+      final databasePath = await getDatabasesPath();
+      await deleteDatabase(
+        join(databasePath, dbName),
       );
-    }
-    await batch.commit(noResult: true);
-    return true;
-  }
+    } on SqfliteException {
+      isSuccess = false;
 
-  static Future<void> deleteDB() async {
-    final databasePath = await getDatabasesPath();
-    return deleteDatabase(
-      join(databasePath, dbName),
-    );
+      logger.wtf('Sqflite deleteDB failed');
+    }
+    return isSuccess;
   }
 }

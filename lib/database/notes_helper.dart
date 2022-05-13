@@ -21,14 +21,11 @@ class NotesHelper with ChangeNotifier {
   bool isLastPage = false;
   bool isLoading = false;
 
-  Future<void> signOut() async {
-    try {
-      reset();
-      await SqfliteDatabaseHelper.deleteDB();
-      await FirebaseDatabaseHelper.db.terminate();
-      await FirebaseDatabaseHelper.db.clearPersistence();
-      await removeFromSF('syncedWithFirebase');
-    } finally {}
+  Future<bool> signOut() async {
+    reset();
+    return await SqfliteDatabaseHelper.deleteDB() &&
+        await FirebaseDatabaseHelper.terminateDB() &&
+        await removeFromSF('syncedWithFirebase');
   }
 
   void notify() {
@@ -50,9 +47,9 @@ class NotesHelper with ChangeNotifier {
       })
       ..insert(0, note);
     unawaited(
-      SqfliteDatabaseHelper.insert(copiedNote).then((final value) async {
-        await FirebaseDatabaseHelper.insert(copiedNote);
-      }),
+      SqfliteDatabaseHelper.insert(copiedNote).then(
+        (final value) async => FirebaseDatabaseHelper.insert(copiedNote),
+      ),
     );
     notifyListeners();
   }
@@ -151,7 +148,7 @@ class NotesHelper with ChangeNotifier {
       unawaited(
         SqfliteDatabaseHelper.delete('id = ?', [note.id])
             .then((final value) async {
-          await FirebaseDatabaseHelper.delete(NoteOperation.delete, note);
+          await FirebaseDatabaseHelper.delete(note);
         }),
       );
     } on Exception catch (_) {
