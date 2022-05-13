@@ -23,7 +23,7 @@ class NotesHelper with ChangeNotifier {
 
   Future<bool> signOut() async {
     reset();
-    return await SqfliteDatabaseHelper.deleteDB() &&
+    return await SqfliteHelper.deleteDB() &&
         await FirebaseHelper.terminateDB() &&
         await removeFromSF('syncedWithFirebase');
   }
@@ -47,7 +47,7 @@ class NotesHelper with ChangeNotifier {
       })
       ..insert(0, note);
     unawaited(
-      SqfliteDatabaseHelper.insert(copiedNote).then(
+      SqfliteHelper.insert(copiedNote).then(
         (final value) async => FirebaseHelper.insert(copiedNote),
       ),
     );
@@ -62,7 +62,7 @@ class NotesHelper with ChangeNotifier {
     mainNotes.insert(0, copiedNote);
     notifyListeners();
     unawaited(
-      SqfliteDatabaseHelper.insert(copiedNote).then((final value) async {
+      SqfliteHelper.insert(copiedNote).then((final value) async {
         await FirebaseHelper.insert(copiedNote);
       }),
     );
@@ -75,7 +75,7 @@ class NotesHelper with ChangeNotifier {
     });
     note.state = NoteState.archived;
     unawaited(
-      SqfliteDatabaseHelper.update(note).then((final value) async {
+      SqfliteHelper.update(note).then((final value) async {
         await FirebaseHelper.update(note);
       }),
     );
@@ -90,7 +90,7 @@ class NotesHelper with ChangeNotifier {
       return element.id == note.id;
     });
     unawaited(
-      SqfliteDatabaseHelper.update(copiedNote).then((final value) async {
+      SqfliteHelper.update(copiedNote).then((final value) async {
         await FirebaseHelper.update(copiedNote);
       }),
     );
@@ -104,7 +104,7 @@ class NotesHelper with ChangeNotifier {
     });
     note.state = NoteState.unspecified;
     unawaited(
-      SqfliteDatabaseHelper.update(note).then((final value) async {
+      SqfliteHelper.update(note).then((final value) async {
         await FirebaseHelper.update(note);
       }),
     );
@@ -118,7 +118,7 @@ class NotesHelper with ChangeNotifier {
     });
     note.state = NoteState.unspecified;
     unawaited(
-      SqfliteDatabaseHelper.update(note).then((final value) async {
+      SqfliteHelper.update(note).then((final value) async {
         await FirebaseHelper.update(note);
       }),
     );
@@ -132,7 +132,7 @@ class NotesHelper with ChangeNotifier {
     });
     note.state = NoteState.unspecified;
     unawaited(
-      SqfliteDatabaseHelper.update(note).then((final value) async {
+      SqfliteHelper.update(note).then((final value) async {
         await FirebaseHelper.update(note);
       }),
     );
@@ -146,8 +146,7 @@ class NotesHelper with ChangeNotifier {
         return element.id == note.id;
       });
       unawaited(
-        SqfliteDatabaseHelper.delete('id = ?', [note.id])
-            .then((final value) async {
+        SqfliteHelper.delete('id = ?', [note.id]).then((final value) async {
           await FirebaseHelper.delete(note);
         }),
       );
@@ -165,7 +164,7 @@ class NotesHelper with ChangeNotifier {
     });
     note.state = NoteState.trashed;
     unawaited(
-      SqfliteDatabaseHelper.update(note).then((final value) async {
+      SqfliteHelper.update(note).then((final value) async {
         await getAllNotes(orig);
         await FirebaseHelper.update(note);
       }),
@@ -175,7 +174,7 @@ class NotesHelper with ChangeNotifier {
   }
 
   Future<bool> deleteAllHidden() async {
-    await SqfliteDatabaseHelper.delete('state = ?', [NoteState.hidden.index]);
+    await SqfliteHelper.delete('state = ?', [NoteState.hidden.index]);
     await FirebaseHelper.batchDelete(
       'state',
       isEqualTo: [NoteState.hidden.index],
@@ -187,7 +186,7 @@ class NotesHelper with ChangeNotifier {
   void emptyTrash() {
     mainNotes.clear();
     unawaited(
-      SqfliteDatabaseHelper.delete('state = ?', [NoteState.trashed.index])
+      SqfliteHelper.delete('state = ?', [NoteState.trashed.index])
           .then((final _) {
         unawaited(
           FirebaseHelper.batchDelete(
@@ -221,12 +220,12 @@ class NotesHelper with ChangeNotifier {
     if (!isLastPage && !isLoading) {
       isLoading = true;
       if (!(getBoolFromSF('syncedWithFirebase') ?? false)) {
-        await SqfliteDatabaseHelper.batchInsert(
+        await SqfliteHelper.batchInsert(
           await getFromFirebase(),
         );
       }
       final offSet = _page == 1 ? 0 : (_page - 1) * pageLimit;
-      final notesList = await SqfliteDatabaseHelper.queryData(
+      final notesList = await SqfliteHelper.queryData(
         whereStr: 'state = ?',
         whereCond: [noteState],
         limit: pageLimit,

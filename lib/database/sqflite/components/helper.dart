@@ -4,7 +4,7 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-class SqfliteDatabaseHelper {
+class SqfliteHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
   static bool isSuccess = true;
