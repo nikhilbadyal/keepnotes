@@ -4,6 +4,8 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
+enum DBOperations { insert, update, delete }
+
 class SqfliteHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
@@ -46,11 +48,12 @@ class SqfliteHelper {
     return query;
   }
 
-  static void queryStatus(final int noOfRows) {
+  static void queryStatus(final int noOfRows, final DBOperations operation) {
     if (noOfRows == 0) {
+      isSuccess = false;
       throw SqfliteException(
-        errorCode: 'E01',
-        errorDetails: 'Sqflite note insert failed',
+        errorCode: 'E${operation.index}',
+        errorDetails: 'Sqflite note ${operation.name} failed',
       );
     }
   }
@@ -63,10 +66,9 @@ class SqfliteHelper {
         note.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-      queryStatus(status);
-    } on SqfliteException {
+      queryStatus(status, DBOperations.insert);
+    } on Exception {
       isSuccess = false;
-
       logger.wtf('Sqflite note insert failed');
     }
     return isSuccess;
@@ -81,10 +83,9 @@ class SqfliteHelper {
         where: 'id = ?',
         whereArgs: [note.id],
       );
-      queryStatus(status);
-    } on SqfliteException {
+      queryStatus(status, DBOperations.update);
+    } on Exception {
       isSuccess = false;
-
       logger.wtf('Sqflite note update failed');
     }
     return isSuccess;
@@ -101,10 +102,9 @@ class SqfliteHelper {
         where: whereCond,
         whereArgs: where,
       );
-      queryStatus(status);
-    } on SqfliteException {
+      queryStatus(status, DBOperations.delete);
+    } on Exception {
       isSuccess = false;
-
       logger.wtf('Sqflite note delete failed');
     }
     return isSuccess;
@@ -127,7 +127,7 @@ class SqfliteHelper {
         limit: limit,
         offset: offSet,
       );
-    } on SqfliteException {
+    } on Exception {
       logger.wtf('Sqflite queryData failed');
     }
     return resultSet;
@@ -144,7 +144,7 @@ class SqfliteHelper {
         batch.insert(tableName, element, conflictAlgorithm: conflictAlgorithm);
       }
       await batch.commit(noResult: true, continueOnError: false);
-    } on SqfliteException {
+    } on Exception {
       isSuccess = false;
       logger.wtf('Sqflite batch delete failed');
     }
@@ -157,9 +157,8 @@ class SqfliteHelper {
       await deleteDatabase(
         join(databasePath, dbName),
       );
-    } on SqfliteException {
+    } on Exception {
       isSuccess = false;
-
       logger.wtf('Sqflite deleteDB failed');
     }
     return isSuccess;
