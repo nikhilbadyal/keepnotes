@@ -22,7 +22,7 @@ class SqfliteHelper {
   static Future<Database> get database async {
     final databasePath = await getDatabasesPath();
     final status = await databaseExists(databasePath);
-    if (status) {
+    if (!status) {
       _database = await openDatabase(
         join(databasePath, dbName),
         onCreate: (final database, final version) => database.execute(
