@@ -6,6 +6,5 @@ export 'extensions.dart';
 export 'navigation/navigation.dart';
 export 'screen_types.dart';
 export 'shared_pref.dart';
-export 'size_config.dart';
-export 'ui/ui.dart';
+export 'theme/theme.dart';
 export 'utilities.dart';
