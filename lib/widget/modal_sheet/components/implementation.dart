@@ -1,18 +1,6 @@
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-abstract class ModalSheetWidgets extends StatelessWidget {
-  const ModalSheetWidgets({
-    required this.onTap,
-    required this.icon,
-    required this.label,
-    final Key? key,
-  }) : super(key: key);
-  final Function()? onTap;
-  final IconData icon;
-  final String label;
-}
-
 class ModalSheetWidget extends ModalSheetWidgets {
   const ModalSheetWidget({
     required final Function()? onTap,
