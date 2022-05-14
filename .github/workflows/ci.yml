@@ -76,8 +76,9 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
           message: |
-            Build from latest *${{github.event_name}}*
+            Build from latest *${{github.event_name}}*.
             *${{ github.actor }}* created commit
+            on branch *${{ github.ref_name }}*
             with message
             `${{ github.event.commits[0].message }}`
             in [${{ github.repository }}](https://github.com/${{ github.repository }})
