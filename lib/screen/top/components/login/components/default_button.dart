@@ -32,7 +32,7 @@ class _DefaultButtonState extends State<DefaultButton> {
               borderRadius: BorderRadius.circular(20),
             ),
             primary: Colors.white,
-            backgroundColor: context.theme.colorScheme.secondary,
+            backgroundColor: context.secondaryColor,
           ),
           onPressed: widget.press as void Function()?,
           child: Text(

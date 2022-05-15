@@ -58,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(Icons.delete_forever_outlined),
                 activeText: context.language.on,
                 inactiveText: context.language.off,
-                switchActiveColor: context.theme.colorScheme.secondary,
+                switchActiveColor: context.secondaryColor,
                 switchValue: directlyDelete,
                 onToggle: directDelete,
               ),
@@ -98,7 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
               SettingsTile.switchTile(
-                switchActiveColor: context.theme.colorScheme.secondary,
+                switchActiveColor: context.secondaryColor,
                 title: context.language.darkMode,
                 activeText: context.language.on,
                 inactiveText: context.language.off,
@@ -120,7 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 leading: const Icon(
                   Icons.fingerprint_outlined,
                 ),
-                switchActiveColor: context.theme.colorScheme.secondary,
+                switchActiveColor: context.secondaryColor,
                 switchValue: fpDirectly,
                 onToggle: toggleBiometric,
               ),
@@ -370,7 +370,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       color: context.theme.scaffoldBackgroundColor,
       icon: Icon(
         Icons.arrow_drop_down,
-        color: context.theme.colorScheme.secondary,
+        color: context.secondaryColor,
       ),
       iconSize: 30,
       onSelected: onLocaleChange,

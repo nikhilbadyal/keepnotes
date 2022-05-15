@@ -52,7 +52,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
             Text(
               context.language.devName,
               style: TextStyle(
-                color: context.theme.colorScheme.secondary,
+                color: context.secondaryColor,
                 fontSize: 20,
                 fontWeight: FontWeight.normal,
               ),
@@ -82,7 +82,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                     'nikhildevelops@gmail.com',
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
-                      color: context.theme.colorScheme.secondary,
+                      color: context.secondaryColor,
                       fontSize: 16,
                     ),
                   ),

@@ -31,7 +31,7 @@ class IntroReady extends StatelessWidget {
                           child: Icon(
                             EvaIcons.layersOutline,
                             size: 40,
-                            color: context.theme.colorScheme.secondary,
+                            color: context.secondaryColor,
                           ),
                         ),
                       ),
@@ -87,7 +87,7 @@ class IntroReady extends StatelessWidget {
                                 TextSpan(
                                   text: '${context.language.appName}!',
                                   style: TextStyle(
-                                    color: context.theme.colorScheme.secondary,
+                                    color: context.secondaryColor,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 )
@@ -111,7 +111,7 @@ class IntroReady extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
             child: FloatingActionButton.extended(
-              backgroundColor: context.theme.colorScheme.secondary,
+              backgroundColor: context.secondaryColor,
               label: Text(
                 context.language.login,
                 style: const TextStyle(

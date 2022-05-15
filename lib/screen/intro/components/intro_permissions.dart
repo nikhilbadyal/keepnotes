@@ -48,12 +48,12 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                             ? Icon(
                                 MdiIcons.lockOpen,
                                 size: 42,
-                                color: context.theme.colorScheme.secondary,
+                                color: context.secondaryColor,
                               )
                             : Icon(
                                 MdiIcons.lock,
                                 size: 42,
-                                color: context.theme.colorScheme.secondary,
+                                color: context.secondaryColor,
                               ),
                       ),
                     ),
@@ -73,7 +73,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                           TextSpan(
                             text: context.language.access,
                             style: TextStyle(
-                              color: context.theme.colorScheme.secondary,
+                              color: context.secondaryColor,
                               fontWeight: FontWeight.w600,
                             ),
                           )
@@ -111,7 +111,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                         TextSpan(
                           text: '${context.language.appName} ',
                           style: TextStyle(
-                            color: context.theme.colorScheme.secondary,
+                            color: context.secondaryColor,
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w700,
                           ),
@@ -155,7 +155,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                   height: 52,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: context.theme.colorScheme.secondary,
+                    color: context.secondaryColor,
                   ),
                   child: accessGranted
                       ? Container(

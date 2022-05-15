@@ -27,7 +27,7 @@ class NoAccountText extends StatelessWidget {
             context.language.signUp,
             style: TextStyle(
               fontSize: 20,
-              color: context.theme.colorScheme.secondary,
+              color: context.secondaryColor,
             ),
           ),
         ),

@@ -56,7 +56,7 @@ class _LoginState extends State<Login> {
                           context: context,
                           builder: (final context) {
                             return SpinKitCubeGrid(
-                              color: context.theme.colorScheme.secondary,
+                              color: context.secondaryColor,
                               size: context.mq.size.height * 0.1,
                             );
                           },

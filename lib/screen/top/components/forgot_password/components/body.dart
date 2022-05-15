@@ -68,7 +68,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         width: 10,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: context.theme.colorScheme.secondary,
+                          color: context.secondaryColor,
                         ),
                       ),
                     )
@@ -82,7 +82,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     child: Text(
                       context.language.email,
                       style: TextStyle(
-                        color: context.theme.colorScheme.secondary,
+                        color: context.secondaryColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
@@ -106,7 +106,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: context.theme.colorScheme.secondary,
+                      color: context.secondaryColor,
                     ),
                   ),
                 ),
@@ -141,9 +141,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   height: 52,
                   child: Material(
                     borderRadius: BorderRadius.circular(25),
-                    shadowColor:
-                        lighten(context.theme.colorScheme.secondary, 20),
-                    color: context.theme.colorScheme.secondary,
+                    shadowColor: lighten(context.secondaryColor, 20),
+                    color: context.secondaryColor,
                     elevation: 7,
                     child: Center(
                       child: Text(

@@ -80,7 +80,7 @@ class _SignFormState extends State<SignForm> {
                       context: context,
                       builder: (final context) {
                         return SpinKitCubeGrid(
-                          color: context.theme.colorScheme.secondary,
+                          color: context.secondaryColor,
                           size: context.mq.size.height * 0.1,
                         );
                       },
@@ -119,8 +119,8 @@ class _SignFormState extends State<SignForm> {
                 height: 53,
                 child: Material(
                   borderRadius: BorderRadius.circular(25),
-                  shadowColor: lighten(context.theme.colorScheme.secondary, 20),
-                  color: context.theme.colorScheme.secondary,
+                  shadowColor: lighten(context.secondaryColor, 20),
+                  color: context.secondaryColor,
                   elevation: 7,
                   child: Center(
                     child: Text(

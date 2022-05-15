@@ -44,7 +44,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         child: Icon(
                           EvaIcons.colorPaletteOutline,
                           size: 40,
-                          color: context.theme.colorScheme.secondary,
+                          color: context.secondaryColor,
                         ),
                       ),
                     ),
@@ -62,7 +62,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           TextSpan(
                             text: context.language.theme,
                             style: TextStyle(
-                              color: context.theme.colorScheme.secondary,
+                              color: context.secondaryColor,
                               fontWeight: FontWeight.w600,
                             ),
                           )
@@ -106,7 +106,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           TextSpan(
                             text: '${context.language.theme}!',
                             style: TextStyle(
-                              color: context.theme.colorScheme.secondary,
+                              color: context.secondaryColor,
                               fontWeight: FontWeight.w600,
                             ),
                           )
@@ -144,7 +144,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: theme == ThemeSelected.light
-                              ? context.theme.colorScheme.secondary
+                              ? context.secondaryColor
                               : context.theme.cardColor.withOpacity(0.4),
                           boxShadow: [
                             BoxShadow(
@@ -189,7 +189,7 @@ class _IntroThemeState extends State<IntroTheme> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: theme == ThemeSelected.dark
-                              ? context.theme.colorScheme.secondary
+                              ? context.secondaryColor
                               : context.theme.cardColor.withOpacity(0.4),
                           boxShadow: [
                             BoxShadow(

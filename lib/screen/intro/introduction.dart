@@ -135,7 +135,7 @@ class _IntroScreenState extends State<IntroScreen>
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(52),
                             color: _selectedIndex == index
-                                ? context.theme.colorScheme.secondary
+                                ? context.secondaryColor
                                 : context.theme.iconTheme.color!
                                     .withOpacity(0.08),
                           ),
@@ -201,7 +201,7 @@ class _IntroScreenState extends State<IntroScreen>
             child: FloatingDotGroup(
               number: 10,
               size: DotSize.large,
-              colors: [context.theme.colorScheme.secondary],
+              colors: [context.secondaryColor],
               speed: DotSpeed.fast,
             ),
           ),

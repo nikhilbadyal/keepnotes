@@ -59,7 +59,7 @@ class NoNotesBody extends StatelessWidget {
                       text: '+',
                       style: TextStyle(
                         fontSize: 30,
-                        color: context.theme.colorScheme.secondary,
+                        color: context.secondaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                       recognizer: TapGestureRecognizer()

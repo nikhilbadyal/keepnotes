@@ -10,6 +10,8 @@ extension ContextExtensions on BuildContext {
   /// Extension for getting Theme
   ThemeData get theme => Theme.of(this);
 
+  Color get secondaryColor => Theme.of(this).colorScheme.secondary;
+
   /// Extension for navigation to next page
   /// Returns The state from the closest instance
   /// of this class that encloses the given context.

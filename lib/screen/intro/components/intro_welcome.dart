@@ -28,16 +28,14 @@ class IntroWelcome extends StatelessWidget {
                       child: AvatarGlow(
                         endRadius: 133,
                         showTwoGlows: false,
-                        glowColor: context.theme.colorScheme.secondary
-                            .withOpacity(0.1),
+                        glowColor: context.secondaryColor.withOpacity(0.1),
                         repeatPauseDuration: const Duration(milliseconds: 400),
                         child: Container(
                           height: 168,
                           width: 160,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(200),
-                            color: context.theme.colorScheme.secondary
-                                .withOpacity(0.1),
+                            color: context.secondaryColor.withOpacity(0.1),
                           ),
                           child: Center(
                             child: SizedBox(
@@ -72,7 +70,7 @@ class IntroWelcome extends StatelessWidget {
                             TextSpan(
                               text: context.language.appName,
                               style: TextStyle(
-                                color: context.theme.colorScheme.secondary,
+                                color: context.secondaryColor,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 1,
                                 fontSize: 32,
@@ -115,7 +113,7 @@ class IntroWelcome extends StatelessWidget {
                               Icon(
                                 MdiIcons.youtube,
                                 size: 40,
-                                color: context.theme.colorScheme.secondary,
+                                color: context.secondaryColor,
                               ),
                             ],
                           ),
@@ -141,7 +139,7 @@ class IntroWelcome extends StatelessWidget {
                               TextSpan(
                                 text: 'Firebase',
                                 style: TextStyle(
-                                  color: context.theme.colorScheme.secondary,
+                                  color: context.secondaryColor,
                                   fontFamily: 'Product Sans',
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -174,7 +172,7 @@ class IntroWelcome extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 16),
             child: FloatingActionButton.extended(
-              backgroundColor: context.theme.colorScheme.secondary,
+              backgroundColor: context.secondaryColor,
               label: Text(
                 context.language.getStarted,
                 style: const TextStyle(

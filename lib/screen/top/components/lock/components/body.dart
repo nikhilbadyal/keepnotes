@@ -45,7 +45,7 @@ class _LockBodyState extends State<LockBody> {
             child: FloatingDotGroup(
               number: 10,
               size: DotSize.large,
-              colors: [context.theme.colorScheme.secondary],
+              colors: [context.secondaryColor],
               speed: DotSpeed.fast,
             ),
           ),
@@ -178,7 +178,7 @@ class _LockBodyState extends State<LockBody> {
             child: FloatingDotGroup(
               number: 10,
               size: DotSize.large,
-              colors: [context.theme.colorScheme.secondary],
+              colors: [context.secondaryColor],
               speed: DotSpeed.fast,
             ),
           ),
