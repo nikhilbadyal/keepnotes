@@ -386,10 +386,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> logOut(final BuildContext context) async {
-    await Provider.of<FirebaseAuthentication>(
-      context,
-      listen: false,
-    ).signOut();
+    await context.firebaseAuth.signOut();
     if (!mounted) {
       return;
     }

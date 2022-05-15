@@ -28,8 +28,8 @@ extension ContextExtensions on BuildContext {
   }
 
   Object modalRouteArguments<T>() {
-    final lol = ModalRoute.of<T>(this);
-    return lol!.settings.arguments!;
+    final route = ModalRoute.of<T>(this);
+    return route!.settings.arguments!;
   }
 
   FocusNode get focus => FocusScope.of(this);
@@ -63,6 +63,12 @@ extension ContextExtensions on BuildContext {
   ScaffoldState get scaffold => Scaffold.of(this);
 
   AppConfiguration get appConfig => Provider.of<AppConfiguration>(
+        this,
+        listen: false,
+      );
+
+  FirebaseAuthentication get firebaseAuth =>
+      Provider.of<FirebaseAuthentication>(
         this,
         listen: false,
       );

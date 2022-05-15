@@ -63,22 +63,13 @@ class _LoginState extends State<Login> {
                         ),
                       );
                       final response =
-                          await Provider.of<FirebaseAuthentication>(
-                        context,
-                        listen: false,
-                      ).signInWithGoogle();
+                          await context.firebaseAuth.signInWithGoogle();
                       if (!mounted) {
                         return;
                       }
-                      if (Provider.of<FirebaseAuthentication>(
-                        context,
-                        listen: false,
-                      ).isLoggedIn) {
+                      if (context.firebaseAuth.isLoggedIn) {
                         context.appConfig.password = initialize(
-                          Provider.of<FirebaseAuthentication>(
-                            context,
-                            listen: false,
-                          ).auth.currentUser,
+                          context.firebaseAuth.auth.currentUser,
                         );
                         await Navigator.pushNamedAndRemoveUntil(
                           context,
