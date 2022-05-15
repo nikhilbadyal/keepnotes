@@ -71,8 +71,7 @@ class _SignUpState extends State<SignUp> {
                           context,
                           listen: false,
                         ).isLoggedIn) {
-                          Provider.of<AppConfiguration>(context, listen: false)
-                              .password = initialize(
+                          context.appConfig.password = initialize(
                             Provider.of<FirebaseAuthentication>(
                               context,
                               listen: false,

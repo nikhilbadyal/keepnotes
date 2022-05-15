@@ -60,8 +60,7 @@ Future<void> ohHideTap(
   final BuildContext context,
   final Note note,
 ) async {
-  final status =
-      Provider.of<AppConfiguration>(context, listen: false).password.isNotEmpty;
+  final status = context.appConfig.password.isNotEmpty;
   if (!status) {
     await showDialog(
       barrierDismissible: true,

@@ -1,5 +1,4 @@
 import 'package:notes/_aap_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 var isOpened = false;
@@ -71,8 +70,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
               accountName: null,
               onDetailsPressed: () async {
                 unawaited(
-                  Provider.of<AppConfiguration>(context, listen: false)
-                      .setHiddenDiscovered(),
+                  context.appConfig.setHiddenDiscovered(),
                 );
                 final bioEnable = getBoolFromSF('bio') ?? false;
                 final firstTime = getBoolFromSF('firstTimeNeeded') ?? false;
@@ -81,14 +79,9 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                   context.previousPage();
                   return;
                 }
-                if (Provider.of<AppConfiguration>(context, listen: false)
-                    .password
-                    .isNotEmpty) {
+                if (context.appConfig.password.isNotEmpty) {
                   if (bioEnable && !firstTime && fpDirectly) {
-                    final status = await Provider.of<AppConfiguration>(
-                      context,
-                      listen: false,
-                    ).authenticate(
+                    final status = await context.appConfig.authenticate(
                       context.language.localizedReason,
                     );
                     if (!mounted) {

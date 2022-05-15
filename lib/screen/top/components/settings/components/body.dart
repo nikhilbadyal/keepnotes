@@ -251,14 +251,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void onPrimaryColorChange(final Color value) {
     primaryColor = value;
-    Provider.of<AppConfiguration>(context, listen: false)
-        .changePrimaryColor(primaryColor);
+    context.appConfig.changePrimaryColor(primaryColor);
   }
 
   void onAccentColorChange(final Color value) {
     accentColor = value;
-    Provider.of<AppConfiguration>(context, listen: false)
-        .changeAccentColor(accentColor);
+    context.appConfig.changeAccentColor(accentColor);
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -268,8 +266,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } else {
       appTheme = AppTheme.light;
     }
-    Provider.of<AppConfiguration>(context, listen: false)
-        .changeAppTheme(appTheme);
+    context.appConfig.changeAppTheme(appTheme);
   }
 
   // ignore: avoid_positional_boolean_parameters
@@ -310,9 +307,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> onChangePassword() async {
-    if (Provider.of<AppConfiguration>(context, listen: false)
-        .password
-        .isNotEmpty) {
+    if (context.appConfig.password.isNotEmpty) {
       context.nextPage(AppRoutes.lockScreen, arguments: true);
     } else {
       showSnackbar(
@@ -358,7 +353,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
 
     if (choice) {
-      await Provider.of<AppConfiguration>(context, listen: false).resetBio();
+      await context.appConfig.resetBio();
       if (!mounted) {
         return;
       }
@@ -404,7 +399,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       return;
     }
 
-    await Provider.of<AppConfiguration>(context, listen: false).resetConfig();
+    await context.appConfig.resetConfig();
     if (!mounted) {
       return;
     }
