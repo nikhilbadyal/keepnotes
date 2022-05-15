@@ -74,20 +74,12 @@ class _MyNotesState extends State<MyNotes> {
       ],
       child: Builder(
         builder: (final context) {
-          Provider.of<AppConfiguration>(context);
-          final curUser =
-              Provider.of<FirebaseAuthentication>(context, listen: false)
-                  .auth
-                  .currentUser;
+          context.appConfig;
+          final curUser = context.firebaseAuth.auth.currentUser;
           if (curUser != null) {
-            Provider.of<AppConfiguration>(context, listen: false).password =
-                initialize(curUser);
+            context.appConfig.password = initialize(curUser);
           }
-          final initRoute =
-              Provider.of<FirebaseAuthentication>(context, listen: false)
-                      .isLoggedIn
-                  ? '/'
-                  : 'intro';
+          final initRoute = context.firebaseAuth.isLoggedIn ? '/' : 'intro';
           return LayoutBuilder(
             builder: (final context, final constraints) {
               return OrientationBuilder(

@@ -1,5 +1,4 @@
 import 'package:notes/_aap_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class HiddenNoteOptions extends StatefulWidget {
@@ -58,8 +57,7 @@ class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {
                       onTap: () async {
                         saveNoteAndCancelTimer();
                         unawaited(
-                          Provider.of<NotesHelper>(context, listen: false)
-                              .trash(widget.note),
+                          context.noteHelper.trash(widget.note),
                         );
                       },
                       icon: Icons.drive_file_move_outline,

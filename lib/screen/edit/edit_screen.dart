@@ -85,7 +85,7 @@ class _EditScreenState extends State<EditScreen> {
   Future<bool> saveNote() async {
     final isEdited = updateNote();
     if (isEdited) {
-      await Provider.of<NotesHelper>(context, listen: false).insert(note);
+      await context.noteHelper.insert(note);
     }
     return true;
   }

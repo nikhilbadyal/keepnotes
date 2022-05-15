@@ -60,8 +60,7 @@ Future<void> ohHideTap(
   final BuildContext context,
   final Note note,
 ) async {
-  final status =
-      Provider.of<AppConfiguration>(context, listen: false).password.isNotEmpty;
+  final status = context.appConfig.password.isNotEmpty;
   if (!status) {
     await showDialog(
       barrierDismissible: true,
@@ -73,7 +72,7 @@ Future<void> ohHideTap(
       ),
     );
   } else {
-    await Provider.of<NotesHelper>(context, listen: false).hide(note);
+    await context.noteHelper.hide(note);
   }
 }
 
@@ -81,14 +80,14 @@ Future<void> ohTrashTap(
   final BuildContext context,
   final Note note,
 ) async {
-  await Provider.of<NotesHelper>(context, listen: false).trash(note);
+  await context.noteHelper.trash(note);
 }
 
 Future<void> ohArchiveTap(
   final BuildContext context,
   final Note note,
 ) async {
-  await Provider.of<NotesHelper>(context, listen: false).trash(note);
+  await context.noteHelper.trash(note);
 }
 
 void hideKeyboard(final BuildContext context) {

@@ -67,9 +67,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
           context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           TablerIcons.ghost, (final context) async {
-        final status = Provider.of<AppConfiguration>(context, listen: false)
-            .password
-            .isNotEmpty;
+        final status = context.appConfig.password.isNotEmpty;
         if (!status) {
           await showDialog(
             barrierDismissible: true,
@@ -79,7 +77,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
             ),
           );
         } else {
-          await Provider.of<NotesHelper>(context, listen: false).hide(note);
+          await context.noteHelper.hide(note);
         }
       }),
       slidableAction(
@@ -88,7 +86,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
         note,
         Icons.archive_outlined,
         (final context) => unawaited(
-          Provider.of<NotesHelper>(context, listen: false).archive(note),
+          context.noteHelper.archive(note),
         ),
       ),
     ],
@@ -105,7 +103,7 @@ ActionPane homeRight(final Note note, final BuildContext context) {
         note,
         Icons.copy_outlined,
         (final context) => unawaited(
-          Provider.of<NotesHelper>(context, listen: false).copy(note),
+          context.noteHelper.copy(note),
         ),
       ),
       slidableAction(
@@ -114,7 +112,7 @@ ActionPane homeRight(final Note note, final BuildContext context) {
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
-          Provider.of<NotesHelper>(context, listen: false).trash(note),
+          context.noteHelper.trash(note),
         ),
       )
     ],
@@ -131,7 +129,7 @@ ActionPane? hiddenLeft(final Note note, final BuildContext context) {
         note,
         Icons.remove_red_eye_outlined,
         (final context) => unawaited(
-          Provider.of<NotesHelper>(context, listen: false).unhide(note),
+          context.noteHelper.unhide(note),
         ),
       )
     ],
@@ -148,7 +146,7 @@ ActionPane hiddenRight(final Note note, final BuildContext context) {
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
-          Provider.of<NotesHelper>(context, listen: false).trash(note),
+          context.noteHelper.trash(note),
         ),
       )
     ],
@@ -164,9 +162,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
           context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           TablerIcons.ghost, (final context) async {
-        final status = Provider.of<AppConfiguration>(context, listen: false)
-            .password
-            .isNotEmpty;
+        final status = context.appConfig.password.isNotEmpty;
         if (!status) {
           await showDialog(
             barrierDismissible: true,
@@ -176,7 +172,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
             ),
           );
         } else {
-          await Provider.of<NotesHelper>(context, listen: false).hide(note);
+          await context.noteHelper.hide(note);
         }
       }),
       slidableAction(
@@ -185,7 +181,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
         note,
         Icons.unarchive_outlined,
         (final context) => unawaited(
-          Provider.of<NotesHelper>(context, listen: false).unarchive(note),
+          context.noteHelper.unarchive(note),
         ),
       ),
     ],
@@ -202,7 +198,7 @@ ActionPane archiveRight(final Note note, final BuildContext context) {
         note,
         Icons.copy_outlined,
         (final context) => unawaited(
-          Provider.of<NotesHelper>(context, listen: false).copy(note),
+          context.noteHelper.copy(note),
         ),
       ),
       slidableAction(
@@ -211,7 +207,7 @@ ActionPane archiveRight(final Note note, final BuildContext context) {
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
-          Provider.of<NotesHelper>(context, listen: false).trash(note),
+          context.noteHelper.trash(note),
         ),
       ),
     ],
@@ -235,7 +231,7 @@ ActionPane trashRight(final Note note, final BuildContext context) {
             actions: [
               TextButton(
                 onPressed: () {
-                  Provider.of<NotesHelper>(context, listen: false).delete(note);
+                  context.noteHelper.delete(note);
                   context.previousPage();
                 },
                 child: Text(context.language.alertDialogOp1),
@@ -262,7 +258,7 @@ ActionPane trashLeft(final Note note, final BuildContext context) {
         note,
         Icons.restore_outlined,
         (final context) => unawaited(
-          Provider.of<NotesHelper>(context, listen: false).undelete(note),
+          context.noteHelper.undelete(note),
         ),
       ),
     ],

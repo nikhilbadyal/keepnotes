@@ -1,5 +1,4 @@
 import 'package:notes/_aap_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class SetPassword extends StatefulWidget {
@@ -37,15 +36,13 @@ class _SetPasswordState extends State<SetPassword> {
     } else {
       if (enteredPassCode == args.firstPass) {
         if (args.resetPass) {
-          if (Provider.of<AppConfiguration>(context, listen: false).password ==
-              enteredPassCode) {
+          if (context.appConfig.password == enteredPassCode) {
             showSnackbar(
               context,
               context.language.samePasswordError,
             );
           } else {
-            await Provider.of<AppConfiguration>(context, listen: false)
-                .passwordSetConfig(enteredPassCode);
+            await context.appConfig.passwordSetConfig(enteredPassCode);
           }
           await Future.delayed(
             const Duration(milliseconds: pinEnterReset),
@@ -57,8 +54,7 @@ class _SetPasswordState extends State<SetPassword> {
           return;
         } else {
           unawaited(
-            Provider.of<AppConfiguration>(context, listen: false)
-                .passwordSetConfig(enteredPassCode),
+            context.appConfig.passwordSetConfig(enteredPassCode),
           );
           showSnackbar(
             context,
