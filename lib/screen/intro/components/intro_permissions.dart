@@ -64,7 +64,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                           fontSize: 23,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w600,
-                          color: context.theme.textTheme.bodyText1!.color,
+                          color: context.bodyText1,
                         ),
                         children: [
                           TextSpan(
@@ -105,7 +105,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                       style: TextStyle(
                         fontSize: 18,
                         fontFamily: 'YTSans',
-                        color: context.theme.textTheme.bodyText1!.color,
+                        color: context.bodyText1,
                       ),
                       children: [
                         TextSpan(
@@ -121,8 +121,7 @@ class _IntroPermissionsState extends State<IntroPermissions> {
                           style: TextStyle(
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w500,
-                            color: context.theme.textTheme.bodyText1!.color!
-                                .withOpacity(0.8),
+                            color: context.bodyText1.withOpacity(0.8),
                           ),
                         )
                       ],

@@ -57,7 +57,7 @@ class IntroWelcome extends StatelessWidget {
                             fontSize: 20,
                             fontFamily: 'YTSans',
                             fontWeight: FontWeight.w400,
-                            color: context.theme.textTheme.bodyText1!.color,
+                            color: context.bodyText1,
                           ),
                           children: [
                             TextSpan(
@@ -126,7 +126,7 @@ class IntroWelcome extends StatelessWidget {
                               fontSize: 16,
                               fontFamily: 'YTSans',
                               fontWeight: FontWeight.w400,
-                              color: context.theme.textTheme.bodyText1!.color,
+                              color: context.bodyText1,
                             ),
                             children: [
                               const TextSpan(
@@ -204,7 +204,7 @@ class IntroWelcome extends StatelessWidget {
               fontSize: 15,
               fontFamily: 'Product Sans',
               fontWeight: FontWeight.w800,
-              color: context.theme.textTheme.bodyText1!.color,
+              color: context.bodyText1,
             ),
           ),
         ),
@@ -231,7 +231,7 @@ class IntroWelcome extends StatelessWidget {
                         fontSize: 16,
                         fontFamily: 'YTSans',
                         fontWeight: FontWeight.w400,
-                        color: context.theme.textTheme.bodyText1!.color,
+                        color: context.bodyText1,
                       ),
                     )
                   ],

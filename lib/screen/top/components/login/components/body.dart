@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
               Text(
                 context.language.loginToContinue,
                 style: TextStyle(
-                  color: context.theme.textTheme.bodyText1!.color,
+                  color: context.bodyText1,
                   fontSize: 27,
                   fontWeight: FontWeight.bold,
                 ),
@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
                 context.language.loginExplaination,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: context.theme.textTheme.bodyText1!.color,
+                  color: context.bodyText1,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),

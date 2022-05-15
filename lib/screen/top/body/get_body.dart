@@ -63,10 +63,8 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-          context.language.hide,
-          context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
-          note,
-          TablerIcons.ghost, (final context) async {
+          context.language.hide, context.bodyText1, note, TablerIcons.ghost,
+          (final context) async {
         final status = context.appConfig.password.isNotEmpty;
         if (!status) {
           await showDialog(
@@ -82,7 +80,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
       }),
       slidableAction(
         context.language.archive,
-        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.bodyText1,
         note,
         Icons.archive_outlined,
         (final context) => unawaited(
@@ -99,7 +97,7 @@ ActionPane homeRight(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.copy,
-        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.bodyText1,
         note,
         Icons.copy_outlined,
         (final context) => unawaited(
@@ -108,7 +106,7 @@ ActionPane homeRight(final Note note, final BuildContext context) {
       ),
       slidableAction(
         context.language.trash,
-        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.bodyText1,
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
@@ -125,7 +123,7 @@ ActionPane? hiddenLeft(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.unhide,
-        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.bodyText1,
         note,
         Icons.remove_red_eye_outlined,
         (final context) => unawaited(
@@ -142,7 +140,7 @@ ActionPane hiddenRight(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.trash,
-        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.bodyText1,
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
@@ -158,10 +156,8 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
     motion: const StretchMotion(),
     children: [
       slidableAction(
-          context.language.hide,
-          context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
-          note,
-          TablerIcons.ghost, (final context) async {
+          context.language.hide, context.bodyText1, note, TablerIcons.ghost,
+          (final context) async {
         final status = context.appConfig.password.isNotEmpty;
         if (!status) {
           await showDialog(
@@ -177,7 +173,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
       }),
       slidableAction(
         context.language.unarchive,
-        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.bodyText1,
         note,
         Icons.unarchive_outlined,
         (final context) => unawaited(
@@ -194,7 +190,7 @@ ActionPane archiveRight(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.copy,
-        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.bodyText1,
         note,
         Icons.copy_outlined,
         (final context) => unawaited(
@@ -203,7 +199,7 @@ ActionPane archiveRight(final Note note, final BuildContext context) {
       ),
       slidableAction(
         context.language.trash,
-        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.bodyText1,
         note,
         Icons.delete_outlined,
         (final context) => unawaited(
@@ -218,10 +214,7 @@ ActionPane trashRight(final Note note, final BuildContext context) {
   return ActionPane(
     motion: const StretchMotion(),
     children: [
-      slidableAction(
-          context.language.delete,
-          context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
-          note,
+      slidableAction(context.language.delete, context.bodyText1, note,
           Icons.delete_forever_outlined, (final context) async {
         await showDialog<bool>(
           barrierDismissible: false,
@@ -254,7 +247,7 @@ ActionPane trashLeft(final Note note, final BuildContext context) {
     children: [
       slidableAction(
         context.language.restore,
-        context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
+        context.bodyText1,
         note,
         Icons.restore_outlined,
         (final context) => unawaited(

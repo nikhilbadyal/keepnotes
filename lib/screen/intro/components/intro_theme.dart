@@ -55,7 +55,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           fontSize: 23,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w600,
-                          color: context.theme.textTheme.bodyText1!.color,
+                          color: context.bodyText1,
                         ),
                         children: [
                           TextSpan(text: context.language.app),
@@ -97,7 +97,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           fontSize: 18,
                           fontFamily: 'Product Sans',
                           fontWeight: FontWeight.w500,
-                          color: context.theme.textTheme.bodyText1!.color,
+                          color: context.bodyText1,
                         ),
                         children: [
                           TextSpan(
@@ -161,7 +161,7 @@ class _IntroThemeState extends State<IntroTheme> {
                               fontSize: 15,
                               color: theme == ThemeSelected.light
                                   ? Colors.white
-                                  : context.theme.textTheme.bodyText1!.color,
+                                  : context.bodyText1,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Product Sans',
                             ),
@@ -206,7 +206,7 @@ class _IntroThemeState extends State<IntroTheme> {
                               fontSize: 15,
                               color: theme == ThemeSelected.dark
                                   ? Colors.white
-                                  : context.theme.textTheme.bodyText1!.color,
+                                  : context.bodyText1,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Product Sans',
                             ),

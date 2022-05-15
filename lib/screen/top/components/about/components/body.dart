@@ -45,7 +45,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Product Sans',
-                color: context.theme.textTheme.bodyText1!.color,
+                color: context.bodyText1,
               ),
             ),
             const SizedBox(height: 30),
@@ -64,7 +64,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Product Sans',
-                color: context.theme.textTheme.bodyText1!.color,
+                color: context.bodyText1,
               ),
             ),
             const SizedBox(height: 30),
@@ -106,7 +106,7 @@ class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Product Sans',
-                    color: context.theme.textTheme.bodyText1!.color,
+                    color: context.bodyText1,
                   ),
                 ),
               ),

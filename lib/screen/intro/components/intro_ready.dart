@@ -42,7 +42,7 @@ class IntroReady extends StatelessWidget {
                             fontSize: 23,
                             fontFamily: 'Product Sans',
                             fontWeight: FontWeight.w600,
-                            color: context.theme.textTheme.bodyText1!.color,
+                            color: context.bodyText1,
                           ),
                           children: [TextSpan(text: context.language.ready)],
                         ),
@@ -77,7 +77,7 @@ class IntroReady extends StatelessWidget {
                                 fontSize: 18,
                                 fontFamily: 'Product Sans',
                                 fontWeight: FontWeight.w500,
-                                color: context.theme.textTheme.bodyText1!.color,
+                                color: context.bodyText1,
                               ),
                               children: [
                                 TextSpan(

@@ -29,7 +29,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(
                     fontSize: 27,
                     fontWeight: FontWeight.bold,
-                    color: context.theme.textTheme.bodyText1!.color,
+                    color: context.bodyText1,
                     height: 1.5,
                   ),
                 ),
