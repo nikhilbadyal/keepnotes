@@ -9,13 +9,16 @@ class EditBody extends StatefulWidget {
     required this.autofocus,
     required this.titleController,
     required this.contentController,
+    required this.titleFocusNode,
+    required this.contentFocusNode,
     final Key? key,
   }) : super(key: key);
   final bool isReadOnly;
-
   final bool autofocus;
   final TextEditingController titleController;
+  final FocusNode titleFocusNode;
   final TextEditingController contentController;
+  final FocusNode contentFocusNode;
 
   @override
   State<EditBody> createState() => _EditBodyState();
@@ -35,6 +38,7 @@ class _EditBodyState extends State<EditBody> {
         child: Column(
           children: <Widget>[
             TextField(
+              focusNode: widget.titleFocusNode,
               readOnly: widget.isReadOnly,
               controller: widget.titleController,
               maxLines: null,
@@ -53,6 +57,7 @@ class _EditBodyState extends State<EditBody> {
               ),
             ),
             TextField(
+              focusNode: widget.contentFocusNode,
               onChanged: (final str) {
                 Provider.of<CharCount>(context, listen: false)
                     .setCount(str.characters.length);

@@ -15,7 +15,9 @@ class _EditScreenState extends State<EditScreen> {
   bool isReadOnly = false;
   late Note note;
   final TextEditingController _titleController = TextEditingController();
+  final FocusNode _titleFocusNode = FocusNode();
   final TextEditingController _contentController = TextEditingController();
+  final FocusNode _contentFocusNode = FocusNode();
   late String _titleFromInitial;
   late String _contentFromInitial;
   late Timer autoSaverTimer;
@@ -44,6 +46,8 @@ class _EditScreenState extends State<EditScreen> {
             autoSaverTimer: autoSaverTimer,
           ),
           body: EditBody(
+            contentFocusNode: _contentFocusNode,
+            titleFocusNode: _titleFocusNode,
             isReadOnly: isReadOnly,
             contentController: _contentController,
             titleController: _titleController,
@@ -69,8 +73,12 @@ class _EditScreenState extends State<EditScreen> {
   }
 
   Future<bool> onBackPress() async {
+    if (_titleFocusNode.hasFocus || _contentFocusNode.hasFocus) {
+      _titleFocusNode.unfocus();
+      _contentFocusNode.unfocus();
+      await saveNote();
+    }
     autoSaverTimer.cancel();
-    await saveNote();
     return true;
   }
 
