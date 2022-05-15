@@ -26,8 +26,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    myFuture = Provider.of<NotesHelper>(context, listen: false)
-        .getAllNotes(widget.fromWhere.index);
+    myFuture = context.noteHelper.getAllNotes(widget.fromWhere.index);
   }
 
   @override

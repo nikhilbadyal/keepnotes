@@ -31,9 +31,7 @@ class _NotesListState extends State<NotesList> {
   }
 
   void loadMore() {
-    Provider.of<NotesHelper>(context, listen: false)
-        .getAllNotes(NoteState.unspecified.index)
-        .then((final _) {
+    context.noteHelper.getAllNotes(NoteState.unspecified.index).then((final _) {
       setState(() {});
     });
   }

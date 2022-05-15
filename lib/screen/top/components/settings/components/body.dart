@@ -399,7 +399,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       return;
     }
 
-    await Provider.of<NotesHelper>(context, listen: false).signOut();
+    await context.noteHelper.signOut();
     if (!mounted) {
       return;
     }

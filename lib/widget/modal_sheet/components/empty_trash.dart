@@ -46,10 +46,8 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
               if (!mounted) {
                 return;
               }
-              if (Provider.of<NotesHelper>(context, listen: false)
-                  .mainNotes
-                  .isNotEmpty) {
-                Provider.of<NotesHelper>(context, listen: false).emptyTrash();
+              if (context.noteHelper.mainNotes.isNotEmpty) {
+                context.noteHelper.emptyTrash();
               }
             }
             if (!mounted) {

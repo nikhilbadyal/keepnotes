@@ -75,8 +75,7 @@ class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
                     onTap: () {
                       saveNoteAndCancelTimer();
                       unawaited(
-                        Provider.of<NotesHelper>(context, listen: false)
-                            .unarchive(widget.note),
+                        context.noteHelper.unarchive(widget.note),
                       );
                     },
                     icon: Icons.unarchive_outlined,

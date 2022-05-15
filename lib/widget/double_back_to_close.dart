@@ -1,5 +1,4 @@
 import 'package:notes/_aap_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class DoubleBackToCloseWidget extends StatefulWidget {
@@ -50,14 +49,13 @@ class _DoubleBackToCloseWidgetState extends State<DoubleBackToCloseWidget> {
   }
 
   Future<bool> defaultBackPress() async {
-    Provider.of<NotesHelper>(context, listen: false).reset();
-    await Provider.of<NotesHelper>(context, listen: false)
-        .getAllNotes(NoteState.unspecified.index);
+    context.noteHelper.reset();
+    await context.noteHelper.getAllNotes(NoteState.unspecified.index);
 
     if (!mounted) {
       return true;
     }
-    Provider.of<NotesHelper>(context, listen: false).notify();
+    context.noteHelper.notify();
     final currentTime = DateTime.now().millisecondsSinceEpoch;
     if ((currentTime - _lastTimeBackButtonWasTapped) < exitTimeInMillis) {
       return Future.value(true);

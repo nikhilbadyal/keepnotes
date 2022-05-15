@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:notes/_aap_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 Route<dynamic> generateRoute(final RouteSettings settings) {
@@ -143,7 +142,7 @@ Future<void> navigate(
   final String newRoute, [
   final Object? arguments,
 ]) async {
-  Provider.of<NotesHelper>(context, listen: false).reset();
+  context.noteHelper.reset();
   if (activeRoute == newRoute && newRoute != AppRoutes.setPassScreen) {
     return Navigator.pop(context);
   }
