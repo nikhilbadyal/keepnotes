@@ -63,8 +63,9 @@ jobs:
       - name: Run flutter analyzer
         run: flutter analyze --congratulate --fatal-infos --fatal-warnings --no-pub
       #   https://github.com/flutter/flutter/issues/103773 commented this gets fixed
-      #      - name: Ensure the Dart code is formatted correctly
-      #        run: flutter format --set-exit-if-changed --dry-run .
+
+      - name: Ensure the Dart code is formatted correctly
+        run: flutter format --set-exit-if-changed --dry-run .
 
       - name: Build apk
         run: flutter build apk --split-per-abi
