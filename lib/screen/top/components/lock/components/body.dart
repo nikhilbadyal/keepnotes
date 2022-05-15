@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:notes/_aap_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 import 'package:notes/widget/floating_dots.dart';
 
@@ -103,8 +102,7 @@ class _LockBodyState extends State<LockBody> {
                         ),
                       );
                     }),
-                    if (Provider.of<AppConfiguration>(context)
-                            .bioNotAvailable ||
+                    if (context.appConfig.bioNotAvailable ||
                         widget.onFingerTap == null)
                       Container()
                     else
@@ -248,8 +246,7 @@ class _LockBodyState extends State<LockBody> {
                             ),
                           );
                         }),
-                        if (Provider.of<AppConfiguration>(context)
-                                .bioNotAvailable ||
+                        if (context.appConfig.bioNotAvailable ||
                             widget.onFingerTap == null)
                           Container()
                         else

@@ -1,5 +1,4 @@
 import 'package:notes/_aap_packages.dart';
-import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 class LockScreen extends StatefulWidget {
@@ -30,9 +29,8 @@ class _LockScreenState extends State<LockScreen> {
           return;
         }
 
-        final status =
-            await Provider.of<AppConfiguration>(context, listen: false)
-                .authenticate(context.language.localizedReason);
+        final status = await context.appConfig
+            .authenticate(context.language.localizedReason);
         if (status) {
           if (!mounted) {
             return;
@@ -54,10 +52,9 @@ class _LockScreenState extends State<LockScreen> {
               actions: [
                 TextButton(
                   onPressed: () async {
-                    final status = await Provider.of<AppConfiguration>(
-                      context,
-                      listen: false,
-                    ).authenticate(context.language.localizedReason);
+                    final status = await context.appConfig.authenticate(
+                      context.language.localizedReason,
+                    );
                     if (!mounted) {
                       return;
                     }
@@ -87,15 +84,13 @@ class _LockScreenState extends State<LockScreen> {
         if (!mounted) {
           return;
         }
-        await Provider.of<AppConfiguration>(context, listen: false)
-            .bioEnabledConfig();
+        await context.appConfig.bioEnabledConfig();
       }
     }
   }
 
   Future<void> doneEnteringPass(final String enteredPassCode) async {
-    if (enteredPassCode ==
-        Provider.of<AppConfiguration>(context, listen: false).password) {
+    if (enteredPassCode == context.appConfig.password) {
       final bioEnable = getBoolFromSF('bio') ?? false;
       final firstTime = getBoolFromSF('firstTimeNeeded') ?? false;
       if (bioEnable && firstTime) {
@@ -121,8 +116,7 @@ class _LockScreenState extends State<LockScreen> {
   }
 
   Future<void> newPassDone(final String enteredPassCode) async {
-    if (enteredPassCode ==
-        Provider.of<AppConfiguration>(context, listen: false).password) {
+    if (enteredPassCode == context.appConfig.password) {
       await navigate(
         context.modalRouteSettingName(),
         context,

@@ -67,9 +67,7 @@ ActionPane homeLeft(final Note note, final BuildContext context) {
           context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           TablerIcons.ghost, (final context) async {
-        final status = Provider.of<AppConfiguration>(context, listen: false)
-            .password
-            .isNotEmpty;
+        final status = context.appConfig.password.isNotEmpty;
         if (!status) {
           await showDialog(
             barrierDismissible: true,
@@ -164,9 +162,7 @@ ActionPane? archiveLeft(final Note note, final BuildContext context) {
           context.theme.textTheme.bodyText1!.color ?? Colors.redAccent,
           note,
           TablerIcons.ghost, (final context) async {
-        final status = Provider.of<AppConfiguration>(context, listen: false)
-            .password
-            .isNotEmpty;
+        final status = context.appConfig.password.isNotEmpty;
         if (!status) {
           await showDialog(
             barrierDismissible: true,

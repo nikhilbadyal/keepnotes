@@ -80,8 +80,7 @@ class _MyNotesState extends State<MyNotes> {
                   .auth
                   .currentUser;
           if (curUser != null) {
-            Provider.of<AppConfiguration>(context, listen: false).password =
-                initialize(curUser);
+            context.appConfig.password = initialize(curUser);
           }
           final initRoute =
               Provider.of<FirebaseAuthentication>(context, listen: false)

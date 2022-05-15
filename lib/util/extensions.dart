@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes/_aap_packages.dart';
+import 'package:notes/_external_packages.dart';
 
 /// Extensions for general basic [Context]
 extension ContextExtensions on BuildContext {
@@ -58,6 +59,11 @@ extension ContextExtensions on BuildContext {
   /// If there is no [Scaffold] in scope, then this will throw an exception.
   ///
   ScaffoldState get scaffold => Scaffold.of(this);
+
+  AppConfiguration get appConfig => Provider.of<AppConfiguration>(
+        this,
+        listen: false,
+      );
 }
 
 Future<void> _nextPage({
