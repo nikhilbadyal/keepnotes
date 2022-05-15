@@ -4,7 +4,6 @@
     <style name="LaunchTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/launch_background</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-<!--        <item name="android:windowFullscreen">true</item>-->
 
     </style>
 
