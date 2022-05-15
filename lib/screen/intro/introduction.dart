@@ -65,8 +65,7 @@ class _IntroScreenState extends State<IntroScreen>
       );
     });
 
-    final backgroundColor =
-        context.theme.scaffoldBackgroundColor.withOpacity(0.7);
+    final backgroundColor = context.canvasColor.withOpacity(0.7);
 
     Widget _body() {
       return Column(

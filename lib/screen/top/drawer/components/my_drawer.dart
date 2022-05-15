@@ -52,7 +52,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
           RepaintBoundary(
             child: UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                color: context.theme.canvasColor,
+                color: context.canvasColor,
               ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.transparent,

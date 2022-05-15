@@ -65,7 +65,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
                 color: context.theme.iconTheme.color!.withOpacity(0.1),
                 width: 1.5,
               ),
-              color: context.theme.cardColor,
+              color: context.canvasColor,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 12,

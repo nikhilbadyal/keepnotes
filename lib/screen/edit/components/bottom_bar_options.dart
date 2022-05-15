@@ -27,7 +27,7 @@ class _BottomBarOptionsState extends State<BottomBarOptions>
             _currentOptionWidget(),
             Container(
               height: context.mq.padding.bottom,
-              color: context.theme.cardColor,
+              color: context.canvasColor,
             )
           ],
         ),

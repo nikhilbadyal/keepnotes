@@ -12,6 +12,8 @@ extension ContextExtensions on BuildContext {
 
   Color get secondaryColor => Theme.of(this).colorScheme.secondary;
 
+  Color get canvasColor => Theme.of(this).canvasColor;
+
   Color get bodyText1 =>
       Theme.of(this).textTheme.bodyText1!.color ?? Colors.redAccent;
 

@@ -20,7 +20,7 @@ class RoundedButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: context.theme.canvasColor,
+          color: context.canvasColor,
         ),
         alignment: Alignment.center,
         child: title,

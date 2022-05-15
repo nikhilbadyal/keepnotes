@@ -145,7 +145,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           borderRadius: BorderRadius.circular(20),
                           color: theme == ThemeSelected.light
                               ? context.secondaryColor
-                              : context.theme.cardColor.withOpacity(0.4),
+                              : context.canvasColor.withOpacity(0.4),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black12.withOpacity(0.08),
@@ -190,7 +190,7 @@ class _IntroThemeState extends State<IntroTheme> {
                           borderRadius: BorderRadius.circular(20),
                           color: theme == ThemeSelected.dark
                               ? context.secondaryColor
-                              : context.theme.cardColor.withOpacity(0.4),
+                              : context.canvasColor.withOpacity(0.4),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black12.withOpacity(0.08),

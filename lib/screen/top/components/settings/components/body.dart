@@ -367,7 +367,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget languageTrailing() {
     return PopupMenuButton(
-      color: context.theme.scaffoldBackgroundColor,
+      color: context.canvasColor,
       icon: Icon(
         Icons.arrow_drop_down,
         color: context.secondaryColor,
