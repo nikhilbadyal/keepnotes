@@ -62,7 +62,7 @@ class _ModalSheetDeleteAllWidgetState extends State<ModalSheetDeleteAllWidget> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: context.theme.iconTheme.color!.withOpacity(0.1),
+                color: context.iconColor.withOpacity(0.1),
                 width: 1.5,
               ),
               color: context.canvasColor,

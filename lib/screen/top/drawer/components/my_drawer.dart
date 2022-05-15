@@ -64,7 +64,7 @@ class _MyDrawerState extends State<MyDrawer> with RouteAware {
                 wish,
                 style: TextStyle(
                   fontSize: 15,
-                  color: context.theme.iconTheme.color,
+                  color: context.iconColor,
                 ),
               ),
               accountName: null,

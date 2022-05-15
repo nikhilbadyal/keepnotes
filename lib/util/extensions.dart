@@ -17,6 +17,8 @@ extension ContextExtensions on BuildContext {
   Color get bodyText1 =>
       Theme.of(this).textTheme.bodyText1!.color ?? Colors.redAccent;
 
+  Color get iconColor => Theme.of(this).iconTheme.color ?? Colors.grey;
+
   /// Extension for navigation to next page
   /// Returns The state from the closest instance
   /// of this class that encloses the given context.

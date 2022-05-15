@@ -59,7 +59,7 @@ class _IntroScreenState extends State<IntroScreen>
           statusBarColor: Colors.transparent,
           statusBarBrightness: statusBarBrightness,
           statusBarIconBrightness: statusBarBrightness,
-          systemNavigationBarColor: context.theme.scaffoldBackgroundColor,
+          systemNavigationBarColor: context.canvasColor,
           systemNavigationBarIconBrightness: themeBrightness,
         ),
       );
@@ -135,8 +135,7 @@ class _IntroScreenState extends State<IntroScreen>
                             borderRadius: BorderRadius.circular(52),
                             color: _selectedIndex == index
                                 ? context.secondaryColor
-                                : context.theme.iconTheme.color!
-                                    .withOpacity(0.08),
+                                : context.iconColor.withOpacity(0.08),
                           ),
                         ),
                       );
