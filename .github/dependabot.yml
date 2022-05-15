@@ -7,5 +7,7 @@ updates:
       interval: "daily"
   - package-ecosystem: "pub"
     directory: "/"
+    ignore:
+      - dependency-name: "flutter_lints"
     schedule:
       interval: "daily"
