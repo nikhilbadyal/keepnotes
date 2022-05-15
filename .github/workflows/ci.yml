@@ -9,6 +9,8 @@ on:
       - '!**/*.md'
       - pubspec.yaml
       - .github/workflows/**
+    branches:
+      - master
   pull_request:
 jobs:
   build:
