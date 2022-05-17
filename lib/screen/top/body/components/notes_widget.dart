@@ -1,4 +1,3 @@
-import 'package:google_fonts/google_fonts.dart';
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
@@ -51,13 +50,11 @@ class NoteWidget extends StatelessWidget {
                           note.title,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          style: GoogleFonts.merriweather(
-                            textStyle: const TextStyle(
-                              fontSize: 18,
-                              height: 1,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FontStyle.italic,
-                            ),
+                          style: const TextStyle(
+                            fontSize: 18,
+                            height: 1,
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FontStyle.italic,
                           ),
                         )
                       else
@@ -68,13 +65,11 @@ class NoteWidget extends StatelessWidget {
                       Text(
                         note.strLastModifiedDate,
                         overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.openSans(
-                          textStyle: const TextStyle(
-                            wordSpacing: 1.3,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            height: 1.3,
-                          ),
+                        style: const TextStyle(
+                          wordSpacing: 1.3,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          height: 1.3,
                         ),
                       ),
                       const SizedBox(
@@ -85,13 +80,11 @@ class NoteWidget extends StatelessWidget {
                           note.content,
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.openSans(
-                            textStyle: const TextStyle(
-                              wordSpacing: 1,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              height: 1.5,
-                            ),
+                          style: const TextStyle(
+                            wordSpacing: 1,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            height: 1.5,
                           ),
                         ),
                       ),

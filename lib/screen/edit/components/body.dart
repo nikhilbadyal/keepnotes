@@ -43,13 +43,11 @@ class _EditBodyState extends State<EditBody> {
               controller: widget.titleController,
               maxLines: null,
               textCapitalization: TextCapitalization.sentences,
-              style: GoogleFonts.merriweather(
-                textStyle: const TextStyle(
-                  fontSize: 18,
-                  height: 1.7,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.italic,
-                ),
+              style: const TextStyle(
+                fontSize: 18,
+                height: 1.7,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.italic,
               ),
               decoration: InputDecoration(
                 hintText: context.language.enterNoteTitle,
@@ -67,13 +65,11 @@ class _EditBodyState extends State<EditBody> {
               controller: widget.contentController,
               maxLines: null,
               showCursor: true,
-              style: GoogleFonts.openSans(
-                textStyle: const TextStyle(
-                  wordSpacing: 1.3,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  height: 1.35,
-                ),
+              style: const TextStyle(
+                wordSpacing: 1.3,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                height: 1.35,
               ),
               decoration: InputDecoration(
                 hintText: context.language.enterNoteContent,

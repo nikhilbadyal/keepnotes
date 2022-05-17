@@ -8,7 +8,6 @@ export 'package:flutter_slidable/flutter_slidable.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
-export 'package:google_fonts/google_fonts.dart';
 export 'package:google_sign_in/google_sign_in.dart';
 export 'package:intl/intl.dart';
 export 'package:keepsettings/keepsettings.dart';

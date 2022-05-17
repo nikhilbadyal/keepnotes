@@ -38,7 +38,6 @@ dependencies:
   wc_form_validators: ^1.0.0
   pinput: ^2.2.9
   progress_state_button: ^1.0.4
-  google_fonts: ^2.3.2
   flutter_slidable: ^1.2.1
   keepsettings:
     git:

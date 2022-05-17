@@ -41,13 +41,11 @@ class EditAppBar extends StatelessWidget with PreferredSizeWidget {
                 ),
                 child: Text(
                   counter.count.toString(),
-                  style: GoogleFonts.merriweather(
-                    textStyle: const TextStyle(
-                      fontSize: 20,
-                      height: 1.7,
-                      fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.italic,
-                    ),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    height: 1.7,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
               ),
