@@ -6,7 +6,7 @@ class IntroPermissions extends StatefulWidget {
   const IntroPermissions({final Key? key}) : super(key: key);
 
   @override
-  _IntroPermissionsState createState() => _IntroPermissionsState();
+  State<IntroPermissions> createState() => _IntroPermissionsState();
 }
 
 class _IntroPermissionsState extends State<IntroPermissions> {

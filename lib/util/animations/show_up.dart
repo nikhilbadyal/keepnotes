@@ -25,7 +25,7 @@ class ShowUpTransition extends StatefulWidget {
   final SlideFromSlide slideSide;
 
   @override
-  _ShowUpTransitionState createState() => _ShowUpTransitionState();
+  State<ShowUpTransition> createState() => _ShowUpTransitionState();
 }
 
 class _ShowUpTransitionState extends State<ShowUpTransition>

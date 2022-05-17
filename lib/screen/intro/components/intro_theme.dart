@@ -8,7 +8,7 @@ class IntroTheme extends StatefulWidget {
   const IntroTheme({final Key? key}) : super(key: key);
 
   @override
-  _IntroThemeState createState() => _IntroThemeState();
+  State<IntroTheme> createState() => _IntroThemeState();
 }
 
 class _IntroThemeState extends State<IntroTheme> {

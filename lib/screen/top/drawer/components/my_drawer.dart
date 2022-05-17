@@ -9,7 +9,7 @@ class MyDrawer extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _MyDrawerState createState() => _MyDrawerState();
+  State<MyDrawer> createState() => _MyDrawerState();
 }
 
 class _MyDrawerState extends State<MyDrawer> with RouteAware {

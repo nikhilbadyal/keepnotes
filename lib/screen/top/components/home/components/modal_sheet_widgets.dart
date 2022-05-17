@@ -15,7 +15,7 @@ class HomeNoteOptions extends StatefulWidget {
   final Function() saveNote;
 
   @override
-  _HomeNoteOptionsState createState() => _HomeNoteOptionsState();
+  State<HomeNoteOptions> createState() => _HomeNoteOptionsState();
 }
 
 class _HomeNoteOptionsState extends State<HomeNoteOptions> {

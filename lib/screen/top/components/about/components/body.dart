@@ -8,7 +8,7 @@ class AboutMe extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AboutMeState createState() => _AboutMeState();
+  State<AboutMe> createState() => _AboutMeState();
 }
 
 class _AboutMeState extends State<AboutMe> with TickerProviderStateMixin {

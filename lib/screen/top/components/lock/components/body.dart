@@ -17,7 +17,7 @@ class LockBody extends StatefulWidget {
   final String title;
 
   @override
-  _LockBodyState createState() => _LockBodyState();
+  State<LockBody> createState() => _LockBodyState();
 }
 
 class _LockBodyState extends State<LockBody> {

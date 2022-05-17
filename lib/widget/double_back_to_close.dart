@@ -12,7 +12,7 @@ class DoubleBackToCloseWidget extends StatefulWidget {
   final BackPresAction? backPresAction;
 
   @override
-  _DoubleBackToCloseWidgetState createState() =>
+  State<DoubleBackToCloseWidget> createState() =>
       _DoubleBackToCloseWidgetState();
 }
 

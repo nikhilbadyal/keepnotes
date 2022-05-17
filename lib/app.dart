@@ -18,7 +18,8 @@ class MyNotes extends StatefulWidget {
   }
 
   @override
-  _MyNotesState createState() => _MyNotesState();
+  State<MyNotes> createState() => _MyNotesState();
+// _MyNotes>createState() => _MyNotesState();
 }
 
 class _MyNotesState extends State<MyNotes> {

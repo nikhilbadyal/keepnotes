@@ -17,7 +17,7 @@ class Body extends StatefulWidget {
   final ActionPane? Function(Note note, BuildContext context) secondary;
 
   @override
-  _BodyState createState() => _BodyState();
+  State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {

@@ -11,7 +11,7 @@ class AppBarAvatar extends StatefulWidget {
   final Function()? onWidgetTap;
 
   @override
-  _AppBarAvatarState createState() => _AppBarAvatarState();
+  State<AppBarAvatar> createState() => _AppBarAvatarState();
 }
 
 class _AppBarAvatarState extends State<AppBarAvatar> {

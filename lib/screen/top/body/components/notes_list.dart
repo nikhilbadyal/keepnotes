@@ -4,8 +4,6 @@ import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
-_NotesListState? homeBody;
-
 class NotesList extends StatefulWidget {
   const NotesList({
     required this.notehelper,
@@ -22,7 +20,7 @@ class NotesList extends StatefulWidget {
   final ActionPane? Function(Note note, BuildContext context) secondary;
 
   @override
-  _NotesListState createState() => _NotesListState();
+  State<NotesList> createState() => _NotesListState();
 }
 
 class _NotesListState extends State<NotesList> {
@@ -38,7 +36,6 @@ class _NotesListState extends State<NotesList> {
 
   @override
   Widget build(final BuildContext context) {
-    homeBody = this;
     return Padding(
       padding: EdgeInsets.zero,
       child: NotificationListener<ScrollNotification>(

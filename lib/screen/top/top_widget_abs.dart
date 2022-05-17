@@ -17,7 +17,7 @@ abstract class TopWidgetBase extends StatefulWidget {
   Widget? floatingActionButton(final BuildContext context);
 
   @override
-  _TopWidgetBaseState createState() => _TopWidgetBaseState();
+  State<TopWidgetBase> createState() => _TopWidgetBaseState();
 }
 
 class _TopWidgetBaseState extends State<TopWidgetBase> {

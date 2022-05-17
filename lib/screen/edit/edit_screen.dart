@@ -8,7 +8,7 @@ class EditScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _EditScreenState createState() => _EditScreenState();
+  State<EditScreen> createState() => _EditScreenState();
 }
 
 class _EditScreenState extends State<EditScreen> {

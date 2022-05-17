@@ -7,7 +7,7 @@ class SetPassword extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SetPasswordState createState() => _SetPasswordState();
+  State<SetPassword> createState() => _SetPasswordState();
 }
 
 class _SetPasswordState extends State<SetPassword> {

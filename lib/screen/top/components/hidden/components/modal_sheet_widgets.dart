@@ -14,7 +14,7 @@ class HiddenNoteOptions extends StatefulWidget {
   final Function() saveNote;
 
   @override
-  _HiddenNoteOptionsState createState() => _HiddenNoteOptionsState();
+  State<HiddenNoteOptions> createState() => _HiddenNoteOptionsState();
 }
 
 class _HiddenNoteOptionsState extends State<HiddenNoteOptions> {

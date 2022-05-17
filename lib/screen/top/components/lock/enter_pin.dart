@@ -7,7 +7,7 @@ class LockScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LockScreenState createState() => _LockScreenState();
+  State<LockScreen> createState() => _LockScreenState();
 }
 
 class _LockScreenState extends State<LockScreen> {

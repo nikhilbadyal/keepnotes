@@ -13,7 +13,7 @@ class BottomBarOptions extends StatefulWidget {
   final Function() saveNote;
 
   @override
-  _BottomBarOptionsState createState() => _BottomBarOptionsState();
+  State<BottomBarOptions> createState() => _BottomBarOptionsState();
 }
 
 class _BottomBarOptionsState extends State<BottomBarOptions>

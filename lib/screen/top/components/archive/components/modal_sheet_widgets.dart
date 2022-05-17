@@ -15,7 +15,7 @@ class ArchiveNoteOptions extends StatefulWidget {
   final Function() saveNote;
 
   @override
-  _ArchiveNoteOptionsState createState() => _ArchiveNoteOptionsState();
+  State<ArchiveNoteOptions> createState() => _ArchiveNoteOptionsState();
 }
 
 class _ArchiveNoteOptionsState extends State<ArchiveNoteOptions> {
