@@ -74,8 +74,8 @@ class _MyNotesState extends State<MyNotes> {
       ],
       child: Builder(
         builder: (final context) {
-          context.appConfig;
           final curUser = context.firebaseAuth.auth.currentUser;
+          Provider.of<AppConfiguration>(context);
           if (curUser != null) {
             context.appConfig.password = initialize(curUser);
           }
