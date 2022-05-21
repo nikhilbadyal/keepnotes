@@ -11,8 +11,8 @@ on:
       - master
   pull_request:
 jobs:
-  build:
-    name: flutter build
+  test:
+    name: flutter test
     runs-on: ubuntu-latest
     steps:
 

@@ -1,17 +1,8 @@
 name: CI
 
 on:
-  push:
-    paths:
-      - lib/**
-      - android/**
-      - assets/**
-      - '!**/*.md'
-      - pubspec.yaml
-      - .github/workflows/**
-    branches:
-      - master
-  pull_request:
+  workflow_call:
+  workflow_dispatch:
 jobs:
   build:
     name: flutter build
