@@ -227,9 +227,10 @@ class NotesHelper with ChangeNotifier {
       final offSet = _page == 1 ? 0 : (_page - 1) * pageLimit;
       final notesList = await SqfliteHelper.queryData(
         whereStr: 'state = ?',
-        whereCond: [noteState],
+        args: [noteState],
         limit: pageLimit,
         offSet: offSet,
+        orderBy: 'lastModify desc',
       );
       isLastPage = notesList.isEmpty || notesList.length < pageLimit;
       if (!isLastPage) {

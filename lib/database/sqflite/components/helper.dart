@@ -9,7 +9,6 @@ enum DBOperations { insert, update, delete }
 class SqfliteHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
-  static bool isSuccess = true;
   static late Database _database;
 
   static final fieldMap = {
@@ -27,7 +26,7 @@ class SqfliteHelper {
       _database = await openDatabase(
         join(databasePath, dbName),
         onCreate: (final database, final version) => database.execute(
-          query(),
+          _query(),
         ),
         version: dbVersion,
       );
@@ -35,7 +34,7 @@ class SqfliteHelper {
     return _database;
   }
 
-  static String query() {
+  static String _query() {
     var query = 'CREATE TABLE ';
     query += tableName;
     query += '(';
@@ -47,9 +46,8 @@ class SqfliteHelper {
     return query;
   }
 
-  static void queryStatus(final int noOfRows, final DBOperations operation) {
+  static void _queryStatus(final int noOfRows, final DBOperations operation) {
     if (noOfRows == 0) {
-      isSuccess = false;
       throw SqfliteException(
         errorCode: 'E${operation.index}',
         errorDetails: 'Sqflite note ${operation.name} failed',
@@ -59,13 +57,14 @@ class SqfliteHelper {
 
   static Future<bool> insert(final Note note) async {
     final db = await database;
+    var isSuccess = true;
     try {
       final status = await db.insert(
         tableName,
         note.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
-      queryStatus(status, DBOperations.insert);
+      _queryStatus(status, DBOperations.insert);
     } on Exception {
       isSuccess = false;
       logger.wtf('Sqflite note insert failed');
@@ -78,13 +77,15 @@ class SqfliteHelper {
     final List<Object> where,
   ) async {
     final db = await database;
+    var isSuccess = true;
+
     try {
       final status = await db.delete(
         tableName,
         where: whereCond,
         whereArgs: where,
       );
-      queryStatus(status, DBOperations.delete);
+      _queryStatus(status, DBOperations.delete);
     } on Exception {
       isSuccess = false;
       logger.wtf('Sqflite note delete failed');
@@ -94,18 +95,19 @@ class SqfliteHelper {
 
   static Future<List<Map<String, dynamic>>> queryData({
     final String? whereStr,
-    final List<Object>? whereCond,
+    final List<Object>? args,
     final int? limit,
     final int? offSet,
+    final String? orderBy,
   }) async {
     final db = await database;
     var resultSet = <Map<String, Object?>>[];
     try {
       resultSet = await db.query(
         tableName,
-        orderBy: 'lastModify desc',
+        orderBy: orderBy,
         where: whereStr,
-        whereArgs: whereCond,
+        whereArgs: args,
         limit: limit,
         offset: offSet,
       );
@@ -119,9 +121,11 @@ class SqfliteHelper {
     final List<Map<String, dynamic>> notesList, {
     final ConflictAlgorithm? conflictAlgorithm,
   }) async {
+    var isSuccess = true;
     try {
       final db = await database;
       final batch = db.batch();
+
       for (final element in notesList) {
         batch.insert(tableName, element, conflictAlgorithm: conflictAlgorithm);
       }
@@ -134,6 +138,7 @@ class SqfliteHelper {
   }
 
   static Future<bool> deleteDB() async {
+    var isSuccess = true;
     try {
       final databasePath = await getDatabasesPath();
       await deleteDatabase(
