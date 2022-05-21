@@ -35,14 +35,14 @@ Future<void> main() async {
   sqfliteTestInit();
   final notes = getRandomNotes(total: totalNotes);
   group(
-    'SQFLite Tests',
+    'SQFLite Tests - ',
     () => {
       test('Test DB is created', () async {
         await SqfliteHelper.deleteDB();
         final db = await SqfliteHelper.database;
         final result = await db.rawQuery(
           '''
-        SELECT name FROM pragma_table_list('${SqfliteHelper.tableName}')
+        SELECT name FROM sqlite_master WHERE type='table' AND name='${SqfliteHelper.tableName}'
         ''',
         );
         expect(await db.getVersion(), dbVersion);
