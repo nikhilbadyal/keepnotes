@@ -10,6 +10,7 @@ class SqfliteHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
   static bool isSuccess = true;
+  static late Database _database;
 
   static final fieldMap = {
     'id': 'text PRIMARY KEY ',
@@ -18,8 +19,6 @@ class SqfliteHelper {
     'lastModify': 'INTEGER',
     'state': 'INTEGER',
   };
-
-  static late Database _database;
 
   static Future<Database> get database async {
     final databasePath = await getDatabasesPath();
@@ -70,23 +69,6 @@ class SqfliteHelper {
     } on Exception {
       isSuccess = false;
       logger.wtf('Sqflite note insert failed');
-    }
-    return isSuccess;
-  }
-
-  static Future<bool> update(final Note note) async {
-    final db = await database;
-    try {
-      final status = await db.update(
-        tableName,
-        note.toMap(),
-        where: 'id = ?',
-        whereArgs: [note.id],
-      );
-      queryStatus(status, DBOperations.update);
-    } on Exception {
-      isSuccess = false;
-      logger.wtf('Sqflite note update failed');
     }
     return isSuccess;
   }
