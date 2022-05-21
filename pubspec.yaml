@@ -44,6 +44,8 @@ dependencies:
       url: https://github.com/nikhilbadyal/keepsettings.git
 
 dev_dependencies:
+  test: ^1.21.1
+  sqflite_common_ffi: ^2.1.1
   flutter_lints: ^2.0.1
   flutter_native_splash: ^2.2.0+1
   flutter_launcher_icons: ^0.9.2
