@@ -154,6 +154,14 @@ class FloatingDotState extends State<FloatingDot>
   }
 
   @override
+  void setState(final VoidCallback fn) {
+    if (!mounted) {
+      return;
+    }
+    super.setState(fn);
+  }
+
+  @override
   void didUpdateWidget(covariant final FloatingDot oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.direction != oldWidget.direction) {

@@ -42,6 +42,14 @@ class _MyNotesState extends State<MyNotes> {
     }
   }
 
+  @override
+  void setState(final VoidCallback fn) {
+    if (!mounted) {
+      return;
+    }
+    super.setState(fn);
+  }
+
   void setLocale(final Locale locale) {
     setState(() {
       _locale = locale;

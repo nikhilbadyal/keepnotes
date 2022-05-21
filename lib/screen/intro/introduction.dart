@@ -20,6 +20,14 @@ class _IntroScreenState extends State<IntroScreen>
   List<Widget> screens = [];
 
   @override
+  void setState(final VoidCallback fn) {
+    if (!mounted) {
+      return;
+    }
+    super.setState(fn);
+  }
+
+  @override
   void initState() {
     super.initState();
     screens = [

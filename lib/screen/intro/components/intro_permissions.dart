@@ -13,6 +13,14 @@ class _IntroPermissionsState extends State<IntroPermissions> {
   late bool accessGranted;
 
   @override
+  void setState(final VoidCallback fn) {
+    if (!mounted) {
+      return;
+    }
+    super.setState(fn);
+  }
+
+  @override
   void initState() {
     super.initState();
     accessGranted = false;

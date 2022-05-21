@@ -19,6 +19,14 @@ class _SignUpFormState extends State<SignUpForm> {
   bool remember = false;
   final List<String?> errors = [];
 
+  @override
+  void setState(final VoidCallback fn) {
+    if (!mounted) {
+      return;
+    }
+    super.setState(fn);
+  }
+
   void addError({
     final String? error,
   }) {

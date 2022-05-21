@@ -21,7 +21,14 @@ class _EditScreenState extends State<EditScreen> {
   late String _titleFromInitial;
   late String _contentFromInitial;
   late Timer autoSaverTimer;
-  late bool needFocus = false;
+
+  @override
+  void setState(final VoidCallback fn) {
+    if (!mounted) {
+      return;
+    }
+    super.setState(fn);
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -56,7 +63,7 @@ class _EditScreenState extends State<EditScreen> {
           bottomSheet: BottomBar(
             note: note,
             saveNote: saveNote,
-            onIconTap: onPressed,
+            onIconTap: onLockIconPress,
             isReadOnly: isReadOnly,
             autoSaverTimer: autoSaverTimer,
           ),
@@ -106,12 +113,7 @@ class _EditScreenState extends State<EditScreen> {
     return false;
   }
 
-  Future<void> exitWithoutSaving(final BuildContext context) async {
-    autoSaverTimer.cancel();
-    Navigator.pop(context);
-  }
-
-  void onPressed() {
+  void onLockIconPress() {
     setState(() {
       isReadOnly = !isReadOnly;
     });

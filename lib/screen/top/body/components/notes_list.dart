@@ -24,10 +24,6 @@ class NotesList extends StatefulWidget {
 }
 
 class _NotesListState extends State<NotesList> {
-  void callSetState() {
-    setState(() {});
-  }
-
   void loadMore() {
     context.noteHelper.getAllNotes(NoteState.unspecified.index).then((final _) {
       setState(() {});

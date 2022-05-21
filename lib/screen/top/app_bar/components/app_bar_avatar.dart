@@ -27,6 +27,14 @@ class _AppBarAvatarState extends State<AppBarAvatar> {
   }
 
   @override
+  void setState(final VoidCallback fn) {
+    if (!mounted) {
+      return;
+    }
+    super.setState(fn);
+  }
+
+  @override
   Widget build(final BuildContext context) => InkWell(
         onDoubleTap: widget.onWidgetTap ?? defaultDoubleTap,
         child: Padding(
