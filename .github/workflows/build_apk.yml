@@ -18,13 +18,22 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
           cache-key: flutter
-          flutter-version: '3.0.0'
+          flutter-version: '3.0.1'
           cache-path: ${{ runner.tool_cache }}/flutter
 
       - name: Disable Analytics
