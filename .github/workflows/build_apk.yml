@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  push:
+    paths:
+      - lib/**
+      - android/**
+      - assets/**
+      - '!**/*.md'
+      - pubspec.yaml
+      - .github/workflows/**
+    branches:
+      - master
+  pull_request:
+jobs:
+  build:
+    name: flutter build
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout to repository
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          cache-key: flutter
+          flutter-version: '3.0.0'
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      - name: Disable Analytics
+        run: flutter config --no-analytics
+
+      - name: Run Flutter Doctor
+        run: flutter doctor --verbose
+
+      - name: Populate key.properties
+        run: |
+          echo "${{ secrets.KEY_PROPERTIES_FILE }}" | base64 --decode > ${{env.KEY_PROPERTIES_PATH}}
+
+      - name: Populate keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > ${{env.KEYSTORE_PATH}}
+
+      - name: Populate sentry dsn
+        run: |
+          echo "${{ secrets.SENTRY_DSN_DART_FILE }}" | base64 --decode > ${{env
+          .SENTRY_DSN_PATH}}
+
+      - name: Populate google-services.json
+        run: |
+          echo $GOOGLE_SERVICES_JSON_SECRET > ${{env.GOOGLE_SERVICES_JSON_PATH}}
+
+      - name: Run pub get
+        run: flutter pub get
+
+      - name: Run flutter analyzer
+        run: flutter analyze --congratulate --fatal-infos --fatal-warnings --no-pub
+
+      - name: Ensure the Dart code is formatted correctly
+        run: flutter format --set-exit-if-changed --dry-run .
+
+      - name: Build apk
+        run: flutter build apk --split-per-abi
+
+      - name: Upload APK to Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            Build from latest *${{github.event_name}}*.
+            *${{ github.actor }}* created commit
+            on branch *${{ github.ref_name }}*
+            with message
+            `${{ github.event.commits[0].message }}`
+            in [${{ github.repository }}](https://github.com/${{ github.repository }})
+            See changes [here](https://github.com/${{ github.repository}}/commit/${{github.sha}})
+          document: |
+            build/app/outputs/flutter-apk/app-arm64-v8a-release.apk,
+            build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk,
+            build/app/outputs/flutter-apk/app-x86_64-release.apk
+
+env:
+  KEY_PROPERTIES_PATH: "./android/key.properties"
+  KEYSTORE_PATH: "./android/app/keepnotes.jks"
+  SENTRY_DSN_PATH: "./lib/sentry_dsn.dart"
+  GOOGLE_SERVICES_JSON_PATH: "./android/app/google-services.json"
+  GOOGLE_SERVICES_JSON_SECRET: ${{ secrets.GOOGLE_SERVICES_JSON_FILE }}
