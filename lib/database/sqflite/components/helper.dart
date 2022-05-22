@@ -9,7 +9,7 @@ enum DBOperations { insert, update, delete }
 class SqfliteHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
-  static late Database _database;
+  static Database? _database;
   static late String dbPath;
   static final fieldMap = {
     'id': 'text PRIMARY KEY ',
@@ -25,18 +25,19 @@ class SqfliteHelper {
     return databaseExists(dbPath);
   }
 
+  static Future<Database> createDb() async {
+    await dbExists();
+    return openDatabase(
+      dbPath,
+      onCreate: (final database, final version) => database.execute(
+        _query(),
+      ),
+      version: dbVersion,
+    );
+  }
+
   static Future<Database> get database async {
-    final status = await dbExists();
-    if (!status) {
-      _database = await openDatabase(
-        dbPath,
-        onCreate: (final database, final version) => database.execute(
-          _query(),
-        ),
-        version: dbVersion,
-      );
-    }
-    return _database;
+    return _database ??= await createDb();
   }
 
   static String _query() {
@@ -128,6 +129,7 @@ class SqfliteHelper {
       await deleteDatabase(
         dbPath,
       );
+      _database = null;
       return true;
     }
     return false;

@@ -171,8 +171,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {
-                              exportToFile().then((final value) {
+                            onPressed: () async {
+                              await exportToFile().then((final value) {
                                 showSnackbar(
                                   context,
                                   value
@@ -181,6 +181,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   snackBarBehavior: SnackBarBehavior.floating,
                                 );
                               });
+                              if (!mounted) {
+                                return;
+                              }
                               context.previousPage();
                             },
                             child: Text(
