@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:test/test.dart';
 
-import 'note_data.dart';
+import '../note_data.dart';
 
 void sqfliteTestInit() {
   sqfliteFfiInit();
