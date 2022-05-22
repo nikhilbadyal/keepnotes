@@ -10,7 +10,7 @@ class SqfliteHelper {
   static String tableName = 'notes';
   static String dbName = 'notes_database.db';
   static late Database _database;
-
+  static late String dbPath;
   static final fieldMap = {
     'id': 'text PRIMARY KEY ',
     'title': 'text',
@@ -19,12 +19,17 @@ class SqfliteHelper {
     'state': 'INTEGER',
   };
 
-  static Future<Database> get database async {
+  static Future<bool> dbExists() async {
     final databasePath = await getDatabasesPath();
-    final status = await databaseExists(databasePath);
+    dbPath = join(databasePath, dbName);
+    return databaseExists(dbPath);
+  }
+
+  static Future<Database> get database async {
+    final status = await dbExists();
     if (!status) {
       _database = await openDatabase(
-        join(databasePath, dbName),
+        dbPath,
         onCreate: (final database, final version) => database.execute(
           _query(),
         ),
@@ -138,16 +143,13 @@ class SqfliteHelper {
   }
 
   static Future<bool> deleteDB() async {
-    var isSuccess = true;
-    try {
-      final databasePath = await getDatabasesPath();
+    final status = await dbExists();
+    if (status) {
       await deleteDatabase(
-        join(databasePath, dbName),
+        dbPath,
       );
-    } on Exception {
-      isSuccess = false;
-      logger.wtf('Sqflite deleteDB failed');
+      return true;
     }
-    return isSuccess;
+    return false;
   }
 }

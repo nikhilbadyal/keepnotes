@@ -105,6 +105,11 @@ Future<void> main() async {
         expect(result.length, 19);
         await SqfliteHelper.deleteDB();
       }),
+      test('Test SQFLite deleteDB', () async {
+        var status = await SqfliteHelper.deleteDB();
+        status = await SqfliteHelper.deleteDB();
+        expect(status, false);
+      }),
     },
   );
 }

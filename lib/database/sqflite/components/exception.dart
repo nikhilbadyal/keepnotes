@@ -6,7 +6,4 @@ class SqfliteException implements Exception {
 
   final String errorCode;
   final String errorDetails;
-
-  @override
-  String toString() => 'Sqflite $errorCode: $errorDetails';
 }
