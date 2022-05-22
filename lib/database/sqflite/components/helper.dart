@@ -99,20 +99,14 @@ class SqfliteHelper {
     final String? orderBy,
   }) async {
     final db = await database;
-    var resultSet = <Map<String, Object?>>[];
-    try {
-      resultSet = await db.query(
-        tableName,
-        orderBy: orderBy,
-        where: whereStr,
-        whereArgs: args,
-        limit: limit,
-        offset: offSet,
-      );
-    } on Exception {
-      logger.wtf('Sqflite queryData failed');
-    }
-    return resultSet;
+    return db.query(
+      tableName,
+      orderBy: orderBy,
+      where: whereStr,
+      whereArgs: args,
+      limit: limit,
+      offset: offSet,
+    );
   }
 
   static Future<bool> batchInsert(
