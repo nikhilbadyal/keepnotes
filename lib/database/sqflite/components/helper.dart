@@ -62,19 +62,12 @@ class SqfliteHelper {
 
   static Future<bool> insert(final Note note) async {
     final db = await database;
-    var isSuccess = true;
-    try {
-      final status = await db.insert(
-        tableName,
-        note.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace,
-      );
-      _queryStatus(status, DBOperations.insert);
-    } on Exception {
-      isSuccess = false;
-      logger.wtf('Sqflite note insert failed');
-    }
-    return isSuccess;
+    await db.insert(
+      tableName,
+      note.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    return true;
   }
 
   static Future<bool> delete(
@@ -126,20 +119,13 @@ class SqfliteHelper {
     final List<Map<String, dynamic>> notesList, {
     final ConflictAlgorithm? conflictAlgorithm,
   }) async {
-    var isSuccess = true;
-    try {
-      final db = await database;
-      final batch = db.batch();
-
-      for (final element in notesList) {
-        batch.insert(tableName, element, conflictAlgorithm: conflictAlgorithm);
-      }
-      await batch.commit(noResult: true, continueOnError: false);
-    } on Exception {
-      isSuccess = false;
-      logger.wtf('Sqflite batch delete failed');
+    final db = await database;
+    final batch = db.batch();
+    for (final element in notesList) {
+      batch.insert(tableName, element, conflictAlgorithm: conflictAlgorithm);
     }
-    return isSuccess;
+    await batch.commit(noResult: true, continueOnError: false);
+    return true;
   }
 
   static Future<bool> deleteDB() async {
