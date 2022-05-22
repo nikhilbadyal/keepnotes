@@ -4,6 +4,7 @@ import 'package:notes/_internal_packages.dart';
 
 class FirebaseHelper {
   FirebaseHelper(final String uid) {
+    _uid = uid;
     notesReference =
         db.collection(userCollection).doc(uid).collection(notesCollection);
   }
@@ -13,15 +14,11 @@ class FirebaseHelper {
   static String userCollection = 'user';
   static late CollectionReference<Map<String, dynamic>> notesReference;
   static bool isSuccess = true;
+  static late String _uid;
 
   static Future<bool> insert(final Note note) async {
-    try {
-      await notesReference.doc(note.id).set(note.toMap());
-    } on Exception {
-      isSuccess = false;
-      logger.wtf('Firebase note insert failed');
-    }
-    return isSuccess;
+    await notesReference.doc(note.id).set(note.toMap());
+    return true;
   }
 
   static Future<bool> delete(
@@ -57,17 +54,15 @@ class FirebaseHelper {
     return isSuccess;
   }
 
-  static Future<bool> batchInsert(final List<dynamic> notesList) async {
+  static Future<bool> batchInsert(
+    final List<Map<String, dynamic>> notesList,
+  ) async {
     try {
-      await db.runTransaction((final transaction) async {
-        DocumentReference<Map<String, dynamic>> ref;
-        for (final element in notesList) {
-          {
-            ref = notesReference.doc(element['id'].toString());
-            transaction.set(ref, element);
-          }
-        }
-      });
+      final batch = db.batch();
+      for (final note in notesList) {
+        batch.set(db.collection(userCollection).doc(_uid), note);
+      }
+      await batch.commit();
     } on Exception {
       isSuccess = false;
       logger.wtf('Firebase batch insert failed');

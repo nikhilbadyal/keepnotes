@@ -49,7 +49,7 @@ Future<bool> importFromFile() async {
     if (result != null) {
       final file = File(result.files.single.path ?? '');
       final stringContent = file.readAsStringSync();
-      final jsonList = json.decode(stringContent) as List<dynamic>;
+      final jsonList = json.decode(stringContent) as List<Map<String, dynamic>>;
       for (final element in jsonList) {
         element['id'] = const Uuid().v4();
       }
