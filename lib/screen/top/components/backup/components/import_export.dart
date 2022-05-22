@@ -49,11 +49,10 @@ Future<bool> importFromFile() async {
     if (result != null) {
       final file = File(result.files.single.path ?? '');
       final stringContent = file.readAsStringSync();
-      final jsonList = json.decode(stringContent) as List<Map<String, dynamic>>;
+      final jsonList = json.decode(stringContent) as List<dynamic>;
       for (final element in jsonList) {
         element['id'] = const Uuid().v4();
       }
-      // await SqfliteDatabaseHelper.batchInsert1(jsonList);
       await FirebaseHelper.batchInsert(jsonList);
       return true;
     } else {

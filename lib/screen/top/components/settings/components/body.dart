@@ -127,14 +127,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SettingsTile(
                 title: context.language.importNotes,
                 leading: const Icon(Icons.notes_outlined),
-                onPressed: (final context) {
-                  importFromFile().then((final value) {
+                onPressed: (final context) async {
+                  unawaited(
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (final context) {
+                        return SpinKitCubeGrid(
+                          color: context.secondaryColor,
+                          size: context.mq.size.height * 0.1,
+                        );
+                      },
+                    ),
+                  );
+                  await importFromFile().then((final value) async {
                     showSnackbar(
                       context,
                       value ? context.language.done : context.language.error,
                       snackBarBehavior: SnackBarBehavior.floating,
                     );
+                    if (value) {
+                      await removeFromSF(
+                        'syncedWithFirebase',
+                      );
+                      context.noteHelper.notify();
+                    }
                   });
+                  if (!mounted) {
+                    return;
+                  }
+                  context.previousPage();
                 },
               ),
               SettingsTile(

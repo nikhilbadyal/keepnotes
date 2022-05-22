@@ -55,12 +55,19 @@ class FirebaseHelper {
   }
 
   static Future<bool> batchInsert(
-    final List<Map<String, dynamic>> notesList,
+    final List<dynamic> notesList,
   ) async {
     try {
       final batch = db.batch();
       for (final note in notesList) {
-        batch.set(db.collection(userCollection).doc(_uid), note);
+        batch.set(
+          db
+              .collection(userCollection)
+              .doc(_uid)
+              .collection(notesCollection)
+              .doc(note['id'].toString()),
+          note,
+        );
       }
       await batch.commit();
     } on Exception {
