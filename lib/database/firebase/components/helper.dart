@@ -8,7 +8,7 @@ class FirebaseHelper {
         db.collection(userCollection).doc(uid).collection(notesCollection);
   }
 
-  static final FirebaseFirestore db = FirebaseFirestore.instance;
+  static FirebaseFirestore db = FirebaseFirestore.instance;
   static String notesCollection = 'notes';
   static String userCollection = 'user';
   static late CollectionReference<Map<String, dynamic>> notesReference;
@@ -20,16 +20,6 @@ class FirebaseHelper {
     } on Exception {
       isSuccess = false;
       logger.wtf('Firebase note insert failed');
-    }
-    return isSuccess;
-  }
-
-  static Future<bool> update(final Note note) async {
-    try {
-      await notesReference.doc(note.id).update(note.toMap());
-    } on Exception {
-      isSuccess = false;
-      logger.wtf('Firebase note update failed');
     }
     return isSuccess;
   }

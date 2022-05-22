@@ -76,7 +76,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.archived;
     unawaited(
       SqfliteHelper.insert(note).then((final value) async {
-        await FirebaseHelper.update(note);
+        await FirebaseHelper.insert(note);
       }),
     );
     notifyListeners();
@@ -91,7 +91,7 @@ class NotesHelper with ChangeNotifier {
     });
     unawaited(
       SqfliteHelper.insert(copiedNote).then((final value) async {
-        await FirebaseHelper.update(copiedNote);
+        await FirebaseHelper.insert(copiedNote);
       }),
     );
     notifyListeners();
@@ -105,7 +105,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.unspecified;
     unawaited(
       SqfliteHelper.insert(note).then((final value) async {
-        await FirebaseHelper.update(note);
+        await FirebaseHelper.insert(note);
       }),
     );
     notifyListeners();
@@ -119,7 +119,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.unspecified;
     unawaited(
       SqfliteHelper.insert(note).then((final value) async {
-        await FirebaseHelper.update(note);
+        await FirebaseHelper.insert(note);
       }),
     );
     notifyListeners();
@@ -133,7 +133,7 @@ class NotesHelper with ChangeNotifier {
     note.state = NoteState.unspecified;
     unawaited(
       SqfliteHelper.insert(note).then((final value) async {
-        await FirebaseHelper.update(note);
+        await FirebaseHelper.insert(note);
       }),
     );
     notifyListeners();
@@ -166,7 +166,7 @@ class NotesHelper with ChangeNotifier {
     unawaited(
       SqfliteHelper.insert(note).then((final value) async {
         await getAllNotes(orig);
-        await FirebaseHelper.update(note);
+        await FirebaseHelper.insert(note);
       }),
     );
     notifyListeners();
