@@ -15,7 +15,7 @@ dependencies:
   avatar_glow: ^2.0.2
   firebase_auth: ^3.3.18
   firebase_core: ^1.17.0
-  cloud_firestore: ^3.1.15
+  cloud_firestore: ^3.1.16
   encrypt: ^5.0.1
   material_design_icons_flutter: ^5.0.6595
   file_picker: ^4.5.1
