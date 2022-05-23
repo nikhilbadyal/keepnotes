@@ -23,8 +23,8 @@ class NotesHelper with ChangeNotifier {
 
   Future<bool> signOut() async {
     reset();
+    await FirebaseHelper.terminateDB();
     return await SqfliteHelper.deleteDB() &&
-        await FirebaseHelper.terminateDB() &&
         await removeFromSF('syncedWithFirebase');
   }
 
