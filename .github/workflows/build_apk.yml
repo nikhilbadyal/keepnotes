@@ -1,9 +1,6 @@
 name: Build APK & Telegram Deploy
 
 on:
-  push:
-    branches:
-      - "master"
   pull_request:
   workflow_call:
   workflow_dispatch:
