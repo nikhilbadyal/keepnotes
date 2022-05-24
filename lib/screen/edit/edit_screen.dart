@@ -77,6 +77,7 @@ class _EditScreenState extends State<EditScreen> {
     super.dispose();
     _titleController.dispose();
     _contentController.dispose();
+    autoSaverTimer.cancel();
   }
 
   Future<bool> onBackPress() async {
