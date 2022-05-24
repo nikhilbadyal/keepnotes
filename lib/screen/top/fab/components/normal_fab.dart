@@ -20,15 +20,9 @@ class Fab extends StatelessWidget {
   Widget build(final BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 26),
-      child: InkWell(
-        onTap: () {
-          HapticFeedback.vibrate();
-          context.scaffold.openDrawer();
-        },
-        child: FloatingActionButton(
-          onPressed: () => onFabTap(context, noteState),
-          child: icon ?? addIcon,
-        ),
+      child: FloatingActionButton(
+        onPressed: () => onFabTap(context, noteState),
+        child: icon ?? addIcon,
       ),
     );
   }
