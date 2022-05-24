@@ -10,6 +10,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_test:
+    sdk: flutter
 
   animations: ^2.0.3
   avatar_glow: ^2.0.2
