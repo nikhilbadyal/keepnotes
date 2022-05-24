@@ -11,7 +11,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  animations: ^2.0.2
+  animations: ^2.0.3
   avatar_glow: ^2.0.2
   firebase_auth: ^3.3.18
   firebase_core: ^1.17.0
@@ -21,9 +21,9 @@ dependencies:
   file_picker: ^4.5.1
   eva_icons_flutter: ^3.1.0
   flutter_spinkit: ^5.1.0
-  flutter_svg: ^1.0.3
+  flutter_svg: ^1.1.0
   flutter_tabler_icons: ^1.1.1
-  google_sign_in: ^5.3.1
+  google_sign_in: ^5.3.2
   intl: ^0.17.0
   local_auth: ^2.1.0
   logger: ^1.1.0
@@ -47,7 +47,7 @@ dev_dependencies:
   test: ^1.21.1
   sqflite_common_ffi: ^2.1.1
   flutter_lints: ^2.0.1
-  flutter_native_splash: ^2.2.0+1
+  flutter_native_splash: ^2.2.1
   flutter_launcher_icons: ^0.9.2
   flutter_colorpicker: ^1.0.3
   fake_cloud_firestore: ^1.2.2
