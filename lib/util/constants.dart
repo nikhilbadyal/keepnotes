@@ -5,25 +5,19 @@ import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
 
 //Image Const
-const String backupSVG = '${imageAssets}backup.svg';
-const String errorSvg = '${imageAssets}error.svg';
-const String github = '${imageAssets}github.svg';
-const String googleIcon = '${imageAssets}google.svg';
-const String lockSvg = '${imageAssets}lock.svg';
-const String mailSvg = '${imageAssets}mail.svg';
-const String me = '${imageAssets}me.svg';
-const String men = '${imageAssets}men.png';
-const String noNotes = '${imageAssets}noNotes.png';
-const String otp = '${imageAssets}otp.svg';
-const String splashImage1 = '${imageAssets}splash1.png';
-const String splashImage2 = '${imageAssets}splash2.png';
-const String splashImage3 = '${imageAssets}splash3.png';
-const String telegram = '${imageAssets}telegram.svg';
-const String women = '${imageAssets}women.png';
-const String appIcon = '${imageAssets}icon.svg';
-const String appTheme = '${imageAssets}appTheme.png';
+const String appIcon = '${imageAssets}appIcon.svg';
 const String appReady = '${imageAssets}appReady.png';
+const String appTheme = '${imageAssets}appTheme.png';
+const String error = '${imageAssets}error.svg';
+const String github = '${imageAssets}github.svg';
+const String google = '${imageAssets}google.svg';
 const String grantAccess = '${imageAssets}grantAccess.png';
+const String me = '${imageAssets}me.svg';
+const String noNotes = '${imageAssets}noNotes.png';
+const String splash1 = '${imageAssets}splash1.png';
+const String splash2 = '${imageAssets}splash2.png';
+const String splash3 = '${imageAssets}splash3.png';
+const String telegram = '${imageAssets}telegram.svg';
 
 // String Const
 const String imageAssets = 'assets/images/';

@@ -44,7 +44,7 @@ class _SignUpState extends State<SignUp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SocialCard(
-                      icon: googleIcon,
+                      icon: google,
                       press: () async {
                         unawaited(
                           showDialog(
