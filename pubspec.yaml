@@ -25,7 +25,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   flutter_svg: ^1.1.0
   flutter_tabler_icons: ^1.1.1
-  google_sign_in: ^5.3.2
+  google_sign_in: ^5.3.3
   intl: ^0.17.0
   local_auth: ^2.1.0
   logger: ^1.1.0
