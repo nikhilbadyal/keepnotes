@@ -31,7 +31,7 @@ dependencies:
   logger: ^1.1.0
   path: ^1.8.1
   provider: ^6.0.3
-  permission_handler: ^9.2.0
+  permission_handler: ^10.0.0
   sentry_flutter: ^6.5.1
   shared_preferences: ^2.0.15
   sqflite: ^2.0.2+1
