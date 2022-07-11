@@ -40,7 +40,7 @@ dependencies:
   wc_form_validators: ^1.0.0
   pinput: ^2.2.11
   progress_state_button: ^1.0.4
-  flutter_slidable: ^1.3.0
+  flutter_slidable: ^1.3.1
   keepsettings:
     git:
       url: https://github.com/nikhilbadyal/keepsettings.git

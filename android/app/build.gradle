@@ -8,7 +8,7 @@ if (localPropertiesFile.exists()) {
     throw new FileNotFoundException("Cannot find local.properties")
 }
 
-def appcompat_version = "1.4.1"
+def appcompat_version = "1.4.2"
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
@@ -40,7 +40,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
+    buildToolsVersion "33.0.0"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -50,7 +51,7 @@ android {
     defaultConfig {
         applicationId "com.nikhil.flutter.keepnotes"
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
