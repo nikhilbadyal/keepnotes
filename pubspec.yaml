@@ -15,9 +15,9 @@ dependencies:
 
   animations: ^2.0.3
   avatar_glow: ^2.0.2
-  firebase_auth: ^3.4.1
-  firebase_core: ^1.19.1
-  cloud_firestore: ^3.2.1
+  firebase_auth: ^3.4.2
+  firebase_core: ^1.19.2
+  cloud_firestore: ^3.3.0
   encrypt: ^5.0.1
   material_design_icons_flutter: ^5.0.6996
   file_picker: ^4.6.1
@@ -35,7 +35,7 @@ dependencies:
   sentry_flutter: ^6.6.3
   shared_preferences: ^2.0.15
   sqflite: ^2.0.3
-  url_launcher: ^6.1.4
+  url_launcher: ^6.1.5
   uuid: ^3.0.6
   wc_form_validators: ^1.0.0
   pinput: ^2.2.11
