@@ -8,8 +8,8 @@ int randomNumber({final int upper = 3}) {
   return 1 + Random().nextInt(upper);
 }
 
-String randomString() {
-  final len = randomNumber(upper: 400);
+String randomString({final int? length}) {
+  final len = length ?? randomNumber(upper: 400);
   final r = Random();
   final randomString = String.fromCharCodes(
     List.generate(len, (final index) => r.nextInt(33) + 89),
