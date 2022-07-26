@@ -20,7 +20,7 @@ dependencies:
   cloud_firestore: ^3.3.0
   encrypt: ^5.0.1
   material_design_icons_flutter: ^5.0.6996
-  file_picker: ^4.6.1
+  file_picker: ^5.0.0
   eva_icons_flutter: ^3.1.0
   flutter_spinkit: ^5.1.0
   flutter_svg: ^1.1.1+1
