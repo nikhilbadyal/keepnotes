@@ -13,12 +13,13 @@ const String github = '${imageAssets}github.svg';
 const String google = '${imageAssets}google.svg';
 const String grantAccess = '${imageAssets}grantAccess.png';
 const String me = '${imageAssets}me.svg';
+const String men = '${imageAssets}men.png';
 const String noNotes = '${imageAssets}noNotes.png';
 const String splash1 = '${imageAssets}splash1.png';
 const String splash2 = '${imageAssets}splash2.png';
 const String splash3 = '${imageAssets}splash3.png';
 const String telegram = '${imageAssets}telegram.svg';
-
+const String women = '${imageAssets}women.png';
 // String Const
 const String imageAssets = 'assets/images/';
 const String githubProfile = 'https://github.com/nikhilbadyal';

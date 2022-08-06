@@ -5,9 +5,6 @@ on:
   workflow_call:
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -39,7 +36,7 @@ jobs:
           channel: "stable"
           cache: true
           cache-key: flutter
-          flutter-version: "3.0.1"
+          flutter-version: "3.0.5"
           cache-path: ${{ runner.tool_cache }}/flutter
 
       - name: Disable Analytics
