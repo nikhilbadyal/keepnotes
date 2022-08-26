@@ -49,7 +49,7 @@ dev_dependencies:
   test: ^1.21.1
   sqflite_common_ffi: ^2.1.1+1
   flutter_lints: ^2.0.1
-  flutter_native_splash: ^2.2.7
+  flutter_native_splash: ^2.2.8
   flutter_launcher_icons: ^0.10.0
   flutter_colorpicker: ^1.0.3
   fake_cloud_firestore: ^1.3.1
