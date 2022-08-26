@@ -1,7 +1,7 @@
 flutter_native_splash:
 
   # flutter pub run flutter_native_splash:create --path=scripts/utils/flutter_native_splash.yaml
-  # flutter pub run flutter_native_splash:remove
+  # flutter pub run flutter_native_splash:remove --path=scripts/utils/flutter_native_splash.yaml
 
   color: "#000000"
   image: assets/images/icon.png
