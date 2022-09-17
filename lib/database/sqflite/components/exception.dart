@@ -1,6 +1,6 @@
 class SqfliteException implements Exception {
   SqfliteException({
-    required final this.errorCode,
+    required this.errorCode,
     required this.errorDetails,
   });
 

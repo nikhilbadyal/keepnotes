@@ -5,7 +5,7 @@ class DoubleBackToCloseWidget extends StatefulWidget {
   const DoubleBackToCloseWidget({
     required this.child,
     final Key? key,
-    final this.backPresAction,
+    this.backPresAction,
   }) : super(key: key);
 
   final Widget child;

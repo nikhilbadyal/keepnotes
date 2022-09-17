@@ -1,6 +1,6 @@
 class FirebaseException implements Exception {
   FirebaseException({
-    required final this.errorCode,
+    required this.errorCode,
     required this.errorDetails,
   });
 

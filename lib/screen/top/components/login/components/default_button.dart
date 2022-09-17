@@ -31,7 +31,7 @@ class _DefaultButtonState extends State<DefaultButton> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            primary: Colors.white,
+            foregroundColor: Colors.white,
             backgroundColor: context.secondaryColor,
           ),
           onPressed: widget.press as void Function()?,

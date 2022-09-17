@@ -75,7 +75,7 @@ class _IntroScreenState extends State<IntroScreen>
 
     final backgroundColor = context.canvasColor.withOpacity(0.7);
 
-    Widget _body() {
+    Widget body() {
       return Column(
         children: [
           Expanded(
@@ -211,7 +211,7 @@ class _IntroScreenState extends State<IntroScreen>
               speed: DotSpeed.fast,
             ),
           ),
-          Container(color: backgroundColor, child: _body())
+          Container(color: backgroundColor, child: body())
         ],
       ),
     );
