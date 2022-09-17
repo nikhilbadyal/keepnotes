@@ -344,7 +344,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> onRemoveBioMetric(final BuildContext context) async {
     final choice = await showDialog<bool>(
-          barrierDismissible: true,
           context: context,
           builder: (final context) => MyAlertDialog(
             content: SingleChildScrollView(

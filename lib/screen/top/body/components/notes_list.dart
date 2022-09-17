@@ -71,7 +71,6 @@ class _NotesListState extends State<NotesList> {
   }) async {
     if (item.state == NoteState.trashed) {
       await showDialog<void>(
-        barrierDismissible: true,
         context: context,
         builder: (final context) => MyAlertDialog(
           content: Text(context.language.trashEditingWarning),
