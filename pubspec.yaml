@@ -35,7 +35,7 @@ dependencies:
   sentry_flutter: ^6.13.1
   shared_preferences: ^2.0.15
   sqflite: ^2.2.0+2
-  url_launcher: ^6.1.5
+  url_launcher: ^6.1.6
   uuid: ^3.0.6
   wc_form_validators: ^1.0.0
   pinput: ^2.2.12
