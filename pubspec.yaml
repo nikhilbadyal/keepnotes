@@ -13,7 +13,7 @@ dependencies:
   flutter_test:
     sdk: flutter
 
-  animations: ^2.0.4
+  animations: ^2.0.7
   avatar_glow: ^2.0.2
   firebase_auth: ^3.9.0
   firebase_core: ^1.22.0
