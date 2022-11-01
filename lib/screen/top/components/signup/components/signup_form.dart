@@ -1,3 +1,4 @@
+import 'package:flutter/scheduler.dart';
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
@@ -20,9 +21,18 @@ class _SignUpFormState extends State<SignUpForm> {
   final List<String?> errors = [];
 
   @override
-  void setState(final VoidCallback fn) {
+  Future<void> setState(final VoidCallback fn) async {
     if (!mounted) {
+      logger.i('Skipping set state');
       return;
+    }
+    if (SchedulerBinding.instance.schedulerPhase != SchedulerPhase.idle) {
+      // wait for the end of that frame.
+      await SchedulerBinding.instance.endOfFrame;
+      if (!mounted) {
+        logger.i('Skipping set state');
+        return;
+      }
     }
     super.setState(fn);
   }
@@ -160,12 +170,14 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       obscureText: true,
       onSaved: (final newValue) => password = newValue ?? '',
       onChanged: (final value) {
         if (value.isNotEmpty) {
           removeError(error: context.language.enterPassword);
-        } else if (value.length >= minPassword) {
+        }
+        if (value.length >= minPassword) {
           removeError(error: context.language.shortPassword);
         }
         password = value;
@@ -174,7 +186,8 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value!.isEmpty) {
           addError(error: context.language.enterPassword);
           return '';
-        } else if (value.length < minPassword) {
+        }
+        if (value.length < minPassword) {
           addError(error: context.language.shortPassword);
           return '';
         }
@@ -184,27 +197,31 @@ class _SignUpFormState extends State<SignUpForm> {
         labelText: context.language.password,
         hintText: context.language.enterPassword,
         floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: InputBorder.none,
       ),
     );
   }
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
       onSaved: (final newValue) => email = newValue ?? '',
       onChanged: (final value) {
         if (value.isNotEmpty) {
           removeError(error: context.language.enterEmail);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
+        }
+        if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: context.language.invalidEmail);
         }
-        return;
+        email = value;
       },
       validator: (final value) {
         if (value!.isEmpty) {
           addError(error: context.language.enterEmail);
           return '';
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
+        }
+        if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: context.language.invalidEmail);
           return '';
         }
@@ -214,6 +231,7 @@ class _SignUpFormState extends State<SignUpForm> {
         labelText: context.language.enterEmail,
         hintText: context.language.email,
         floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: InputBorder.none,
       ),
     );
   }
