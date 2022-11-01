@@ -23,7 +23,7 @@ const String women = '${imageAssets}women.png';
 // String Const
 const String imageAssets = 'assets/images/';
 const String githubProfile = 'https://github.com/nikhilbadyal';
-const String repoLink = '$githubProfile/keep-notes';
+const String repoLink = '$githubProfile/keepnotes';
 const String telegramUrl = 'https://t.me/joinchat/uGAlVliNij1hZTFl';
 
 // Constant INT
