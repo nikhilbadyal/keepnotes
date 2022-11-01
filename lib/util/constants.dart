@@ -20,6 +20,8 @@ const String splash2 = '${imageAssets}splash2.png';
 const String splash3 = '${imageAssets}splash3.png';
 const String telegram = '${imageAssets}telegram.svg';
 const String women = '${imageAssets}women.png';
+const String errorSvg = '${imageAssets}error.svg';
+
 // String Const
 const String imageAssets = 'assets/images/';
 const String githubProfile = 'https://github.com/nikhilbadyal';
