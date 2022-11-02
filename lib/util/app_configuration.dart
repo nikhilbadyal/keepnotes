@@ -8,12 +8,14 @@ class AppConfiguration with ChangeNotifier {
   }
 
   late String password;
-  late bool bioNotAvailable;
+  bool bioNotAvailable = true;
 
-  void intiConfig() {
-    localAuthentication.canCheckBiometrics.then((final value) {
-      bioNotAvailable = !value;
-    });
+  Future<void> intiConfig() async {
+    try {
+      bioNotAvailable = !(await localAuthentication.canCheckBiometrics);
+    } catch (e) {
+      logger.i('Biometric not possible in this device $e');
+    }
   }
 
   Future<void> resetConfig() async {

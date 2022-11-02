@@ -1,4 +1,5 @@
 //24-11-2021 09:02 PM
+import 'package:flutter/scheduler.dart';
 import 'package:notes/_aap_packages.dart';
 import 'package:notes/_external_packages.dart';
 import 'package:notes/_internal_packages.dart';
@@ -21,10 +22,28 @@ class _SignFormState extends State<SignForm> {
   String password = '';
   final List<String?> errors = [];
 
+  @override
+  Future<void> setState(final VoidCallback fn) async {
+    if (!mounted) {
+      logger.i('Skipping set state');
+      return;
+    }
+    if (SchedulerBinding.instance.schedulerPhase != SchedulerPhase.idle) {
+      // wait for the end of that frame.
+      await SchedulerBinding.instance.endOfFrame;
+      if (!mounted) {
+        logger.i('Skipping set state');
+        return;
+      }
+    }
+    super.setState(fn);
+  }
+
   void addError({
     final String? error,
   }) {
     if (!errors.contains(error)) {
+      logger.i('Adding $error to $errors');
       setState(() {
         errors.add(error);
       });
@@ -35,6 +54,7 @@ class _SignFormState extends State<SignForm> {
     final String? error,
   }) {
     if (errors.contains(error)) {
+      logger.i('Removing $error from $errors');
       setState(() {
         errors.remove(error);
       });
@@ -148,15 +168,18 @@ class _SignFormState extends State<SignForm> {
       onChanged: (final value) {
         if (value.isNotEmpty) {
           removeError(error: context.language.enterPassword);
-        } else if (value.length >= minPassword) {
+        }
+        if (value.length >= minPassword) {
           removeError(error: context.language.shortPassword);
         }
+        password = value;
       },
       validator: (final value) {
         if (value!.isEmpty) {
           addError(error: context.language.enterPassword);
           return '';
-        } else if (value.length < minPassword) {
+        }
+        if (value.length < minPassword) {
           addError(error: context.language.shortPassword);
           return '';
         }
@@ -179,15 +202,18 @@ class _SignFormState extends State<SignForm> {
       onChanged: (final value) {
         if (value.isNotEmpty) {
           removeError(error: context.language.enterEmail);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
+        }
+        if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: context.language.invalidEmail);
         }
+        email = value;
       },
       validator: (final value) {
         if (value!.isEmpty) {
           addError(error: context.language.enterEmail);
           return '';
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
+        }
+        if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: context.language.invalidEmail);
           return '';
         }

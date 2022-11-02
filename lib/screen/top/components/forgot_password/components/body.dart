@@ -166,7 +166,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
 }
 
 void handleFirebaseError(final String response, final BuildContext context) {
-  debugPrint(response);
+  logger.e(response);
   if (response == 'user-not-found' || response == 'auth/user-not-found') {
     showSnackbar(context, context.language.signUp);
   } else if (response == 'invalid-email' || response == 'auth/invalid-email') {
